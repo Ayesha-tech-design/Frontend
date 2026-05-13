@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Custom Apps
     'users.apps.UsersConfig',
     'courses.apps.CoursesConfig',
-    'notes',
-    'quizzes',
-    'certificates',
+    'notes', # Ye app filhal notes generation ke liye zaroori hai
+    
+    # Third-party Apps
     'rest_framework',
 ]
 REST_FRAMEWORK = {

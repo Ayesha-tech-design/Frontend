@@ -67,17 +67,14 @@ class SubmitQuizView(APIView):
 
         correct_count = 0
         for quiz in quizzes:
-            # Check karein ke user ka answer sahi hai ya nahi
             if user_answers.get(str(quiz.id)) == quiz.correct_answer:
                 correct_count += 1
 
-        # Percentage calculate karein
         score_percentage = (correct_count / total_questions) * 100
 
         # SmartEduX Rule: 80% marks for Certificate
         certificate_issued = False
         if score_percentage >= 80:
-            # Record score and issue certificate
             certificate, created = Certificate.objects.update_or_create(
                 student=request.user,
                 course_id=course_id,
@@ -91,4 +88,31 @@ class SubmitQuizView(APIView):
             "correct_answers": correct_count,
             "certificate_issued": certificate_issued,
             "message": "Congratulations! You have earned a certificate." if certificate_issued else "Score is too low. Certificate not issued."
+        })
+
+# --- FR-15: Student Dashboard API ---
+class StudentDashboardView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # 1. Student ki enrollments nikalna
+        enrollments = Enrollment.objects.filter(student=request.user)
+        enrolled_courses = [e.course.title for e in enrollments]
+
+        # 2. Student ke certificates nikalna
+        certs = Certificate.objects.filter(student=request.user)
+        earned_certificates = []
+        for c in certs:
+            earned_certificates.append({
+                "course": c.course.title,
+                "score": c.score,
+                "date": c.issued_at.strftime("%Y-%m-%d")
+            })
+
+        # 3. Final data bhejien
+        return Response({
+            "user": request.user.username,
+            "enrolled_in": enrolled_courses,
+            "my_certificates": earned_certificates,
+            "total_achievements": len(earned_certificates)
         })
