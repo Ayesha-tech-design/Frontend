@@ -14,4 +14,6 @@ urlpatterns = [
     
     # 4. Token Refresh (Jab access token expire ho jaye)
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # 5. Courses
+    path('api/courses/', include('courses.urls')),  
 ]

@@ -134,3 +134,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+from datetime import timedelta
+
+# Django REST Framework ko batana ke JWT use karna hai
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+# JWT ki apni settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token 1 ghante tak valid rahega
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Naya token lene ke liye refresh token 1 din tak chalega
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),               # Frontend se 'Bearer <token>' ki surat mein aayega
+}
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
