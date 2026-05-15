@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import google.generativeai as genai
 import json
 import re
@@ -13,7 +18,7 @@ from .models import VideoNote
 # =========================
 # GEMINI CONFIG
 # =========================
-API_KEY = "AIzaSyD5Vo0TvapyygC2YK6DLTrxe_OHtlwqszs"
+API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=API_KEY)
 
