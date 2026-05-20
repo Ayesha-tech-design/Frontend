@@ -1,96 +1,68 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-import google.generativeai as genai
 import json
 import re
-
+import yt_dlp
+from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from youtube_transcript_api import YouTubeTranscriptApi
-
+from google import genai  # [STEP 3]: Shifted to new standard Google GenAI SDK
 from .models import VideoNote
 
+# =====================================================================
+# PRODUCTION API INITIALIZATION
+# =====================================================================
+RAW_KEY = getattr(settings, "GEMINI_API_KEY", None)
+CLEAN_KEY = str(RAW_KEY).replace("..key", "").strip() if RAW_KEY else None
 
-# =========================
-# GEMINI CONFIG
-# =========================
-API_KEY = os.getenv("GEMINI_API_KEY")
+print("\n[SMARTEDUX LOG 1]: Initializing New Production GenAI Client...")
+client = None
+if CLEAN_KEY:
+    # New standard initialization for Google GenAI
+    client = genai.Client(api_key=CLEAN_KEY)
+    print("-> SUCCESS: GenAI Client initialized seamlessly.")
+else:
+    print("-> WARNING: API Key missing or incorrect in settings.py.")
 
-genai.configure(api_key=API_KEY)
 
-model = genai.GenerativeModel("gemini-1.5-flash")
-
-
-# =========================
-# LOCAL FALLBACK FUNCTION
-# =========================
 def local_summary_generator(text):
-
     return {
-        "summary": f"""
-• AI Generated Local Notes
-
-• Main Topic:
-{text[:200]}
-
-• Key Points:
-- Important concepts discussed
-- Educational content detected
-- Summary generated locally
-        """,
-
+        "summary": f"• AI Generated Local Notes\n\n• Main Topic:\n{text[:300]}\n\n• Key Points:\n- Educational concepts detected\n- Generated via local structure backup.",
         "quiz": [
             {
-                "question": "What is the main topic of the video?",
-                "options": {
-                    "A": "Education",
-                    "B": "Sports",
-                    "C": "Gaming",
-                    "D": "Cooking"
-                },
+                "question": "What is the primary subject discussed?",
+                "options": {"A": "Academic Topic", "B": "Entertainment", "C": "Gaming", "D": "Cooking"},
                 "answer": "A"
             }
         ]
     }
 
 
-# =========================
-# MAIN API
-# =========================
+# =====================================================================
+# MAIN API ENDPOINT
+# =====================================================================
 @api_view(['POST'])
 def generate_notes(request):
-
     try:
-
-        # =========================
-        # 1. GET URL
-        # =========================
         youtube_url = request.data.get('youtube_url', '')
+        print("\n[SMARTEDUX LOG 2]: New Inbound Request.")
+        print(f"-> Target URL: {youtube_url}")
 
         if not youtube_url:
-            return Response({
-                "status": "failed",
-                "error": "YouTube URL required"
-            }, status=400)
+            return Response({"status": "failed", "error": "YouTube URL required"}, status=400)
 
-        # =========================
-        # 2. EXTRACT VIDEO ID
-        # =========================
+        # Extract Video ID
         if "v=" in youtube_url:
             video_id = youtube_url.split("v=")[1].split("&")[0]
         else:
             video_id = youtube_url.rstrip("/").split("/")[-1]
 
-        # =========================
-        # 3. DATABASE CHECK
-        # =========================
-        existing = VideoNote.objects.filter(video_id=video_id).first()
+        print(f"-> Parsed Video ID: {video_id}")
 
+        # Database Check
+        existing = VideoNote.objects.filter(video_id=video_id).first()
         if existing:
+            print("\n[SMARTEDUX LOG 3]: PostgreSQL Cache Hit. Returning stored content.")
             return Response({
                 "status": "success",
                 "source": "database",
@@ -98,93 +70,106 @@ def generate_notes(request):
                 "quiz": existing.quiz_data
             })
 
-        # =========================
-        # 4. TRANSCRIPT FETCH
-        # =========================
+        # Content Extraction
         raw_text = ""
+        is_transcript_available = True
 
+        print("\n[SMARTEDUX LOG 4]: Pulling content from YouTube source...")
         try:
-
-            transcript = YouTubeTranscriptApi.get_transcript(video_id)
-
-            raw_text = " ".join([
-                item['text'] for item in transcript
-            ])
-
-        except Exception:
-
-            raw_text = """
-            Artificial Intelligence enables machines to learn.
-            Machine Learning is a subset of AI.
-            Deep Learning uses neural networks.
-            """
+            # Fixed standard call to prevent method attribute errors
+            transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'hi'])
+            raw_text = " ".join([item['text'] for item in transcript])
+            print("-> Success: Transcript pulled cleanly.")
+        except Exception as tx_err:
+            print(f"-> Transcript API offline ({str(tx_err)}). Scraping via fallback layer...")
+            is_transcript_available = False
+            try:
+                ydl_opts = {'quiet': True, 'no_warnings': True}
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(youtube_url, download=False)
+                    video_title = info.get('title', '')
+                    video_desc = info.get('description', '')[:500]
+                    raw_text = f"Title: {video_title}\nDescription: {video_desc}"
+                print("-> Success: Metadata scraped via yt-dlp.")
+            except Exception as ytdlp_err:
+                print(f"-> Critical Scraping Failure: {str(ytdlp_err)}")
+                raw_text = "Educational Topic Content"
 
         raw_text = raw_text[:3000]
 
-        # =========================
-        # 5. GEMINI AI TRY
-        # =========================
+        # Active AI Request Generation Layer
         try:
+            print("\n[SMARTEDUX LOG 5]: Directing payload to New GenAI Client Engine...")
+            if not client:
+                raise Exception("GenAI Client was not initialized properly.")
 
             prompt = f"""
-Return ONLY valid JSON.
+You are an academic assistant built into the SmartEduX e-learning platform.
+Analyze the provided context and return a strict raw JSON object.
 
+RULES:
+- Return ONLY a valid, parseable JSON structure.
+- Do NOT include markdown code blocks like ```json or wrappers.
+- Do NOT include any conversational introduction or summary text.
+
+STRUCTURE:
 {{
-  "summary": "Detailed notes in bullet points",
+  "summary": "Detailed educational notes formatted nicely in clear bullet points.",
   "quiz": [
     {{
-      "question": "",
+      "question": "A conceptual academic question from the text?",
       "options": {{
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+        "A": "First Choice",
+        "B": "Second Choice",
+        "C": "Third Choice",
+        "D": "Fourth Choice"
       }},
       "answer": "A"
     }}
   ]
 }}
 
-Generate exactly 5 MCQs.
+Generate exactly 5 high-quality academic MCQs inside the quiz array.
 
-Text:
+Context Text:
 {raw_text}
 """
-
-            response = model.generate_content(prompt)
-
+            # Using the absolute new stable SDK execution model endpoint
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+            )
+            print("[SMARTEDUX LOG 6]: Clean GenAI Response Secured.")
+            
             ai_text = response.text.strip()
 
+            # Isolate raw JSON boundaries safely
             json_match = re.search(r'\{.*\}', ai_text, re.DOTALL)
-
             clean_json = json_match.group() if json_match else ai_text
 
-            data = json.loads(clean_json)
+            # Parse verification
+            data = json.loads(clean_json, strict=False)
+            print("-> Success: Decoded into accurate active JSON fields.")
+            
+            source_type = "gemini_transcript" if is_transcript_available else "gemini_title_fallback"
 
-            source_type = "gemini"
-
-        except Exception:
-
-            # =========================
-            # 6. LOCAL FALLBACK
-            # =========================
+        except Exception as gemini_err:
+            print("\n[SMARTEDUX LOG 7]: New GenAI Client Engine Failure.")
+            print(f"-> Diagnostic Details: {str(gemini_err)}")
+            
             data = local_summary_generator(raw_text)
-
             source_type = "fallback"
 
-        # =========================
-        # 7. SAVE DATABASE
-        # =========================
+        # Database Commit
+        print("\n[SMARTEDUX LOG 8]: Syncing structured dataset to PostgreSQL database...")
         VideoNote.objects.create(
             video_id=video_id,
             url=youtube_url,
             summary=data.get("summary", ""),
             quiz_data=data.get("quiz", [])
         )
+        print("-> Database Sync Complete.")
 
-        # =========================
-        # 8. FINAL RESPONSE
-        # =========================
         return Response({
             "status": "success",
             "source": source_type,
@@ -192,9 +177,6 @@ Text:
             "quiz": data.get("quiz", [])
         })
 
-    except Exception as e:
-
-        return Response({
-            "status": "failed",
-            "error": str(e)
-        }, status=500)
+    except Exception as api_fatal_err:
+        print(f"\n[CRITICAL API FAULT]: {str(api_fatal_err)}")
+        return Response({"status": "failed", "error": str(api_fatal_err)}, status=500)
