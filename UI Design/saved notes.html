@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Notes | SmartEduX</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root { --primary:#0b2149; }
+</style>
+</head>
+
+<body class="bg-gray-100 font-sans flex">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block">
+  <h2 class="text-2xl font-bold mb-8">Student</h2>
+  <nav class="space-y-4">
+    <a href="student dashboard.html" class="block hover:text-gray-300">Home</a>
+    <a href="courses.html" class="block hover:text-gray-300">Courses</a>
+    <a href="autonotes.html" class="block hover:text-gray-300">AI Auto Notes</a>
+    <a href="assignments.html" class="block hover:text-gray-300">Assignments</a>
+    <a href="saved notes.html" class="block font-bold text-yellow-400">Saved Notes</a>
+    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300">🔔 Notifications <span id="notifCountSidebar" class="ml-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span></a>
+    <a href="student profile.html" class="block hover:text-gray-300">Profile</a>
+    <button onclick="logout()" class="w-full text-left hover:text-gray-300">Logout</button>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="flex-1">
+
+<!-- NAVBAR -->
+<header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+  <h1 class="text-xl font-bold text-[#0b2149]">Saved Notes</h1>
+
+  <div class="flex items-center gap-4">
+    <div class="relative">
+      <button onclick="toggleNotifications()" class="text-[#0b2149] text-xl">🔔</button>
+      <span id="notifCount" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+    </div>
+
+    <div class="relative">
+      <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
+      <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+        <a href="student profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+        <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="p-6 space-y-6">
+
+  <!-- WELCOME -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <h2 class="text-lg font-semibold text-[#0b2149]">Your Saved Notes</h2>
+    <p class="text-gray-600">Manage all your saved notes here. You can view, download, delete, search and sort them.</p>
+  </div>
+
+  <!-- SEARCH & SORT -->
+  <div class="flex flex-col md:flex-row gap-4 mt-4">
+    <input type="text" id="searchInput" placeholder="Search notes..." class="flex-grow p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0b2149] outline-none">
+    <select id="sortSelect" class="p-3 rounded-lg border border-gray-300">
+      <option value="newest">Sort by Newest</option>
+      <option value="oldest">Sort by Oldest</option>
+    </select>
+  </div>
+
+  <!-- SAVED NOTES LIST -->
+  <div class="bg-white p-6 rounded-xl shadow mt-4">
+    <ul id="notesList" class="space-y-4"></ul>
+  </div>
+
+</div>
+
+<!-- NOTIFICATIONS PANEL -->
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
+  <h3 class="font-semibold mb-3">Notifications</h3>
+  <ul id="notifList" class="space-y-2 text-sm"></ul>
+</div>
+
+<script>
+// PROFILE DROPDOWN
+function toggleProfile() { document.getElementById("profileMenu").classList.toggle("hidden"); }
+function logout() { window.location.href = "login.html"; }
+
+// NOTIFICATIONS
+function toggleNotifications() {
+  document.getElementById("notificationPanel").classList.toggle("hidden");
+}
+
+let notifications = ["New assignment uploaded 📄", "New course available 🎓"];
+localStorage.setItem("notifications", JSON.stringify(notifications));
+
+function loadNotifications() {
+  const data = JSON.parse(localStorage.getItem("notifications")) || [];
+  const list = document.getElementById("notifList");
+  list.innerHTML = "";
+  data.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
+  document.getElementById("notifCount").innerText = data.length;
+  document.getElementById("notifCountSidebar").innerText = data.length;
+}
+loadNotifications();
+
+// SAVED NOTES DATA
+let savedNotes = [
+  { title: "AI Notes on JS", date: "2026-04-06", content: "Notes about JS async functions and DOM..." },
+  { title: "Fiverr Course Notes", date: "2026-03-30", content: "Important points from Fiverr Freelancing course..." },
+  { title: "Graphic Design Notes", date: "2026-04-01", content: "Photoshop and Illustrator key techniques..." }
+];
+localStorage.setItem("savedNotes", JSON.stringify(savedNotes));
+
+function renderNotes(filter = "", sortBy = "newest") {
+  let notes = JSON.parse(localStorage.getItem("savedNotes")) || [];
+
+  // FILTER
+  if (filter) {
+    notes = notes.filter(n => n.title.toLowerCase().includes(filter.toLowerCase()) || n.content.toLowerCase().includes(filter.toLowerCase()));
+  }
+
+  // SORT
+  notes.sort((a, b) => {
+    if (sortBy === "newest") return new Date(b.date) - new Date(a.date);
+    else return new Date(a.date) - new Date(b.date);
+  });
+
+  const list = document.getElementById("notesList");
+  list.innerHTML = "";
+
+  notes.forEach((n, idx) => {
+    list.innerHTML += `
+      <li class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-start">
+        <div>
+          <h4 class="font-bold text-[#0b2149]">${n.title}</h4>
+          <p class="text-gray-600 text-sm mb-2">${n.date}</p>
+          <p class="text-gray-700">${n.content.substring(0, 60)}...</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <button onclick="viewNote(${idx})" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">View</button>
+          <button onclick="downloadNote(${idx})" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Download</button>
+          <button onclick="deleteNote(${idx})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+        </div>
+      </li>
+    `;
+  });
+}
+
+// FUNCTIONS
+function viewNote(index) {
+  const notes = JSON.parse(localStorage.getItem("savedNotes"));
+  alert(`Title: ${notes[index].title}\nDate: ${notes[index].date}\n\nContent:\n${notes[index].content}`);
+}
+function downloadNote(index) {
+  const notes = JSON.parse(localStorage.getItem("savedNotes"));
+  const blob = new Blob([notes[index].content], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = notes[index].title.replace(/\s/g, "_") + ".txt";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function deleteNote(index) {
+  let notes = JSON.parse(localStorage.getItem("savedNotes"));
+  if(confirm("Are you sure you want to delete this note?")) {
+    notes.splice(index, 1);
+    localStorage.setItem("savedNotes", JSON.stringify(notes));
+    renderNotes(document.getElementById("searchInput").value, document.getElementById("sortSelect").value);
+  }
+}
+
+// SEARCH & SORT
+document.getElementById("searchInput").addEventListener("input", e => {
+  renderNotes(e.target.value, document.getElementById("sortSelect").value);
+});
+document.getElementById("sortSelect").addEventListener("change", e => {
+  renderNotes(document.getElementById("searchInput").value, e.target.value);
+});
+
+// INITIAL RENDER
+renderNotes();
+</script>
+
+</body>
+</html>

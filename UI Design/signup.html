@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartEduX — Sign Up</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    
+
+    /* INPUTS */
+    .input-style{
+      width:100%;
+      padding:.9rem 1rem;
+      border-radius:.75rem;
+      border:2px solid #e5e7eb;
+      transition:.3s;
+      outline:none;
+    }
+    .input-style:hover{border-color:#93c5fd;}
+    .input-style:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(11,33,73,.15);
+    }
+    .error-text{color:#dc2626;font-size:.75rem;margin-top:4px;}
+
+    /* ROLE */
+    .role-card{
+      border:2px solid var(--primary);
+      border-radius:.75rem;
+      padding:1rem;
+      font-weight:600;
+      text-align:center;
+      cursor:pointer;
+      transition:.35s;
+      color:var(--primary);
+      background:white;
+    }
+    .role-card:hover,
+    input[type="radio"]:checked + .role-card{
+      background:var(--primary);
+      color:white;
+      transform:translateY(-4px);
+      box-shadow:0 10px 25px rgba(11,33,73,.3);
+    }
+
+    /* BUBBLES */
+    .ball{
+      position:absolute;
+      border-radius:9999px;
+      background:rgba(255,255,255,.15);
+      animation:float 6s ease-in-out infinite;
+    }
+    .ball-1{width:120px;height:120px;top:15%;left:-40px;}
+    .ball-2{width:180px;height:180px;bottom:10%;right:-60px;animation-delay:1.5s;}
+    .ball-3{width:90px;height:90px;top:60%;left:30%;animation-delay:3s;}
+    .ball-4{width:70px;height:70px;top:10%;right:25%;animation-delay:2s;}
+    .ball-5{width:140px;height:140px;bottom:35%;left:-50px;animation-delay:4s;}
+    .ball-6{width:60px;height:60px;bottom:15%;right:30%;animation-delay:5s;}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-20px);}
+    }
+  
+    :root{
+      --primary: #0b2149; 
+      --accent: #f59e0b;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; 
+    }
+
+    /* NAV */
+    nav a { transition: color .18s ease; }
+    nav a:hover { color: var(--primary) !important; }
+
+    /* Logo Sizing */
+    .logo-mark {
+  width: 115px;
+  height: 115px;
+}
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
+  }
+}
+
+
+    body { font-family: 'Roboto', sans-serif; }
+
+    /* small custom animations to complement AOS */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
+
+    .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
+    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
+    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
+
+    /* keep card spacing compact for denser layout */
+    .card-gap { gap: 1rem; }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+   <!-- HEADER -->
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <div class="flex items-center gap-2 md:gap-3">
+          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
+            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+          </a>
+        </div>
+
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3 ml-4">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
+        </div>
+
+        <div class="xl:hidden flex items-center">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+          
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+         <a href="features.html"  class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+<!-- MAIN -->
+<main class="min-h-screen flex items-center justify-center px-6 py-20">
+
+  <div class="max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2">
+
+    <!-- LEFT PANEL -->
+    <div class="hidden md:flex relative bg-[#07122a] text-white p-10 overflow-hidden">
+      <div class="z-10">
+        <h2 class="text-3xl font-bold mb-3">Welcome to SmartEduX</h2>
+        <p class="text-gray-300 text-sm">
+          Create your account and start AI-powered learning.
+        </p>
+      </div>
+
+      <span class="ball ball-1"></span>
+      <span class="ball ball-2"></span>
+      <span class="ball ball-3"></span>
+      <span class="ball ball-4"></span>
+      <span class="ball ball-5"></span>
+      <span class="ball ball-6"></span>
+    </div>
+
+    <!-- FORM -->
+    <div class="p-8 sm:p-10">
+
+      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
+        Create Account
+      </h1>
+      <p id="formError"
+   class="hidden mb-4 text-sm text-red-600 bg-red-50 border border-red-200 px-4 py-2 rounded-lg">
+</p>
+
+      <p class="text-center text-gray-600 text-sm mb-8">
+        Fill the form to get started
+      </p>
+
+      <form class="space-y-5">
+
+        <input class="input-style" placeholder="First Name">
+        <input class="input-style" placeholder="Last Name">
+        <input class="input-style" placeholder="Email Address">
+
+        <!-- PASSWORD -->
+        <div class="relative">
+          <input id="password" type="password" placeholder="Password" class="input-style pr-12">
+          <button type="button" onclick="togglePassword('password', this)"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+            👁
+          </button>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="relative">
+          <input id="confirm" type="password" placeholder="Confirm Password" class="input-style pr-12">
+          <button type="button" onclick="togglePassword('confirm', this)"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+            👁
+          </button>
+        </div>
+
+        <!-- ROLE -->
+        <div class="grid grid-cols-2 gap-4">
+          <label>
+            <input type="radio" name="role" hidden checked>
+            <div class="role-card">🎓 Student</div>
+          </label>
+          <label>
+            <input type="radio" name="role" hidden>
+            <div class="role-card">👨‍🏫 Teacher</div>
+          </label>
+        </div>
+
+        <button class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:-translate-y-1 transition shadow-lg">
+          Create Account
+        </button>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<!-- FOOTER -->
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        
+        <div class="text-center md:text-left">
+          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
+            Empowering learning with AI video summarization, notes, MCQs and curated courses.
+          </p>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+          <ul class="space-y-3 text-sm text-blue-200/80">
+            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
+          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
+          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
+          <div class="mt-6 flex justify-center md:justify-start gap-4">
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  toggleBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
+
+
+<script>
+  function togglePassword(id, btn){
+    const input = document.getElementById(id);
+    if(input.type === "password"){
+      input.type = "text";
+      btn.textContent = "🙈";
+    } else {
+      input.type = "password";
+      btn.textContent = "👁";
+    }
+  }
+
+  document.querySelector("form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const first = document.querySelector('input[placeholder="First Name"]').value.trim();
+    const last  = document.querySelector('input[placeholder="Last Name"]').value.trim();
+    const email = document.querySelector('input[placeholder="Email Address"]').value.trim();
+    const pass  = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+
+    const errorBox = document.getElementById("formError");
+    errorBox.classList.add("hidden");
+    errorBox.textContent = "";
+
+    // EMPTY CHECK
+    if(!first || !last || !email || !pass || !confirm){
+      errorBox.textContent = "⚠️ Please fill all required fields before creating account.";
+      errorBox.classList.remove("hidden");
+      return;
+    }
+
+    // EMAIL FORMAT
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailPattern.test(email)){
+      errorBox.textContent = "⚠️ Please enter a valid email address.";
+      errorBox.classList.remove("hidden");
+      return;
+    }
+
+    // PASSWORD LENGTH
+    if(pass.length < 6){
+      errorBox.textContent = "⚠️ Password must be at least 6 characters long.";
+      errorBox.classList.remove("hidden");
+      return;
+    }
+
+    // PASSWORD MATCH
+    if(pass !== confirm){
+      errorBox.textContent = "⚠️ Password and Confirm Password do not match.";
+      errorBox.classList.remove("hidden");
+      return;
+    }
+
+    // SUCCESS
+    alert("🎉 Account created successfully!");
+  });
+</script>
+
+
+</body>
+</html>

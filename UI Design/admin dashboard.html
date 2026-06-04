@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | SmartEduX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<div class="flex flex-col md:flex-row">
+
+  <!-- Sidebar -->
+  <aside class="w-full md:w-64 bg-[#0b2149] text-white md:h-screen p-4">
+    <h2 class="text-2xl font-bold mb-6">SmartEduX</h2>
+    <nav class="space-y-2">
+      <a href="admin dashboard.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Dashboard</a>
+      <a href="student dashboard.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Students</a>
+      <a href="teacher dashboard.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Teachers</a>
+      <a href="Courses.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Courses</a>
+      <a href="users.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Users</a>
+      <a href="admin setting.html" class="block p-2 rounded hover:bg-white hover:text-[#0b2149]">Settings</a>
+      <button onclick="logoutUser()" class="w-full text-left p-2 rounded bg-white text-[#0b2149] mt-4">Logout</button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow flex justify-between items-center px-4 md:px-6 py-4">
+      <h1 class="text-lg md:text-xl font-bold text-[#0b2149]">Admin Dashboard</h1>
+      <div class="flex items-center gap-4">
+        <button class="relative text-xl">
+          🔔
+          <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded">5</span>
+        </button>
+
+        <div class="relative">
+          <button id="profileBtn" class="bg-[#0b2149] text-white px-3 py-1 rounded">Admin</button>
+          <div id="profileMenu" class="hidden absolute right-0 mt-2 w-40 bg-white shadow rounded">
+            <a href="admin profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+            <a href="#" onclick="logoutUser()" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <section class="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-sm text-gray-500">Total Students</h3>
+        <p class="text-2xl font-bold text-[#0b2149]">120</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-sm text-gray-500">Total Teachers</h3>
+        <p class="text-2xl font-bold text-[#0b2149]">25</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-sm text-gray-500">Courses</h3>
+        <p class="text-2xl font-bold text-[#0b2149]">10</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-sm text-gray-500">Active Users</h3>
+        <p class="text-2xl font-bold text-green-600">85</p>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="px-4 md:px-6">
+      <h2 class="text-lg font-bold text-[#0b2149] mb-3">Admin Quick Access</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <button class="bg-[#0b2149] text-white p-3 rounded-lg hover:bg-white hover:text-[#0b2149] border border-[#0b2149]">Add Student</button>
+        <button class="bg-[#0b2149] text-white p-3 rounded-lg hover:bg-white hover:text-[#0b2149] border border-[#0b2149]">Add Teacher</button>
+        <button class="bg-[#0b2149] text-white p-3 rounded-lg hover:bg-white hover:text-[#0b2149] border border-[#0b2149]">Create Course</button>
+        <button class="bg-[#0b2149] text-white p-3 rounded-lg hover:bg-white hover:text-[#0b2149] border border-[#0b2149]">System Backup</button>
+        <button class="bg-[#0b2149] text-white p-3 rounded-lg hover:bg-white hover:text-[#0b2149] border border-[#0b2149]">Settings</button>
+      </div>
+    </section>
+
+    <!-- Recent Activity Table -->
+    <section class="p-4 md:p-6">
+      <h2 class="text-lg font-bold text-[#0b2149] mb-4">Recent Activity</h2>
+      <div class="bg-white rounded-xl shadow overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="p-3">User</th>
+              <th class="p-3">Action</th>
+              <th class="p-3">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-3">Ali</td>
+              <td class="p-3">Enrolled in Course</td>
+              <td class="p-3 text-green-600">Success</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3">Sara</td>
+              <td class="p-3">Uploaded Content</td>
+              <td class="p-3 text-blue-600">Pending</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('profileBtn');
+  const menu = document.getElementById('profileMenu');
+
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  function logoutUser() {
+    alert("Logged out successfully!");
+    window.close();
+  }
+  function logoutUser() {
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
