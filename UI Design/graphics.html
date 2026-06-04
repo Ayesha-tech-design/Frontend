@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphics Designing Course | SmartEduX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<!-- Header -->
+<header class="shadow" style="background-color:#0b2149;">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-white">Graphics Designing</h1>
+        <button id="loginBtn" class="px-4 py-2 bg-white text-[#0b2149] rounded hover:bg-gray-200">Login</button>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-blue-200 via-blue-100 to-white py-16 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#0b2149] mb-4">Master Creative Design Skills</h2>
+    <p class="text-gray-600 mb-6">Learn from scratch and become a professional Graphics Designer!</p>
+     <button onclick="requireLogin(event)" class="px-6 py-3 text-white bg-[#0b2149] rounded-lg hover:bg-gray-200">Start Learning</button>
+</section>
+
+<!-- Playlist Section -->
+<section class="max-w-4xl mx-auto my-12 px-4">
+    <h3 class="text-2xl font-semibold mb-6 text-[#0b2149]">Course Playlist</h3>
+    <ul class="space-y-4">
+        <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition">
+            <a href="LWE Batch#137-138 Lect#02 Graphic Designing By Miss Memoona Mukhtar.mp4" onclick="requireLogin(event)" class="text-[#0b2149] font-medium">Lesson 1: Introduction to Graphic Designing</a>
+        </li>
+        <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition">
+            <a href="LWE Batch#137-138 Lect#03 Graphic Designing By Miss Memoona Mukhtar.mp4" onclick="requireLogin(event)" class="text-[#0b2149] font-medium">Lesson 2: Tools Overview (Photoshop, Illustrator)</a>
+        </li>
+        <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition">
+            <a href="LWE Batch#137-138 Lect#05 Graphic Designing By Miss Memoona Mukhtar.mp4" onclick="requireLogin(event)" class="text-[#0b2149] font-medium">Lesson 3: Basic Design Principles</a>
+        </li>
+        <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition">
+            <a href="LWE Batch#137-138 Lect#09 Graphic Designing By Miss Memoona Mukhtar.mp4" onclick="requireLogin(event)" class="text-[#0b2149] font-medium">Lesson 4: Social Media Graphics</a>
+        </li>
+        <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition">
+            <a href="LWE Batch#137-138 Lect#08 Graphic Designing By Miss Memoona Mukhtar.mp4" onclick="requireLogin(event)" class="text-[#0b2149] font-medium">Lesson 5: Portfolio Project</a>
+        </li>
+    </ul>
+</section>
+
+<!-- JS: Login Check -->
+<script>
+    let isLoggedIn = false; // Set to true after login
+
+    function requireLogin(event) {
+        event.preventDefault();
+        if(isLoggedIn) {
+            alert("Redirecting to lesson...");
+        } else {
+            alert("Please login first to access this course!");
+        }
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+        alert("Redirecting to login page...");
+    });
+</script>
+
+</body>
+</html>

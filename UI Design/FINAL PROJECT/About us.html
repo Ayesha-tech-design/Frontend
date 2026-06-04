@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root{
+      --primary: #0b2149; 
+      --accent: #f59e0b;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; 
+    }
+
+   
+    / .logo-mark {
+  width: 115px;
+  height: 115px;
+}
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
+  }
+}
+
+
+
+
+    /* small custom animations to complement AOS */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
+
+    .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
+    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
+    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
+
+   
+  </style>
+</head>
+
+<body class="bg-white text-gray-800">
+<!-- HEADER -->
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+       <div class="hidden xl:flex items-center gap-2 md:gap-3">
+
+          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
+            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+          </a>
+        </div>
+
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3 ml-4">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
+        </div>
+
+       <!-- MOBILE TOP BAR -->
+<div class="xl:hidden flex items-center justify-between w-full">
+  
+  <!-- LOGO LEFT -->
+  <a href="SmartEduX.html" class="flex items-center gap-2">
+    <svg class="logo-mark" viewBox="0 0 64 64" fill="none">
+      <rect width="64" height="64" rx="12" fill="#0b2149"/>
+      <path d="M32 16L52 26L32 36L12 26L32 16Z" stroke="white" stroke-width="3"/>
+      <path d="M12 26V42C12 42 20 48 32 48C44 48 52 42 52 42V26" stroke="white" stroke-width="3"/>
+    </svg>
+    <span class="text-xl font-bold text-[#0b2149]">SmartEduX</span>
+  </a>
+
+  <!-- THREE LINES RIGHT -->
+  <button id="menu-toggle"
+    class="p-2 rounded-md text-[#0b2149] hover:bg-gray-100">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2">
+      <path d="M4 6h16M4 12h16M4 18h16"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+      </div>
+
+     <div id="mobile-menu"
+  class="hidden xl:hidden bg-white border-t border-gray-100">
+
+  <div class="px-4 py-6 space-y-3">
+
+    <a href="SmartEduX.html" class="block px-3 py-2 rounded hover:bg-gray-100">Home</a>
+    <a href="Courses.html" class="block px-3 py-2 rounded hover:bg-gray-100">Courses</a>
+    <a href="Autonotes.html" class="block px-3 py-2 rounded hover:bg-gray-100">AutoNotes</a>
+    <a href="features.html" class="block px-3 py-2 rounded hover:bg-gray-100">Features</a>
+    <a href="About us.html" class="block px-3 py-2 rounded bg-gray-100 text-[#0b2149]">About</a>
+    <a href="contact.html" class="block px-3 py-2 rounded hover:bg-gray-100">Contact</a>
+
+    <div class="grid grid-cols-2 gap-3 pt-4">
+      <a href="login.html" class="text-center py-2 border rounded text-[#0b2149]">Login</a>
+      <a href="signup.html" class="text-center py-2 rounded bg-[#0b2149] text-white">Signup</a>
+    </div>
+
+  </div>
+</div>
+
+    </div>
+  </nav>
+  <!-- Header -->
+  <header class="bg-[#0b2149] text-white py-10">
+    <div class="max-w-6xl mx-auto text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-bold">About Us</h1>
+      <p class="mt-3 text-lg opacity-90">
+        AI Powered Learning – Faster, Smarter, More Effective.
+      </p>
+    </div>
+  </header>
+
+  <!-- Mission Section -->
+ <section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-14 items-center">
+
+  <!-- TEXT -->
+  <div class="space-y-6">
+    <h2 class="text-4xl font-bold text-[#0b2149] leading-tight">
+      Our Mission
+    </h2>
+
+   <p class="text-gray-600 leading-loose text-lg tracking-wide">
+  SmartEduX is created with one goal: to revolutionize the study experience. 
+  It uses artificial intelligence to automatically summarize long lecture videos, 
+  extract key points, and organize course notes so students can study faster and more efficiently.
+</p>
+
+<p class="mt-6 text-gray-600 leading-loose text-lg tracking-wide">
+  Whether it is university lectures or online tutorials, SmartEduX helps learners 
+  understand complex topics in minutes instead of hours, making the learning process 
+  simpler, quicker, and more effective.
+</p>
+    </div>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="relative">
+    <img
+      src="https://webpuzzlemaster.com/wp-content/uploads/2024/10/AI-technology-chatbot.webp"
+      alt="AI Learning Illustration"
+      class="w-full h-[350px] object-cover rounded-2xl shadow-2xl hover:scale-105 transition duration-500"
+    />
+
+    <!-- Optional overlay effect -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-[#0b2149]/20 to-transparent rounded-2xl"></div>
+  </div>
+
+</section>
+
+  <!-- What We Offer -->
+  <section class="bg-blue-50 py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-blue-900 mb-12">What We Offer</h2>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+          <h3 class="text-xl font-semibold mb-3">AI Summaries</h3>
+          <p class="opacity-90">Generate accurate summaries from long lecture videos instantly.</p>
+        </div>
+
+        <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+  <h3 class="text-xl font-semibold mb-3">Certifications</h3>
+  <p class="opacity-90">Showcase your skills with recognized credentials.</p>
+</div>
+
+        <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+          <h3 class="text-xl font-semibold mb-3">Organized Course Notes</h3>
+          <p class="opacity-90">All your summaries saved inside structured playlists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="max-w-6xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-3xl font-bold text-blue-900 mb-12">Meet Our Team</h2>
+
+    <div class="grid md:grid-cols-4 gap-10">
+      <div class="p-8 bg-white shadow-xl rounded-2xl border hover:scale-105 transition">
+        <img src="https://media.licdn.com/dms/image/v2/D4E03AQGBUP4mxfTAsQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1713162779337?e=2147483647&v=beta&t=CfFK0J13hbeiBSGfL1gnjnJ1TuImUHwx5FxAYCdc2B0" class=" mx-auto mb-4" />
+        <h3 class="text-xl font-semibold text-blue-900">Member 1</h3>
+        <p class="text-gray-600">AI Engineer</p>
+      </div>
+
+      <div class="p-8 bg-white shadow-xl rounded-2xl border hover:scale-105 transition">
+        <img src="https://userphotos2.teacheron.com/754555-23159.png" class=" mx-auto mb-4" />
+        <h3 class="text-xl font-semibold text-blue-900">Member 2</h3>
+        <p class="text-gray-600">Backend Developer</p>
+      </div>
+
+      <div class="p-8 bg-white shadow-xl rounded-2xl border hover:scale-105 transition">
+        <img src="https://userphotos2.teacheron.com/2922322-29390.jpg" class="mx-auto mb-4" />
+        <h3 class="text-xl font-semibold text-blue-900">Member 3</h3>
+        <p class="text-gray-600">Frontend Developer</p>
+      </div>
+
+      <div class="p-8 bg-white shadow-xl rounded-2xl border hover:scale-105 transition">
+        <img src="https://media.licdn.com/dms/image/v2/D4D22AQHomZ44u0NbFw/feedshare-shrink_800/B4DZlRsqm9GkAg-/0/1758012289162?e=2147483647&v=beta&t=VDHk2uzjqFzRZtXnHZnfca_O67qz03ZdAf8zTcNxOUA" class=" mx-auto mb-4" />
+        <h3 class="text-xl font-semibold text-blue-900">Member 4</h3>
+        <p class="text-gray-600">DevOps Engineer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        
+        <div class="text-center md:text-left">
+          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
+            Empowering learning with AI video summarization, notes, MCQs and curated courses.
+          </p>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+          <ul class="space-y-3 text-sm text-blue-200/80">
+            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
+          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
+          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
+          <div class="mt-6 flex justify-center md:justify-start gap-4">
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+document.getElementById("menu-toggle").addEventListener("click", () => {
+  document.getElementById("mobile-menu").classList.toggle("hidden");
+});
+</script>
+
+</body>
+</html>
