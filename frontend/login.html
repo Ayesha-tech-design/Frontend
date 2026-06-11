@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartEduX — Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    /* INPUT */
+    .input-style{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:2px solid #e5e7eb;
+      transition:.3s ease;
+    }
+
+    .input-style:focus{
+      outline:none;
+      border-color:#0b2149;
+      box-shadow:0 0 0 4px rgba(11,33,73,.15);
+    }
+
+    /* ✅ FIXED LOGO (IMPORTANT) */
+    .logo-mark{
+      height:32px;
+      width:auto;
+    }
+
+    @media (min-width:768px){
+      .logo-mark{ height:40px; }
+    }
+
+    /* bubbles */
+    .bubble{
+      position:absolute;
+      border-radius:9999px;
+      background:rgba(255,255,255,.12);
+      animation:float 7s ease-in-out infinite;
+    }
+
+    .b1{ width:120px;height:120px;top:20%;left:-40px;}
+    .b2{ width:80px;height:80px;bottom:20%;right:-20px;}
+    .b3{ width:60px;height:60px;top:65%;left:35%;}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-15px)}
+    }
+
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <div class="flex items-center justify-between h-14 md:h-16">
+
+      <!-- LOGO -->
+      <a href="#" class="flex items-center gap-2">
+        <img src="Futuristic tech logo design.png" class="logo-mark">
+        <span class="text-lg md:text-xl font-bold text-[#0b2149]">SmartEduX</span>
+      </a>
+
+      <!-- DESKTOP MENU -->
+      <div class="hidden md:flex gap-6">
+        <a href="#">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Features</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="hidden md:flex gap-2">
+        <a href="#" class="px-4 py-2 border rounded text-[#0b2149]">Login</a>
+        <a href="#" class="px-4 py-2 bg-[#0b2149] text-white rounded">Signup</a>
+      </div>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="menu" class="hidden md:hidden py-3 space-y-2">
+      <a href="#" class="block">Home</a>
+      <a href="#" class="block">Courses</a>
+      <a href="#" class="block">Features</a>
+      <a href="#" class="block">Contact</a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- MAIN (CENTERED) -->
+<main class="flex-grow flex items-center justify-center px-4 py-10">
+
+  <!-- SAME SIZE KEEP -->
+  <div class="bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2 max-w-4xl w-full">
+
+    <!-- LEFT -->
+    <div class="relative hidden md:flex bg-[#07122a] text-white p-10 overflow-hidden">
+      <div class="z-10">
+        <h2 class="text-3xl font-bold mb-3">Welcome Back 👋</h2>
+        <p class="text-blue-200 text-sm">
+          Login to continue your smart learning journey.
+        </p>
+      </div>
+
+      <span class="bubble b1"></span>
+      <span class="bubble b2"></span>
+      <span class="bubble b3"></span>
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="p-8 sm:p-10">
+      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
+        Login to SmartEduX
+      </h1>
+
+      <p class="text-center text-gray-600 text-sm mb-8">
+        Enter your credentials
+      </p>
+
+      <form class="space-y-5">
+
+        <input type="email" placeholder="Email Address"
+               class="input-style" required>
+
+        <div class="relative">
+          <input type="password" id="password"
+                 placeholder="Password"
+                 class="input-style pr-12" required>
+
+          <button type="button"
+                  onclick="togglePassword()"
+                  class="absolute right-4 top-1/2 -translate-y-1/2">
+            👁
+          </button>
+        </div>
+
+        <button class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
+          Login
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+document.getElementById("menu-btn").onclick = function(){
+  document.getElementById("menu").classList.toggle("hidden");
+}
+
+function togglePassword(){
+  let input = document.getElementById("password");
+  input.type = input.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>
