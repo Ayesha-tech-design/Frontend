@@ -66,3 +66,43 @@ class Certificate(models.Model):
 
     def __str__(self):
         return f"Certificate for {self.student.username} - {self.course.title}"
+    
+from django.db import models
+from django.conf import settings  # Agar User model link karna ho
+
+# Aapka purana class Course(models.Model) yahan pehle se maujood hai...
+
+class CourseModule(models.Model):
+    SECTION_CHOICES = [
+        ('basic', 'Basic (Free)'),
+        ('intermediate', 'Intermediate (Paid)'),
+        ('advance', 'Advance (Paid)'),
+    ]
+    
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='modules')
+    name = models.CharField(max_length=255) # e.g., "Introduction to Python" ya "OOP Concepts"
+    section_type = models.CharField(max_length=20, choices=SECTION_CHOICES, default='basic')
+    sequence = models.IntegerField(default=1) # Sections ki tarteeb ke liye (1, 2, 3)
+
+    class Meta:
+        ordering = ['sequence']
+
+    def __str__(self):
+        return f"{self.course.title} - {self.get_section_type_display()} - {self.name}"
+
+
+class Lesson(models.Model):
+    module = models.ForeignKey(CourseModule, on_delete=models.CASCADE, related_name='lessons')
+    title = models.CharField(max_length=255) # e.g., "What are Variables"
+    
+    # Hum dono options rakh rahe hain: direct video file ya phir YouTube/Cloudinary link
+    video_url = models.URLField(blank=True, null=True) 
+    video_file = models.FileField(upload_to='course_videos/', blank=True, null=True)
+    
+    sequence = models.IntegerField(default=1) # Modules ke andar videos ki tarteeb (Video 1, Video 2...)
+
+    class Meta:
+        ordering = ['sequence']
+
+    def __str__(self):
+        return f"{self.module.name} - Lesson: {self.title}"

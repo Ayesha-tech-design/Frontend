@@ -116,3 +116,69 @@ class StudentDashboardView(APIView):
             "my_certificates": earned_certificates,
             "total_achievements": len(earned_certificates)
         })
+    
+class TeacherDashboardListView(APIView):
+    """
+    Teacher apne saare banaye huaye courses dekh sakta hai
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Validation: Check ke user waqai teacher hai ya nahi
+        if request.user.role != 'teacher':
+            return Response({"error": "Access denied. Only teachers can view this dashboard."}, status=status.HTTP_403_FORBIDDEN)
+        
+        # Sirf is login teacher ke courses fetch karein
+        courses = Course.objects.filter(instructor=request.user)
+        
+        # Simple list serialize kar rahe hain bina naye serializer ke hassle ke
+        course_list = []
+        for course in courses:
+            course_list.append({
+                "id": course.id,
+                "title": course.title,
+                "description": course.description,
+                "created_at": course.created_at if hasattr(course, 'created_at') else None
+            })
+            
+        return Response({
+            "teacher_name": request.user.username,
+            "total_courses": courses.count(),
+            "courses": course_list
+        }, status=status.HTTP_200_OK)
+
+
+class TeacherEnrolledStudentsView(APIView):
+    """
+    Diagram ke mutabiq: 'View Enrolled Students' feature.
+    Teacher dekh sakta hai ke uske makhsoos course mein kaun kaun se students enrolled hain.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, course_id):
+        if request.user.role != 'teacher':
+            return Response({"error": "Access denied."}, status=status.HTTP_403_FORBIDDEN)
+        
+        try:
+            # Check karein ke yeh course isi teacher ka hai ya nahi
+            course = Course.objects.get(id=course_id, instructor=request.user)
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found or you are not the instructor of this course."}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Is course ki tamam enrollments nikalien
+        enrollments = Enrollment.objects.filter(course=course)
+        
+        student_list = []
+        for enroll in enrollments:
+            student_list.append({
+                "student_id": enroll.student.id,
+                "student_name": enroll.student.username,
+                "student_email": enroll.student.email,
+                "enrolled_at": enroll.enrolled_at if hasattr(enroll, 'enrolled_at') else None
+            })
+            
+        return Response({
+            "course_title": course.title,
+            "total_enrolled_students": enrollments.count(),
+            "students": student_list
+        }, status=status.HTTP_200_OK)
