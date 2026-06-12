@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     
     # Third-party Apps
     'rest_framework',
+     # Frontend (HTML) aur Backend ki connectivity (CORS) allow karne ke liye
+    
+    'courses',
+    'users',
+    'corsheaders', 
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -55,6 +60,11 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
+    # Frontend se aane wali har request ko pehle check aur allow karne ke liye
+    'corsheaders.middleware.CorsMiddleware',  
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+     # yaha sy uper tak
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -158,3 +168,6 @@ import os
 # Media files settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Connectivity testing ke liye har tarah ke frontend origin/port ko allow karna
+CORS_ALLOW_ALL_ORIGINS = True
