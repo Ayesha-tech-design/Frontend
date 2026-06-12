@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Note
+from .models import Note, VideoNote  # Yahan dono models shamil ho gaye
 
+# 1. Ayesha ka code
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('title', 'course', 'created_at') # Dashboard par yeh columns dikhengi
-    search_fields = ('title', 'content') # Search bar enable ho jayegafrom django.contrib import admin
+    list_display = ('title', 'course', 'created_at')
+    search_fields = ('title', 'content')
 
-# Register your models here.
+# 2. Zunaira ka code (Aapka AI model register ho gaya)
+admin.site.register(VideoNote)

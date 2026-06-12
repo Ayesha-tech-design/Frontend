@@ -11,4 +11,4 @@ media/
 static/
 
 # VS Code settings
-.vscode/
+.vscode/.env
