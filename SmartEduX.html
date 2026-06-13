@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartEduX — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --primary: #0b2149; 
+      --accent: #f59e0b;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; 
+    }
+
+    /* NAV */
+    nav a { transition: color .18s ease; }
+    nav a:hover { color: var(--primary) !important; }
+
+   .logo-mark {
+  width: 115px;
+  height: 115px;
+}
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
+  }
+}
+
+   
+
+    /* HERO */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 65vh; 
+      display:flex;
+      align-items:center;
+    }
+    @media(min-width: 768px) {
+      .hero { min-height: 90vh; }
+    }
+
+    .hero .slide {
+      position:absolute; inset:0; background-size:cover; background-position:center; opacity:0;
+      transform: scale(1.02);
+      animation: heroFade 18s linear infinite;
+    }
+    .hero .slide.s1 { animation-delay: 0s; }
+    .hero .slide.s2 { animation-delay: 6s; }
+    .hero .slide.s3 { animation-delay: 12s; }
+    @keyframes heroFade {
+      0% { opacity:0; transform:scale(1.03); }
+      6% { opacity:1; transform:scale(1); }
+      30% { opacity:1; transform:scale(1); }
+      36% { opacity:0; transform:scale(0.98); }
+      100% { opacity:0; }
+    }
+    .hero-overlay {
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(11,33,73,0.7), rgba(11,33,73,0.5));
+    }
+
+    /* Buttons */
+    .btn-white {
+      background: white;
+      color: var(--primary);
+      border-radius: .5rem;
+      padding: .75rem 1.5rem;
+      font-weight: 600;
+      transition: all .2s ease;
+      display: inline-block;
+      text-align: center;
+    }
+    .btn-white:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Features track */
+    .features-viewport { overflow:hidden; }
+    .features-track {
+      display:flex; gap:1.5rem;
+      align-items:stretch;
+      padding: 1rem 0;
+      animation: featuresPace 30s linear infinite;
+    }
+    .features-track:hover { animation-play-state: paused; }
+    
+    @keyframes featuresPace {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .features-track .card { min-width: 18rem; max-width: 18rem; flex-shrink: 0; }
+
+    /* Card visual */
+    .card {
+      background: white; border-radius: .75rem; overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: transform .2s ease, box-shadow .2s ease;
+      display:flex; flex-direction:column;
+      height: 100%;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+
+    .card-img { width:100%; height:160px; object-fit:cover; display:block; }
+
+    /* Course card */
+    .course-card { 
+      overflow:hidden; border-radius: .75rem; background:white; 
+      transition: transform .2s, box-shadow .2s; 
+      display: flex; flex-direction: column;
+    }
+    .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+
+    /* Demo video responsive */
+    .video-wrap { position: relative; padding-top: 56.25%; width: 100%; background: #000; border-radius: .75rem;} 
+    .video-wrap video { position:absolute; top:0; left:0; width:100%; height:100%; border-radius: .75rem; }
+
+    /* Accordion */
+    .acc-item { background: rgba(255,255,255,0.5); border: 1px solid rgba(11,33,73,0.1); border-radius: .5rem; overflow:hidden; margin-bottom: 0.5rem;}
+    .acc-header { display:flex; justify-content:space-between; align-items:center; padding: 1rem; cursor:pointer; background: rgba(255,255,255,0.6); }
+    .acc-title { font-weight:700; color: var(--primary); font-size: 1rem; }
+    .acc-sub { font-size: .85rem; color: #4b5563; margin-top: .25rem; }
+    .acc-body { padding: 1rem; display:none; color: #334155; line-height:1.6; background: #fff; border-top: 1px solid #e2e8f0; }
+    .acc-item.open .acc-body { display:block; }
+    .acc-icon { transition: transform 0.3s ease; }
+    .acc-item.open .acc-icon { transform: rotate(180deg); }
+
+    /* Mobile Menu Transition */
+    #mobile-menu {
+      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-menu.open {
+      max-height: 500px; 
+      opacity: 1;
+    }
+    
+    /* Search Input Styling */
+    .search-input {
+        background-color: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem; /* text-sm */
+        color: #1f2937;
+        width: 100%;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .search-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 1px var(--primary);
+        outline: none;
+    }
+    /* ===== RESPONSIVE FIXES (ADD AT END) ===== */
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 80vh;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .btn-white {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+}
+
+.hero .slide {
+  background-size: cover;
+  background-position: center center;
+}
+
+#mobile-menu a {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
+  #mobile-menu {
+    max-height: 100vh;
+  }
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+/* ===== MOBILE COMPACT NAVBAR ===== */
+@media (max-width: 640px) {
+
+  nav {
+    height: 52px;
+  }
+
+  nav .h-16 {
+    height: 52px !important;
+  }
+
+  nav .logo-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  nav span.text-xl,
+  nav span.text-2xl {
+    font-size: 1rem !important;
+  }
+
+  nav a {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  #menu-toggle {
+    padding: 0.25rem;
+  }
+
+  #menu-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <div class="flex items-center gap-2 md:gap-3">
+          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
+            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+          </a>
+        </div>
+
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-3 ml-4">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
+        </div>
+
+        <div class="xl:hidden flex items-center">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+          
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="slide s1" style="background-image:url('https://plus.unsplash.com/premium_photo-1666299720600-a432232bdf2f?w=800&auto=format&fit=crop&q=60');"></div>
+    <div class="slide s2" style="background-image:url('https://plus.unsplash.com/premium_photo-1661903078140-b2f497f7bf02?w=800&auto=format&fit=crop&q=60');"></div>
+    <div class="slide s3" style="background-image:url('https://images.unsplash.com/photo-1452830978618-d6feae7d0ffa?w=800&auto=format&fit=crop&q=60');"></div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white pb-8 pt-16 md:pt-0">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
+        Revolutionize Learning <br class="hidden sm:block"/> with AI
+      </h1>
+      <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 text-gray-100 leading-relaxed">
+        Convert lecture videos into smart notes, generate MCQs, and learn from curated courses and expert teachers — faster and smarter.
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none">
+       <a href="javascript:void(0)" onclick="showLoginModal()" class="btn-white w-full sm:w-auto">
+  Explore Features
+</a>
+        <a href="#demo" class="btn-white w-full sm:w-auto ring-2 ring-white ring-inset bg-transparent text-white hover:bg-white hover:text-[#0b2149]">Watch Demo</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="features" class="py-16 md:py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--primary)] text-center mb-4">Explore Our Features</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Powerful tools integrated into one seamless platform to boost your productivity.</p>
+
+      <div class="hidden md:block features-viewport relative">
+        <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
+        
+        <div class="features-track">
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Video Summarizer">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AI Summarizer</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Paste a lecture link, get time-stamped keypoints and summaries.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AutoNotes</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">AI-generated bullet notes and study guides ready for revision.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Auto-create practice questions with instant feedback.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1612831661881-dd08451593ae?w=500&auto=format&fit=crop&q=60" alt="Teacher Playlists">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">Playlists</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Organize lessons and share curated playlists with students.</p>
+            </div>
+          </div>
+           <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Video Summarizer">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AI Summarizer</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Paste a lecture link, get time-stamped keypoints and summaries.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AutoNotes</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">AI-generated bullet notes and study guides ready for revision.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Auto-create practice questions with instant feedback.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-6">
+        <div class="card w-full max-w-sm mx-auto">
+          <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Summarizer">
+          <div class="p-5">
+            <h3 class="font-bold text-lg mb-1 text-gray-800">AI Video Summarizer</h3>
+            <p class="text-sm text-gray-600">Paste a lecture link, get time-stamped keypoints and summaries.</p>
+          </div>
+        </div>
+        <div class="card w-full max-w-sm mx-auto">
+          <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+          <div class="p-5">
+            <h3 class="font-bold text-lg mb-1 text-gray-800">AutoNotes</h3>
+            <p class="text-sm text-gray-600">AI-generated bullet notes and study guides ready for revision.</p>
+          </div>
+        </div>
+        <div class="card w-full max-w-sm mx-auto">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5">
+              <h3 class="font-bold text-lg mb-1 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600">Auto-create practice questions with instant feedback.</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="courses" class="py-16 md:py-24 bg-[var(--primary)] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">Our Available Courses</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="design.jpg" alt="Graphics Designing" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+            <h3 class="text-[var(--primary)] font-bold text-lg">Graphics Designing Course</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed"> Learn Photoshop, Illustrator and modern design skills for social media and branding.
+            </p>
+            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+  <a href="graphics.html" class="hover:underline">Master Creative Design Skills</a>
+</div>
+          </div>
+        </article>
+
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="wordpress.jpg" alt="Wordpress Web Development" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+           <h3 class="text-[var(--primary)] font-bold text-lg">
+  WordPress Web Development
+</h3>
+<p class="text-sm text-gray-600 mt-2 leading-relaxed">
+  Build complete websites using WordPress, themes, plugins and hosting setup.
+</p>
+            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+  <a href="wordpress.html"  class="hover:underline">Build Professional Websites</a>
+</div>
+          </div>
+        </article>
+
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="virtual-assistant-on-fivver.png" alt="Fiverr Frelancing" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+            <h3 class="text-[var(--primary)] font-bold text-lg">
+  Fiverr Freelancing Course
+</h3>
+<p class="text-sm text-gray-600 mt-2 leading-relaxed">
+  Learn how to create gigs, attract clients and earn online through Fiverr freelancing.
+</p>
+           <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+  <a href="fiverr.html"   class="hover:underline">Earn Online with Freelancing</a>
+</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4 text-[#0b2149]">Watch a Short Demo</h2>
+      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">See how SmartEduX extracts timestamps, generates notes, and creates MCQs in seconds.</p>
+
+      <div class="video-wrap mx-auto max-w-4xl shadow-2xl ring-1 ring-gray-200">
+        <video controls preload="metadata" class="bg-black">
+          <source src="video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="text-sm text-gray-500 mt-4">Experience the future of learning today.</p>
+    </div>
+  </section>
+    <main class="mt-8">
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center py-12">
+      <div class="space-y-6">
+        <p class="inline-block px-3 py-1 bg-blue-50 text-blue-900 rounded-full text-sm font-semibold animate-pulse">AI-Powered • Smart Learning</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight accent">Learn faster with AI summaries & organized courses</h1>
+        <p class="text-gray-600 text-lg">SmartEduX converts long lecture videos into crisp summaries, key points and MCQs — so students revise smarter, not longer.</p>
+
+        <div class="flex flex-wrap gap-4 mt-4">
+          <a href="autonotes.html" class="inline-block px-6 py-3 rounded-lg bg-blue-900 text-white shadow hover:scale-105 transform transition">Try AutoNotes</a>
+          <a href="courses.html" class="inline-block px-6 py-3 rounded-lg border border-blue-900 text-blue-900 hover:bg-blue-50 transition">Browse Courses</a>
+        </div>
+
+        <!-- Trust Stats -->
+        <div class="mt-6 grid grid-cols-3 gap-4">
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">120+</p>
+            <p class="text-sm text-gray-500">Courses</p>
+          </div>
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">3K+</p>
+            <p class="text-sm text-gray-500">Notes Generated</p>
+          </div>
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">1.5K</p>
+            <p class="text-sm text-gray-500">Active Students</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-2xl bg-gradient-to-br from-blue-50 to-white p-6 shadow-xl transform -rotate-2 hover:rotate-0 transition">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="learning" class="rounded-xl w-full h-72 object-cover shadow-lg"/>
+        </div>
+
+        <!-- Decorative card -->
+        <div class="absolute -bottom-6 left-6 bg-white border rounded-xl p-4 shadow-lg w-72 animate-fade-in">
+          <h3 class="font-semibold text-blue-900">Featured Course</h3>
+          <p class="text-sm text-gray-600 mt-2">Machine Learning Foundations — 24 Lectures</p>
+          <div class="mt-3 flex gap-2">
+            <a class="text-sm px-3 py-1 bg-blue-900 text-white rounded">View</a>
+            <a class="text-sm px-3 py-1 border rounded border-gray-200">Enroll</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  <section id="about" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-[var(--primary)]">Why Choose SmartEduX?</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-4">
+          <div class="acc-item" id="faq-1">
+            <div class="acc-header" onclick="toggleFaq('faq-1')">
+              <div>
+                <div class="acc-title">How does the Video Summarizer work?</div>
+                <div class="acc-sub">Speech-to-text AI technology.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">We transcribe audio, detect slide headings and timestamps, extract key concepts and convert them into structured, exam-friendly notes.</div>
+          </div>
+
+          <div class="acc-item" id="faq-2">
+            <div class="acc-header" onclick="toggleFaq('faq-2')">
+              <div>
+                <div class="acc-title">Is it personalized?</div>
+                <div class="acc-sub">Adaptive suggestions based on you.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">By tracking quiz results and question performance, SmartEduX recommends focused modules and practice sets tailored to your weak areas.</div>
+          </div>
+
+          <div class="acc-item" id="faq-3">
+            <div class="acc-header" onclick="toggleFaq('faq-3')">
+              <div>
+                <div class="acc-title">Better than standard E-learning?</div>
+                <div class="acc-sub">Active recall vs Passive watching.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">Most platforms just give you videos. We give you the tools to actually retain the information: instant notes and self-testing.</div>
+          </div>
+
+          <div class="acc-item" id="faq-4">
+            <div class="acc-header" onclick="toggleFaq('faq-4')">
+              <div>
+                <div class="acc-title">How do MCQs improve retention?</div>
+                <div class="acc-sub">Spaced practice + instant feedback.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">Regular low-stakes quizzes help identify gaps, increase recall through spaced repetition and let the AI refine future practice content automatically.</div>
+          </div>
+        </div>
+
+        <div class="space-y-6 mt-4 lg:mt-0">
+          <div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3">
+              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-[var(--primary)]">Smart Notes</h3>
+            <p class="text-sm mt-2 text-gray-600">Auto-summarized and timestamped notes that are exam-ready.</p>
+          </div>
+
+          <div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition">
+             <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3">
+              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-[var(--primary)]">Teacher Tools</h3>
+            <p class="text-sm mt-2 text-gray-600">Playlists, analytics and content management for instructors.</p>
+          </div>
+
+          <div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition">
+             <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3">
+              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-[var(--primary)]">Practice & Assess</h3>
+            <p class="text-sm mt-2 text-gray-600">MCQs, progress tracking and personalized revision plans.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        
+        <div class="text-center md:text-left">
+          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
+            Empowering learning with AI video summarization, notes, MCQs and curated courses.
+          </p>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+          <ul class="space-y-3 text-sm text-blue-200/80">
+            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
+          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
+          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
+          <div class="mt-6 flex justify-center md:justify-start gap-4">
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+<!-- LOGIN REQUIRED MODAL -->
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center z-50">
+
+  <div class="bg-white rounded-xl p-6 w-[90%] max-w-sm text-center shadow-2xl border">
+
+    <h2 class="text-xl font-bold text-[#0b2149] mb-3">
+      Login Required
+    </h2>
+
+    <p class="text-gray-600 text-sm mb-6">
+      Please login first to explore features.
+    </p>
+
+    <div class="flex gap-3 justify-center">
+      <a href="login.html" class="px-4 py-2 bg-[#0b2149] text-white rounded">
+        Login
+      </a>
+
+      <button onclick="closeModal()" 
+        class="px-4 py-2 border rounded text-gray-600">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+
+</div>
+<!-- Login Modal -->
+<div id="login-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+  <div class="bg-white rounded-xl shadow-lg w-96 p-6 relative">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Please Login First</h2>
+    <p class="text-gray-600 mb-6">You need to login to explore SmartEduX features.</p>
+    <div class="flex justify-end gap-4">
+      <button onclick="closeLoginModal()" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">Cancel</button>
+      <a href="login.html" class="px-4 py-2 rounded-md bg-blue-900 text-white hover:brightness-110">Login</a>
+    </div>
+    <button onclick="closeLoginModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 font-bold text-lg">&times;</button>
+  </div>
+</div>
+  <script>
+    // Auto Update Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if(menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+      });
+      
+      // Close menu when clicking a link
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    // FAQ Accordion Logic
+    function toggleFaq(id) {
+      document.querySelectorAll('.acc-item').forEach(item => {
+        if (item.id !== id) {
+          item.classList.remove('open');
+        }
+      });
+      const el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+
+    // Accessibility for cards
+    document.querySelectorAll('.card, .course-card').forEach(c => {
+      c.addEventListener('keypress', e => { 
+        if(e.key === 'Enter' || e.key === ' ') c.click(); 
+      });
+    });
+  </script>
+  <script>
+  function showLoginModal() {
+    document.getElementById('login-modal').classList.remove('hidden');
+  }
+
+  function closeLoginModal() {
+    document.getElementById('login-modal').classList.add('hidden');
+  }
+
+  function requireLogin(event, courseUrl) {
+    event.preventDefault(); // page reload na ho
+    const isLoggedIn = false; // yahan session check ya localStorage daal sakti ho
+    if(isLoggedIn) {
+        window.location.href = courseUrl; // login hone ke baad page open ho
+    } else {
+        alert("Please login first to access course details!"); 
+        // ya custom modal show kar sakti ho
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartEduX | Student Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- NAVBAR -->
+<nav class="bg-[#0b2149] px-6 py-3 flex justify-between items-center text-white">
+  <h1 class="text-xl font-bold">SmartEduX</h1>
+
+  <div class="flex items-center gap-4">
+    <!-- Dashboard Link -->
+    <a href="student dashboard.html"
+       class="text-sm bg-white text-[#0b2149] px-4 py-1 rounded hover:bg-gray-200">
+      Dashboard
+    </a>
+
+    <!-- Avatar -->
+    <img id="navProfileImg"
+         src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+         class="w-9 h-9 rounded-full border-2 border-white object-cover">
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="max-w-5xl mx-auto px-6 py-10">
+
+  <!-- PROFILE CARD -->
+  <div class="bg-white rounded-2xl p-8 shadow mb-10 flex flex-col md:flex-row gap-8 items-center">
+
+    <!-- Image -->
+    <div class="text-center">
+      <img id="profileImg"
+           src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+           class="w-32 h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto">
+
+      <label class="block mt-4 text-sm text-[#0b2149] cursor-pointer font-semibold">
+        Change Photo
+        <input type="file" accept="image/*" hidden onchange="changeImage(event)">
+      </label>
+    </div>
+
+    <!-- Info -->
+    <div>
+      <!-- Backend se aayega -->
+      <h2 class="text-2xl font-bold text-[#0b2149]" id="studentName">
+        <!-- Dynamic Name -->
+        Student Name
+      </h2>
+      <p class="text-gray-500" id="studentEmail">
+        student@email.com
+      </p>
+    </div>
+
+  </div>
+
+  <!-- PROFILE FORM -->
+  <div class="bg-white rounded-2xl p-8 shadow mb-10">
+    <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Profile Information</h3>
+
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input class="border p-3 rounded" placeholder="Full Name">
+      <input class="border p-3 rounded" placeholder="Email Address">
+      <input class="border p-3 rounded" placeholder="Registration Number">
+      <input class="border p-3 rounded" placeholder="Department">
+
+      <button
+        class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
+        Update Profile
+      </button>
+    </form>
+  </div>
+
+  <!-- SECURITY SECTION -->
+  <div class="bg-white rounded-2xl p-8 shadow">
+    <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Security Settings</h3>
+
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="password" class="border p-3 rounded" placeholder="Current Password">
+      <input type="password" class="border p-3 rounded" placeholder="New Password">
+      <input type="password"
+             class="border p-3 rounded md:col-span-2"
+             placeholder="Confirm New Password">
+
+      <button
+        class="md:col-span-2 bg-red-600 text-white py-3 rounded hover:bg-red-700 transition">
+        Change Password
+      </button>
+    </form>
+
+    <!-- LOGIN INFO -->
+    <div class="mt-6 bg-gray-50 p-4 rounded">
+      <p class="text-sm text-gray-600">
+        Last Login: 10 Jan 2026 • Chrome • Pakistan
+      </p>
+      <button class="mt-2 text-sm text-[#0b2149] font-semibold hover:underline">
+        Logout from all devices
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<!-- IMAGE CHANGE SCRIPT -->
+<script>
+function changeImage(event) {
+  const reader = new FileReader();
+  reader.onload = function () {
+    document.getElementById('profileImg').src = reader.result;
+    document.getElementById('navProfileImg').src = reader.result;
+  }
+  reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>
