@@ -7,22 +7,18 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from youtube_transcript_api import YouTubeTranscriptApi
-from google import genai  # Standard Google GenAI SDK
+from google import genai
 from .models import VideoNote
 
-# =====================================================================
+# === AUTHENTICATION IMPORTS (Zunaira ka Core Task) ===
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
 # PRODUCTION API INITIALIZATION
-# =====================================================================
 RAW_KEY = getattr(settings, "GEMINI_API_KEY", None)
 CLEAN_KEY = str(RAW_KEY).replace("..key", "").strip() if RAW_KEY else None
 
-print("\n[SMARTEDUX LOG 1]: Initializing Production GenAI Client...")
-client = None
-if CLEAN_KEY:
-    client = genai.Client(api_key=CLEAN_KEY)
-    print("-> SUCCESS: GenAI Client initialized seamlessly.")
-else:
-    print("-> WARNING: API Key missing or incorrect in settings.py.")
+client = genai.Client(api_key=CLEAN_KEY) if CLEAN_KEY else None
 
 
 def local_summary_generator(text):
@@ -39,129 +35,99 @@ def local_summary_generator(text):
 
 
 # =====================================================================
-# MAIN API ENDPOINT
+# MAIN API ENDPOINT (Notes & Quiz Generation - FIXED FOR LIVE LINKS)
 # =====================================================================
 @api_view(['POST'])
 def generate_notes(request):
     try:
-        youtube_url = request.data.get('youtube_url', '')
-        print("\n[SMARTEDUX LOG 2]: New Inbound Request.")
-        print(f"-> Target URL: {youtube_url}")
+        # 1. Live Input Extraction from Frontend
+        youtube_url = request.data.get('youtube_url', '').strip()
+        print(f"\n[SMARTEDUX LIVE LOG]: Incoming Link from Frontend: {youtube_url}")
 
         if not youtube_url:
             return Response({"status": "failed", "error": "YouTube URL required"}, status=400)
 
-        # Extract Video ID
+        # 2. Advanced Video ID Parser (Har format handle karega)
+        video_id = ""
         if "v=" in youtube_url:
             video_id = youtube_url.split("v=")[1].split("&")[0]
+        elif "youtu.be/" in youtube_url:
+            video_id = youtube_url.split("youtu.be/")[1].split("?")[0]
         else:
             video_id = youtube_url.rstrip("/").split("/")[-1]
 
-        print(f"-> Parsed Video ID: {video_id}")
+        print(f"-> Parsed Unique Video ID: {video_id}")
 
-        # Database Check (Checking via video_url since it is in our model)
-        existing = VideoNote.objects.filter(video_url=youtube_url).first()
+        if not video_id:
+            return Response({"status": "failed", "error": "Invalid YouTube URL format"}, status=400)
+
+        # 3. PUKKA CACHE CHECK VIA VIDEO ID
+        existing = VideoNote.objects.filter(video_title=video_id).first()
         if existing:
-            print("\n[SMARTEDUX LOG 3]: PostgreSQL Cache Hit. Returning stored content.")
+            print("-> Database Cache Hit: Returning pre-existing records instantly.")
             return Response({
                 "status": "success",
                 "source": "database",
                 "summary": existing.summary,
-                "quiz": []  # Safely returning empty array if field not in models
+                "quiz": []
             })
 
-        # Content Extraction
+        # 4. Fresh Content Extraction Loop
         raw_text = ""
         is_transcript_available = True
-
-        print("\n[SMARTEDUX LOG 4]: Pulling content from YouTube source...")
         try:
             transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'hi'])
             raw_text = " ".join([item['text'] for item in transcript])
-            print("-> Success: Transcript pulled cleanly.")
-        except Exception as tx_err:
-            print(f"-> Transcript API offline ({str(tx_err)}). Scraping via fallback layer...")
-            is_transcript_available = False
+            source_type = "gemini_transcript"
+        except Exception:
             try:
                 ydl_opts = {'quiet': True, 'no_warnings': True}
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(youtube_url, download=False)
-                    video_title = info.get('title', '')
-                    video_desc = info.get('description', '')[:500]
-                    raw_text = f"Title: {video_title}\nDescription: {video_desc}"
-                print("-> Success: Metadata scraped via yt-dlp.")
-            except Exception as ytdlp_err:
-                print(f"-> Critical Scraping Failure: {str(ytdlp_err)}")
-                raw_text = "Educational Topic Content"
+                    raw_text = f"Title: {info.get('title', '')}\nDescription: {info.get('description', '')[:500]}"
+                source_type = "gemini_metadata_fallback"
+            except Exception:
+                raw_text = "Standard Educational Domain Video Content Text"
+                source_type = "fallback"
 
         raw_text = raw_text[:3000]
 
-        # Active AI Request Generation Layer
-        try:
-            print("\n[SMARTEDUX LOG 5]: Directing payload to GenAI Client Engine...")
-            if not client:
-                raise Exception("GenAI Client was not initialized properly.")
+        # 5. Live GenAI Content Production
+        prompt = f"""
+        You are an academic assistant built into the SmartEduX platform.
+        Analyze the provided context and return a strict raw JSON object.
+        Generate exactly 5 high-quality academic MCQs inside the quiz array.
 
-            prompt = f"""
-You are an academic assistant built into the SmartEduX e-learning platform.
-Analyze the provided context and return a strict raw JSON object.
+        STRUCTURE:
+        {{
+          "summary": "Detailed educational notes formatted nicely in clear bullet points.",
+          "quiz": [
+            {{
+              "question": "Question text?",
+              "options": {{"A": "Choice 1", "B": "Choice 2", "C": "Choice 3", "D": "Choice 4"}},
+              "answer": "A"
+            }}
+          ]
+        }}
 
-RULES:
-- Return ONLY a valid, parseable JSON structure.
-- Do NOT include markdown code blocks like ```json or wrappers.
-- Do NOT include any conversational introduction or summary text.
+        Context Text:
+        {raw_text}
+        """
+        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        
+        ai_text = response.text.strip()
+        json_match = re.search(r'\{.*\}', ai_text, re.DOTALL)
+        clean_json = json_match.group() if json_match else ai_text
+        data = json.loads(clean_json, strict=False)
 
-STRUCTURE:
-{{
-  "summary": "Detailed educational notes formatted nicely in clear bullet points.",
-  "quiz": [
-    {{
-      "question": "A conceptual academic question from the text?",
-      "options": {{
-        "A": "First Choice",
-        "B": "Second Choice",
-        "C": "Third Choice",
-        "D": "Fourth Choice"
-      }},
-      "answer": "A"
-    }}
-  ]
-}}
-
-Generate exactly 5 high-quality academic MCQs inside the quiz array.
-
-Context Text:
-{raw_text}
-"""
-            response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=prompt,
-            )
-            print("[SMARTEDUX LOG 6]: Clean GenAI Response Secured.")
-            
-            ai_text = response.text.strip()
-            json_match = re.search(r'\{.*\}', ai_text, re.DOTALL)
-            clean_json = json_match.group() if json_match else ai_text
-
-            data = json.loads(clean_json, strict=False)
-            print("-> Success: Decoded into accurate active JSON fields.")
-            source_type = "gemini_transcript" if is_transcript_available else "gemini_title_fallback"
-
-        except Exception as gemini_err:
-            print("\n[SMARTEDUX LOG 7]: GenAI Client Engine Failure.")
-            print(f"-> Diagnostic Details: {str(gemini_err)}")
-            data = local_summary_generator(raw_text)
-            source_type = "fallback"
-
-        # Database Commit matched with notes/models.py fields
-        print("\n[SMARTEDUX LOG 8]: Syncing structured dataset to PostgreSQL...")
+        # 6. Database Entry Lock (Unique entry save karna)
         VideoNote.objects.create(
-            video_title=video_id,  # Using video_id as fallback title for entry
+            video_title=video_id,  # Locking Identity
             video_url=youtube_url,
             transcript=raw_text,
             summary=data.get("summary", "")
         )
-        print("-> Database Sync Complete.")
+        print("-> Database Sync Complete for new video.")
 
         return Response({
             "status": "success",
@@ -170,6 +136,53 @@ Context Text:
             "quiz": data.get("quiz", [])
         })
 
-    except Exception as api_fatal_err:
-        print(f"\n[CRITICAL API FAULT]: {str(api_fatal_err)}")
-        return Response({"status": "failed", "error": str(api_fatal_err)}, status=500)
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
+
+
+# =====================================================================
+# USER AUTHENTICATION ENDPOINTS (Zunaira's Core Tasks)
+# =====================================================================
+
+@api_view(['POST'])
+def register_user(request):
+    try:
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        if not username or not email or not password:
+            return Response({"status": "failed", "error": "All fields required"}, status=400)
+
+        if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
+            return Response({"status": "failed", "error": "User already registered"}, status=400)
+
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        new_user.save()
+        return Response({"status": "success", "message": "Registered successfully!"}, status=201)
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
+
+
+@api_view(['POST'])
+def login_user(request):
+    try:
+        email_or_username = request.data.get('email')
+        password = request.data.get('password')
+
+        if not email_or_username or not password:
+            return Response({"status": "failed", "error": "All fields required"}, status=400)
+
+        target_username = email_or_username
+        if "@" in email_or_username:
+            user_obj = User.objects.filter(email=email_or_username).first()
+            if user_obj: 
+                target_username = user_obj.username
+
+        user = authenticate(username=target_username, password=password)
+        if user is not None:
+            login(request, user)
+            return Response({"status": "success", "message": "Login successful!"}, status=200)
+        return Response({"status": "failed", "error": "Invalid credentials"}, status=401)
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
