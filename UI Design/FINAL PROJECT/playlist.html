@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartEduX Learning Player</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<nav class="bg-[#0b2149] text-white px-6 py-4 flex justify-between">
+    <h1 class="text-2xl font-bold">SmartEduX</h1>
+    <span id="courseNavTitle" class="font-semibold">Loading Course...</span>
+</nav>
+
+<div class="flex flex-col lg:flex-row h-[calc(100vh-72px)]">
+
+    <aside class="w-full lg:w-80 bg-white shadow-lg overflow-y-auto">
+
+        <div class="p-5 border-b">
+            <h2 class="font-bold text-lg">Course Content</h2>
+            <p id="totalLecturesText" class="text-sm text-gray-500">0 Lectures</p>
+        </div>
+
+        <div id="playlist"></div>
+
+    </aside>
+
+    <main class="flex-1 p-6 overflow-y-auto">
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+            <video id="videoPlayer"
+                controls
+                class="w-full h-[500px] bg-black">
+            </video>
+
+            <div class="p-6">
+
+                <h2 id="lectureTitle"
+                    class="text-2xl font-bold text-[#0b2149]">
+                </h2>
+
+                <p class="text-gray-600 mt-2">
+                    Watch the lecture and generate AI Notes or MCQs instantly.
+                </p>
+
+                <div class="flex flex-wrap gap-4 mt-6">
+
+                    <button onclick="prevLecture()"
+                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none">
+                        ← Previous Lecture
+                    </button>
+
+                    <button onclick="generateNotes()"
+                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none">
+                         Generate Notes
+                    </button>
+                    <div id="savedNotesContainer" class="mt-4 hidden">
+                        <button onclick="openSavedNotes()"
+                            class="bg-[#0b2149] text-white px-5 py-3 rounded-lg">
+                            📄 Saved Notes
+                        </button>
+                    </div>
+                    
+                    <button onclick="generateMCQs()"
+                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none">
+                         Generate MCQs
+                    </button>
+
+                    <button onclick="nextLecture()"
+                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none">
+                        Next Lecture →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+const coursesData = {
+    graphics: {
+        name: "Graphics Designing Course",
+        lectures: [
+            { title: "Introduction to Graphic Designing", video: "graphics_lec1.mp4", id: 101 },
+            { title: "Tools Overview", video: "graphics_lec2.mp4", id: 102 },
+            { title: "Basic Design Principles", video: "graphics_lec3.mp4", id: 103 }
+        ]
+    },
+    wordpress: {
+        name: "WordPress Web Development",
+        lectures: [
+            { title: "WordPress Introduction & Setup", video: "wp_lec1.mp4", id: 201 },
+            { title: "Themes and Plugins Customization", video: "wp_lec2.mp4", id: 202 },
+            { title: "Building a Blog Website", video: "wp_lec3.mp4", id: 203 }
+        ]
+    },
+    fiverr: {
+        name: "Fiverr Freelancing Masterclass",
+        lectures: [
+            { title: "Account Creation & Profile Setup", video: "fiverr_lec1.mp4", id: 301 },
+            { title: "Gig Creation and SEO Techniques", video: "fiverr_lec2.mp4", id: 302 }
+        ]
+    },
+    infosec: {
+        name: "Information Security Fundamentals",
+        lectures: [
+            { title: "Introduction to Cyber Security", video: "security_lec1.mp4", id: 401 },
+            { title: "Cryptography & Encryption", video: "security_lec2.mp4", id: 402 }
+        ]
+    }
+};
+
+const urlParams = new URLSearchParams(window.location.search);
+let currentCourseKey = urlParams.get('course') || 'graphics';
+
+let targetLectureIndex = parseInt(urlParams.get('lec')) || 0;
+
+if (!coursesData[currentCourseKey]) {
+    currentCourseKey = 'graphics';
+}
+
+const currentCourseData = coursesData[currentCourseKey];
+const lectures = currentCourseData.lectures;
+
+if (targetLectureIndex >= lectures.length || targetLectureIndex < 0) {
+    targetLectureIndex = 0;
+}
+
+let currentLecture = targetLectureIndex;
+
+function buildPlaylist() {
+    document.getElementById("courseNavTitle").innerText = currentCourseData.name;
+    document.getElementById("totalLecturesText").innerText = `${lectures.length} Lectures`;
+
+    const playlistContainer = document.getElementById("playlist");
+    playlistContainer.innerHTML = "";
+
+    lectures.forEach((lecture, index) => {
+        const button = document.createElement("button");
+        button.id = `btn-lec-${index}`;
+        button.className = `lecture-btn w-full text-left p-4 border-b hover:bg-blue-50 transition-colors ${index === currentLecture ? 'bg-blue-100 font-semibold' : ''}`;
+        button.innerText = `Lecture ${index + 1}: ${lecture.title}`;
+        button.onclick = () => loadLecture(index);
+        playlistContainer.appendChild(button);
+    });
+}
+
+function loadLecture(index){
+    document.getElementById(`btn-lec-${currentLecture}`)?.classList.remove('bg-blue-100', 'font-semibold');
+    currentLecture = index;
+    document.getElementById(`btn-lec-${currentLecture}`)?.classList.add('bg-blue-100', 'font-semibold');
+
+    document.getElementById("lectureTitle").innerText = lectures[index].title;
+    document.getElementById("videoPlayer").src = lectures[index].video;
+    document.getElementById("savedNotesContainer").classList.add("hidden");
+}
+
+// Naya Code: Previous Lecture ka function jo peeche wali video load kry ga
+function prevLecture(){
+    if(currentLecture > 0){
+        loadLecture(currentLecture - 1);
+    }
+}
+
+function nextLecture(){
+    if(currentLecture < lectures.length - 1){
+        loadLecture(currentLecture + 1);
+    }
+}
+
+function generateNotes(){
+    const lectureId = lectures[currentLecture].id;
+    alert("Notes Generated Successfully For Lecture ID: " + lectureId);
+    document.getElementById("savedNotesContainer").classList.remove("hidden");
+    localStorage.setItem("savedNotesLecture", lectureId);
+}
+  
+function openSavedNotes(){
+    const lectureId = localStorage.getItem("savedNotesLecture");
+    alert("Opening Saved Notes For Lecture ID: " + lectureId);
+}
+
+function generateMCQs(){
+    const lectureId = lectures[currentLecture].id;
+    alert("Generate MCQs API Called For Lecture ID: " + lectureId);
+}
+
+buildPlaylist();
+loadLecture(currentLecture);
+
+</script>
+
+</body>
+</html>
