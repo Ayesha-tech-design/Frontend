@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmartEduX | Teacher Profile</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- NAVBAR -->
+<nav class="bg-[#0b2149] shadow px-4 py-2 flex justify-between items-center text-white">
+  <h1 class="text-lg font-bold">SmartEduX</h1>
+  <div class="flex items-center gap-4 relative">
+    <button onclick="window.location.href='teacher dashboard.html'" class="bg-blue-600 px-2 py-1 rounded text-xs hover:bg-blue-700 transition">
+      Dashboard
+    </button>
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-8 h-8 rounded-full border cursor-pointer">
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-4 mt-4">
+
+  <!-- Profile Card -->
+  <div class="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row gap-6 items-center">
+    
+    <!-- Profile Photo -->
+    <div class="text-center">
+      <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+           class="w-32 h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto">
+      <label class="block mt-2 text-sm text-blue-600 cursor-pointer hover:underline">
+        Change Photo
+        <input type="file" accept="image/*" hidden onchange="changeImage(event)">
+      </label>
+    </div>
+
+    <!-- Name & Email -->
+    <div class="flex-1">
+      <h2 class="text-xl font-bold" id="teacherName">Teacher Name</h2>
+      <p class="text-gray-500" id="teacherEmail">teacher@example.com</p>
+      <p class="text-gray-500 mt-1" id="teacherDept">Department: Computer Science</p>
+    </div>
+  </div>
+
+  <!-- Profile Form -->
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+    <input class="border p-2 rounded" placeholder="Full Name">
+    <input class="border p-2 rounded" placeholder="Email">
+    <input class="border p-2 rounded" placeholder="Department">
+    <input class="border p-2 rounded" placeholder="Phone">
+  </form>
+
+  <!-- Security Section -->
+  <div class="mt-6 bg-white p-4 rounded shadow">
+    <h3 class="text-lg font-semibold mb-3">Security Settings</h3>
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="password" class="border p-2 rounded" placeholder="Current Password">
+      <input type="password" class="border p-2 rounded" placeholder="New Password">
+      <input type="password" class="border p-2 rounded col-span-2" placeholder="Confirm New Password">
+      <button type="button" class="col-span-2 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">
+        Change Password
+      </button>
+      <button type="button" class="col-span-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+        Update Profile
+      </button>
+    </form>
+  </div>
+
+  <!-- Last Login Info -->
+  <div class="mt-4 bg-gray-50 p-3 rounded text-gray-600 text-sm">
+    Last Login: 10 Jan 2026 • Chrome • Pakistan
+    <button class="ml-4 text-blue-600 hover:underline" onclick="logout()">Logout from all devices</button>
+  </div>
+
+</main>
+
+<script>
+// Profile Image Preview
+function changeImage(event){
+  const reader = new FileReader();
+  reader.onload = function(){
+    document.getElementById('profileImg').src = reader.result;
+  }
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+// Logout
+function logout(){
+  alert("Logged out successfully");
+}
+</script>
+
+</body>
+</html>
