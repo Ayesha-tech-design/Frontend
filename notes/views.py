@@ -186,3 +186,64 @@ def login_user(request):
         return Response({"status": "failed", "error": "Invalid credentials"}, status=401)
     except Exception as err:
         return Response({"status": "failed", "error": str(err)}, status=500)
+    # =====================================================================
+# HISTORY MANAGEMENT MODULE (Ayesha's Dashboard Storage & Fetch)
+# =====================================================================
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Yeh check karega ke valid JWT token header mein hai ya nahi
+def save_history(request):
+    try:
+        # Django REST framework ke mutabik request.data use kiya hai form/JSON body ke liye
+        title = request.data.get('video_title')
+        url = request.data.get('video_url')
+        transcript_text = request.data.get('transcript')
+        summary_text = request.data.get('summary')
+        
+        if not title or not url:
+            return Response({"status": "failed", "error": "Video title and URL are required"}, status=400)
+
+        # Database object lock karna current authorized user ke sath
+        history_item = VideoNote.objects.create(
+            user=request.user,  # Custom profile/user request se automatic fetch ho jayega
+            video_title=title,
+            video_url=url,
+            transcript=transcript_text,
+            summary=summary_text
+        )
+        
+        print(f"\n[SMARTEDUX STORAGE LOG]: New history node successfully synced for: {request.user.username}")
+        return Response({"status": "success", "message": "History saved successfully!"}, status=201)
+        
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_history(request):
+    try:
+        # Sirf current request.user ka data reverse chronological order (-created_at) mein filter karna
+        user_history = VideoNote.objects.filter(user=request.user).order_by('-created_at')
+        
+        # Data objects ko automatic array/list format mein convert karna frontend response ke liye
+        history_list = []
+        for item in user_history:
+            history_list.append({
+                "id": item.id,
+                "video_title": item.video_title,
+                "video_url": item.video_url,
+                "summary": item.summary,
+                "created_at": item.created_at.strftime("%Y-%m-%d %H:%M")
+            })
+            
+        return Response({
+            "status": "success",
+            "total_records": len(history_list),
+            "history": history_list
+        }, status=200)
+        
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
