@@ -4,8 +4,9 @@ import re
 import yt_dlp
 from django.shortcuts import render
 from django.conf import settings
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes # <-- Permission decorator yahan shamil kar diya
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated # <-- IsAuthenticated ko bhi file ke shuru mein le aaye
 from youtube_transcript_api import YouTubeTranscriptApi
 from google import genai
 from .models import VideoNote
@@ -38,6 +39,7 @@ def local_summary_generator(text):
 # MAIN API ENDPOINT (Notes & Quiz Generation - FIXED FOR LIVE LINKS)
 # =====================================================================
 @api_view(['POST'])
+@permission_classes([IsAuthenticated]) # 1️⃣ Check lag gaya ke naye notes sirf logged-in user bana sake
 def generate_notes(request):
     try:
         # 1. Live Input Extraction from Frontend
@@ -122,6 +124,7 @@ def generate_notes(request):
 
         # 6. Database Entry Lock (Unique entry save karna)
         VideoNote.objects.create(
+            user=request.user,     # 2️⃣ Ab yeh note automatic us user ki profile se link ho jayega
             video_title=video_id,  # Locking Identity
             video_url=youtube_url,
             transcript=raw_text,
@@ -186,17 +189,16 @@ def login_user(request):
         return Response({"status": "failed", "error": "Invalid credentials"}, status=401)
     except Exception as err:
         return Response({"status": "failed", "error": str(err)}, status=500)
-    # =====================================================================
+
+
+# =====================================================================
 # HISTORY MANAGEMENT MODULE (Ayesha's Dashboard Storage & Fetch)
 # =====================================================================
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])  # Yeh check karega ke valid JWT token header mein hai ya nahi
+@permission_classes([IsAuthenticated])  
 def save_history(request):
     try:
-        # Django REST framework ke mutabik request.data use kiya hai form/JSON body ke liye
         title = request.data.get('video_title')
         url = request.data.get('video_url')
         transcript_text = request.data.get('transcript')
@@ -205,9 +207,8 @@ def save_history(request):
         if not title or not url:
             return Response({"status": "failed", "error": "Video title and URL are required"}, status=400)
 
-        # Database object lock karna current authorized user ke sath
         history_item = VideoNote.objects.create(
-            user=request.user,  # Custom profile/user request se automatic fetch ho jayega
+            user=request.user,  
             video_title=title,
             video_url=url,
             transcript=transcript_text,
@@ -225,10 +226,8 @@ def save_history(request):
 @permission_classes([IsAuthenticated])
 def fetch_history(request):
     try:
-        # Sirf current request.user ka data reverse chronological order (-created_at) mein filter karna
         user_history = VideoNote.objects.filter(user=request.user).order_by('-created_at')
         
-        # Data objects ko automatic array/list format mein convert karna frontend response ke liye
         history_list = []
         for item in user_history:
             history_list.append({
