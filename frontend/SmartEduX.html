@@ -21,12 +21,15 @@
 
     /* NAV */
     nav a { transition: color .18s ease; }
-    nav a:hover { color: var(--primary) !important; }
-
+    nav a:not(.nav-btn):hover { 
+  color: var(--primary) !important; 
+}
    .logo-mark {
   width: 115px;
   height: 115px;
+  margin-right: -18px;
 }
+
 
 @media (min-width: 768px) {
   .logo-mark {
@@ -34,8 +37,6 @@
     height: 125px;
   }
 }
-
-   
 
     /* HERO */
     .hero {
@@ -213,39 +214,35 @@ button, a {
   -webkit-tap-highlight-color: transparent;
 }
 /* ===== MOBILE COMPACT NAVBAR ===== */
-@media (max-width: 640px) {
 
-  nav {
-    height: 52px;
+
+ 
+
+.logo-mark {
+  width: 115px;
+  height: 115px;
+}
+
+nav span.text-\[26px\] {
+  font-size: 26px !important;
+}
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
   }
 
-  nav .h-16 {
-    height: 52px !important;
+  nav span.text-\[26px\] {
+    font-size: 32px !important;
   }
-
-  nav .logo-mark {
-    width: 30px;
-    height: 30px;
-  }
-
-  nav span.text-xl,
-  nav span.text-2xl {
-    font-size: 1rem !important;
-  }
-
-  nav a {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-  }
-
-  #menu-toggle {
-    padding: 0.25rem;
-  }
-
-  #menu-toggle svg {
-    width: 20px;
-    height: 20px;
-  }
+  .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
 }
 
   </style>
@@ -256,13 +253,20 @@ button, a {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
-        <div class="flex items-center gap-2 md:gap-3">
-          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
-            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-          </a>
-        </div>
+       <div class="flex items-center gap-0">
+  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
 
+    <img 
+      src="Futuristic tech logo design.png" 
+      alt="SmartEduX Logo" 
+      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+    >
+   <span class="logo-text text-[26px] md:text-[32px]">
+  SmartEduX
+</span>
+
+  </a>
+</div>
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -276,10 +280,17 @@ button, a {
           </div>
         </div>
 
-        <div class="hidden lg:flex items-center gap-3 ml-4">
-          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
-          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-        </div>
+      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+  <a href="login.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+    Login
+  </a>
+
+  <a href="signup.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+    Signup
+  </a>
+</div>
 
         <div class="xl:hidden flex items-center">
           <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
