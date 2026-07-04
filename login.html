@@ -8,6 +8,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /*nav*/
+
+
+nav a { 
+  transition: color .18s ease; 
+}
+
+nav a:not(.nav-btn):hover { 
+  color: var(--primary) !important; 
+
+}
+:root{
+  --primary: #0b2149;
+}
     /* INPUT */
     .input-style{
       width:100%;
@@ -23,11 +37,19 @@
       box-shadow:0 0 0 4px rgba(11,33,73,.15);
     }
 
-    /* ✅ FIXED LOGO (IMPORTANT) */
-    .logo-mark{
-      height:32px;
-      width:auto;
-    }
+.logo-mark {
+  width: 115px;
+  height: 115px;
+  margin-right: -18px;
+}
+
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
+  }
+}
 
     @media (min-width:768px){
       .logo-mark{ height:40px; }
@@ -49,81 +71,156 @@
       0%,100%{transform:translateY(0)}
       50%{transform:translateY(-15px)}
     }
+    .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
+  }
+
+  nav span.text-\[26px\] {
+    font-size: 32px !important;
+  }
+}
+
   </style>
 </head>
 
 <body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
+<!-- NAVBAR -->
 <nav class="bg-white shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="flex items-center justify-between h-14 md:h-16">
-      <a href="#" class="flex items-center gap-2">
-        <img src="Futuristic tech logo design.png" class="logo-mark">
-        <span class="text-lg md:text-xl font-bold text-[#0b2149]">SmartEduX</span>
-      </a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+       <div class="flex items-center gap-0">
+  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
 
-      <div class="hidden md:flex gap-6">
-        <a href="#">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Features</a>
-        <a href="#">Contact</a>
+    <img 
+      src="Futuristic tech logo design.png" 
+      alt="SmartEduX Logo" 
+      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+    >
+   <span class="logo-text text-[26px] md:text-[32px]">
+  SmartEduX
+</span>
+
+       </a>
+</div>
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+        </div>
+
+       <div class="hidden md:flex items-center gap-3 ml-4">
+         <a href="login.html"
+class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 hover:text-[var(--primary)] transition duration-200">
+  Login
+</a>
+        <a href="signup.html"
+class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] hover:text-white transition duration-200 shadow-md">
+  Signup
+</a>
+        </div>
+
+   <div class="xl:hidden flex items-center">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
 
-      <div class="hidden md:flex gap-2">
-        <a href="#" class="px-4 py-2 border rounded text-[#0b2149]">Login</a>
-        <a href="#" class="px-4 py-2 bg-[#0b2149] text-white rounded">Signup</a>
+      <div id="mobile-menu" class="xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+          
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          </div>
+        </div>
       </div>
-
-      <button id="menu-btn" class="md:hidden text-2xl">☰</button>
     </div>
-
-    <div id="menu" class="hidden md:hidden py-3 space-y-2">
-      <a href="#" class="block">Home</a>
-      <a href="#" class="block">Courses</a>
-      <a href="#" class="block">Features</a>
-      <a href="#" class="block">Contact</a>
-    </div>
-  </div>
-</nav>
-
+  </nav>
+<!-- MAIN (CENTERED) -->
 <main class="flex-grow flex items-center justify-center px-4 py-10">
+
+  <!-- SAME SIZE KEEP -->
   <div class="bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2 max-w-4xl w-full">
+
+    <!-- LEFT -->
     <div class="relative hidden md:flex bg-[#07122a] text-white p-10 overflow-hidden">
       <div class="z-10">
-        <h2 class="text-3xl font-bold mb-3">Welcome Back 👋</h2>
+        <h2 class="text-3xl font-bold mb-3">Welcome Back </h2>
         <p class="text-blue-200 text-sm">
           Login to continue your smart learning journey.
         </p>
       </div>
+
       <span class="bubble b1"></span>
       <span class="bubble b2"></span>
       <span class="bubble b3"></span>
     </div>
 
+    <!-- RIGHT FORM -->
     <div class="p-8 sm:p-10">
       <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
         Login to SmartEduX
       </h1>
+
       <p class="text-center text-gray-600 text-sm mb-8">
         Enter your credentials
       </p>
 
-      <form id="loginForm" class="space-y-5">
-        <input type="email" id="emailInput" placeholder="Email Address" class="input-style" required>
+      <form class="space-y-5">
+
+        <input type="email" placeholder="Email Address"
+               class="input-style" required>
 
         <div class="relative">
-          <input type="password" id="password" placeholder="Password" class="input-style pr-12" required>
-          <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2">
+          <input type="password" id="password"
+                 placeholder="Password"
+                 class="input-style pr-12" required>
+
+          <button type="button"
+                  onclick="togglePassword()"
+                  class="absolute right-4 top-1/2 -translate-y-1/2">
             👁
           </button>
         </div>
 
-        <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
+        <button class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
           Login
         </button>
+
       </form>
     </div>
+
   </div>
+
 </main>
 
 <script>
@@ -136,8 +233,6 @@ function togglePassword(){
   input.type = input.type === "password" ? "text" : "password";
 }
 </script>
-
-<script src="auth.js"></script>
 
 </body>
 </html>

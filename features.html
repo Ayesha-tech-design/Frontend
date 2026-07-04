@@ -20,19 +20,33 @@
              background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%); color: #0f172a; overflow-x: hidden; 
              -webkit-font-smoothing: antialiased; } 
              /* NAV */
-              nav a { transition: color .18s ease; } 
-              nav a:hover { color: var(--primary) !important; } 
+              nav a { 
+  transition: color .18s ease; 
+}
+
+nav a:not(.nav-btn):hover { 
+  color: var(--primary) !important; 
+
+}
               /* Logo Sizing */ 
                .logo-mark {
   width: 115px;
   height: 115px;
 }
 
+
 @media (min-width: 768px) {
   .logo-mark {
     width: 125px;
     height: 125px;
   }
+  .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
 }
 
                body { font-family: 'Roboto', sans-serif; } 
@@ -54,12 +68,20 @@
         <nav class="bg-white shadow sticky top-0 z-50"> 
          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-              <div class="flex items-center gap-2 md:gap-3">
-                  <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
-            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-          </a>
-          </div>
+              <div class="flex items-center gap-0">
+  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+
+    <img 
+      src="Futuristic tech logo design.png" 
+      alt="SmartEduX Logo" 
+      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+    >
+
+    <span class="logo-text text-[26px] md:text-[32px]">
+  SmartEduX
+</span>
+  </a>
+</div>
           <div class="hidden xl:flex items-center space-x-6"> 
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -71,9 +93,15 @@
           </div>
          </div>
           <div class="hidden md:flex items-center gap-3 ml-4">
-          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a> 
-          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-         </div>
+        <a href="login.html"
+class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 hover:text-[var(--primary)] transition duration-200">
+  Login
+</a>
+        <a href="signup.html"
+class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] hover:text-white transition duration-200 shadow-md">
+  Signup
+</a>
+        </div>
          <div class="xl:hidden flex items-center"> 
           <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

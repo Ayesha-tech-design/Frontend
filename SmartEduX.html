@@ -21,12 +21,15 @@
 
     /* NAV */
     nav a { transition: color .18s ease; }
-    nav a:hover { color: var(--primary) !important; }
-
+    nav a:not(.nav-btn):hover { 
+  color: var(--primary) !important; 
+}
    .logo-mark {
   width: 115px;
   height: 115px;
+  margin-right: -18px;
 }
+
 
 @media (min-width: 768px) {
   .logo-mark {
@@ -34,8 +37,6 @@
     height: 125px;
   }
 }
-
-   
 
     /* HERO */
     .hero {
@@ -213,39 +214,35 @@ button, a {
   -webkit-tap-highlight-color: transparent;
 }
 /* ===== MOBILE COMPACT NAVBAR ===== */
-@media (max-width: 640px) {
 
-  nav {
-    height: 52px;
+
+ 
+
+.logo-mark {
+  width: 115px;
+  height: 115px;
+}
+
+nav span.text-\[26px\] {
+  font-size: 26px !important;
+}
+
+@media (min-width: 768px) {
+  .logo-mark {
+    width: 125px;
+    height: 125px;
   }
 
-  nav .h-16 {
-    height: 52px !important;
+  nav span.text-\[26px\] {
+    font-size: 32px !important;
   }
-
-  nav .logo-mark {
-    width: 30px;
-    height: 30px;
-  }
-
-  nav span.text-xl,
-  nav span.text-2xl {
-    font-size: 1rem !important;
-  }
-
-  nav a {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-  }
-
-  #menu-toggle {
-    padding: 0.25rem;
-  }
-
-  #menu-toggle svg {
-    width: 20px;
-    height: 20px;
-  }
+  .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
 }
 
   </style>
@@ -256,13 +253,20 @@ button, a {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
-        <div class="flex items-center gap-2 md:gap-3">
-          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
-            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-          </a>
-        </div>
+       <div class="flex items-center gap-0">
+  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
 
+    <img 
+      src="Futuristic tech logo design.png" 
+      alt="SmartEduX Logo" 
+      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+    >
+   <span class="logo-text text-[26px] md:text-[32px]">
+  SmartEduX
+</span>
+
+  </a>
+</div>
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -276,10 +280,17 @@ button, a {
           </div>
         </div>
 
-        <div class="hidden lg:flex items-center gap-3 ml-4">
-          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
-          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-        </div>
+      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+  <a href="login.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+    Login
+  </a>
+
+  <a href="signup.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+    Signup
+  </a>
+</div>
 
         <div class="xl:hidden flex items-center">
           <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
@@ -305,7 +316,7 @@ button, a {
             <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
             <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   </nav>
@@ -322,8 +333,8 @@ button, a {
         Revolutionize Learning <br class="hidden sm:block"/> with AI
       </h1>
       <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 text-gray-100 leading-relaxed">
-  Convert lecture videos into smart notes, generate MCQs, and learn from premium courses, expert teachers. Faster and smarter.
-</p>
+        Convert lecture videos into smart notes, generate MCQs, and learn from curated courses and expert teachers — faster and smarter.
+      </p>
 
       <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none">
        <a href="javascript:void(0)" onclick="showLoginModal()" class="btn-white w-full sm:w-auto">
@@ -334,119 +345,138 @@ button, a {
     </div>
   </header>
 
-  <section id="features" class="py-12 bg-white border-t border-b border-gray-100">
+  <section id="features" class="py-16 md:py-24 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl font-extrabold text-[#0b2149] tracking-tight">Explore Our Features</h2>
-        <p class="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto mt-2 leading-relaxed">
-          Powerful tools integrated into one seamless platform to boost your productivity.
-        </p>
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--primary)] text-center mb-4">Explore Our Features</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Powerful tools integrated into one seamless platform to boost your productivity.</p>
+
+      <div class="hidden md:block features-viewport relative">
+        <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
+        
+        <div class="features-track">
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Video Summarizer">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AI Summarizer</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Paste a lecture link, get time-stamped keypoints and summaries.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AutoNotes</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">AI-generated bullet notes and study guides ready for revision.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Auto-create practice questions with instant feedback.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1612831661881-dd08451593ae?w=500&auto=format&fit=crop&q=60" alt="Teacher Playlists">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">Playlists</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Organize lessons and share curated playlists with students.</p>
+            </div>
+          </div>
+           <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Video Summarizer">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AI Summarizer</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Paste a lecture link, get time-stamped keypoints and summaries.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">AutoNotes</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">AI-generated bullet notes and study guides ready for revision.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5 flex-grow">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Auto-create practice questions with instant feedback.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card 1: MCQ Generator -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full transition duration-300 hover:shadow-md hover:-translate-y-1 transform">
-          <div class="h-44 w-full overflow-hidden bg-slate-100">
-            <img src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator" class="w-full h-full object-cover object-center animate-fade-in" onerror="this.src='https://placehold.co/600x440/0b2149/ffffff?text=MCQ+Generator'">
-          </div>
-          <div class="p-5 flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-[#0b2149]">MCQ Generator</h3>
-              <p class="text-xs text-gray-500 mt-2 leading-relaxed">Auto-create practice questions with instant feedback.</p>
-            </div>
+      <div class="md:hidden space-y-6">
+        <div class="card w-full max-w-sm mx-auto">
+          <img class="card-img" src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=500&auto=format&fit=crop&q=60" alt="AI Summarizer">
+          <div class="p-5">
+            <h3 class="font-bold text-lg mb-1 text-gray-800">AI Video Summarizer</h3>
+            <p class="text-sm text-gray-600">Paste a lecture link, get time-stamped keypoints and summaries.</p>
           </div>
         </div>
-
-        <!-- Card 2: Playlists -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full transition duration-300 hover:shadow-md hover:-translate-y-1 transform">
-          <div class="h-44 w-full overflow-hidden bg-slate-100">
-            <img src="https://images.unsplash.com/photo-1612831661881-dd08451593ae?w=500&auto=format&fit=crop&q=60" alt="Playlists" class="w-full h-full object-cover object-center animate-fade-in" onerror="this.src='https://placehold.co/600x440/0b2149/ffffff?text=Playlists'">
-          </div>
-          <div class="p-5 flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-[#0b2149]">Playlists</h3>
-              <p class="text-xs text-gray-500 mt-2 leading-relaxed">Organize lessons and share curated playlists with students.</p>
-            </div>
+        <div class="card w-full max-w-sm mx-auto">
+          <img class="card-img" src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes">
+          <div class="p-5">
+            <h3 class="font-bold text-lg mb-1 text-gray-800">AutoNotes</h3>
+            <p class="text-sm text-gray-600">AI-generated bullet notes and study guides ready for revision.</p>
           </div>
         </div>
-
-        <!-- Card 3: Verified Certificates -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full transition duration-300 hover:shadow-md hover:-translate-y-1 transform">
-          <!-- HEIGHT LOCKED CONTAINER FOR THE CERTIFICATE IMAGE TO FORCE ALIGNMENT -->
-          <div class="h-44 w-full overflow-hidden bg-slate-100">
-            <img src="SmartEduX.png" alt="Verified Certificates" class="w-full h-full object-cover object-center animate-fade-in" onerror="this.src='https://placehold.co/600x440/0b2149/ffffff?text=Verified+Certificates'">
-          </div>
-          <div class="p-5 flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-[#0b2149]">Verified Certificates</h3>
-              <p class="text-xs text-gray-500 mt-2 leading-relaxed">Get industry-recognized certificates upon successfully completing your courses.</p>
+        <div class="card w-full max-w-sm mx-auto">
+            <img class="card-img" src="https://images.unsplash.com/photo-1735825764457-ffdf0b5aa5dd?w=500&auto=format&fit=crop&q=60" alt="MCQ Generator">
+            <div class="p-5">
+              <h3 class="font-bold text-lg mb-1 text-gray-800">MCQ Generator</h3>
+              <p class="text-sm text-gray-600">Auto-create practice questions with instant feedback.</p>
             </div>
           </div>
-        </div>
-
-        <!-- Card 4: AutoNotes -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full transition duration-300 hover:shadow-md hover:-translate-y-1 transform">
-          <div class="h-44 w-full overflow-hidden bg-slate-100">
-            <img src="https://images.unsplash.com/photo-1536412597336-ade7b523ecfc?w=500&auto=format&fit=crop&q=60" alt="AutoNotes" class="w-full h-full object-cover object-center animate-fade-in" onerror="this.src='https://placehold.co/600x440/0b2149/ffffff?text=AutoNotes'">
-          </div>
-          <div class="p-5 flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-[#0b2149]">AutoNotes</h3>
-              <p class="text-xs text-gray-500 mt-2 leading-relaxed">AI-generated bullet notes and study guides ready for revision.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-
-
-  <!-- COURSES SECTION (Background matches the "Learn faster" transparent gradient above) -->
-  <section id="courses" class="py-16 md:py-24 text-[#0b2149]">
+  <section id="courses" class="py-16 md:py-24 bg-[var(--primary)] text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-[#0b2149]">Our Available Courses</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">Our Available Courses</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Graphics Course Card -->
-        <article class="course-card w-full max-w-md mx-auto sm:max-w-none shadow-md border border-gray-100 flex flex-col rounded-xl overflow-hidden" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80" alt="Graphics Designing" class="card-img h-48 w-full object-cover" onerror="this.src='https://placehold.co/600x480/0b2149/ffffff?text=Design+Course'">
-          <div class="p-5 bg-white flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="text-[#0b2149] font-bold text-lg">Graphics Designing Course</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Learn Photoshop, Illustrator and modern design skills for social media and branding.</p>
-            </div>
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="design.jpg" alt="Graphics Designing" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+            <h3 class="text-[var(--primary)] font-bold text-lg">Graphics Designing Course</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed"> Learn Photoshop, Illustrator and modern design skills for social media and branding.
+            </p>
             <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
-              <a href="graphics.html" class="hover:underline flex items-center gap-1">Master Creative Design Skills <span>&rarr;</span></a>
-            </div>
+  <a href="graphics.html" class="hover:underline">Master Creative Design Skills</a>
+</div>
           </div>
         </article>
 
-        <!-- WordPress Course Card -->
-        <article class="course-card w-full max-w-md mx-auto sm:max-w-none shadow-md border border-gray-100 flex flex-col rounded-xl overflow-hidden" tabindex="0">
-          <img src="wordpress.jpg" alt="Wordpress Web Development" class="card-img h-48 w-full object-cover" onerror="this.src='https://placehold.co/600x480/0b2149/ffffff?text=WordPress+Course'">
-          <div class="p-5 bg-white flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="text-[#0b2149] font-bold text-lg">WordPress Web Development</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Build complete websites using WordPress, themes, plugins and hosting setup.</p>
-            </div>
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="wordpress.jpg" alt="Wordpress Web Development" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+           <h3 class="text-[var(--primary)] font-bold text-lg">
+  WordPress Web Development
+</h3>
+<p class="text-sm text-gray-600 mt-2 leading-relaxed">
+  Build complete websites using WordPress, themes, plugins and hosting setup.
+</p>
             <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
-              <a href="wordpress.html" class="hover:underline flex items-center gap-1">Build Professional Websites <span>&rarr;</span></a>
-            </div>
+  <a href="wordpress.html"  class="hover:underline">Build Professional Websites</a>
+</div>
           </div>
         </article>
 
-        <!-- Fiverr Course Card -->
-        <article class="course-card w-full max-w-md mx-auto sm:max-w-none shadow-md border border-gray-100 flex flex-col rounded-xl overflow-hidden" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Fiverr Freelancing" class="card-img h-48 w-full object-cover" onerror="this.src='https://placehold.co/600x480/0b2149/ffffff?text=Fiverr+Freelancing'">
-          <div class="p-5 bg-white flex-grow flex flex-col justify-between">
-            <div>
-              <h3 class="text-[#0b2149] font-bold text-lg">Fiverr Freelancing Course</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Learn how to create gigs, attract clients and earn online through Fiverr freelancing.</p>
-            </div>
-            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
-              <a href="fiverr.html" class="hover:underline flex items-center gap-1">Earn Online with Freelancing <span>&rarr;</span></a>
-            </div>
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="virtual-assistant-on-fivver.png" alt="Fiverr Frelancing" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+            <h3 class="text-[var(--primary)] font-bold text-lg">
+  Fiverr Freelancing Course
+</h3>
+<p class="text-sm text-gray-600 mt-2 leading-relaxed">
+  Learn how to create gigs, attract clients and earn online through Fiverr freelancing.
+</p>
+           <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+  <a href="fiverr.html"   class="hover:underline">Earn Online with Freelancing</a>
+</div>
           </div>
         </article>
       </div>
@@ -470,31 +500,31 @@ button, a {
     <main class="mt-8">
     <section class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center py-12">
       <div class="space-y-6">
-  <p class="inline-block px-3 py-1 bg-blue-50 text-blue-900 rounded-full text-sm font-semibold animate-pulse">AI-Powered • Smart Learning</p>
-  <h1 class="text-4xl md:text-5xl font-extrabold leading-tight accent">Learn faster with AI summaries & organized courses</h1>
-  <p class="text-gray-600 text-lg">SmartEduX converts video lectures into short study materials, key points, and MCQs, so students revise smarter, not longer.</p>
+        <p class="inline-block px-3 py-1 bg-blue-50 text-blue-900 rounded-full text-sm font-semibold animate-pulse">AI-Powered • Smart Learning</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight accent">Learn faster with AI summaries & organized courses</h1>
+        <p class="text-gray-600 text-lg">SmartEduX converts long lecture videos into crisp summaries, key points and MCQs — so students revise smarter, not longer.</p>
 
-  <div class="flex flex-wrap gap-4 mt-4">
-    <a href="autonotes.html" class="inline-block px-6 py-3 rounded-lg bg-blue-900 text-white shadow hover:scale-105 transform transition">Try AutoNotes</a>
-    <a href="courses.html" class="inline-block px-6 py-3 rounded-lg border border-blue-900 text-blue-900 hover:bg-blue-50 transition">Browse Courses</a>
-  </div>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <a href="autonotes.html" class="inline-block px-6 py-3 rounded-lg bg-blue-900 text-white shadow hover:scale-105 transform transition">Try AutoNotes</a>
+          <a href="courses.html" class="inline-block px-6 py-3 rounded-lg border border-blue-900 text-blue-900 hover:bg-blue-50 transition">Browse Courses</a>
+        </div>
 
-  <!-- Trust Stats (Updated Values) -->
-  <div class="mt-6 grid grid-cols-3 gap-4">
-    <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
-      <p class="text-2xl font-bold text-blue-900">4</p>
-      <p class="text-sm text-gray-500">Courses</p>
-    </div>
-    <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
-      <p class="text-2xl font-bold text-blue-900">50</p>
-      <p class="text-sm text-gray-500">Notes Generated</p>
-    </div>
-    <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
-      <p class="text-2xl font-bold text-blue-900">10</p>
-      <p class="text-sm text-gray-500">Active Students</p>
-    </div>
-  </div>
-</div>
+        <!-- Trust Stats -->
+        <div class="mt-6 grid grid-cols-3 gap-4">
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">120+</p>
+            <p class="text-sm text-gray-500">Courses</p>
+          </div>
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">3K+</p>
+            <p class="text-sm text-gray-500">Notes Generated</p>
+          </div>
+          <div class="p-4 bg-white border rounded-lg text-center shadow-sm">
+            <p class="text-2xl font-bold text-blue-900">1.5K</p>
+            <p class="text-sm text-gray-500">Active Students</p>
+          </div>
+        </div>
+      </div>
 
       <div class="relative">
         <div class="rounded-2xl bg-gradient-to-br from-blue-50 to-white p-6 shadow-xl transform -rotate-2 hover:rotate-0 transition">
@@ -519,61 +549,51 @@ button, a {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         
         <div class="space-y-4">
-  <div class="acc-item" id="faq-1">
-    <div class="acc-header" onclick="toggleFaq('faq-1')">
-      <div>
-        <div class="acc-title">How does the Video Summarizer work?</div>
-        <div class="acc-sub">AI speech-to-text integration.</div>
-      </div>
-      <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-    <div class="acc-body">SmartEduX takes video/lecture links, processes the audio through AI, and extracts time-stamped summaries, headings, and core details automatically.</div>
-  </div>
+          <div class="acc-item" id="faq-1">
+            <div class="acc-header" onclick="toggleFaq('faq-1')">
+              <div>
+                <div class="acc-title">How does the Video Summarizer work?</div>
+                <div class="acc-sub">Speech-to-text AI technology.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">We transcribe audio, detect slide headings and timestamps, extract key concepts and convert them into structured, exam-friendly notes.</div>
+          </div>
 
-  <div class="acc-item" id="faq-2">
-    <div class="acc-header" onclick="toggleFaq('faq-2')">
-      <div>
-        <div class="acc-title">What are AutoNotes?</div>
-        <div class="acc-sub">Instant study guides for quick revision.</div>
-      </div>
-      <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-    <div class="acc-body">AutoNotes are structured, bullet-point study guides generated instantly from lectures, allowing students to skip manual writing and focus entirely on reading.</div>
-  </div>
+          <div class="acc-item" id="faq-2">
+            <div class="acc-header" onclick="toggleFaq('faq-2')">
+              <div>
+                <div class="acc-title">Is it personalized?</div>
+                <div class="acc-sub">Adaptive suggestions based on you.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">By tracking quiz results and question performance, SmartEduX recommends focused modules and practice sets tailored to your weak areas.</div>
+          </div>
 
-  <div class="acc-item" id="faq-3">
-    <div class="acc-header" onclick="toggleFaq('faq-3')">
-      <div>
-        <div class="acc-title">How do MCQs help in exam preparation?</div>
-        <div class="acc-sub">Self-assessment and feedback.</div>
-      </div>
-      <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-    <div class="acc-body">The built-in MCQ Generator automatically creates relevant practice questions based on your study topics, helping you test your concepts with instant results.</div>
-  </div>
+          <div class="acc-item" id="faq-3">
+            <div class="acc-header" onclick="toggleFaq('faq-3')">
+              <div>
+                <div class="acc-title">Better than standard E-learning?</div>
+                <div class="acc-sub">Active recall vs Passive watching.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">Most platforms just give you videos. We give you the tools to actually retain the information: instant notes and self-testing.</div>
+          </div>
 
-  <div class="acc-item" id="faq-4">
-    <div class="acc-header" onclick="toggleFaq('faq-4')">
-      <div>
-        <div class="acc-title">Can teachers use this platform?</div>
-        <div class="acc-sub">Curated playlists and student management.</div>
-      </div>
-      <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-    <div class="acc-body">Yes! Instructors can create video playlists, manage learning materials, track performance analytics, and share resources easily with their students.</div>
-  </div>
+          <div class="acc-item" id="faq-4">
+            <div class="acc-header" onclick="toggleFaq('faq-4')">
+              <div>
+                <div class="acc-title">How do MCQs improve retention?</div>
+                <div class="acc-sub">Spaced practice + instant feedback.</div>
+              </div>
+              <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="acc-body">Regular low-stakes quizzes help identify gaps, increase recall through spaced repetition and let the AI refine future practice content automatically.</div>
+          </div>
+        </div>
 
-  <div class="acc-item" id="faq-5">
-    <div class="acc-header" onclick="toggleFaq('faq-5')">
-      <div>
-        <div class="acc-title">Do I get certificates for completing courses?</div>
-        <div class="acc-sub">Industry-relevant course verification.</div>
-      </div>
-      <svg class="acc-icon w-5 h-5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </div>
-    <div class="acc-body">Absolutely! Once you complete any of our specialized courses (like Freelancing or Web Development), you receive a certificate to showcase your skills.</div>
-  </div>
-</div>
         <div class="space-y-6 mt-4 lg:mt-0">
           <div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100 hover:shadow-md transition">
             <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3">
@@ -604,47 +624,44 @@ button, a {
     </div>
   </section>
 
-  <!-- FOOTER -->
-<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Main Footer Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      
-      <!-- Column 1: Brand Info -->
-      <div class="text-center md:text-left space-y-4">
-        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
-        <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
-          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
-        </p>
-        <!-- Social Text Links -->
-        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
-          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
-          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
-          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        
+        <div class="text-center md:text-left">
+          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
+            Empowering learning with AI video summarization, notes, MCQs and curated courses.
+          </p>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+          <ul class="space-y-3 text-sm text-blue-200/80">
+            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center md:text-left">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
+          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
+          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
+          <div class="mt-6 flex justify-center md:justify-start gap-4">
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
+             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
+          </div>
         </div>
       </div>
 
-      <!-- Column 2: Quick Links with Hover animations -->
-      <div class="text-center md:text-right">
-        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
-        <ul class="space-y-3 text-sm text-blue-200/80">
-          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
-          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
-          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
-          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
-        </ul>
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
       </div>
-
     </div>
-
-    <!-- Bottom Copyright Divider -->
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
-    </div>
-
-  </div>
-</footer>
+  </footer>
 <!-- LOGIN REQUIRED MODAL -->
 <div id="loginModal" class="fixed inset-0 hidden items-center justify-center z-50">
 
