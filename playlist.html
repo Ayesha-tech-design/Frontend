@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartEduX — Lecture Player Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0b2149;
+      --accent: #f59e0b;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(180deg, #f8faff 0%, #f0f4fc 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    nav a { transition: color .18s ease; }
+    nav a:hover { color: var(--primary) !important; }
+
+    .logo-mark {
+      width: 115px;
+      height: 115px;
+    }
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
+    }
+
+    /* Custom scroll for lecture sidebar list */
+    .playlist-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .playlist-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .playlist-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(11, 33, 73, 0.15);
+      border-radius: 999px;
+    }
+
+    /* Active tab style for sub-player buttons */
+    .player-tab.active {
+      border-color: #0b2149;
+      color: #0b2149;
+      background-color: #f1f5f9;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+<!-- HEADER / NAVIGATION -->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <!-- Logo Branding -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+          <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain" onerror="this.src='https://placehold.co/120x120/0b2149/ffffff?text=SmartEduX'">
+          <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="hidden xl:flex items-center space-x-6">
+        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+        <a href="Courses.html" class="text-sm font-bold text-blue-600 hover:text-[#0b2149]">Courses</a>
+        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
+        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hidden md:flex items-center gap-3 ml-4">
+        <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
+        <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="xl:hidden flex items-center">
+        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 pb-4">
+      <div class="px-4 pt-2 space-y-2">
+        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-blue-600 bg-blue-50/50">Courses</a>
+        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN LECTURE WORKSPACE -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+  
+  <!-- Dynamic Course Banner Title & Dropdown Switcher -->
+  <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="space-y-1">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase" id="course-category">Online Certification Program</span>
+      <h1 class="text-2xl sm:text-3xl font-black text-[#0b2149] tracking-tight animate-fade-in" id="course-title">Loading Dynamic Course...</h1>
+    </div>
+    <!-- Quick Course Selector Dropdown -->
+    <div class="bg-white p-2 rounded-xl border border-gray-200 flex items-center gap-2 shadow-sm">
+      <span class="text-xs font-bold text-gray-500 pl-2">Switch Course:</span>
+      <select id="course-selector" onchange="changeCourse(this.value)" class="text-xs font-bold text-blue-900 bg-gray-50 p-2 rounded-lg border-none focus:outline-none cursor-pointer">
+        <option value="graphics">Graphics Designing</option>
+        <option value="wordpress">WordPress Development</option>
+        <option value="fiverr">Fiverr Freelancing</option>
+        <option value="security">Information Security</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- LEFT SIDE: Video Player & Tabs -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <!-- Interactive Video Player Container -->
+      <div class="bg-black shadow-2xl rounded-2xl overflow-hidden aspect-video relative">
+        <iframe id="lecture-iframe" class="absolute inset-0 w-full h-full" src="" title="SmartEduX Learning Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
+      <!-- Interactive Tabs section below the player -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="flex border-b text-sm font-semibold text-gray-500 bg-gray-50">
+          <button onclick="switchPlayerTab('overview')" id="tab-overview" class="player-tab active flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Overview & Details
+          </button>
+          <button onclick="switchPlayerTab('notes')" id="tab-notes" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            AI Smart Notes ⚡
+          </button>
+          <button onclick="switchPlayerTab('mcqs')" id="tab-mcqs" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Instant MCQs
+          </button>
+        </div>
+
+        <div class="p-6">
+          <!-- Overview Tab Content -->
+          <div id="player-content-overview" class="space-y-4">
+            <h3 class="text-lg font-bold text-[#0b2149]" id="lecture-title">Lecture Title Loading...</h3>
+            <p class="text-sm text-gray-600 leading-relaxed" id="lecture-desc">
+              Get comfortable with the modern concepts explained in this dynamic lecture course. This structured guide teaches all details step-by-step.
+            </p>
+            <div class="pt-4 border-t flex flex-wrap gap-3 items-center justify-between">
+              <span class="text-xs text-gray-500 font-semibold">Ready to draft summaries or practice recall?</span>
+              <button onclick="switchPlayerTab('notes')" class="px-5 py-2.5 bg-blue-900 text-white hover:bg-blue-800 rounded-lg text-xs font-bold transition shadow-sm">
+                ⚡ View AI Notes View
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Notes Preview Content -->
+          <div id="player-content-notes" class="hidden space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">Automatic AI Highlights</span>
+              <button id="download-notes-btn" onclick="downloadLectureNotes()" class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-sm">
+                📥 Download Study Guide (.txt)
+              </button>
+            </div>
+            <div class="space-y-3" id="lecture-bullet-points">
+              <!-- Dynamically populated points -->
+            </div>
+          </div>
+
+          <!-- MCQ Practice Content -->
+          <div id="player-content-mcqs" class="hidden space-y-4">
+            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block border-b pb-2">Active Recall Assessment</span>
+            <div class="space-y-6" id="lecture-mcq-container">
+              <!-- Dynamically generated practice MCQs -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lecture Navigation Controller Bar -->
+      <div class="bg-white px-6 py-4 rounded-xl border flex items-center justify-between shadow-sm">
+        <button onclick="prevLecture()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-[#0b2149] rounded-lg text-xs font-bold transition">
+          ← Previous Lecture
+        </button>
+        <span class="text-xs font-bold text-gray-500" id="lecture-progress-text">Lec 1 of 15</span>
+        <button onclick="nextLecture()" class="px-4 py-2 bg-[#0b2149] text-white hover:brightness-110 rounded-lg text-xs font-bold transition">
+          Next Lecture →
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE: Playlist Navigation Sidebar -->
+    <div class="lg:col-span-4 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden flex flex-col h-[650px]">
+      
+      <!-- Playlist Header -->
+      <div class="p-4 bg-slate-50 border-b flex items-center justify-between">
+        <div>
+          <h3 class="font-black text-sm text-[#0b2149]">Playlist Lectures</h3>
+          <p class="text-[10px] text-gray-400 mt-0.5">Click any lecture to load immediately</p>
+        </div>
+        <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-1 rounded-full" id="playlist-count">15 Lectures</span>
+      </div>
+
+      <!-- Search Bar Inside Sidebar -->
+      <div class="p-3 bg-white border-b">
+        <input type="text" id="lecture-search" oninput="filterPlaylist(this.value)" placeholder="Search 15 lectures..." class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-xs focus:ring-1 focus:ring-blue-900 outline-none">
+      </div>
+
+      <!-- Playlist List (Scrollable viewport) -->
+      <div id="playlist-container" class="flex-grow overflow-y-auto p-3 space-y-2 playlist-scroll">
+        <!-- Dynmically loaded 15 lecture items will go here -->
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<!-- In-App Elegant Toast Notification Panel (No alert popups!) -->
+<div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold">
+  <span class="text-amber-500" id="toast-icon">⚡</span>
+  <span id="toast-message">Notification details here.</span>
+</div>
+
+<!-- FOOTER -->
+<footer class="pt-12 pb-8 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/10 pt-8 text-center">
+    <p class="text-xs text-gray-500">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile drawer toggle action
+  document.getElementById("menu-toggle").addEventListener("click", () => {
+    document.getElementById("mobile-menu").classList.toggle("hidden");
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Multi-Course Playlists Dataset Setup (Exactly 15 detailed academic lectures for each course)
+  const playlistsData = {
+    graphics: {
+      category: "Creative Arts & Design",
+      title: "Graphics Designing Course",
+      lectures: [
+        { title: "Lec 1: Fundamentals of Graphic Design & Visual Theory", duration: "12m 45s", videoId: "d5F6zS0q4V4", desc: "Learn contrast, repetition, alignment, proximity, and visual color hierarchies to kickstart your creative layouts.", points: ["Visual hierarchy separates messages", "Repetition establishes consistent patterns", "Use white space to reduce cognitive fatigue"], mcqs: [{ q: "What does visual hierarchy determine?", options: ["The order in which readers perceive information", "The file type of exported images", "The speed of design rendering"], ans: 0 }] },
+        { title: "Lec 2: Photoshop Interface, Layers & Working Artboards", duration: "15m 12s", videoId: "un50Bs4BvZ8", desc: "Understanding dynamic layer masks, adjustment channels, pen tools, and visual workspaces on Photoshop.", points: ["Adjustment layers allow non-destructive edits", "Selection paths can be fine-tuned via masks", "Layer hierarchies control overall transparency"], mcqs: [{ q: "Which tool allows non-destructive layer alterations?", options: ["Eraser Tool", "Adjustment Layer", "Brush Tool"], ans: 1 }] },
+        { title: "Lec 3: Illustrator Vectors, Paths, Anchors & Bezier Curves", duration: "18m 30s", videoId: "7K986e6Y5_M", desc: "Mastering anchor handles, custom pen operations, geometric merges, and vector pathways inside Illustrator.", points: ["Vectors use dynamic mathematical grids", "Pen paths adjust on anchor angles", "SVG exports preserve pure resolution scales"], mcqs: [{ q: "Why are vector formats preferred for corporate logos?", options: ["They scale indefinitely without pixelation", "They have more colors than raster formats", "They compress into smaller file sizes automatically"], ans: 0 }] },
+        { title: "Lec 4: Mastering Typography & Professional Font Pairing", duration: "14m 20s", videoId: "un50Bs4BvZ8", desc: "Dive deep into Serifs, Sans-Serifs, kerning, tracking, and selecting high-contrast fonts for branding designs.", points: ["Kerning controls space between pairs of characters", "Sans-Serifs offer higher readability on monitors", "Limit body styles to 2 coherent font families"], mcqs: [{ q: "What is Kerning?", options: ["Spacing between individual letter pairs", "Vertical paragraph margins", "The curvature of vector anchors"], ans: 0 }] },
+        { title: "Lec 5: The Science of Color Schemes and Harmonization", duration: "16m 10s", videoId: "7K986e6Y5_M", desc: "Understand analogous, triadic, and complementary color wheels, along with corporate color psychology guidelines.", points: ["Complementary colors provide high-contrast definitions", "Warm tones simulate excitement and energy", "Cool colors invoke stability and professional trust"], mcqs: [{ q: "Which color scheme sits opposite on the color wheel?", options: ["Analogous", "Complementary", "Monochromatic"], ans: 1 }] },
+        { title: "Lec 6: Selection Secrets & Pen Tool Mastery", duration: "19m 40s", videoId: "d5F6zS0q4V4", desc: "Advanced masking guidelines, hair extraction algorithms, and creating perfect vector silhouettes using bezier tools.", points: ["Refine Edge brush speeds up complex selections", "Ctrl key modifies vector handles in real-time", "Paths can be saved as editable vector paths"], mcqs: [{ q: "How do you temporarily modify anchor directions in vector software?", options: ["Hold Alt/Option while adjusting handles", "Press Escape key", "Delete the vector layer"], ans: 0 }] },
+        { title: "Lec 7: Logo Architecture and Corporate Brand Systems", duration: "21m 15s", videoId: "7K986e6Y5_M", desc: "Create minimal, timeless, and scalable symbols that fit smoothly on business badges, stamps, and billboards.", points: ["Simplification improves visual memory retention", "Logos should remain highly legible in pure black and white", "Incorporate corporate core values metaphorically"], mcqs: [{ q: "A timeless brand symbol should prioritize...", options: ["Complex textures", "Maximalist colors", "Simplicity and high legibility"], ans: 2 }] },
+        { title: "Lec 8: Modern Social Media Post Layout Guidelines", duration: "15m 50s", videoId: "un50Bs4BvZ8", desc: "Layout scales, visual rule of thirds, safe area zones, and designing engaging Instagram and Facebook creative carousels.", points: ["Rule of thirds places focal points at intersections", "Always match asset aspect ratios to platform specs", "Include a distinct Call to Action on slides"], mcqs: [{ q: "The Rule of Thirds suggests placing subjects at...", options: ["The absolute center of the layout", "The intersection points of grid lines", "The extreme borders of the image"], ans: 1 }] },
+        { title: "Lec 9: Designing Digital Banners and Interactive Display Creatives", duration: "17m 30s", videoId: "d5F6zS0q4V4", desc: "Master banner sizing ratios, contrast rules, CTA button placements, and saving lightweight PNG files for web use.", points: ["Display banners require immediate visual hooks", "High-contrast text guarantees readable parameters", "Optimize export compression ratio for web load speeds"], mcqs: [{ q: "What is critical for digital advertising banner designs?", options: ["Using a distinct and legible Call-to-Action", "Extremely low resolution formats", "Decorative italic fonts for all texts"], ans: 0 }] },
+        { title: "Lec 10: Print Design Principles: CMYK vs RGB Formats", duration: "14m 55s", videoId: "7K986e6Y5_M", desc: "Important setup parameters for flyers, tri-folds, bleed boundaries, crop guidelines, and pure CMYK color setups.", points: ["Always design in CMYK profiles for actual physical print", "Bleed boundaries protect layouts from cutting errors", "Export layouts at high resolution 300 DPI standards"], mcqs: [{ q: "What resolution standard (DPI) is required for high-quality print exports?", options: ["72 DPI", "150 DPI", "300 DPI"], ans: 2 }] },
+        { title: "Lec 11: Introduction to Vector UI Assets and Figma Basics", duration: "22m 10s", videoId: "un50Bs4BvZ8", desc: "Setup UI frames, typography libraries, responsive layout grids, and learning vector tool foundations inside Figma.", points: ["Figma frames scale dynamically for standard devices", "Layout grids maintain horizontal system alignments", "Vector UI elements remain razor-sharp dynamically"], mcqs: [{ q: "Figma primarily functions using...", options: ["Vector coordinates", "Raster paint pixels", "Dynamic SQL engines"], ans: 0 }] },
+        { title: "Lec 12: Wireframing and Low-Fidelity Layout Prototypes", duration: "16m 25s", videoId: "d5F6zS0q4V4", desc: "Build quick structural wireframes, draft user paths, and sketch visual flows without getting distracted by colors.", points: ["Wireframes establish foundational page blueprints", "Grey scale mockups eliminate color debates with clients", "Design user journeys from login to confirmation"], mcqs: [{ q: "What is the primary purpose of a wireframe?", options: ["Applying final brand neon color styles", "Establishing layout structures and user flows", "Adding database API paths"], ans: 1 }] },
+        { title: "Lec 13: Packaging Design and Die-Line Masterclasses", duration: "20m 40s", videoId: "7K986e6Y5_M", desc: "Understanding 3D packaging wraps, box folding lines, cuts, bleed limits, and packaging structural safety designs.", points: ["Continuous die-lines dictate actual industrial cuts", "Fold lines are tracked on distinct layers", "Ensure logo orientations align across folds"], mcqs: [{ q: "Die-lines in packaging designs represent...", options: ["The target color palettes", "The actual cutting and folding blueprints", "DPI resolution limits"], ans: 1 }] },
+        { title: "Lec 14: Portfolio Construction: Showcase Your Creative Value", duration: "18m 15s", videoId: "un50Bs4BvZ8", desc: "Curating your top design projects, describing case studies, presenting challenges, and building a polished Behance profile.", points: ["Quality is superior to quantity; select your top 5 projects", "Explain your design decisions and client problems solved", "Feature high-quality mockups for realistic presentations"], mcqs: [{ q: "An outstanding design portfolio should focus on...", options: ["Your best 5-6 projects with detailed case studies", "Including every doodle you have ever created", "Complex coding integrations"], ans: 0 }] },
+        { title: "Lec 15: Freelancing as a Designer: Client Handling Guidelines", duration: "23m 30s", videoId: "d5F6zS0q4V4", desc: "Drafting design contracts, communicating revisions, handling feedback objectively, and delivering source design files.", points: ["Revisions must be capped in contracts explicitly", "Handle critical feedback as objective metrics", "Organize vector layers cleanly before handoff"], mcqs: [{ q: "How should you manage client revisions in a freelance project?", options: ["Offer infinite revisions forever", "Specify a fixed cap on revisions in the contract", "Refuse to make any modifications"], ans: 1 }] }
+      ]
+    },
+    wordpress: {
+      category: "Dynamic Web Engineering",
+      title: "WordPress Web Development",
+      lectures: [
+        { title: "Lec 1: Web Ecosystem, Domain Registration & Hosting Setup", duration: "14m 20s", videoId: "8OBFRHG9Uv8", desc: "Setting up local server packages, creating dynamic MySQL databases, configuring wp-config credentials smoothly.", points: ["MySQL serves as the dynamic memory hub", "Localhosts test local code changes safely", "Config files save core admin path setups"], mcqs: [{ q: "What is MySQL inside a WordPress server?", options: ["A file editor plugin", "The database management engine", "A graphics rendering utility"], ans: 1 }] },
+        { title: "Lec 2: Page Builders & Theme Customizer Layout Tweaks", duration: "19m 40s", videoId: "j8g_vS_u_mU", desc: "Tweaking standard templates, custom widgets, drag-and-drop page creation engines, and menu parameters.", points: ["Static pages form core landing directories", "Custom widgets expand functionality sidebars", "Theme edits change styling without loss of code"], mcqs: [{ q: "What is Elementor in WordPress?", options: ["A premium translation service", "A visual drag-and-drop page builder", "A MySQL hosting package"], ans: 1 }] },
+        { title: "Lec 3: Advanced WordPress Dashboard Configurations", duration: "15m 10s", videoId: "8OBFRHG9Uv8", desc: "Mastering permalink structures, user role accesses, site health monitoring, and configuring post settings.", points: ["Post Name permalinks are ideal for web SEO", "User roles protect backend code parameters", "Check active updates regularly to keep cores safe"], mcqs: [{ q: "Which Permalink structure is best for search engine optimization (SEO)?", options: ["Plain Numeric IDs", "Post Name category matching", "Random alphanumeric keys"], ans: 1 }] },
+        { title: "Lec 4: WordPress Core Security, Salts, & Login Hardening", duration: "18m 35s", videoId: "j8g_vS_u_mU", desc: "Change standard database prefixes, implement SSL certifications, and install advanced security firewall plugins.", points: ["Changing wp_ prefixes stops automatic SQL injections", "Strong authentication secures admin dashboards", "SSL encrypts user data transfer packets"], mcqs: [{ q: "What is the primary benefit of changing the default 'wp_' database prefix?", options: ["It improves server memory bandwidth", "It thwarts automated SQL injection exploits", "It increases post publishing speeds"], ans: 1 }] },
+        { title: "Lec 5: Creating Your First High-Conversion Landing Page", duration: "21m 20s", videoId: "8OBFRHG9Uv8", desc: "Applying visual hierarchy, optimizing typography, using contact forms, and configuring fast responsive rows.", points: ["Landing pages focus entirely on a single target action", "Optimize mobile grid columns specifically", "Add testimonials to validate brand credibility"], mcqs: [{ q: "A landing page is primarily designed to...", options: ["Host blogs", "Encourage a specific user conversion or signup action", "Provide complex multi-page links"], ans: 1 }] },
+        { title: "Lec 6: Elementor Deep-Dive: Columns, Sections & Responsive Margins", duration: "17m 45s", videoId: "j8g_vS_u_mU", desc: "Understanding padding parameters, column percentage alignments, layout structures, and mobile visibility options.", points: ["Padding creates inner margins inside elements", "Column percentages must not exceed 100% total", "Hide desktop structures on mobile for performance gains"], mcqs: [{ q: "How does padding differ from margin?", options: ["Padding controls inner spacing; margin controls outer spacing", "Padding only works on vector images", "Margin operates inside the database layer"], ans: 0 }] },
+        { title: "Lec 7: Setting Up Modern Blogs: Categories, Tags, & Excerpts", duration: "14m 15s", videoId: "8OBFRHG9Uv8", desc: "Master blogging directories, dynamic post feeds, RSS integrations, and visual layout optimizations for article readability.", points: ["Categories organize posts hierarchically", "Excerpts show teaser texts on archive streams", "Tags act as flat searchable index words"], mcqs: [{ q: "Which tool allows hierarchical grouping of articles?", options: ["Tags", "Categories", "Excerpts"], ans: 1 }] },
+        { title: "Lec 8: WooCommerce Installation: Core Pages Setup", duration: "22m 30s", videoId: "j8g_vS_u_mU", desc: "Deploy WooCommerce, configure system checkout grids, create default terms, and set currency values.", points: ["WooCommerce automatically generates Shop, Cart, and Account pages", "Configure base locations to calculate accurate taxes", "Ensure shop pages are set in main menu bars"], mcqs: [{ q: "Which plugin is the standard tool for e-commerce on WordPress?", options: ["Elementor Pro", "WooCommerce", "MySQL Admin Tool"], ans: 1 }] },
+        { title: "Lec 9: Creating Digital and Physical E-Commerce Products", duration: "19m 10s", videoId: "8OBFRHG9Uv8", desc: "Understand product classifications, adding galleries, configuring shipping weights, and setting up sale pricing rules.", points: ["Variable products allow choices like size and color", "Downloadable files require protected upload paths", "Product reviews build social validation metrics"], mcqs: [{ q: "What is a 'Variable Product'?", options: ["A product that changes prices based on user IP address", "A product with multiple variations like size, color, or weight", "A product hosted on an external API"], ans: 1 }] },
+        { title: "Lec 10: Integrating Global Payment Gateways and Currencies", duration: "23m 15s", videoId: "j8g_vS_u_mU", desc: "Hooking up Stripe APIs, PayPal integrations, and setting secure sandbox test modes before site launches.", points: ["Sandbox settings let you execute fake orders to check scripts", "SSL keys are strictly required for Stripe operations", "Set webhook endpoints to catch dynamic transactions"], mcqs: [{ q: "Why should you use 'Sandbox' mode first during payment integrations?", options: ["To prevent users from buying items", "To safely test transactions without actual money transfers", "To boost site search speed rankings"], ans: 1 }] },
+        { title: "Lec 11: Speed Tuning: WordPress Caching & Image Compressors", duration: "16m 40s", videoId: "8OBFRHG9Uv8", desc: "Configure cache parameters, compress raster visuals dynamically, and set up content delivery networks (CDNs).", points: ["Cache outputs pre-rendered HTML files to visitors", "WebP images reduce file payloads heavily", "Limit loaded scripts inside landing zones"], mcqs: [{ q: "What does caching accomplish?", options: ["It deletes draft posts automatically", "It serves pre-built static pages to reduce load delays", "It encrypts MySQL databases"], ans: 1 }] },
+        { title: "Lec 12: SEO Configurations with RankMath & Yoast plugins", duration: "18m 10s", videoId: "j8g_vS_u_mU", desc: "Mastering meta titles, focus keys, generating XML sitemaps, and configuring search engine visibility parameters.", points: ["Meta descriptions must capture target search terms", "XML sitemaps help index bots scan posts", "Add alt attributes to every media asset"], mcqs: [{ q: "What is an XML Sitemap?", options: ["A list of styling guidelines", "A map of local server directories", "A file listing website URLs to help search engines index the site"], ans: 2 }] },
+        { title: "Lec 13: WordPress Backup Strategies & Migration Guides", duration: "15m 50s", videoId: "8OBFRHG9Uv8", desc: "Create complete backups, migrate from local host to live cloud servers, and handle database search-and-replace strings.", points: ["Back up both MySQL databases and wp-content assets", "Search-and-replace fixes absolute path changes", "Maintain copies on external cloud vaults safely"], mcqs: [{ q: "When migrating a website, what two things must be moved?", options: ["Only themes and plugins", "The database AND all wp-content uploads", "Only your permalink structures"], ans: 1 }] },
+        { title: "Lec 14: Theme Development: WordPress Hierarchy Basics", duration: "24m 15s", videoId: "j8g_vS_u_mU", desc: "Understand index.php, style.css, header.php, and footer.php parameters, and child theme structures.", points: ["Child themes protect edits during main upgrades", "The Template Hierarchy dictates loaded PHP scripts", "wp_head() hook is crucial for plugin headers"], mcqs: [{ q: "Why are Child Themes highly recommended?", options: ["They speed up server bandwidth", "They protect custom code edits from being overwritten by theme updates", "They provide free premium layouts"], ans: 1 }] },
+        { title: "Lec 15: Website Handover, Client Training, & Maintenance Contracts", duration: "20m 05s", videoId: "8OBFRHG9Uv8", desc: "Design admin manuals, configure restricted client roles, schedule database optimizations, and pitch support models.", points: ["Restricted editor roles stop clients from breaking designs", "Maintenance contracts form consistent recurring revenues", "Clean database overheads routinely for peak performance"], mcqs: [{ q: "What is the benefit of a recurring WordPress maintenance contract?", options: ["It guarantees regular updates, backups, and predictable monthly income", "It deletes old posts automatically", "It makes servers completely free"], ans: 0 }] }
+      ]
+    },
+    fiverr: {
+      category: "Freelance Entrepreneurship",
+      title: "Fiverr Freelancing Masterclass",
+      lectures: [
+        { title: "Lec 1: Understanding Freelance Ecosystem & Fiverr Fundamentals", duration: "16m 05s", videoId: "fD36wN_Tcoo", desc: "Learn key gig title optimizations, descriptive tags, pricing tiers, and professional thumbnails to attract global orders.", points: ["Gig titles should feature primary searchable keywords", "Thumbnails act as visual attention catchers", "Tiered packages capture various budget parameters"], mcqs: [{ q: "Why are tiered packages useful on Fiverr?", options: ["They let you offer services at different price points and scopes", "They allow you to work without delivering files", "They automatically index posts on Google"], ans: 0 }] },
+        { title: "Lec 2: Finding High-Demand, Low-Competition Freelance Niches", duration: "18m 20s", videoId: "fD36wN_Tcoo", desc: "Learn search query tricks on Fiverr to locate high-profit micro-niches where you can easily rank your new profile.", points: ["Target search terms with less than 2,000 active services", "Micro-niches face lighter competition from top sellers", "Combine skills like 'WordPress' with 'Real Estate landing page'"], mcqs: [{ q: "To rank easily, a new seller should target search queries with...", options: ["Over 50,000 active services", "Less than 2,000-3,000 active services", "No search volume at all"], ans: 1 }] },
+        { title: "Lec 3: Crafting an SEO-Optimized Fiverr Seller Profile", duration: "14m 10s", videoId: "fD36wN_Tcoo", desc: "Write professional bio descriptions, showcase relevant test credentials, and select proper skills categories.", points: ["Profile descriptions must state your niche value proposition", "Associate professional portfolios clearly", "Maintain consistent branding across descriptions"], mcqs: [{ q: "Your profile bio description should primarily focus on...", options: ["Your childhood memories", "Your professional skills and how you solve client problems", "Your financial goals"], ans: 1 }] },
+        { title: "Lec 4: Secret Elements of Eye-Catching Gig Thumbnails", duration: "15m 45s", videoId: "fD36wN_Tcoo", desc: "Design highly clickable thumbnails, use high-contrast text, feature your photo, and place visual proof badges.", points: ["Clear text on thumbnails should be readable on mobile screens", "Bright borders make your gigs stand out in lists", "Showcase actual before-and-after work examples"], mcqs: [{ q: "What makes a freelance gig thumbnail stand out?", options: ["Tons of tiny hard-to-read text", "High-contrast, clean typography, and visual proof of work", "Using dark, blurry screenshots"], ans: 1 }] },
+        { title: "Lec 5: Writing High-Impact Gig Descriptions that Convert", duration: "17m 30s", videoId: "fD36wN_Tcoo", desc: "Using bullet points, highlighting core value propositions, stating your packages, and formatting call-to-actions.", points: ["Use bold formatting to draw eyes to key deliverables", "End your description with a clear call to action", "State explicitly what file formats will be delivered"], mcqs: [{ q: "How should a gig description be structured for best conversions?", options: ["As one massive paragraph of text", "Using clear bullet points, bold sections, and an actionable CTA", "With minimum words and zero info"], ans: 1 }] },
+        { title: "Lec 6: Mastering Fiverr FAQ Sections & Package Pricing", duration: "13m 55s", videoId: "fD36wN_Tcoo", desc: "Address common objections in the FAQs, price your basic gig strategically, and set upsell parameters.", points: ["FAQs address common client doubts and objections automatically", "Set basic prices low to generate early orders", "Upsell premium speed delivery for faster earnings"], mcqs: [{ q: "What is the primary function of Gig FAQs?", options: ["To chat with other freelancers", "To handle customer objections and answer questions before they message you", "To list random search tags"], ans: 1 }] },
+        { title: "Lec 7: The Fiverr Search Ranking Algorithm Explained", duration: "19m 12s", videoId: "fD36wN_Tcoo", desc: "Understand order completion rates, average response times, and target metrics that keep your gigs on Page 1.", points: ["Fiverr algorithm rewards fast first-response times", "Order completion rate must stay above 90%", "Active seller statuses boost gig visibility algorithms"], mcqs: [{ q: "Which metric is highly prioritized by the Fiverr ranking algorithm?", options: ["Number of offline days", "Rapid first-response time and order completion rate", "Account password length"], ans: 1 }] },
+        { title: "Lec 8: Winning Your First Order: Active Promotion Strategies", duration: "16m 40s", videoId: "fD36wN_Tcoo", desc: "Promote your Fiverr link on social platforms, target relevant cold clients, and leverage local design communities.", points: ["Share custom gig URLs on design forums and Q&A sites", "Leverage LinkedIn networks to target potential business clients", "Keep your Fiverr app online consistently to attract live searchers"], mcqs: [{ q: "How can you boost your chances of getting a first order?", options: ["Deleting your account daily", "Staying online via mobile app and sharing links on professional networks", "Spamming the message systems of top sellers"], ans: 1 }] },
+        { title: "Lec 9: Mastering Buyer Requests & Dynamic Custom Offers", duration: "21m 20s", videoId: "fD36wN_Tcoo", desc: "Write customized proposals that stand out, outline exact deliverables, and design professional custom checkout offers.", points: ["Custom proposals should quote the client's specific problem description", "Deliver custom proposals within minutes of posting", "Break complex milestones into multiple custom offers"], mcqs: [{ q: "When writing custom offers, you should always...", options: ["Quote generic text templates with zero reference to the client's problem", "Outline exact custom solutions, pricing steps, and milestones", "Offer a million revisions for free"], ans: 1 }] },
+        { title: "Lec 10: Client Communication: Closing $500+ High-Ticket Deals", duration: "18m 55s", videoId: "fD36wN_Tcoo", desc: "Professional script workflows, scheduling video consultations, mapping business scopes, and upselling premium packages.", points: ["Focus communication entirely on ROI (Return on Investment) parameters", "Offer premium support addons to push higher project scopes", "Use simple and concise English to communicate steps clearly"], mcqs: [{ q: "To close high-ticket deals, client chats should focus on...", options: ["Your personal monetary targets", "How your service provides high business value and ROI to their operations", "Extremely complex backend terminology"], ans: 1 }] },
+        { title: "Lec 11: On-Time Deliveries & Avoiding Order Cancellations", duration: "14m 30s", videoId: "fD36wN_Tcoo", desc: "Set strict timelines, establish client checkpoints, draft updates, and prevent revisions from triggering delay penalties.", points: ["Deliver partial updates early to keep clients in sync", "Ask for timeline extensions politely if server delays occur", "Maintain all chats and deliverables strictly inside Fiverr"], mcqs: [{ q: "If a project is running late due to unforeseen obstacles, you should...", options: ["Ignore the client completely", "Politely request a timeline extension inside the Resolution Center", "Deliver empty dummy files"], ans: 1 }] },
+        { title: "Lec 12: Earning 5-Star Reviews: Customer Delight Principles", duration: "15m 15s", videoId: "fD36wN_Tcoo", desc: "How to over-deliver on assets, provide custom loom video guides, format delivery messages, and secure glowing feedback.", points: ["Over-deliver slightly by offering an unexpected bonus asset", "Send visual video handovers explaining files", "Never pressure clients directly for 5-star reviews"], mcqs: [{ q: "What is a great strategy to delight clients and secure 5-star reviews?", options: ["Deliver less than promised", "Provide clean organization, clear handover guides, and occasionally a small bonus value", "Spam messages requesting 5 stars"], ans: 1 }] },
+        { title: "Lec 13: Handling Difficult Buyers & Fiverr Support Guidelines", duration: "17m 45s", videoId: "fD36wN_Tcoo", desc: "Manage revision abuse, deal with chargebacks, communicate with Fiverr support, and use resolution center tools.", points: ["Document every deliverable explicitly to fight scams", "Polite and non-emotional messaging protects your profiles", "Fiverr Resolution Center helps resolve disputes amicably"], mcqs: [{ q: "How should you manage an abusive revision request?", options: ["Insult the buyer inside chat boxes", "Point back politely to the contract scope and utilize Resolution Center tools", "Cancel immediately and lose your money"], ans: 1 }] },
+        { title: "Lec 14: Scaling up to Level 2 and Top-Rated Seller Statuses", duration: "20m 10s", videoId: "fD36wN_Tcoo", desc: "Requirements for Level 1, Level 2, and TRS badges, maintaining high rating stars, and scaling monthly revenues.", points: ["Level 2 require $2,000+ earned and 50+ completed orders", "Maintaining a 4.7-star rating is critical to level up", "Set up agency pipelines to outsource workloads when busy"], mcqs: [{ q: "What is required to unlock Level 2 Seller status on Fiverr?", options: ["A total earnings pool of $2,000+ and 50 completed orders", "Being on Fiverr for exactly 10 years", "Inviting 100 friends to join"], ans: 0 }] },
+        { title: "Lec 15: Financial Freedom: Managing Freelance Cashflow & Taxes", duration: "22m 35s", videoId: "fD36wN_Tcoo", desc: "Fiverr earnings withdrawal rules, setting up Payoneer accounts, managing taxes, and investing freelance income wisely.", points: ["Fiverr clears earnings after 14 days (7 days for Top Sellers)", "Separate personal and business finances", "Reinvest earnings in premium design software and courses"], mcqs: [{ q: "How long does standard order payout clearance take for standard sellers?", options: ["24 hours", "14 days", "30 days"], ans: 1 }] }
+      ]
+    },
+    security: {
+      category: "Information Security",
+      title: "Information Security Foundations",
+      lectures: [
+        { title: "Lec 1: Threat Landscapes & Network Firewall Baselines", duration: "17m 50s", videoId: "bPVaOlJ6vS4", desc: "Learn modern network vulnerability vectors, firewalls, cyber hygiene, and data security standards.", points: ["Firewalls filter active ports dynamically", "Password complexity resists brute-force runs", "Zero-trust structures request ongoing authorization"], mcqs: [{ q: "What is the primary function of a network Firewall?", options: ["To charge visitors access fees", "To filter network traffic based on configured security rules", "To speed up internet speeds"], ans: 1 }] },
+        { title: "Lec 2: Types of Malware: Ransomware, Trojans & Worms", duration: "15m 30s", videoId: "bPVaOlJ6vS4", desc: "Differentiating visual malware signatures, execution strategies, Trojan vectors, and critical remediation methods.", points: ["Ransomware utilizes asymmetric key encryptions", "Worms spread independently without user activations", "Trojans masquerade as valid utility packages"], mcqs: [{ q: "What defines a computer 'Worm'?", options: ["It requires user activation to run", "It self-replicates and spreads across network streams automatically", "It is only written in Python"], ans: 1 }] },
+        { title: "Lec 3: Defending Against Phishing and Social Engineering", duration: "14m 10s", videoId: "bPVaOlJ6vS4", desc: "Identifying email domain spoofing, spear-phishing campaigns, credential harvesting links, and user training basics.", points: ["Verify SPF, DKIM and DMARC headers on incoming emails", "Spear-phishing targets specific high-value individuals", "Never download attachments from unverified origins"], mcqs: [{ q: "Which attack vectors target human psychology to extract passwords?", options: ["Brute Force", "SQL Injection", "Social Engineering"], ans: 2 }] },
+        { title: "Lec 4: Network Protocols & Port Security Fundamentals", duration: "16m 45s", videoId: "bPVaOlJ6vS4", desc: "Understanding critical communication protocols, TCP vs UDP handshakes, secure shell SSH, and securing dynamic ports.", points: ["Port 22 SSH must be secured and altered from defaults", "TCP handshakes use SYN, SYN-ACK, ACK exchanges", "HTTP transfers plain-text data packets vulnerably"], mcqs: [{ q: "Which port is standard for secure shell (SSH) networks?", options: ["Port 80", "Port 22", "Port 443"], ans: 1 }] },
+        { title: "Lec 5: Intrusion Detection Systems (IDS) & Prevention Setup", duration: "18m 12s", videoId: "bPVaOlJ6vS4", desc: "Differentiating Signature-based IDS from Anomaly-based detections, configuring Snort rules, and setting up IPS scripts.", points: ["Signature-based scanners track known malicious strings", "IPS blocks attacks dynamically; IDS only alerts systems", "Host-based agents check system files for alterations"], mcqs: [{ q: "What is the key difference between an IDS and an IPS?", options: ["IDS actively blocks traffic; IPS only records data", "IDS only monitors and alerts; IPS monitors and actively blocks threats", "IDS only works on Windows"], ans: 1 }] },
+        { title: "Lec 6: Cryptography: Symmetric vs Asymmetric Encrpytion", duration: "21m 15s", videoId: "bPVaOlJ6vS4", desc: "Understand AES private keys, RSA public-private math keys, secure key exchanges, and hashing algorithms.", points: ["Symmetric algorithms use the same key for encryption and decryption", "Asymmetric keys decrypt using the private mathematical key", "Hashing (e.g., SHA-256) is a one-way mathematical function"], mcqs: [{ q: "Which algorithm type utilizes separate public and private keys?", options: ["Symmetric Encryption", "Asymmetric Encryption", "Base64 encoding"], ans: 1 }] },
+        { title: "Lec 7: Web Encryption Protocols: SSL, TLS & HTTPS Setup", duration: "15m 50s", videoId: "bPVaOlJ6vS4", desc: "How secure handshakes are initiated, web root certificate authorities, and enforcing HTTPS redirect parameters.", points: ["TLS provides transport-layer session encryption", "HTTPS encrypts URL parameters, request cookies, and form values", "Secure handshakes verify host certificate digital signatures"], mcqs: [{ q: "What is encrypted by HTTPS transport security?", options: ["Only the domain name", "The entire request payload including paths, cookies, and header texts", "Nothing, it only adds a visual badge"], ans: 1 }] },
+        { title: "Lec 8: Strong Authentication: Salted Hashes & MFA rules", duration: "17m 30s", videoId: "bPVaOlJ6vS4", desc: "Why plaintext database passwords are a hazard, salting passwords, and implementing secure multi-factor systems.", points: ["Salting inserts unique random data to defeat rainbow tables", "Bcrypt is designed as a secure, slow hashing standard", "MFA verifies something you know, have, or are"], mcqs: [{ q: "Why is password salting highly recommended?", options: ["It compresses the password sizes", "It defeats pre-computed dictionary and rainbow table hash attacks", "It speeds up backend logins"], ans: 1 }] },
+        { title: "Lec 9: Penetration Testing Basics: Nmap and Nessus Scanning", duration: "19m 20s", videoId: "bPVaOlJ6vS4", desc: "Scanning local subnets, discovering active host ports, running silent SYN scans, and reading automated Nessus reports.", points: ["SYN scans are stealthy as they don't complete handshakes", "Nessus indexes discovered ports against CVE vulnerability lists", "Never run network scans on IP addresses you do not own"], mcqs: [{ q: "What does Nmap do during an active security audit?", options: ["Encrypts server databases", "Discovers active hosts, open communication ports, and running OS types", "Fixes server vulnerabilities automatically"], ans: 1 }] },
+        { title: "Lec 10: Web App Security: Mastering OWASP Top 10 exploits", duration: "22m 10s", videoId: "bPVaOlJ6vS4", desc: "An overview of active injection parameters, broken authenticator tokens, sensitive data leaks, and insecure API structures.", points: ["OWASP lists critical security threats regularly", "Input validation prevents major structural system attacks", "Enforce strict CORS policies to protect interfaces"], mcqs: [{ q: "What is the primary target of the OWASP foundation?", options: ["Building faster web browsers", "Providing visual frameworks", "Identifying and educating about critical web application security vulnerabilities"], ans: 2 }] },
+        { title: "Lec 11: Preventing SQL Injection and Cross-Site Scripting (XSS)", duration: "20m 45s", videoId: "bPVaOlJ6vS4", desc: "Implement prepared statements, parameterized queries, content security policies (CSP), and escaping user inputs.", points: ["Prepared statements parameterize inputs to stop execution strings", "XSS inserts malicious JS scripts inside victim browsers", "Input sanitization strips HTML formatting tags cleanly"], mcqs: [{ q: "Which coding strategy completely defeats SQL injection vulnerabilities?", options: ["Encrypting databases", "Using parameterized queries (Prepared Statements)", "Hiding input boxes on the front-end"], ans: 1 }] },
+        { title: "Lec 12: Wireless Security Standards: WPA2 vs WPA3 Protocols", duration: "14m 35s", videoId: "bPVaOlJ6vS4", desc: "Understanding WPA2 handshake offline dictionary attacks, and how WPA3 SAE (Simultaneous Authentication of Equals) stops them.", points: ["WPA3 SAE thwarts brute-force attacks on home Wi-Fi keys", "Turn off WPS to stop automated PIN penetration tools", "Implement corporate RADIUS servers for secure enterprise logins"], mcqs: [{ q: "Which protocol secures modern Wi-Fi networks from offline brute-force handshakes?", options: ["WEP", "WPA3", "WPA2 Plain"], ans: 1 }] },
+        { title: "Lec 13: Operating System Hardening and Patch Management", duration: "16m 20s", videoId: "bPVaOlJ6vS4", desc: "Disabling unnecessary services, closing empty ports, configuring group policy objects, and automated patching rules.", points: ["Unused active background services expand attack surfaces", "Automated patching stops exploits of known public CVEs", "Enforce local user account controls with minimum privileges"], mcqs: [{ q: "Operating System Hardening implies...", options: ["Deleting the hard drive", "Reducing the system's attack surface by closing ports and disabling unneeded services", "Installing heavy anti-virus skins"], ans: 1 }] },
+        { title: "Lec 14: Incident Response and Digital Forensics Baselines", duration: "18m 50s", videoId: "bPVaOlJ6vS4", desc: "Managing active breaches, preserving system RAM values, logging chronologies, and ensuring valid chain of custody.", points: ["Volatility is high in live RAM; capture it before powering down", "Chain of Custody tracks every individual who handled evidence", "Contain system networks first during active malware outbreaks"], mcqs: [{ q: "When preserving computer evidence, what is captured first?", options: ["Files on the hard drive", "Live volatility assets in active system RAM", "Web browser history"], ans: 1 }] },
+        { title: "Lec 15: Cybersecurity Certifications & Careers Roadmap", duration: "23m 15s", videoId: "bPVaOlJ6vS4", desc: "Mapping paths for CompTIA Security+, CEH, CISSP, and learning how to set up active home virtual lab setups.", points: ["Security+ is the ideal entry point certification standard", "CISSP is highly valued for management cybersecurity roles", "Set up Virtualbox home labs to safely analyze security payloads"], mcqs: [{ q: "Which certification is the standard starting credential for cybersecurity?", options: ["CEH Master", "CompTIA Security+", "CISSP Security Manager"], ans: 1 }] }
+      ]
+    }
+  };
+
+  // Global Tracking variables
+  let currentCourseKey = 'graphics';
+  let currentLecIndex = 0;
+
+  // URL Query Parser Engine
+  function loadCourseFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const courseParam = params.get('course') || 'graphics';
+    const lecParam = parseInt(params.get('lec')) || 0;
+
+    // Check if queried key exists
+    if (playlistsData[courseParam]) {
+      currentCourseKey = courseParam;
+    } else {
+      currentCourseKey = 'graphics';
+    }
+
+    // Set lecture index
+    if (playlistsData[currentCourseKey].lectures[lecParam]) {
+      currentLecIndex = lecParam;
+    } else {
+      currentLecIndex = 0;
+    }
+
+    // Set initial dropdown selector state
+    document.getElementById("course-selector").value = currentCourseKey;
+
+    renderPlaylistUI();
+  }
+
+  // UI Renderer Engine (Dynamically loads 15 lectures into the sidebar)
+  function renderPlaylistUI() {
+    const course = playlistsData[currentCourseKey];
+    const lecture = course.lectures[currentLecIndex];
+
+    // Set page headers
+    document.getElementById("course-category").textContent = course.category;
+    document.getElementById("course-title").textContent = course.title;
+    document.getElementById("playlist-count").textContent = `${course.lectures.length} Lectures`;
+
+    // Set video iframe source safely (Direct streaming educational links)
+    document.getElementById("lecture-iframe").src = `https://www.youtube.com/embed/${lecture.videoId}?autoplay=1&rel=0`;
+
+    // Set active tab information
+    document.getElementById("lecture-title").textContent = lecture.title;
+    document.getElementById("lecture-desc").textContent = lecture.desc;
+
+    // Update index progress text inside navigation panel
+    document.getElementById("lecture-progress-text").textContent = `Lec ${currentLecIndex + 1} of ${course.lectures.length}`;
+
+    // Render Highlights / AI Notes Preview
+    const highlightsContainer = document.getElementById("lecture-bullet-points");
+    highlightsContainer.innerHTML = '';
+    lecture.points.forEach(point => {
+      const item = document.createElement('div');
+      item.className = 'flex items-start gap-3 p-3 bg-slate-50 border-l-4 border-blue-900 rounded-lg text-xs text-gray-700';
+      item.innerHTML = `<span class="text-blue-900 font-bold">✓</span><span>${point}</span>`;
+      highlightsContainer.appendChild(item);
+    });
+
+    // Render Dynamic Active Recall MCQs
+    const mcqContainer = document.getElementById("lecture-mcq-container");
+    mcqContainer.innerHTML = '';
+    lecture.mcqs.forEach((mcq, mIdx) => {
+      const mcqBlock = document.createElement('div');
+      mcqBlock.className = 'space-y-3';
+      
+      let optionsHTML = '';
+      mcq.options.forEach((opt, oIdx) => {
+        optionsHTML += `
+          <button onclick="verifyAnswer(this, ${oIdx === mcq.ans})" class="option-btn w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-blue-900 transition text-xs font-medium bg-white">
+            ${opt}
+          </button>
+        `;
+      });
+
+      mcqBlock.innerHTML = `
+        <p class="font-bold text-xs text-[#0b2149]">${mIdx + 1}. ${mcq.q}</p>
+        <div class="grid grid-cols-1 gap-2">${optionsHTML}</div>
+      `;
+      mcqContainer.appendChild(mcqBlock);
+    });
+
+    // Render Sidebar List with all 15 lectures
+    const playlistContainer = document.getElementById("playlist-container");
+    playlistContainer.innerHTML = '';
+
+    course.lectures.forEach((lec, idx) => {
+      const isSelected = idx === currentLecIndex;
+      const card = document.createElement('div');
+      
+      card.className = `p-3 rounded-xl border cursor-pointer transition flex items-center justify-between gap-3 ${
+        isSelected 
+          ? 'bg-blue-50 border-blue-200 shadow-sm ring-1 ring-blue-100' 
+          : 'bg-white border-gray-100 hover:bg-slate-50'
+      }`;
+
+      card.onclick = () => selectLecture(idx);
+
+      card.innerHTML = `
+        <div class="space-y-1">
+          <p class="text-xs font-bold ${isSelected ? 'text-blue-900' : 'text-gray-850'}">${lec.title}</p>
+          <p class="text-[10px] text-gray-500 font-medium">Duration: ${lec.duration}</p>
+        </div>
+        ${isSelected ? '<span class="text-[10px] bg-blue-100 text-blue-900 font-bold px-2 py-0.5 rounded-full shrink-0">Playing</span>' : '<span class="text-xs text-gray-400 shrink-0">View</span>'}
+      `;
+
+      playlistContainer.appendChild(card);
+    });
+  }
+
+  // Filter playlist search
+  function filterPlaylist(query) {
+    const course = playlistsData[currentCourseKey];
+    const normalizedQuery = query.toLowerCase();
+    const cards = document.querySelectorAll('#playlist-container > div');
+
+    course.lectures.forEach((lec, idx) => {
+      const isMatch = lec.title.toLowerCase().includes(normalizedQuery);
+      if (cards[idx]) {
+        if (isMatch) {
+          cards[idx].classList.remove('hidden');
+        } else {
+          cards[idx].classList.add('hidden');
+        }
+      }
+    });
+  }
+
+  // Dynamic Course Change Handler (Updates page state and drops all 15 new lectures inside sidebar)
+  function changeCourse(courseKey) {
+    currentCourseKey = courseKey;
+    currentLecIndex = 0;
+    
+    // Reset search input
+    document.getElementById("lecture-search").value = '';
+
+    // Push secure history states
+    const newURL = `${window.location.pathname}?course=${courseKey}&lec=0`;
+    window.history.pushState({ path: newURL }, '', newURL);
+    
+    renderPlaylistUI();
+    showToast(`Successfully switched to: ${playlistsData[courseKey].title}!`, "🔄");
+  }
+
+  // Select Lecture Handler
+  function selectLecture(index) {
+    currentLecIndex = index;
+    const newURL = `${window.location.pathname}?course=${currentCourseKey}&lec=${index}`;
+    window.history.pushState({ path: newURL }, '', newURL);
+    renderPlaylistUI();
+  }
+
+  // Prev / Next Buttons Actions
+  function prevLecture() {
+    if (currentLecIndex > 0) {
+      selectLecture(currentLecIndex - 1);
+    } else {
+      showToast("You are already on the first lecture!", "⚠️");
+    }
+  }
+
+  function nextLecture() {
+    const lecturesList = playlistsData[currentCourseKey].lectures;
+    if (currentLecIndex < lecturesList.length - 1) {
+      selectLecture(currentLecIndex + 1);
+    } else {
+      showToast("Congratulations! You have finished this course playlist.", "🏆");
+    }
+  }
+
+  // Tab switcher
+  function switchPlayerTab(tabName) {
+    document.querySelectorAll('.player-tab').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('player-content-overview').classList.add('hidden');
+    document.getElementById('player-content-notes').classList.add('hidden');
+    document.getElementById('player-content-mcqs').classList.add('hidden');
+
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    document.getElementById(`player-content-${tabName}`).classList.remove('hidden');
+  }
+
+  // Verify Interactive MCQ Option
+  function verifyAnswer(btnElement, isCorrect) {
+    const parentContainer = btnElement.parentElement;
+    const siblingButtons = parentContainer.querySelectorAll('.option-btn');
+
+    siblingButtons.forEach(btn => {
+      btn.style.backgroundColor = '';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    });
+
+    if (isCorrect) {
+      btnElement.style.backgroundColor = '#e8f5e9'; // Soft Green
+      btnElement.style.borderColor = '#10b981';
+      btnElement.style.color = '#065f46';
+      showToast("Correct Answer! Concept masterfully analyzed.", "✓");
+    } else {
+      btnElement.style.backgroundColor = '#fef2f2'; // Soft Red
+      btnElement.style.borderColor = '#ef4444';
+      btnElement.style.color = '#991b1b';
+      showToast("Incorrect selection. Please review bullet points and try again.", "✗");
+    }
+  }
+
+  // Download generated notes as clean text file
+  function downloadLectureNotes() {
+    const course = playlistsData[currentCourseKey];
+    const lecture = course.lectures[currentLecIndex];
+
+    let fileContent = `=========================================\n`;
+    fileContent += `SMARTEDUX AI NOTES: ${course.title}\n`;
+    fileContent += `${lecture.title}\n`;
+    fileContent += `=========================================\n\n`;
+    fileContent += `LECTURE SUMMARY:\n${lecture.desc}\n\n`;
+    fileContent += `AI HIGHLIGHT BULLET POINTS:\n`;
+    lecture.points.forEach((pt, index) => {
+      fileContent += `${index + 1}. [Timestamp Active] ${pt}\n`;
+    });
+    fileContent += `\n© SmartEduX Learning Hub ${new Date().getFullYear()}`;
+
+    const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+    const fileUrl = URL.createObjectURL(blob);
+    
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.href = fileUrl;
+    downloadAnchor.download = `${lecture.title.replace(/[\s\W]+/g, '_')}_Study_Guide.txt`;
+    downloadAnchor.click();
+    
+    URL.revokeObjectURL(fileUrl);
+    showToast("Notes file downloaded successfully!", "📥");
+  }
+
+  // In-app premium toast notification function
+  function showToast(message, icon = "⚡") {
+    const toast = document.getElementById("toast");
+    const toastMsg = document.getElementById("toast-message");
+    const toastIcon = document.getElementById("toast-icon");
+
+    toastIcon.textContent = icon;
+    toastMsg.textContent = message;
+
+    toast.classList.remove("translate-y-20", "opacity-0");
+    toast.classList.add("translate-y-0", "opacity-100");
+
+    setTimeout(() => {
+      toast.classList.add("translate-y-20", "opacity-0");
+      toast.classList.remove("translate-y-0", "opacity-100");
+    }, 3000);
+  }
+
+  // On page load start parsing
+  window.onload = function() {
+    loadCourseFromURL();
+  }
+</script>
+</body>
+</html>
