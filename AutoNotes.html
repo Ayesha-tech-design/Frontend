@@ -4,269 +4,400 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SmartEduX - Auto Notes Generator</title>
-   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
+    :root {
       --primary: #0b2149; 
       --accent: #f59e0b;
       --muted: #6b7280;
     }
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
       color: #0f172a;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased; 
     }
 
-    /* NAV */
-    nav a { 
-  transition: color .18s ease; 
-}
+    nav a { transition: color .18s ease; }
+    nav a:hover { color: var(--primary) !important; }
 
-nav a:not(.nav-btn):hover { 
-  color: var(--primary) !important; 
-}
-    /* Logo Sizing */
     .logo-mark {
-  width: 115px;
-  height: 115px;
-}
+      width: 115px;
+      height: 115px;
+    }
 
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
+    }
 
-
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
-  }
-  .logo-text{
-  font-family: 'Roboto', sans-serif;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: #0b2149;
-  line-height: 1;
-}
-
-}
-
-    body { font-family: 'Roboto', sans-serif; }
-
-    /* small custom animations to complement AOS */
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
-
-    .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
-    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
-    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
-
-    /* keep card spacing compact for denser layout */
-    .card-gap { gap: 1rem; }
+    /* Tab styles */
+    .tab-btn.active {
+      border-color: #0b2149;
+      color: #0b2149;
+      font-weight: 600;
+      background-color: #f1f5f9;
+    }
   </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="flex flex-col min-height-screen">
 
-<!-- Navbar -->
-
- <nav class="bg-white shadow sticky top-0 z-50">
+<!-- -->
+<nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
-        <div class="flex items-center gap-0">
-  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-
-    <img 
-      src="Futuristic tech logo design.png" 
-      alt="SmartEduX Logo" 
-      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
-    >
-
-   <span class="logo-text text-[26px] md:text-[32px]">
-  SmartEduX
-</span>
-
-  </a>
-</div>
+        <div class="flex items-center gap-2 md:gap-3">
+          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain" onerror="this.src='https://placehold.co/120x120/0b2149/ffffff?text=SmartEduX'">
+            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+          </a>
+        </div>
 
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+          <a href="Autonotes.html" class="text-sm font-bold text-blue-600 hover:text-[#0b2149]">AutoNotes</a>
           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
           <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-          
-          <div class="relative w-48">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
         </div>
 
-       <div class="hidden md:flex items-center gap-3 ml-4">
-         <a href="login.html"
-class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 hover:text-[var(--primary)] transition duration-200">
-  Login
-</a>
-        <a href="signup.html"
-class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] hover:text-white transition duration-200 shadow-md">
-  Signup
-</a>
+        <div class="hidden md:flex items-center gap-3 ml-4">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
         </div>
-        <div class="xl:hidden flex items-center">
-          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+
+        <div class="xl:hidden flex items-center justify-between w-full">
+          <a href="SmartEduX.html" class="flex items-center gap-2">
+            <span class="text-xl font-bold text-[#0b2149]">SmartEduX</span>
+          </a>
+          <button id="menu-toggle" class="p-2 rounded-md text-[#0b2149] text-2xl">☰</button>
         </div>
 
       </div>
 
       <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
         <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-          
-          <div class="py-2">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-          
           <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
           <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
           <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
           <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
           <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
-          </div>
         </div>
       </div>
     </div>
-  </nav>
+</nav>
 
-<!-- Header Section -->
- <section class="bg-[#0b2149] text-white py-10">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <h2 class="text-3xl sm:text-4xl font-extrabold mb-2">AI Auto Notes Generator</h2>
-      <p class="max-w-2xl mx-auto">Paste your YouTube video or any other link and get instant AI-generated notes.</p>
+<section class="bg-[#0b2149] text-white py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">AI Auto Notes Generator</h2>
+      <p class="max-w-2xl mx-auto text-blue-100/90 text-sm sm:text-base leading-relaxed">
+        Transform any video lecture into structured timestamped study guides, instant summaries, and interactive self-practice quizzes.
+      </p>
     </div>
-  </section>
-<!-- Main Area -->
-<section class="py-16 px-6">
-  <div class="max-w-4xl mx-auto bg-white shadow-2xl p-10 rounded-xl">
+</section>
 
-    <h2 class="text-3xl font-bold text-primary mb-6 text-center">Generate Notes</h2>
+<section class="py-12 px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto space-y-10">
+    
+    <!-- Input Card -->
+    <div class="bg-white shadow-xl p-6 sm:p-10 rounded-2xl border border-gray-100">
+      <h2 class="text-2xl font-bold text-[#0b2149] mb-4 text-center md:text-left">Generate Study Material</h2>
+      
+      <div class="flex flex-col md:flex-row gap-4 items-stretch">
+        <div class="flex-grow relative">
+          <input id="ytLink" type="text" placeholder="Paste YouTube Link or Video URL here..." class="w-full h-full border border-gray-300 p-4 rounded-xl focus:ring-2 focus:ring-[#0b2149] focus:border-[#0b2149] outline-none text-sm sm:text-base">
+        </div>
+        <div class="flex gap-2">
+          <a href="https://www.youtube.com" target="_blank" class="flex items-center justify-center px-4 py-3 bg-white border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition font-medium text-sm whitespace-nowrap">
+            Go to YouTube
+          </a>
+          <button onclick="generateNotes()" class="bg-[#0b2149] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#07122a] transition shadow-md text-sm sm:text-base whitespace-nowrap">
+            Generate
+          </button>
+        </div>
+      </div>
 
-    <!-- Input Box -->
-    <div class="flex flex-col md:flex-row gap-4 items-center">
-      <input id="ytLink" type="text" placeholder="Paste YouTube Link..." class="flex-grow border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-primary outline-none">
-<div class="mt-3 text-center">
-  <a href="https://www.youtube.com" target="_blank" 
-     class="inline-block px-4 py-2 bg-white border border-[#0b2149] text-[#0b2149] rounded hover:bg-[#0b2149] hover:text-white transition">
-     Go to YouTube
-  </a>
-</div>
-      <button onclick="generateNotes()" class="bg-[#0b2149] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#07122a] transition w-full md:w-auto">
-  Generate
-</button>
+      <!-- Loading State -->
+      <div id="loading" class="hidden text-center mt-10 space-y-4">
+        <div class="animate-spin h-12 w-12 border-4 border-gray-200 border-t-[#0b2149] rounded-full mx-auto"></div>
+        <p class="text-[#0b2149] font-semibold tracking-wide text-sm sm:text-base animate-pulse">SmartEduX AI is analyzing video transcription and drafting study aids...</p>
+      </div>
     </div>
 
-    <!-- Progress Loader -->
-    <div id="loading" class="hidden text-center mt-8">
-      <div class="animate-spin h-10 w-10 border-4 border-gray-200 border-t-primary rounded-full mx-auto"></div>
-      <p class="text-primary mt-3 font-medium">Generating notes, please wait...</p>
+    <!-- Split Workspace (Initially Hidden) -->
+    <div id="workspace" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Video Player -->
+      <div class="lg:col-span-6 bg-white p-4 rounded-2xl shadow-lg border border-gray-100 space-y-4">
+        <div class="flex items-center justify-between border-b pb-3">
+          <h4 class="font-bold text-[#0b2149] flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+            Lecture Video Player
+          </h4>
+          <span class="text-xs text-gray-500 font-medium bg-gray-100 px-2.5 py-1 rounded-full">Interactive Link Active</span>
+        </div>
+        <div class="relative w-full overflow-hidden rounded-xl bg-black aspect-video">
+          <iframe id="videoPlayer" class="absolute inset-0 w-full h-full" src="" title="Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed text-center italic">
+          Tip: You can watch the lecture and follow along with notes generated on the right in real-time.
+        </p>
+      </div>
+
+      <!-- Right Column: Interactive Tabs (AutoNotes, Quizzes, Summary) -->
+      <div class="lg:col-span-6 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[480px] sm:h-[520px]">
+        
+        <!-- Tab Switches -->
+        <div class="flex border-b text-sm font-semibold text-gray-500 bg-gray-50">
+          <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn active flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            AutoNotes
+          </button>
+          <button onclick="switchTab('quizzes')" id="tab-quizzes" class="tab-btn flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Quizzes / MCQs
+          </button>
+          <button onclick="switchTab('summary')" id="tab-summary" class="tab-btn flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Quick Summary
+          </button>
+        </div>
+
+        <!-- Scrollable Tab Content Viewport -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-4">
+          
+          <!-- Tab Content: AutoNotes -->
+          <div id="content-notes" class="tab-content space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Generated Bullet Study Guide</span>
+              <button onclick="downloadNotes()" class="text-xs bg-blue-50 text-[#0b2149] px-2.5 py-1.5 rounded-md font-bold hover:bg-[#0b2149] hover:text-white transition">
+                📥 Download (.txt)
+              </button>
+            </div>
+            
+            <div class="space-y-4 text-gray-700 text-sm leading-relaxed" id="notesText">
+              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
+                <strong class="text-blue-900 block font-bold">[00:00] Overview & MVC Introduction</strong>
+                Detailed introduction to architectural standards and separation of concerns. Decoupling view models from UI components ensures modular, testable application flow.
+              </div>
+              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
+                <strong class="text-blue-900 block font-bold">[03:15] Model Domain Logic</strong>
+                The model is solely responsible for handling data states, backend interaction APIs, local storage caching, and raw database schema execution. It remains presentation-agnostic.
+              </div>
+              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
+                <strong class="text-blue-900 block font-bold">[07:45] View Layer Dynamic Presentation</strong>
+                The visual screen, UI layout, layout updates, CSS styling, and client-facing interfaces are governed by the View. It binds directly to the data bindings provided by Controller.
+              </div>
+              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
+                <strong class="text-blue-900 block font-bold">[12:30] Controller & App State Handlers</strong>
+                Acts as the broker between the Model and the View. Controllers process user inputs, fire API actions, retrieve data results, and direct display states synchronously.
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content: Quizzes / MCQs -->
+          <div id="content-quizzes" class="tab-content hidden space-y-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block border-b pb-2">Active Recall Assessment</span>
+            
+            <!-- MCQ Item 1 -->
+            <div class="space-y-3">
+              <p class="font-bold text-sm text-[#0b2149]">1. Which MVC component directly structures raw data and schema validations?</p>
+              <div class="grid grid-cols-1 gap-2">
+                <button onclick="verifyAnswer(this, true)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Model</button>
+                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">View</button>
+                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Controller</button>
+              </div>
+            </div>
+
+            <!-- MCQ Item 2 -->
+            <div class="space-y-3 pt-4 border-t border-gray-100">
+              <p class="font-bold text-sm text-[#0b2149]">2. In a typical client request cycle, where does user input land first?</p>
+              <div class="grid grid-cols-1 gap-2">
+                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Model</button>
+                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">View Schema</button>
+                <button onclick="verifyAnswer(this, true)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Controller</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content: Quick Summary -->
+          <div id="content-summary" class="tab-content hidden space-y-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block border-b pb-2">Key Takeaways Summary</span>
+            <div class="p-4 bg-slate-50 rounded-xl space-y-3">
+              <p class="text-sm text-gray-700 leading-relaxed font-medium">
+                The MVC architecture maintains application sanity by dividing structural complexity. Keeping presentation detached from business processing creates codebases that are highly testable, extremely scalable, and ready for rapid modern updates.
+              </p>
+              <ul class="space-y-2 text-xs text-gray-600 font-medium">
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-600 font-bold">✓</span> Models manage variables and data.
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-600 font-bold">✓</span> Views present layouts and templates.
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-600 font-bold">✓</span> Controllers drive the operational data workflow.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
-    <!-- Notes Output -->
-    <div id="notesOutput" class="hidden mt-10 bg-gray-50 border border-gray-300 p-6 rounded-lg shadow-inner">
-      <h3 class="text-xl font-bold text-primary mb-4">AI Notes:</h3>
-      <p id="notesText" class="whitespace-pre-line leading-relaxed"></p>
-
-      <button onclick="downloadNotes()" class="mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-gray-800 transition">Download Notes</button>
-    </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-        
-        <div class="text-center md:text-left">
-          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
-          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
-            Empowering learning with AI video summarization, notes, MCQs and curated courses.
-          </p>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
-          <ul class="space-y-3 text-sm text-blue-200/80">
-            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
-            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
-            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
-          </ul>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
-          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
-          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
-          <div class="mt-6 flex justify-center md:justify-start gap-4">
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
-          </div>
+<!-- Optimized Polished Footer -->
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      
+      <!-- Column 1: Brand Info -->
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <!-- Clean Text Links for Socials -->
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
         </div>
       </div>
 
-      <div class="border-t border-white/10 pt-8 text-center">
-        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+      <!-- Column 2: Quick Links with Smooth Hover -->
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
       </div>
+
     </div>
-  </footer>
+
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
 <script>
-function generateNotes() {
-  const link = document.getElementById('ytLink').value.trim();
-
-  if (!link) {
-    alert('Please paste a YouTube link!');
-    return;
-  }
-
-  document.getElementById('loading').classList.remove('hidden');
-  document.getElementById('notesOutput').classList.add('hidden');
-
-  setTimeout(() => {
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('notesOutput').classList.remove('hidden');
-
-    document.getElementById('notesText').innerText =
-      "🔹 *AI Notes will appear here.*
-
-This is a sample output. Connect backend API for real notes.";
-  }, 2000);
-}
-
-function downloadNotes() {
-  const text = document.getElementById('notesText').innerText;
-  const blob = new Blob([text], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'SmartEduX_Notes.txt';
-  a.click();
-
-  URL.revokeObjectURL(url);
-}
-</script>
-<script>
+// Mobile toggle responsive handler
 document.getElementById("menu-toggle").addEventListener("click", () => {
   document.getElementById("mobile-menu").classList.toggle("hidden");
 });
+
+// Auto Update Copyright Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Parse YouTube Link and extract ID
+function getYouTubeEmbedUrl(url) {
+  let videoId = '';
+  // Match standard, sharing, embed, or short URLs
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[2].length === 11) {
+    videoId = match[2];
+  } else {
+    // Fallback default educational video id if input is generic or wrong
+    videoId = 'd5F6zS0q4V4'; 
+  }
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
+// Simulated Auto Notes Generator Engine
+function generateNotes() {
+  const linkInput = document.getElementById("ytLink").value;
+  const loading = document.getElementById("loading");
+  const workspace = document.getElementById("workspace");
+  const videoPlayer = document.getElementById("videoPlayer");
+
+  // Show Loading Spinner
+  loading.classList.remove("hidden");
+  workspace.classList.add("hidden");
+
+  // Simulate AI Processing time (1.5 seconds)
+  setTimeout(() => {
+    // Hide Loading Spinner
+    loading.classList.add("hidden");
+    
+    // Set YouTube source embed url
+    videoPlayer.src = getYouTubeEmbedUrl(linkInput);
+    
+    // Reveal Workspace
+    workspace.classList.remove("hidden");
+    workspace.scrollIntoView({ behavior: 'smooth' });
+  }, 1500);
+}
+
+// Tab Switcher Controller
+function switchTab(tabName) {
+  // Hide all contents
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.add('hidden');
+  });
+  
+  // Deactivate all buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  // Activate chosen content & button
+  document.getElementById(`content-${tabName}`).classList.remove('hidden');
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+}
+
+// MCQ Answer validator
+function verifyAnswer(buttonElement, isCorrect) {
+  // Find siblings in the same grid
+  const siblingButtons = buttonElement.parentElement.querySelectorAll('.option-btn');
+  
+  // Reset previous validations for this specific question
+  siblingButtons.forEach(btn => {
+    btn.style.backgroundColor = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  });
+
+  if (isCorrect) {
+    buttonElement.style.backgroundColor = '#e8f5e9'; // Light Green
+    buttonElement.style.borderColor = '#4caf50';
+    buttonElement.style.color = '#1b5e20';
+  } else {
+    buttonElement.style.backgroundColor = '#ffebee'; // Light Red
+    buttonElement.style.borderColor = '#f44336';
+    buttonElement.style.color = '#b71c1c';
+  }
+}
+
+// Notes text download engine
+function downloadNotes() {
+  const container = document.getElementById('notesText');
+  const textContent = container ? container.innerText : "SmartEduX Auto Generated Notes Empty";
+  const blob = new Blob([textContent], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const downloadAnchorElement = document.createElement('a');
+  downloadAnchorElement.href = url;
+  downloadAnchorElement.download = 'SmartEduX_Lecture_Notes.txt';
+  downloadAnchorElement.click();
+
+  URL.revokeObjectURL(url);
+}
 </script>
 
 </body>
