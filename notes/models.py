@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from courses.models import Course  # Taake notes course se link hon
+from django.contrib.auth.models import User
 
 # 1. Ayesha ka Note Model
 class Note(models.Model):
@@ -16,6 +17,7 @@ class Note(models.Model):
 
 # 2. Zunaira ka VideoNote Model
 class VideoNote(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_notes', null=True, blank=True)
     video_title = models.CharField(max_length=255)
     video_url = models.URLField()
     transcript = models.TextField(blank=True, null=True)

@@ -4,8 +4,9 @@ import re
 import yt_dlp
 from django.shortcuts import render
 from django.conf import settings
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes # <-- Permission decorator yahan shamil kar diya
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated # <-- IsAuthenticated ko bhi file ke shuru mein le aaye
 from youtube_transcript_api import YouTubeTranscriptApi
 from google import genai
 from google.genai import types
@@ -23,6 +24,7 @@ client = genai.Client(api_key=CLEAN_KEY) if CLEAN_KEY else None
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated]) # 1️⃣ Check lag gaya ke naye notes sirf logged-in user bana sake
 def generate_notes(request):
     try:
         youtube_url = request.data.get('youtube_url', '').strip()
@@ -256,6 +258,10 @@ VIDEO CONTENT
         
         data = json.loads(response.text, strict=False)
 
+        # 6. Database Entry Lock (Unique entry save karna)
+        VideoNote.objects.create(
+            user=request.user,     # 2️⃣ Ab yeh note automatic us user ki profile se link ho jayega
+            video_title=video_id,  # Locking Identity
         # 4. DATABASE ENTRY LOCK
         video_note_obj = VideoNote.objects.create(
             video_title=video_id,
@@ -289,4 +295,61 @@ VIDEO CONTENT
 
     except Exception as err:
         print(f"[CRITICAL BACKEND ERROR]: {str(err)}")
+        return Response({"status": "failed", "error": str(err)}, status=500)
+
+
+# =====================================================================
+# HISTORY MANAGEMENT MODULE (Ayesha's Dashboard Storage & Fetch)
+# =====================================================================
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  
+def save_history(request):
+    try:
+        title = request.data.get('video_title')
+        url = request.data.get('video_url')
+        transcript_text = request.data.get('transcript')
+        summary_text = request.data.get('summary')
+        
+        if not title or not url:
+            return Response({"status": "failed", "error": "Video title and URL are required"}, status=400)
+
+        history_item = VideoNote.objects.create(
+            user=request.user,  
+            video_title=title,
+            video_url=url,
+            transcript=transcript_text,
+            summary=summary_text
+        )
+        
+        print(f"\n[SMARTEDUX STORAGE LOG]: New history node successfully synced for: {request.user.username}")
+        return Response({"status": "success", "message": "History saved successfully!"}, status=201)
+        
+    except Exception as err:
+        return Response({"status": "failed", "error": str(err)}, status=500)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_history(request):
+    try:
+        user_history = VideoNote.objects.filter(user=request.user).order_by('-created_at')
+        
+        history_list = []
+        for item in user_history:
+            history_list.append({
+                "id": item.id,
+                "video_title": item.video_title,
+                "video_url": item.video_url,
+                "summary": item.summary,
+                "created_at": item.created_at.strftime("%Y-%m-%d %H:%M")
+            })
+            
+        return Response({
+            "status": "success",
+            "total_records": len(history_list),
+            "history": history_list
+        }, status=200)
+        
+    except Exception as err:
         return Response({"status": "failed", "error": str(err)}, status=500)

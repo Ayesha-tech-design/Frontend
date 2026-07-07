@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+# sys import kar ke rasta clear karna
+import sys
 # Temporary bypass for environment packages mismatch
 try:
     from rest_framework.simplejwt.views import TokenObtainPairView, TokenRefreshView
