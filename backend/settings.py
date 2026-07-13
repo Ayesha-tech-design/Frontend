@@ -118,12 +118,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# CORS Configuration
+# =====================================================================
+# CORS PRODUCTION CONNECTIVITY SETUP
+# =====================================================================
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+# Explicitly allow browser-level headers for local file execution
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 # Django REST Framework & JWT Settings
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -139,6 +153,6 @@ SIMPLE_JWT = {
 }
 
 # =====================================================================
-# ZUNAIRA'S GEMINI API CONFIGURATION
+# ZUNAIRA'S GEMINI API CONFIGURATION (SYNTAX FIXED)
 # =====================================================================
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

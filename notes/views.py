@@ -9,9 +9,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated # <-- IsAuthenticated ko bhi file ke shuru mein le aaye
 from youtube_transcript_api import YouTubeTranscriptApi
 from google import genai
-from .models import VideoNote
+from google.genai import types
+from .models import VideoNote, QuizQuestion, UserQuizAttempt
 
-# === AUTHENTICATION IMPORTS (Zunaira ka Core Task) ===
+# === AUTHENTICATION IMPORTS ===
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -22,34 +23,17 @@ CLEAN_KEY = str(RAW_KEY).replace("..key", "").strip() if RAW_KEY else None
 client = genai.Client(api_key=CLEAN_KEY) if CLEAN_KEY else None
 
 
-def local_summary_generator(text):
-    return {
-        "summary": f"• AI Generated Local Notes\n\n• Main Topic:\n{text[:300]}\n\n• Key Points:\n- Educational concepts detected\n- Generated via local structure backup.",
-        "quiz": [
-            {
-                "question": "What is the primary subject discussed?",
-                "options": {"A": "Academic Topic", "B": "Entertainment", "C": "Gaming", "D": "Cooking"},
-                "answer": "A"
-            }
-        ]
-    }
-
-
-# =====================================================================
-# MAIN API ENDPOINT (Notes & Quiz Generation - FIXED FOR LIVE LINKS)
-# =====================================================================
 @api_view(['POST'])
 @permission_classes([IsAuthenticated]) # 1️⃣ Check lag gaya ke naye notes sirf logged-in user bana sake
 def generate_notes(request):
     try:
-        # 1. Live Input Extraction from Frontend
         youtube_url = request.data.get('youtube_url', '').strip()
         print(f"\n[SMARTEDUX LIVE LOG]: Incoming Link from Frontend: {youtube_url}")
 
         if not youtube_url:
             return Response({"status": "failed", "error": "YouTube URL required"}, status=400)
 
-        # 2. Advanced Video ID Parser (Har format handle karega)
+        # Video ID Parser
         video_id = ""
         if "v=" in youtube_url:
             video_id = youtube_url.split("v=")[1].split("&")[0]
@@ -58,136 +42,259 @@ def generate_notes(request):
         else:
             video_id = youtube_url.rstrip("/").split("/")[-1]
 
-        print(f"-> Parsed Unique Video ID: {video_id}")
-
         if not video_id:
             return Response({"status": "failed", "error": "Invalid YouTube URL format"}, status=400)
 
-        # 3. PUKKA CACHE CHECK VIA VIDEO ID
+        # 1. CACHE CHECK
         existing = VideoNote.objects.filter(video_title=video_id).first()
         if existing:
-            print("-> Database Cache Hit: Returning pre-existing records instantly.")
+            saved_questions = existing.questions.all()
+            quiz_list = []
+            for q in saved_questions:
+                quiz_list.append({
+                    "question": q.question_text,
+                    "options": {"A": q.option_a, "B": q.option_b, "C": q.option_c, "D": q.option_d},
+                    "answer": q.correct_answer
+                })
+
             return Response({
                 "status": "success",
                 "source": "database",
                 "summary": existing.summary,
-                "quiz": []
+                "quiz": quiz_list
             })
 
-        # 4. Fresh Content Extraction Loop
+        # 2. ADVANCED TRANSCRIPT EXTRACTION
         raw_text = ""
-        is_transcript_available = True
+        source_type = "gemini_transcript"
+        
         try:
             transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'hi'])
             raw_text = " ".join([item['text'] for item in transcript])
-            source_type = "gemini_transcript"
         except Exception:
             try:
-                ydl_opts = {'quiet': True, 'no_warnings': True}
-                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    info = ydl.extract_info(youtube_url, download=False)
-                    raw_text = f"Title: {info.get('title', '')}\nDescription: {info.get('description', '')[:500]}"
-                source_type = "gemini_metadata_fallback"
+                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+                try:
+                    transcript = transcript_list.find_generated_transcript(['en', 'hi']).fetch()
+                except Exception:
+                    transcript = transcript_list.find_id_encoded_transcript(['en', 'hi']).fetch()
+                raw_text = " ".join([item['text'] for item in transcript])
             except Exception:
-                raw_text = "Standard Educational Domain Video Content Text"
-                source_type = "fallback"
+                try:
+                    ydl_opts = {'quiet': True, 'no_warnings': True}
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                        info = ydl.extract_info(youtube_url, download=False)
+                        raw_text = f"Title: {info.get('title', '')}\nDescription: {info.get('description', '')[:1500]}"
+                    source_type = "gemini_metadata_fallback"
+                except Exception:
+                    raw_text = "Standard Educational Domain Video Content Text"
+                    source_type = "fallback"
 
-        raw_text = raw_text[:3000]
+        raw_text = raw_text[:12000]
 
-        # 5. Live GenAI Content Production
+ # ==========================================================
+# SMARTEDUX PROFESSIONAL AI PROMPT
+# ==========================================================
+
         prompt = f"""
-        You are an academic assistant built into the SmartEduX platform.
-        Analyze the provided context and return a strict raw JSON object.
-        Generate exactly 5 high-quality academic MCQs inside the quiz array.
+You are SmartEduX AI, an intelligent educational assistant.
 
-        STRUCTURE:
-        {{
-          "summary": "Detailed educational notes formatted nicely in clear bullet points.",
-          "quiz": [
-            {{
-              "question": "Question text?",
-              "options": {{"A": "Choice 1", "B": "Choice 2", "C": "Choice 3", "D": "Choice 4"}},
-              "answer": "A"
-            }}
-          ]
-        }}
+Your responsibility is to convert educational video content into high-quality study material for university students.
 
-        Context Text:
-        {raw_text}
-        """
-        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+=====================
+RULES
+=====================
+
+1. ONLY focus on educational concepts.
+
+2. Ignore:
+- sponsorships
+- advertisements
+- promotions
+- coupon codes
+- course selling
+- social media
+- introductions
+- greetings
+- outros
+
+3. Never mention:
+"According to the video"
+"The instructor says"
+
+Instead write as if these are professional study notes.
+
+4. If transcript quality is poor,
+use the available educational context and your own verified knowledge
+to produce accurate notes.
+
+Never say:
+"I don't know."
+
+=====================
+OUTPUT FORMAT
+=====================
+
+# Title
+
+Generate a suitable title.
+
+---
+
+## Introduction
+
+Explain the topic in 1-2 paragraphs.
+
+---
+
+## Key Concepts
+
+Create clear headings.
+
+For every heading explain:
+
+• Definition
+
+• Explanation
+
+• Important Points
+
+• Advantages (if applicable)
+
+• Limitations (if applicable)
+
+• Real World Example
+
+---
+
+## Important Terms
+
+List important technical terms.
+
+---
+
+## Summary
+
+Write 5-8 concise bullet points.
+
+=====================
+MCQ RULES
+=====================
+
+Generate EXACTLY 5 MCQs.
+
+Each MCQ must contain
+
+Question
+
+A
+
+B
+
+C
+
+D
+
+Correct Answer
+
+MCQs should test conceptual understanding.
+
+Avoid trivial questions.
+
+=====================
+STYLE
+=====================
+
+Use professional English.
+
+Use Markdown.
+
+Avoid unnecessary symbols.
+
+Make notes look like university lecture notes.
+
+=====================
+VIDEO CONTENT
+=====================
+
+    {raw_text}
+"""
+
+        # Corrected complete Schema Config
+        config = types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=types.Schema(
+                type=types.Type.OBJECT,
+                properties={
+                    "summary": types.Schema(type=types.Type.STRING),
+                    "quiz": types.Schema(
+                        type=types.Type.ARRAY,
+                        items=types.Schema(
+                            type=types.Type.OBJECT,
+                            properties={
+                                "question": types.Schema(type=types.Type.STRING),
+                                "options": types.Schema(
+                                    type=types.Type.OBJECT,
+                                    properties={
+                                        "A": types.Schema(type=types.Type.STRING),
+                                        "B": types.Schema(type=types.Type.STRING),
+                                        "C": types.Schema(type=types.Type.STRING),
+                                        "D": types.Schema(type=types.Type.STRING),
+                                    }
+                                ),
+                                "answer": types.Schema(type=types.Type.STRING),
+                            }
+                        )
+                    )
+                }
+            )
+        )
+
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config=config
+        )
         
-        ai_text = response.text.strip()
-        json_match = re.search(r'\{.*\}', ai_text, re.DOTALL)
-        clean_json = json_match.group() if json_match else ai_text
-        data = json.loads(clean_json, strict=False)
+        data = json.loads(response.text, strict=False)
 
         # 6. Database Entry Lock (Unique entry save karna)
         VideoNote.objects.create(
             user=request.user,     # 2️⃣ Ab yeh note automatic us user ki profile se link ho jayega
             video_title=video_id,  # Locking Identity
+        # 4. DATABASE ENTRY LOCK
+        video_note_obj = VideoNote.objects.create(
+            video_title=video_id,
             video_url=youtube_url,
             transcript=raw_text,
             summary=data.get("summary", "")
         )
-        print("-> Database Sync Complete for new video.")
+
+        # 5. LOOP AND SAVE QUIZ
+        generated_quiz = data.get("quiz", [])
+        for item in generated_quiz:
+            options = item.get("options", {})
+            QuizQuestion.objects.create(
+                video_note=video_note_obj,
+                question_text=item.get("question", ""),
+                option_a=options.get("A", ""),
+                option_b=options.get("B", ""),
+                option_c=options.get("C", ""),
+                option_d=options.get("D", ""),
+                correct_answer=item.get("answer", "A")
+            )
+
+        print("-> Database Sync Complete for fresh conceptual video.")
 
         return Response({
             "status": "success",
             "source": source_type,
             "summary": data.get("summary", ""),
-            "quiz": data.get("quiz", [])
+            "quiz": generated_quiz
         })
 
     except Exception as err:
-        return Response({"status": "failed", "error": str(err)}, status=500)
-
-
-# =====================================================================
-# USER AUTHENTICATION ENDPOINTS (Zunaira's Core Tasks)
-# =====================================================================
-
-@api_view(['POST'])
-def register_user(request):
-    try:
-        username = request.data.get('username')
-        email = request.data.get('email')
-        password = request.data.get('password')
-
-        if not username or not email or not password:
-            return Response({"status": "failed", "error": "All fields required"}, status=400)
-
-        if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
-            return Response({"status": "failed", "error": "User already registered"}, status=400)
-
-        new_user = User.objects.create_user(username=username, email=email, password=password)
-        new_user.save()
-        return Response({"status": "success", "message": "Registered successfully!"}, status=201)
-    except Exception as err:
-        return Response({"status": "failed", "error": str(err)}, status=500)
-
-
-@api_view(['POST'])
-def login_user(request):
-    try:
-        email_or_username = request.data.get('email')
-        password = request.data.get('password')
-
-        if not email_or_username or not password:
-            return Response({"status": "failed", "error": "All fields required"}, status=400)
-
-        target_username = email_or_username
-        if "@" in email_or_username:
-            user_obj = User.objects.filter(email=email_or_username).first()
-            if user_obj: 
-                target_username = user_obj.username
-
-        user = authenticate(username=target_username, password=password)
-        if user is not None:
-            login(request, user)
-            return Response({"status": "success", "message": "Login successful!"}, status=200)
-        return Response({"status": "failed", "error": "Invalid credentials"}, status=401)
-    except Exception as err:
+        print(f"[CRITICAL BACKEND ERROR]: {str(err)}")
         return Response({"status": "failed", "error": str(err)}, status=500)
 
 
