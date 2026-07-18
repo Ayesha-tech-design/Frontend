@@ -115,19 +115,24 @@
     }
     .card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
 
-    .card-img { width:100%; height:160px; object-fit:cover; display:block; }
+  .card-img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    object-position:left center;
+}
 
     /* Course card */
-    .course-card {
-  overflow:hidden;
-  border-radius: .75rem;
-  background:white;
-  transition: transform .2s, box-shadow .2s;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  .course-card {
+    overflow:hidden;
+    border-radius: .75rem;
+    background:white;
+    transition: transform .2s, box-shadow .2s;
+    display: flex;
+    flex-direction: column;
+    height:350px;
+}
 
-    }
     .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
 
     /* Demo video responsive */
@@ -219,10 +224,6 @@ button, a {
   -webkit-tap-highlight-color: transparent;
 }
 /* ===== MOBILE COMPACT NAVBAR ===== */
-
-
- 
-
 .logo-mark {
   width: 115px;
   height: 115px;
@@ -258,7 +259,7 @@ nav span.text-\[26px\] {
   display:flex;
   gap:20px;
   width:max-content;
-  animation: courseSlide 20s linear infinite;
+  animation: courseSlide 35s linear infinite;
 }
 
 .courses-track:hover{
@@ -266,7 +267,10 @@ nav span.text-\[26px\] {
 }
 
 .courses-track .course-card{
-  min-width:320px;
+    min-width:280px;
+    max-width:280px;
+    flex-shrink:0;
+
 }
 
 @keyframes courseSlide{
@@ -277,6 +281,8 @@ nav span.text-\[26px\] {
     transform:translateX(-50%);
   }
 }
+
+
 
   </style>
 </head>
@@ -479,9 +485,6 @@ nav span.text-\[26px\] {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-[#0b2149]">Our Available Courses</h2>
 
-<section id="courses" class="py-16 md:py-24 bg-[#0b2149] text-white"></section>
-
-      
       <div class="courses-viewport">
   <div class="courses-track">
         <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
@@ -525,7 +528,7 @@ nav span.text-\[26px\] {
           </div>
         </article>
         <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
-  <img src="information_security.JPG" alt="Information_Security" class="card-img h-48 w-full object-cover">
+  <img src="information_security.JPG" alt="UI Design/information_security.html" class="card-img h-48 w-full object-cover">
 
   <div class="p-5 bg-white flex-grow rounded-b-xl">
     <h3 class="text-[var(--primary)] font-bold text-lg">
@@ -537,7 +540,66 @@ nav span.text-\[26px\] {
     </p>
 
     <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
-      <a href="information_security.html" class="hover:underline">
+      <a href="UI Design/information_security.html" class="hover:underline">
+        Build Strong Cyber Security Skills
+      </a>
+    </div>
+  </div>
+</article>
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+          <img src="design.jpg" alt="Graphics Designing" class="card-img h-48 w-full object-cover">
+          <div class="p-5 bg-white flex-grow rounded-b-xl">
+            <h3 class="text-[var(--primary)] font-bold text-lg">Graphics Designing Course</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed"> Learn Photoshop, Illustrator and modern design skills for social media and branding.
+            </p>
+
+            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+              <a href="graphics.html" class="hover:underline flex items-center gap-1">Master Creative Design Skills <span>&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- WordPress Course Card -->
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none shadow-md border border-gray-100 flex flex-col rounded-xl overflow-hidden" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1618401471353-b98aedd07871?auto=format&fit=crop&w=600&q=80" alt="Wordpress Web Development" class="card-img h-48 w-full object-cover" onerror="this.src='https://placehold.co/600x480/0b2149/ffffff?text=WordPress+Course'">
+          <div class="p-5 bg-white flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-[#0b2149] font-bold text-lg">WordPress Web Development</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Build complete websites using WordPress, themes, plugins and hosting setup.</p>
+            </div>
+            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+              <a href="wordpress.html" class="hover:underline flex items-center gap-1">Build Professional Websites <span>&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fiverr Course Card -->
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none shadow-md border border-gray-100 flex flex-col rounded-xl overflow-hidden" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Fiverr Freelancing" class="card-img h-48 w-full object-cover" onerror="this.src='https://placehold.co/600x480/0b2149/ffffff?text=Fiverr+Freelancing'">
+          <div class="p-5 bg-white flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-[#0b2149] font-bold text-lg">Fiverr Freelancing Course</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Learn how to create gigs, attract clients and earn online through Fiverr freelancing.</p>
+            </div>
+            <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+              <a href="fiverr.html" class="hover:underline flex items-center gap-1">Earn Online with Freelancing <span>&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="course-card w-full max-w-md mx-auto sm:max-w-none" tabindex="0">
+  <img src="information_security.JPG" alt="UI Design/information_security.html" class="card-img h-48 w-full object-cover">
+
+  <div class="p-5 bg-white flex-grow rounded-b-xl">
+    <h3 class="text-[var(--primary)] font-bold text-lg">
+      Information Security
+    </h3>
+
+    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+      Build strong cyber security skills and learn to protect information systems.
+    </p>
+
+    <div class="mt-4 text-xs font-semibold text-blue-600 uppercase tracking-wide">
+      <a href="UI Design/information_security.html" class="hover:underline">
         Build Strong Cyber Security Skills
       </a>
     </div>
@@ -547,7 +609,6 @@ nav span.text-\[26px\] {
       </div>
       </div>
     </div>
-  </section>
   </section>
 
   <section id="demo" class="py-16 bg-white">
