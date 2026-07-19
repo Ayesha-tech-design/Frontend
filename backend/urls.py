@@ -1,30 +1,18 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-# sys import kar ke rasta clear karna
-import sys
-# Temporary bypass for environment packages mismatch
-try:
-    from rest_framework.simplejwt.views import TokenObtainPairView, TokenRefreshView
-    HAS_JWT = True
-except ImportError:
-    HAS_JWT = False
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    # # 1. Admin Panel
+    # 1. Admin Panel
     path('admin/', admin.site.urls),
 
-    # # 2. Users App Routes (Signup wagera ke liye)
+    # 2. Users App Routes
     path('api/users/', include('users.urls')),
 
-    # # 5. Zunaira ka AI Notes Generator Route (Ab Connect Ho Gaya!)
+    # 3. AI Notes Generator Route
     path('api/notes/', include('notes.urls')),
-]
 
-# Agar environment mien simplejwt mil jaye toh raste active hon, warna server crash na ho
-if HAS_JWT:
-    urlpatterns.append(path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'))
-    urlpatterns.append(path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'))
-else:
-    print("\n[SMARTEDUX WARNING]: SimpleJWT package isolated to prevent crash. AI Notes is fully functional.")
+    # 4. Forced Secure JWT Login Routes (No more yellow screens!)
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]

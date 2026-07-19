@@ -9,11 +9,11 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 
-# .env file ko load karne ke liye
-load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# .env file ko load karne ke liye (Professional absolute path config)
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')

@@ -4,9 +4,9 @@ import re
 import yt_dlp
 from django.shortcuts import render
 from django.conf import settings
-from rest_framework.decorators import api_view, permission_classes # <-- Permission decorator yahan shamil kar diya
+from rest_framework.decorators import api_view, permission_classes 
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated # <-- IsAuthenticated ko bhi file ke shuru mein le aaye
+from rest_framework.permissions import IsAuthenticated 
 from youtube_transcript_api import YouTubeTranscriptApi
 from google import genai
 from google.genai import types
@@ -24,7 +24,7 @@ client = genai.Client(api_key=CLEAN_KEY) if CLEAN_KEY else None
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated]) # 1️⃣ Check lag gaya ke naye notes sirf logged-in user bana sake
+@permission_classes([IsAuthenticated]) 
 def generate_notes(request):
     try:
         youtube_url = request.data.get('youtube_url', '').strip()
@@ -92,9 +92,9 @@ def generate_notes(request):
 
         raw_text = raw_text[:12000]
 
- # ==========================================================
-# SMARTEDUX PROFESSIONAL AI PROMPT
-# ==========================================================
+        # ==========================================================
+        # SMARTEDUX PROFESSIONAL AI PROMPT
+        # ==========================================================
 
         prompt = f"""
 You are SmartEduX AI, an intelligent educational assistant.
@@ -258,12 +258,9 @@ VIDEO CONTENT
         
         data = json.loads(response.text, strict=False)
 
-        # 6. Database Entry Lock (Unique entry save karna)
-        VideoNote.objects.create(
-            user=request.user,     # 2️⃣ Ab yeh note automatic us user ki profile se link ho jayega
-            video_title=video_id,  # Locking Identity
-        # 4. DATABASE ENTRY LOCK
+        # 4. DATABASE ENTRY LOCK WITH USER MAPPING FIXED
         video_note_obj = VideoNote.objects.create(
+            user=request.user,
             video_title=video_id,
             video_url=youtube_url,
             transcript=raw_text,
