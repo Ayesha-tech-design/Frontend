@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartEduX — Verification Pending</title>
+  
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #f4f8ff 0%, #eef2ff 100%);
+    }
+    :root {
+      --primary: #0b2149;
+    }
+    /* Smooth Background Bubbles */
+    .bg-blur-ball {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(60px);
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .ball-1 { width: 300px; height: 300px; background: #bfdbfe; top: -10%; left: -10%; }
+    .ball-2 { width: 250px; height: 250px; background: #dbeafe; bottom: 10%; right: -5%; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-gray-800 relative overflow-x-hidden">
+
+  <!-- Background Decorative Balls -->
+  <div class="bg-blur-ball ball-1"></div>
+  <div class="bg-blur-ball ball-2"></div>
+
+  <!-- HEADER / NAV -->
+  <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="SmartEduX.html" class="flex items-center gap-2 z-10">
+          <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+        </a>
+        <a href="SmartEduX.html" class="text-sm font-semibold text-gray-500 hover:text-[#0b2149] transition-colors z-10 flex items-center gap-1">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CARD CONTAINER -->
+  <main class="flex-grow flex items-center justify-center px-6 py-12 z-10">
+    <div class="max-w-lg w-full bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 md:p-10 text-center border border-white/40 relative">
+      
+      <!-- Top Primary Accent Line -->
+      <div class="absolute top-0 left-0 right-0 h-2 bg-[#0b2149] rounded-t-2xl"></div>
+
+      <!-- Verification Icon Animation -->
+      <div class="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+        <div class="absolute inset-0 bg-blue-100/70 rounded-full animate-ping opacity-20"></div>
+        <div class="absolute inset-0 bg-blue-100 rounded-full scale-110 opacity-40"></div>
+        <div class="relative w-16 h-16 bg-gradient-to-tr from-[#0b2149] to-[#1e3e7a] rounded-full flex items-center justify-center shadow-lg">
+          <!-- Animated Modern Clock/Shield Icon -->
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Heading & Badges -->
+      <h1 class="text-3xl font-extrabold text-[#0b2149] tracking-tight mb-2">Verification Pending</h1>
+      <div class="flex justify-center gap-2 mb-8">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+          ⏳ Under Review
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">
+          👨‍🏫 Teacher Account
+        </span>
+      </div>
+
+      <!-- VISUAL PROGRESS TIMELINE -->
+      <div class="mb-8 bg-gray-50/60 p-4 rounded-xl border border-gray-100">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider text-left mb-3">Application Progress</p>
+        <div class="flex items-center justify-between relative">
+          <!-- Progress Line Background -->
+          <div class="absolute left-0 right-0 top-3.5 h-1 bg-gray-200 -z-10"></div>
+          <!-- Active Progress Line -->
+          <div class="absolute left-0 w-2/3 top-3.5 h-1 bg-[#0b2149] -z-10"></div>
+
+          <!-- Step 1 -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="w-8 h-8 bg-[#0b2149] text-white rounded-full flex items-center justify-center text-xs font-bold shadow">✓</div>
+            <span class="text-[11px] font-medium text-gray-500 mt-1">Signed Up</span>
+          </div>
+          <!-- Step 2 -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="w-8 h-8 bg-[#0b2149] text-white rounded-full flex items-center justify-center text-xs font-bold shadow">✓</div>
+            <span class="text-[11px] font-medium text-gray-500 mt-1">Info Submitted</span>
+          </div>
+          <!-- Step 3 -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="w-8 h-8 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shadow animate-pulse">⏳</div>
+            <span class="text-[11px] font-bold text-[#0b2149] mt-1">Admin Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Text -->
+      <div class="space-y-3 text-gray-600 text-sm leading-relaxed text-left border-l-4 border-[#0b2149] pl-4 mb-6">
+        <p>
+          Thank you for choosing <strong>SmartEduX</strong>! To ensure academic integrity, our administrators are evaluating your documents and credentials.
+        </p>
+        <p class="font-semibold text-gray-700 flex items-center gap-1.5">
+          <span>⏱</span> Estimated Time: 24 to 48 Hours.
+        </p>
+      </div>
+
+      <!-- Information Callout -->
+      <div class="bg-blue-50/50 border border-blue-100 rounded-xl p-3 text-left flex gap-2.5 items-start mb-8">
+        <span class="text-lg">💡</span>
+        <p class="text-xs text-blue-800 leading-normal">
+          <strong>What happens next?</strong> Once approved, we will automatically activate your dashboard and send a confirmation link to your registered email address.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-3">
+        <button id="refreshBtn" onclick="checkStatus()" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#162e5c] transition-all shadow-lg active:scale-[0.98] duration-150 flex items-center justify-center gap-2">
+          <svg id="refreshIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.253 8H18" />
+          </svg>
+          <span id="btnText">Refresh Status</span>
+        </button>
+        <a href="SmartEduX.html" class="block w-full text-center text-sm font-semibold text-gray-400 hover:text-[#0b2149] transition-colors py-1">
+          Return to Homepage
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-6 bg-[#07122a] text-center text-xs text-gray-400 border-t border-white/5">
+    <p>© 2026 SmartEduX — Security Portal. All rights reserved.</p>
+  </footer>
+
+  <!-- Interactivity Script -->
+  <script>
+    function checkStatus() {
+      const btn = document.getElementById('refreshBtn');
+      const icon = document.getElementById('refreshIcon');
+      const text = document.getElementById('btnText');
+      
+      // UI effect to look like it's checking live
+      btn.disabled = true;
+      icon.classList.add('animate-spin');
+      text.textContent = "Checking Server...";
+      
+      setTimeout(() => {
+        btn.disabled = false;
+        icon.classList.remove('animate-spin');
+        text.textContent = "Refresh Status";
+        alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+      }, 1200); // 1.2 seconds fake loader
+    }
+  </script>
+
+</body>
+</html>
