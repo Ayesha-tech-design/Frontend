@@ -30,11 +30,12 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 
         // Evaluate server infrastructure execution flags
         if (networkResponse.ok) {
-            // Commit token string into client session local memory
-            localStorage.setItem("authToken", responseData.token);
+            // Commit SimpleJWT access token into client session local memory
+            localStorage.setItem("authToken", responseData.access); // access token save kiya
+            localStorage.setItem("refreshToken", responseData.refresh); // safety ke liye refresh token bhi save kiya
             
             alert("Authentication Verified successfully. Redirecting to user platform...");
-            window.location.href = "dashboard.html";
+            window.location.href = "AutoNotes.html"; // Redirect path updated to your actual workspace!
         } else {
             alert("Authentication Rejected: " + (responseData.error || "Invalid user footprint."));
         }

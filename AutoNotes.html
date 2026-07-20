@@ -45,9 +45,8 @@
   </style>
 </head>
 
-<body class="flex flex-col min-height-screen">
+<body class="flex flex-col min-h-screen">
 
-<!-- -->
 <nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
@@ -124,6 +123,9 @@
         </div>
       </div>
 
+      <!-- Error Box Section -->
+      <div id="errorBox" class="hidden mt-4 p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-sm font-medium"></div>
+
       <!-- Loading State -->
       <div id="loading" class="hidden text-center mt-10 space-y-4">
         <div class="animate-spin h-12 w-12 border-4 border-gray-200 border-t-[#0b2149] rounded-full mx-auto"></div>
@@ -131,8 +133,8 @@
       </div>
     </div>
 
-    <!-- Split Workspace (Initially Hidden) -->
-    <div id="workspace" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Split Workspace (Initially Hidden - ID Mapped to notes.js: 'notesOutput') -->
+    <div id="notesOutput" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
       <!-- Left Column: Video Player -->
       <div class="lg:col-span-6 bg-white p-4 rounded-2xl shadow-lg border border-gray-100 space-y-4">
@@ -151,7 +153,7 @@
         </p>
       </div>
 
-      <!-- Right Column: Interactive Tabs (AutoNotes, Quizzes, Summary) -->
+      <!-- Right Column: Interactive Tabs -->
       <div class="lg:col-span-6 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[480px] sm:h-[520px]">
         
         <!-- Tab Switches -->
@@ -179,49 +181,16 @@
               </button>
             </div>
             
+            <!-- Real Markdown Notes render inside this box -->
             <div class="space-y-4 text-gray-700 text-sm leading-relaxed" id="notesText">
-              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
-                <strong class="text-blue-900 block font-bold">[00:00] Overview & MVC Introduction</strong>
-                Detailed introduction to architectural standards and separation of concerns. Decoupling view models from UI components ensures modular, testable application flow.
-              </div>
-              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
-                <strong class="text-blue-900 block font-bold">[03:15] Model Domain Logic</strong>
-                The model is solely responsible for handling data states, backend interaction APIs, local storage caching, and raw database schema execution. It remains presentation-agnostic.
-              </div>
-              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
-                <strong class="text-blue-900 block font-bold">[07:45] View Layer Dynamic Presentation</strong>
-                The visual screen, UI layout, layout updates, CSS styling, and client-facing interfaces are governed by the View. It binds directly to the data bindings provided by Controller.
-              </div>
-              <div class="p-3 bg-slate-50 border-l-4 border-blue-800 rounded">
-                <strong class="text-blue-900 block font-bold">[12:30] Controller & App State Handlers</strong>
-                Acts as the broker between the Model and the View. Controllers process user inputs, fire API actions, retrieve data results, and direct display states synchronously.
-              </div>
+              <p class="text-gray-400 italic text-center">AI summary results will be populated here...</p>
             </div>
           </div>
 
-          <!-- Tab Content: Quizzes / MCQs -->
+          <!-- Tab Content: Quizzes / MCQs (Replaced dynamic box will append underneath) -->
           <div id="content-quizzes" class="tab-content hidden space-y-6">
             <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block border-b pb-2">Active Recall Assessment</span>
-            
-            <!-- MCQ Item 1 -->
-            <div class="space-y-3">
-              <p class="font-bold text-sm text-[#0b2149]">1. Which MVC component directly structures raw data and schema validations?</p>
-              <div class="grid grid-cols-1 gap-2">
-                <button onclick="verifyAnswer(this, true)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Model</button>
-                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">View</button>
-                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Controller</button>
-              </div>
-            </div>
-
-            <!-- MCQ Item 2 -->
-            <div class="space-y-3 pt-4 border-t border-gray-100">
-              <p class="font-bold text-sm text-[#0b2149]">2. In a typical client request cycle, where does user input land first?</p>
-              <div class="grid grid-cols-1 gap-2">
-                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Model</button>
-                <button onclick="verifyAnswer(this, false)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">View Schema</button>
-                <button onclick="verifyAnswer(this, true)" class="option-btn text-left p-2.5 border border-gray-200 rounded-lg hover:border-blue-800 transition text-xs font-medium">Controller</button>
-              </div>
-            </div>
+            <div id="quiz-placeholder" class="text-gray-400 italic text-center">Quizzes will be dynamically loaded here...</div>
           </div>
 
           <!-- Tab Content: Quick Summary -->
@@ -253,20 +222,14 @@
   </div>
 </section>
 
-<!-- Optimized Polished Footer -->
 <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Main Footer Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      
-      <!-- Column 1: Brand Info -->
       <div class="text-center md:text-left space-y-4">
         <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
         <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
           Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
         </p>
-        <!-- Clean Text Links for Socials -->
         <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
           <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
           <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
@@ -274,7 +237,6 @@
         </div>
       </div>
 
-      <!-- Column 2: Quick Links with Smooth Hover -->
       <div class="text-center md:text-right">
         <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
         <ul class="space-y-3 text-sm text-blue-200/80">
@@ -284,14 +246,11 @@
           <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
         </ul>
       </div>
-
     </div>
 
-    <!-- Bottom Copyright with Divider -->
     <div class="border-t border-white/10 pt-8 text-center">
       <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
     </div>
-
   </div>
 </footer>
 
@@ -307,66 +266,43 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Parse YouTube Link and extract ID
 function getYouTubeEmbedUrl(url) {
   let videoId = '';
-  // Match standard, sharing, embed, or short URLs
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   if (match && match[2].length === 11) {
     videoId = match[2];
   } else {
-    // Fallback default educational video id if input is generic or wrong
     videoId = 'd5F6zS0q4V4'; 
   }
   return `https://www.youtube.com/embed/${videoId}`;
 }
 
-// Simulated Auto Notes Generator Engine
-function generateNotes() {
+// Interceptor hook for video player execution inside generation lifecycle
+function triggerVideoEmbed() {
   const linkInput = document.getElementById("ytLink").value;
-  const loading = document.getElementById("loading");
-  const workspace = document.getElementById("workspace");
   const videoPlayer = document.getElementById("videoPlayer");
-
-  // Show Loading Spinner
-  loading.classList.remove("hidden");
-  workspace.classList.add("hidden");
-
-  // Simulate AI Processing time (1.5 seconds)
-  setTimeout(() => {
-    // Hide Loading Spinner
-    loading.classList.add("hidden");
-    
-    // Set YouTube source embed url
+  if (videoPlayer && linkInput) {
     videoPlayer.src = getYouTubeEmbedUrl(linkInput);
-    
-    // Reveal Workspace
-    workspace.classList.remove("hidden");
-    workspace.scrollIntoView({ behavior: 'smooth' });
-  }, 1500);
+  }
 }
 
 // Tab Switcher Controller
 function switchTab(tabName) {
-  // Hide all contents
   document.querySelectorAll('.tab-content').forEach(content => {
     content.classList.add('hidden');
   });
   
-  // Deactivate all buttons
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
 
-  // Activate chosen content & button
   document.getElementById(`content-${tabName}`).classList.remove('hidden');
   document.getElementById(`tab-${tabName}`).classList.add('active');
 }
 
 // MCQ Answer validator
 function verifyAnswer(buttonElement, isCorrect) {
-  // Find siblings in the same grid
   const siblingButtons = buttonElement.parentElement.querySelectorAll('.option-btn');
   
-  // Reset previous validations for this specific question
   siblingButtons.forEach(btn => {
     btn.style.backgroundColor = '';
     btn.style.borderColor = '';
@@ -374,11 +310,11 @@ function verifyAnswer(buttonElement, isCorrect) {
   });
 
   if (isCorrect) {
-    buttonElement.style.backgroundColor = '#e8f5e9'; // Light Green
+    buttonElement.style.backgroundColor = '#e8f5e9'; 
     buttonElement.style.borderColor = '#4caf50';
     buttonElement.style.color = '#1b5e20';
   } else {
-    buttonElement.style.backgroundColor = '#ffebee'; // Light Red
+    buttonElement.style.backgroundColor = '#ffebee'; 
     buttonElement.style.borderColor = '#f44336';
     buttonElement.style.color = '#b71c1c';
   }

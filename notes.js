@@ -29,11 +29,19 @@ window.generateNotes = async function() {
     if (notesOutputBox) notesOutputBox.classList.add("hidden");
 
     try {
-        // ASLI BACKEND HIT LOCK
+        // Local storage se active JWT access token uthana
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+            throw new Error("User session expired or unauthorized. Please log in again.");
+        }
+
+        // ASLI BACKEND HIT LOCK WITH SECURE JWT AUTHORIZATION HEADER
         const response = await fetch('http://127.0.0.1:8000/api/notes/generate/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Secure token attached!
             },
             body: JSON.stringify({ youtube_url: urlValue })
         });

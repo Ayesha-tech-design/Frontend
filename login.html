@@ -8,21 +8,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /*nav*/
-
-
-nav a { 
-  transition: color .18s ease; 
-}
-
-nav a:not(.nav-btn):hover { 
-  color: var(--primary) !important; 
-
-}
-:root{
-  --primary: #0b2149;
-}
-    /* INPUT */
+    nav a { transition: color .18s ease; }
+    nav a:not(.nav-btn):hover { color: var(--primary) !important; }
+    :root{ --primary: #0b2149; }
+    
     .input-style{
       width:100%;
       padding:14px 16px;
@@ -30,65 +19,24 @@ nav a:not(.nav-btn):hover {
       border:2px solid #e5e7eb;
       transition:.3s ease;
     }
-
     .input-style:focus{
       outline:none;
       border-color:#0b2149;
       box-shadow:0 0 0 4px rgba(11,33,73,.15);
     }
-
-.logo-mark {
-  width: 115px;
-  height: 115px;
-  margin-right: -18px;
-}
-
-
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
-  }
-}
-
-    @media (min-width:768px){
-      .logo-mark{ height:40px; }
-    }
-
-    /* bubbles */
+    .logo-mark { width: 115px; height: 115px; margin-right: -18px; }
+    @media (min-width: 768px) { .logo-mark { width: 125px; height: 125px; } }
     .bubble{
       position:absolute;
       border-radius:9999px;
       background:rgba(255,255,255,.12);
       animation:float 7s ease-in-out infinite;
     }
-
     .b1{ width:120px;height:120px;top:20%;left:-40px;}
     .b2{ width:80px;height:80px;bottom:20%;right:-20px;}
     .b3{ width:60px;height:60px;top:65%;left:35%;}
-
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-15px)}
-    }
-    .logo-text{
-  font-family: 'Roboto', sans-serif;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: #0b2149;
-  line-height: 1;
-}
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
-  }
-
-  nav span.text-\[26px\] {
-    font-size: 32px !important;
-  }
-}
-
+    @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+    .logo-text{ font-family: 'Roboto', sans-serif; font-weight: 800; letter-spacing: -1px; color: #0b2149; line-height: 1; }
   </style>
 </head>
 
@@ -98,21 +46,12 @@ nav a:not(.nav-btn):hover {
 <nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        
-       <div class="flex items-center gap-0">
-  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-
-    <img 
-      src="Futuristic tech logo design.png" 
-      alt="SmartEduX Logo" 
-      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
-    >
-   <span class="logo-text text-[26px] md:text-[32px]">
-  SmartEduX
-</span>
-
-       </a>
-</div>
+        <div class="flex items-center gap-0">
+          <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain mr-[-40px]">
+            <span class="logo-text text-[26px] md:text-[32px]">SmartEduX</span>
+          </a>
+        </div>
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -120,66 +59,21 @@ nav a:not(.nav-btn):hover {
           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
           <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-          
-          <div class="relative w-48">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-        </div>
-
-       <div class="hidden md:flex items-center gap-3 ml-4">
-         <a href="login.html"
-class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 hover:text-[var(--primary)] transition duration-200">
-  Login
-</a>
-        <a href="signup.html"
-class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] hover:text-white transition duration-200 shadow-md">
-  Signup
-</a>
-        </div>
-
-   <div class="xl:hidden flex items-center">
-          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div id="mobile-menu" class="xl:hidden bg-white border-t border-gray-100">
-        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-          
-          <div class="py-2">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-          
-          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
-          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
-          </div>
         </div>
       </div>
     </div>
-  </nav>
+</nav>
+
 <!-- MAIN (CENTERED) -->
 <main class="flex-grow flex items-center justify-center px-4 py-10">
-
-  <!-- SAME SIZE KEEP -->
   <div class="bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2 max-w-4xl w-full">
-
+    
     <!-- LEFT -->
     <div class="relative hidden md:flex bg-[#07122a] text-white p-10 overflow-hidden">
       <div class="z-10">
         <h2 class="text-3xl font-bold mb-3">Welcome Back </h2>
-        <p class="text-blue-200 text-sm">
-          Login to continue your smart learning journey.
-        </p>
+        <p class="text-blue-200 text-sm">Login to continue your smart learning journey.</p>
       </div>
-
       <span class="bubble b1"></span>
       <span class="bubble b2"></span>
       <span class="bubble b3"></span>
@@ -187,51 +81,67 @@ class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text
 
     <!-- RIGHT FORM -->
     <div class="p-8 sm:p-10">
-      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
-        Login to SmartEduX
-      </h1>
+      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">Login to SmartEduX</h1>
+      <p class="text-center text-gray-600 text-sm mb-8">Enter your credentials</p>
 
-      <p class="text-center text-gray-600 text-sm mb-8">
-        Enter your credentials
-      </p>
-
-      <form class="space-y-5">
-
-        <input type="email" placeholder="Email Address"
-               class="input-style" required>
-
+      <!-- Dynamic Form Bind Group -->
+      <form id="loginForm" class="space-y-5">
+        <input type="email" id="email" placeholder="Email Address" class="input-style" required>
+        
         <div class="relative">
-          <input type="password" id="password"
-                 placeholder="Password"
-                 class="input-style pr-12" required>
-
-          <button type="button"
-                  onclick="togglePassword()"
-                  class="absolute right-4 top-1/2 -translate-y-1/2">
-            👁
-          </button>
+          <input type="password" id="password" placeholder="Password" class="input-style pr-12" required>
+          <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2">👁</button>
         </div>
 
-        <button class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
+        <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#16356d] transition">
           Login
         </button>
-
       </form>
     </div>
-
   </div>
-
 </main>
 
 <script>
-document.getElementById("menu-btn").onclick = function(){
-  document.getElementById("menu").classList.toggle("hidden");
-}
-
 function togglePassword(){
   let input = document.getElementById("password");
   input.type = input.type === "password" ? "text" : "password";
 }
+
+// === REAL BACKEND SECURE CONNECTION LOGIC ===
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: email, // Django standard fields mapping
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Token browser ki memory me secure lock kar rahe hain
+      localStorage.setItem("access_token", data.access);
+      localStorage.setItem("refresh_token", data.refresh);
+      alert("Login Successful! Redirecting to Workspace...");
+      window.location.href = "Autonotes.html"; // Dynamic dashboard jump
+    } else {
+      alert("Login Failed: " + (data.detail || "Invalid Credentials"));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Backend Server Offline or Connection Refused!");
+  }
+});
 </script>
 
 </body>
