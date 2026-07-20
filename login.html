@@ -56,21 +56,27 @@ nav a:not(.nav-btn):hover {
     }
 
     /* bubbles */
-    .bubble{
-      position:absolute;
-      border-radius:9999px;
-      background:rgba(255,255,255,.12);
-      animation:float 7s ease-in-out infinite;
-    }
+    /* Bubbles Container */
+.bubble {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08); /* Thora light effect */
+  animation: float linear infinite alternate;
+}
 
-    .b1{ width:120px;height:120px;top:20%;left:-40px;}
-    .b2{ width:80px;height:80px;bottom:20%;right:-20px;}
-    .b3{ width:60px;height:60px;top:65%;left:35%;}
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-30px) translateX(20px); }
+}
 
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-15px)}
-    }
+/* Individual Bubbles */
+.b1 { width: 100px; height: 100px; top: 10%; left: 10%; animation-duration: 4s; }
+.b2 { width: 60px; height: 60px; top: 70%; left: 15%; animation-duration: 6s; }
+.b3 { width: 40px; height: 40px; top: 20%; left: 60%; animation-duration: 3.5s; }
+.b4 { width: 80px; height: 80px; top: 50%; left: 70%; animation-duration: 5s; }
+.b5 { width: 30px; height: 30px; top: 80%; left: 50%; animation-duration: 4.5s; }
+.b6 { width: 50px; height: 50px; top: 15%; left: 85%; animation-duration: 5.5s; }
+.b7 { width: 70px; height: 70px; top: 40%; left: 5%; animation-duration: 4s; }
     .logo-text{
   font-family: 'Roboto', sans-serif;
   font-weight: 800;
@@ -172,52 +178,61 @@ class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text
   <div class="bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2 max-w-4xl w-full">
 
     <!-- LEFT -->
-    <div class="relative hidden md:flex bg-[#07122a] text-white p-10 overflow-hidden">
-      <div class="z-10">
-        <h2 class="text-3xl font-bold mb-3">Welcome Back </h2>
-        <p class="text-blue-200 text-sm">
-          Login to continue your smart learning journey.
-        </p>
-      </div>
 
-      <span class="bubble b1"></span>
-      <span class="bubble b2"></span>
-      <span class="bubble b3"></span>
+<div class="relative hidden md:flex bg-[#07122a] text-white p-10 overflow-hidden flex-col justify-center items-center text-center">
+    <div class="z-10">
+        <h2 class="text-3xl font-bold mb-3">Welcome Back</h2>
+        <p class="text-blue-200 text-sm">
+            Login to continue your smart learning journey.
+        </p>
     </div>
 
-    <!-- RIGHT FORM -->
-    <div class="p-8 sm:p-10">
-      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
+    <!-- 7 Bubbles -->
+    <span class="bubble b1"></span>
+    <span class="bubble b2"></span>
+    <span class="bubble b3"></span>
+    <span class="bubble b4"></span>
+    <span class="bubble b5"></span>
+    <span class="bubble b6"></span>
+    <span class="bubble b7"></span>
+</div>
+
+<!-- RIGHT SIDE (PASSWORD INPUT UPDATED) -->
+<div class="p-8 sm:p-10">
+    <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
         Login to SmartEduX
-      </h1>
+    </h1>
 
-      <p class="text-center text-gray-600 text-sm mb-8">
+    <p class="text-center text-gray-600 text-sm mb-8">
         Enter your credentials
-      </p>
+    </p>
 
-      <form class="space-y-5">
+    <form class="space-y-5">
+        <input type="email" placeholder="Email Address" class="input-style" required>
 
-        <input type="email" placeholder="Email Address"
-               class="input-style" required>
+        <!-- Eye icon button removed to prevent double icons -->
+        <input type="password" id="password" placeholder="Password" class="input-style" required>
+        
+<div class="flex justify-between items-center text-sm">
+    <label class="flex items-center text-gray-600">
+        <input type="checkbox" class="mr-2"> Remember me
+    </label>
+    <a href="forgot password.html" class="text-[#0b2149] font-medium hover:underline">Forgot Password?</a>
+</div>
 
-        <div class="relative">
-          <input type="password" id="password"
-                 placeholder="Password"
-                 class="input-style pr-12" required>
-
-          <button type="button"
-                  onclick="togglePassword()"
-                  class="absolute right-4 top-1/2 -translate-y-1/2">
-            👁
-          </button>
-        </div>
-
-        <button class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
-          Login
+        <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold">
+            Login
         </button>
 
-      </form>
-    </div>
+    </form>
+    <!-- Register Option -->
+<div class="text-center mt-6 text-sm text-gray-600">
+    Don't have an account? 
+    <a href="signup.html" class="text-[#0b2149] font-bold hover:underline ml-1">
+        Sign up
+    </a>
+</div>
+</div>
 
   </div>
 
@@ -233,6 +248,45 @@ function togglePassword(){
   input.type = input.type === "password" ? "text" : "password";
 }
 </script>
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      
+      <!-- Column 1: Brand Info -->
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <!-- Clean Text Icons for Socials -->
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
 
+      <!-- Column 2: Quick Links with Smooth Hover -->
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
 </body>
 </html>
