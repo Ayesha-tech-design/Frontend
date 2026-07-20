@@ -1,0 +1,14 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Database (PostgreSQL ki local settings aksar env mein hoti hain)
+.env
+db.sqlite3
+
+# Media and Static
+media/
+static/
+
+# VS Code settings
+.vscode/.env

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Settings | SmartEduX</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root { --primary:#0b2149; }
+</style>
+
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<!-- HEADER -->
+<header class="bg-[#0b2149] text-white p-4 flex justify-between items-center">
+  <h1 class="text-xl font-bold">Settings</h1>
+  <button onclick="window.location.href='admin dashboard.html'"
+    class="bg-white text-[#0b2149] px-4 py-2 rounded">Dashboard</button>
+</header>
+
+<div class="max-w-5xl mx-auto p-6 space-y-6">
+
+<!-- PROFILE -->
+<div class="bg-white p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4">Profile</h2>
+
+  <div class="flex flex-col md:flex-row gap-6 items-center">
+
+    <!-- IMAGE -->
+    <div class="text-center">
+      <img id="profilePreview" src="https://via.placeholder.com/120"
+        class="w-28 h-28 rounded-full object-cover border mb-3">
+
+      <input type="file" id="profileImage" class="hidden">
+      <button onclick="document.getElementById('profileImage').click()"
+        class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm">
+        Upload Image
+      </button>
+    </div>
+
+    <!-- INFO -->
+    <div class="grid md:grid-cols-2 gap-4 w-full">
+      <input id="name" placeholder="Full Name" class="p-3 border rounded">
+      <input id="email" placeholder="Email" class="p-3 border rounded">
+    </div>
+
+  </div>
+</div>
+
+<!-- PASSWORD -->
+<div class="bg-white p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4">Change Password</h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded">
+    <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded">
+    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded">
+  </div>
+
+  <p id="passMsg" class="text-sm mt-2"></p>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="bg-white p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4">Notifications</h2>
+
+  <div class="space-y-3">
+    <label class="flex justify-between">
+      Email Notifications
+      <input type="checkbox" id="emailNotif">
+    </label>
+
+    <label class="flex justify-between">
+      Push Notifications
+      <input type="checkbox" id="pushNotif">
+    </label>
+
+    <label class="flex justify-between">
+      Course Alerts
+      <input type="checkbox" id="courseNotif">
+    </label>
+  </div>
+</div>
+
+<!-- SAVE -->
+<div class="text-right">
+  <button onclick="saveSettings()"
+    class="bg-[#0b2149] text-white px-6 py-3 rounded">
+    Save Changes
+  </button>
+</div>
+
+</div>
+
+<!-- JS -->
+<script>
+
+// LOAD DATA
+window.onload = function () {
+  const data = JSON.parse(localStorage.getItem("settings"));
+
+  if(data){
+    document.getElementById("name").value = data.name || "";
+    document.getElementById("email").value = data.email || "";
+    document.getElementById("emailNotif").checked = data.emailNotif;
+    document.getElementById("pushNotif").checked = data.pushNotif;
+    document.getElementById("courseNotif").checked = data.courseNotif;
+
+    if(data.image){
+      document.getElementById("profilePreview").src = data.image;
+    }
+  }
+};
+
+// IMAGE UPLOAD
+document.getElementById("profileImage").addEventListener("change", function(){
+  const file = this.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    document.getElementById("profilePreview").src = e.target.result;
+  };
+
+  if(file) reader.readAsDataURL(file);
+});
+
+// PASSWORD VALIDATION
+function validatePassword(){
+  const newPass = document.getElementById("newPass").value;
+  const confirmPass = document.getElementById("confirmPass").value;
+  const msg = document.getElementById("passMsg");
+
+  if(newPass.length < 6){
+    msg.innerText = "Password must be at least 6 characters";
+    msg.className = "text-red-500";
+    return false;
+  }
+
+  if(newPass !== confirmPass){
+    msg.innerText = "Passwords do not match";
+    msg.className = "text-red-500";
+    return false;
+  }
+
+  msg.innerText = "Password is valid";
+  msg.className = "text-green-600";
+  return true;
+}
+
+// SAVE SETTINGS
+function saveSettings(){
+
+  if(!validatePassword()) return;
+
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    emailNotif: document.getElementById("emailNotif").checked,
+    pushNotif: document.getElementById("pushNotif").checked,
+    courseNotif: document.getElementById("courseNotif").checked,
+    image: document.getElementById("profilePreview").src
+  };
+
+  localStorage.setItem("settings", JSON.stringify(data));
+
+  alert("Settings saved successfully!");
+}
+
+</script>
+
+</body>
+</html>
