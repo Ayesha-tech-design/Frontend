@@ -169,32 +169,7 @@ function loadNotifications(){
 }
 
 loadNotifications();
-
-// FETCH STUDENT DATA FROM BACKEND API
-async function loadStudentDashboard() {
-  try {
-    const token = localStorage.getItem("access_token"); 
-    const response = await fetch("http://127.0.0.1:8000/api/courses/", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-    
-    if(response.ok) {
-      const data = await response.json();
-      if(Array.isArray(data)) {
-        document.getElementById("courseCount").innerText = data.length;
-      }
-    }
-  } catch (error) {
-    console.error("Error loading dashboard data:", error);
-  }
-}
-
-// Page load hote hi data fetch karne ke liye
-loadStudentDashboard();
 </script>
+
 </body>
 </html>
