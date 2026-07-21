@@ -6,22 +6,24 @@ from .views import (
     StudentDashboardView,
     TeacherDashboardListView,      
     TeacherEnrolledStudentsView,
-    SubmitAssignmentView,          # Naya view import hua
-    ViewTeacherAssignmentsView     # Naya view import hua
+    SubmitAssignmentView,         
+    ViewTeacherAssignmentsView,   
+    CoursePlaylistView            
 )
 
 urlpatterns = [
-    # --- Student aur Course ke Paths ---
+    # --- Static / Specific Paths (Hamesha upar hone chahiye) ---
     path('create/', create_course, name='create_course'),
+    path('dashboard/', StudentDashboardView.as_view(), name='student-dashboard'),
+    path('teacher/dashboard/', TeacherDashboardListView.as_view(), name='teacher-dashboard'),
+
+    # --- Dynamic / Parameterized Paths (<int:course_id>) ---
+    path('courses/<int:course_id>/playlist/', CoursePlaylistView.as_view(), name='ayesha-course-playlist'),
     path('<int:course_id>/enroll/', EnrollInCourseView.as_view(), name='enroll-course'),
     path('<int:course_id>/submit-quiz/', SubmitQuizView.as_view(), name='submit-quiz'),
-    path('dashboard/', StudentDashboardView.as_view(), name='student-dashboard'),
-    
-    # --- Teacher Dashboard ke Paths ---
-    path('teacher/dashboard/', TeacherDashboardListView.as_view(), name='teacher-dashboard'),
-    path('teacher/course/<int:course_id>/students/', TeacherEnrolledStudentsView.as_view(), name='teacher-enrolled-students'),
-
-    # --- Zunaira's New Assignment Endpoints ---
     path('<int:course_id>/submit-assignment/', SubmitAssignmentView.as_view(), name='submit-assignment'),
+    
+    # --- Teacher Dynamic Paths ---
+    path('teacher/course/<int:course_id>/students/', TeacherEnrolledStudentsView.as_view(), name='teacher-enrolled-students'),
     path('teacher/course/<int:course_id>/assignments/', ViewTeacherAssignmentsView.as_view(), name='view-assignments'),
 ]

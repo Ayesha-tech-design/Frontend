@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Course, Enrollment, Quiz, Certificate 
+from .models import Course, Enrollment, Quiz, Certificate, CourseModule, Lesson
 
-admin.site.register(Course)
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'instructor')
+
 admin.site.register(Enrollment)
 admin.site.register(Quiz)
 admin.site.register(Certificate)
-from .models import CourseModule, Lesson
-
 admin.site.register(CourseModule)
 admin.site.register(Lesson)

@@ -269,3 +269,41 @@ class ViewTeacherAssignmentsView(APIView):
             "total_submissions": len(submission_list),
             "submissions": submission_list
         }, status=status.HTTP_200_OK)
+    
+class CoursePlaylistView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, course_id):
+        try:
+            # 1. Course fetch karein
+            course = Course.objects.get(id=course_id)
+            
+            # 2. Is course ke modules fetch karein (jo sequence mein honge)
+            modules = course.modules.all()
+            
+            playlist_data = []
+            for module in modules:
+                # 3. Har module ke andar ke lessons fetch karein
+                lessons = module.lessons.all().order_by('sequence')
+                lesson_list = []
+                for lesson in lessons:
+                    lesson_list.append({
+                        "id": lesson.id,
+                        "title": lesson.title,
+                        "video_url": lesson.video_url,
+                        "video_file": lesson.video_file.url if lesson.video_file else None,
+                    })
+                
+                playlist_data.append({
+                    "module_name": module.name,
+                    "section_type": module.get_section_type_display(),
+                    "lessons": lesson_list
+                })
+            
+            return Response({
+                "course_title": course.title,
+                "playlist": playlist_data
+            }, status=status.HTTP_200_OK)
+            
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
