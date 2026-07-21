@@ -45,23 +45,29 @@
     </ul>
 </section>
 
-<!-- JS: Login Check -->
+
 <script>
-    let isLoggedIn = false; // Set to true after login
+    // Check if user is logged in via backend token
+    function checkLoginStatus() {
+        const token = localStorage.getItem("access_token");
+        return token !== null && token !== "";
+    }
 
     function requireLogin(event) {
         event.preventDefault();
-        if(isLoggedIn) {
-            alert("Redirecting to lesson...");
+        if(checkLoginStatus()) {
+            // Agar token mojood hai toh graphics learning player par redirect kar do
+            window.location.href = "graphics learning player.html";
         } else {
             alert("Please login first to access this course!");
+            window.location.href = "login.html";
         }
     }
 
+    // Login Button Event
     document.getElementById("loginBtn").addEventListener("click", () => {
-        alert("Redirecting to login page...");
+        window.location.href = "login.html";
     });
 </script>
-
 </body>
 </html>

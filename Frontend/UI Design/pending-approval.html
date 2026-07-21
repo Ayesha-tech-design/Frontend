@@ -151,18 +151,45 @@
       const btn = document.getElementById('refreshBtn');
       const icon = document.getElementById('refreshIcon');
       const text = document.getElementById('btnText');
+      const token = localStorage.getItem("access_token");
       
-      // UI effect to look like it's checking live
+      // UI effect
       btn.disabled = true;
       icon.classList.add('animate-spin');
       text.textContent = "Checking Server...";
       
-      setTimeout(() => {
-        btn.disabled = false;
-        icon.classList.remove('animate-spin');
-        text.textContent = "Refresh Status";
-        alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
-      }, 1200); // 1.2 seconds fake loader
+      // Backend API check (ready for Django endpoint)
+      fetch('/api/check-approval-status/', {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        setTimeout(() => {
+          btn.disabled = false;
+          icon.classList.remove('animate-spin');
+          text.textContent = "Refresh Status";
+
+          if(data.is_approved) {
+            alert("🎉 Congratulations! Your account has been approved.");
+            window.location.href = "teacher-dashboard.html"; // Redirect to teacher dashboard upon approval
+          } else {
+            alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+          }
+        }, 1000);
+      })
+      .catch(error => {
+        // Fallback simulation if backend is offline during testing
+        setTimeout(() => {
+          btn.disabled = false;
+          icon.classList.remove('animate-spin');
+          text.textContent = "Refresh Status";
+          alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+        }, 1200);
+      });
     }
   </script>
 

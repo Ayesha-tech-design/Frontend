@@ -105,7 +105,7 @@
 
 </main>
 
-<!-- IMAGE CHANGE SCRIPT -->
+<!-- IMAGE CHANGE & BACKEND SYNC SCRIPT -->
 <script>
 function changeImage(event) {
   const reader = new FileReader();
@@ -115,6 +115,36 @@ function changeImage(event) {
   }
   reader.readAsDataURL(event.target.files[0]);
 }
+
+// FETCH STUDENT PROFILE DATA FROM BACKEND
+async function loadStudentProfile() {
+  try {
+    const token = localStorage.getItem("access_token");
+    const response = await fetch("http://127.0.0.1:8000/api/auth/profile/", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Backend se name aur email dynamically set karna
+      if (data.name || data.username) {
+        document.getElementById("studentName").innerText = data.name || data.username;
+      }
+      if (data.email) {
+        document.getElementById("studentEmail").innerText = data.email;
+      }
+    }
+  } catch (error) {
+    console.error("Error loading profile data:", error);
+  }
+}
+
+// Page load par profile data fetch ho jaye
+loadStudentProfile();
 </script>
 
 </body>

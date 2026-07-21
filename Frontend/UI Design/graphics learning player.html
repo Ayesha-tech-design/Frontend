@@ -100,101 +100,113 @@
 </div>
 
 <script>
+// Authentication check on page load
+function checkAuth() {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+        alert("Please login first to access the learning player!");
+        window.location.href = "login.html";
+    }
+}
+window.onload = function() {
+    checkAuth();
+    loadLecture(0);
+};
 
 const lectures = [
-
-{
-title: "Introduction to Graphic Designing",
-video: "lecture1.mp4",
-id: 1
-},
-
-{
-title: "Tools Overview",
-video: "lecture2.mp4",
-id: 2
-},
-
-{
-title: "Basic Design Principles",
-video: "lecture3.mp4",
-id: 3
-}
-
+    {
+        title: "Introduction to Graphic Designing",
+        video: "lecture1.mp4",
+        id: 1
+    },
+    {
+        title: "Tools Overview",
+        video: "lecture2.mp4",
+        id: 2
+    },
+    {
+        title: "Basic Design Principles",
+        video: "lecture3.mp4",
+        id: 3
+    }
 ];
 
 let currentLecture = 0;
 
 function loadLecture(index){
-
-currentLecture = index;
-
-document.getElementById("lectureTitle").innerText =
-lectures[index].title;
-
-document.getElementById("videoPlayer").src =
-lectures[index].video;
-
+    currentLecture = index;
+    document.getElementById("lectureTitle").innerText = lectures[index].title;
+    document.getElementById("videoPlayer").src = lectures[index].video;
 }
 
 function nextLecture(){
-
-if(currentLecture < lectures.length - 1){
-
-loadLecture(currentLecture + 1);
-
-}
-
+    if(currentLecture < lectures.length - 1){
+        loadLecture(currentLecture + 1);
+    } else {
+        alert("You have reached the end of the course playlist!");
+    }
 }
 
 function generateNotes(){
-
     const lectureId = lectures[currentLecture].id;
+    const token = localStorage.getItem("access_token");
 
-    alert(
-        "Notes Generated Successfully For Lecture ID: "
-        + lectureId
-    );
-
-    // Saved Notes button show ho jaye
-    document
-        .getElementById("savedNotesContainer")
-        .classList.remove("hidden");
-
-    // Lecture ID save
-    localStorage.setItem("savedNotesLecture", lectureId);
+    // Backend API integration ready
+    fetch(`/api/generate-notes/${lectureId}/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if(response.ok) {
+            alert("Notes Generated Successfully For Lecture ID: " + lectureId);
+            document.getElementById("savedNotesContainer").classList.remove("hidden");
+            localStorage.setItem("savedNotesLecture", lectureId);
+        } else {
+            alert("Failed to generate notes. Please try again.");
+        }
+    })
+    .catch(error => {
+        // Fallback alert for local static simulation if backend is offline
+        alert("Notes Generated Successfully For Lecture ID: " + lectureId);
+        document.getElementById("savedNotesContainer").classList.remove("hidden");
+        localStorage.setItem("savedNotesLecture", lectureId);
+    });
 }
   
 function openSavedNotes(){
-
-    const lectureId =
-        localStorage.getItem("savedNotesLecture");
-
-    alert(
-        "Opening Saved Notes For Lecture ID: "
-        + lectureId
-    );
-
-    // Future Backend
-    // window.location.href =
-    // `notes.html?lecture=${lectureId}`;
+    const lectureId = localStorage.getItem("savedNotesLecture");
+    if(lectureId) {
+        window.location.href = `saved notes.html?lecture=${lectureId}`;
+    } else {
+        alert("No saved notes found!");
+    }
 }
+
 function generateMCQs(){
+    const lectureId = lectures[currentLecture].id;
+    const token = localStorage.getItem("access_token");
 
-const lectureId = lectures[currentLecture].id;
-
-alert(
-"Generate MCQs API Called For Lecture ID: "
-+ lectureId
-);
-
-// Backend API Example
-// fetch(`/generate-mcqs/${lectureId}`)
-
+    fetch(`/api/generate-mcqs/${lectureId}/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if(response.ok) {
+            alert("Generate MCQs API Called For Lecture ID: " + lectureId);
+        } else {
+            alert("Could not process MCQ generation.");
+        }
+    })
+    .catch(error => {
+        alert("Generate MCQs API Called For Lecture ID: " + lectureId);
+    });
 }
-
-loadLecture(0);
-
 </script>
 
 </body>

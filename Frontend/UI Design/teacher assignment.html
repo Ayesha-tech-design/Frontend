@@ -186,6 +186,39 @@ function deleteAssignment(i){
     renderAssignments();
   }
 }
+
+// FETCH ASSIGNMENTS FROM BACKEND API
+async function loadTeacherAssignments() {
+  try {
+    const token = localStorage.getItem("access_token");
+    const response = await fetch("http://127.0.0.1:8000/api/courses/", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        // Agar backend par assignments data available ho toh map kar sakte hain
+        // Filhal courses data se dynamic mock assignments generate kar rahe hain
+        assignments = data.map((item, index) => ({
+          title: `Assignment ${index + 1} for ${item.title || item.name || 'Course'}`,
+          course: item.title || item.name || 'General Course',
+          due: "2026-08-01",
+          status: index % 2 === 0 ? "Pending" : "Checked"
+        }));
+        renderAssignments();
+      }
+    }
+  } catch (error) {
+    console.error("Error loading teacher assignments:", error);
+  }
+}
+
+loadTeacherAssignments();
 </script>
 
 </body>

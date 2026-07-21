@@ -45,26 +45,34 @@
     </ul>
 </section>
 
-<!-- JS: Login Check -->
+
 <script>
-    let isLoggedIn = false; // Set to true after login
+    // Check if user is logged in via backend token
+    function checkLoginStatus() {
+        const token = localStorage.getItem("access_token");
+        return token !== null && token !== "";
+    }
 
     function requireLogin(event) {
         event.preventDefault();
-        if(isLoggedIn) {
-            // Redirect or open the lesson (later you can add actual link)
-            alert("Redirecting to lesson...");
+        if(checkLoginStatus()) {
+            // Agar token mojood hai toh lesson play ho jaye ya target link par chale jaye
+            const targetUrl = event.currentTarget.getAttribute("href");
+            if(targetUrl && targetUrl !== "#") {
+                window.location.href = targetUrl;
+            } else {
+                alert("Opening lesson...");
+            }
         } else {
             alert("Please login first to access this course!");
+            window.location.href = "login.html";
         }
     }
 
-    // Optional: Login Button
+    // Login Button Event
     document.getElementById("loginBtn").addEventListener("click", () => {
-        // Here you can integrate login page redirect
-        alert("Redirecting to login page...");
+        window.location.href = "login.html";
     });
 </script>
-
 </body>
 </html>

@@ -79,11 +79,11 @@
 <script>
 
 const users = [
-  { name: "Ali Khan", email: "ali@gmail.com", role: "Student", status: "Active" },
-  { name: "Sara Ahmed", email: "sara@gmail.com", role: "Teacher", status: "Active" },
-  { name: "Usman Tariq", email: "usman@gmail.com", role: "Student", status: "Inactive" },
-  { name: "Hina Malik", email: "hina@gmail.com", role: "Teacher", status: "Active" },
-  { name: "Admin User", email: "admin@smartedux.com", role: "Admin", status: "Active" }
+  {  id: 1, name: "Ali Khan", email: "ali@gmail.com", role: "Student", status: "Active" },
+  {  id: 2,name: "Sara Ahmed", email: "sara@gmail.com", role: "Teacher", status: "Active" },
+  {  id: 3,name: "Usman Tariq", email: "usman@gmail.com", role: "Student", status: "Inactive" },
+  {  id: 4,name: "Hina Malik", email: "hina@gmail.com", role: "Teacher", status: "Active" },
+  {  id: 5,name: "Admin User", email: "admin@smartedux.com", role: "Admin", status: "Active" }
 ];
 
 const table = document.getElementById("userTable");
@@ -122,7 +122,7 @@ function renderUsers() {
           </span>
         </td>
         <td class="p-4">
-          <button class="bg-[#0b2149] text-white px-3 py-1 rounded hover:bg-white hover:text-[#0b2149] border border-[#0b2149] transition">
+          <button onclick="viewUser(${user.id})" class="bg-[#0b2149] text-white px-3 py-1 rounded hover:bg-white hover:text-[#0b2149] border border-[#0b2149] transition">
             View
           </button>
         </td>
