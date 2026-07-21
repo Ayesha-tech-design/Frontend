@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Assignments | SmartEduX</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root { --primary:#0b2149; }
+</style>
+</head>
+<body class="bg-gray-100 font-sans flex">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block">
+  <h2 class="text-2xl font-bold mb-8">Teacher</h2>
+  <nav class="space-y-4">
+    <a href="teacher dashboard.html" class="block hover:text-gray-300">Home</a>
+    <a href="teacher courses.html" class="block hover:text-gray-300">My Courses</a>
+    <a href="teacher assignments.html" class="block hover:text-gray-300 font-bold">Assignments</a>
+    <a href="student dashboard.html" class="block hover:text-gray-300">Students</a>
+    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300 flex justify-between items-center">
+      🔔 Notifications
+      <span id="notifCount" class="bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+    </a>
+    <a href="teacher profile.html" class="block hover:text-gray-300">Profile</a>
+    <button onclick="logout()" class="w-full text-left hover:text-gray-300">Logout</button>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="flex-1">
+
+  <!-- NAVBAR -->
+  <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-[#0b2149]">Assignments</h1>
+    <div class="relative flex items-center gap-4">
+      <button onclick="toggleNotifications()" class="relative bg-[#0b2149] text-white px-4 py-2 rounded">
+        🔔
+        <span id="notifCountNav" class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-600 text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+      </button>
+
+      <div class="relative">
+        <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
+        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+          <a href="teacher profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+          <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="p-6 space-y-6">
+
+    <!-- Quick Add Assignment -->
+    <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow">
+      <h2 class="text-lg font-bold text-[#0b2149]">Assignments Overview</h2>
+      <button onclick="addAssignment()" class="bg-[#0b2149] text-white px-4 py-2 rounded hover:bg-gray-800 transition">Add New Assignment</button>
+    </div>
+
+    <!-- Assignments Table -->
+    <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
+      <table class="w-full text-left table-auto">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 font-semibold text-[#0b2149]">Title</th>
+            <th class="p-3 font-semibold text-[#0b2149]">Course</th>
+            <th class="p-3 font-semibold text-[#0b2149]">Due Date</th>
+            <th class="p-3 font-semibold text-[#0b2149]">Status</th>
+            <th class="p-3 font-semibold text-[#0b2149]">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="assignmentsTable">
+          <!-- JS populates assignments -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Announcements -->
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-lg font-bold text-[#0b2149] mb-4">Announcements</h2>
+      <ul id="announcementList" class="space-y-2">
+        <!-- JS populates announcements -->
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- Notifications Panel -->
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
+  <h3 class="font-semibold mb-3">Notifications</h3>
+  <ul id="notifList" class="space-y-2 text-sm"></ul>
+</div>
+
+<script>
+// PROFILE DROPDOWN
+function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
+// LOGOUT
+function logout(){ window.location.href = "login.html"; }
+// NOTIFICATIONS
+function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
+
+// Unified Notifications
+let notifications = JSON.parse(localStorage.getItem("notifications")) || [
+  "New student registered 👨‍🎓",
+  "New assignment submission 📄",
+  "Course updated 🎓",
+  "Website updated 🚀"
+];
+localStorage.setItem("notifications", JSON.stringify(notifications));
+
+function renderNotifications(){
+  const list = document.getElementById("notifList");
+  list.innerHTML = "";
+  notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
+  document.getElementById("notifCount").innerText = notifications.length;
+  document.getElementById("notifCountNav").innerText = notifications.length;
+}
+renderNotifications();
+
+// Assignments Data
+let assignments = [
+  {title:"Graphic Design Project", course:"Graphic Designing", due:"2026-04-15", status:"Pending"},
+  {title:"Wordpress Website Build", course:"Wordpress Web Dev", due:"2026-04-18", status:"Checked"},
+  {title:"Fiverr Freelancing Task", course:"Fiverr Freelancing", due:"2026-04-20", status:"Pending"}
+];
+
+// Render Assignments
+function renderAssignments(){
+  const table = document.getElementById("assignmentsTable");
+  table.innerHTML = "";
+  assignments.forEach((a,i)=>{
+    table.innerHTML += `
+      <tr class="border-b hover:bg-gray-50">
+        <td class="p-3">${a.title}</td>
+        <td class="p-3">${a.course}</td>
+        <td class="p-3">${a.due}</td>
+        <td class="p-3 font-bold ${a.status==='Checked'?'text-green-600':'text-red-600'}">${a.status}</td>
+        <td class="p-3 flex gap-2">
+          <button onclick="editAssignment(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
+          <button onclick="deleteAssignment(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+        </td>
+      </tr>`;
+  });
+}
+renderAssignments();
+
+// Announcements
+let announcements = [
+  "New course added: JavaScript Advanced",
+  "Website maintenance on 2026-04-10",
+  "Assignment deadline extended"
+];
+function renderAnnouncements(){
+  const list = document.getElementById("announcementList");
+  list.innerHTML = "";
+  announcements.forEach(a => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${a}</li>`);
+}
+renderAnnouncements();
+
+// Add/Edit/Delete Assignment
+function addAssignment(){
+  const title = prompt("Assignment Title:");
+  const course = prompt("Course:");
+  const due = prompt("Due Date (YYYY-MM-DD):");
+  if(title && course && due){
+    assignments.push({title, course, due, status:"Pending"});
+    renderAssignments();
+  }
+}
+function editAssignment(i){
+  const title = prompt("Edit Assignment Title:", assignments[i].title);
+  const course = prompt("Edit Course:", assignments[i].course);
+  const due = prompt("Edit Due Date:", assignments[i].due);
+  const status = prompt("Status (Pending/Checked):", assignments[i].status);
+  if(title && course && due && status){
+    assignments[i] = {title, course, due, status};
+    renderAssignments();
+  }
+}
+function deleteAssignment(i){
+  if(confirm("Are you sure to delete this assignment?")){
+    assignments.splice(i,1);
+    renderAssignments();
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users Management | SmartEduX</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root {
+    --primary: #0b2149;
+  }
+</style>
+
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<!-- HEADER -->
+<header class="bg-[#0b2149] text-white shadow">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Users Management</h1>
+
+    <button onclick="window.location.href='admin-dashboard.html'"
+      class="bg-white text-[#0b2149] px-4 py-2 rounded hover:bg-gray-200">
+      Back to Dashboard
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+  <!-- TOP CONTROLS -->
+  <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+
+    <!-- SEARCH -->
+    <input id="searchInput" type="text" placeholder="Search users..."
+      class="w-full md:w-1/3 p-3 rounded-lg border focus:ring-2 focus:ring-[#0b2149] outline-none">
+
+    <!-- FILTER -->
+    <select id="roleFilter"
+      class="p-3 rounded-lg border focus:ring-2 focus:ring-[#0b2149] outline-none">
+      <option value="all">All Users</option>
+      <option value="Student">Students</option>
+      <option value="Teacher">Teachers</option>
+      <option value="Admin">Admins</option>
+    </select>
+
+  </div>
+
+  <!-- USERS TABLE -->
+  <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead class="bg-[#0b2149] text-white">
+          <tr>
+            <th class="p-4">Name</th>
+            <th class="p-4">Email</th>
+            <th class="p-4">Role</th>
+            <th class="p-4">Status</th>
+            <th class="p-4">Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="userTable" class="text-gray-700">
+          <!-- JS se data ayega -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- JS -->
+<script>
+
+const users = [
+  { name: "Ali Khan", email: "ali@gmail.com", role: "Student", status: "Active" },
+  { name: "Sara Ahmed", email: "sara@gmail.com", role: "Teacher", status: "Active" },
+  { name: "Usman Tariq", email: "usman@gmail.com", role: "Student", status: "Inactive" },
+  { name: "Hina Malik", email: "hina@gmail.com", role: "Teacher", status: "Active" },
+  { name: "Admin User", email: "admin@smartedux.com", role: "Admin", status: "Active" }
+];
+
+const table = document.getElementById("userTable");
+const searchInput = document.getElementById("searchInput");
+const roleFilter = document.getElementById("roleFilter");
+
+function renderUsers() {
+  table.innerHTML = "";
+
+  const search = searchInput.value.toLowerCase();
+  const filter = roleFilter.value;
+
+  const filtered = users.filter(user => {
+    return (
+      (user.name.toLowerCase().includes(search) ||
+       user.email.toLowerCase().includes(search)) &&
+      (filter === "all" || user.role === filter)
+    );
+  });
+
+  filtered.forEach(user => {
+
+    const statusColor =
+      user.status === "Active"
+        ? "bg-green-100 text-green-700"
+        : "bg-red-100 text-red-700";
+
+    const row = `
+      <tr class="border-b hover:bg-gray-50 transition">
+        <td class="p-4 font-medium">${user.name}</td>
+        <td class="p-4">${user.email}</td>
+        <td class="p-4">${user.role}</td>
+        <td class="p-4">
+          <span class="px-3 py-1 rounded-full text-sm ${statusColor}">
+            ${user.status}
+          </span>
+        </td>
+        <td class="p-4">
+          <button class="bg-[#0b2149] text-white px-3 py-1 rounded hover:bg-white hover:text-[#0b2149] border border-[#0b2149] transition">
+            View
+          </button>
+        </td>
+      </tr>
+    `;
+
+    table.innerHTML += row;
+  });
+}
+
+// EVENTS
+searchInput.addEventListener("input", renderUsers);
+roleFilter.addEventListener("change", renderUsers);
+
+// INIT
+renderUsers();
+
+</script>
+
+</body>
+</html>
