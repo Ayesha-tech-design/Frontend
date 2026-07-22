@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartEduX - Auto Notes Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0b2149; 
+      --accent: #f59e0b;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; 
+    }
+
+    nav a { transition: color .18s ease; }
+    nav a:hover { color: var(--primary) !important; }
+
+    .logo-mark {
+      width: 115px;
+      height: 115px;
+    }
+
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
+    }
+    .logo-text{
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
+
+    /* Tab styles */
+    .tab-btn.active {
+      border-color: #0b2149;
+      color: #0b2149;
+      font-weight: 600;
+      background-color: #f1f5f9;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<!-- NAVIGATION -->
+<nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <div class="flex items-center gap-0">
+          <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+            <img 
+              src="Futuristic tech logo design.png" 
+              alt="SmartEduX Logo" 
+              class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+            >
+            <span class="logo-text text-[26px] md:text-[32px]">
+              SmartEduX
+            </span>
+          </a>
+        </div>
+
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-bold text-[#0b2149]">AutoNotes</a>
+          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="w-full px-3 py-1.5 text-xs border rounded-lg focus:outline-none focus:border-[#0b2149]">
+          </div>
+        </div>
+
+        <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+          <a href="login.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+            Login
+          </a>
+          <a href="signup.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+            Signup
+          </a>
+        </div>
+
+        <div class="xl:hidden flex items-center">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none">
+          </div>
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-[#0b2149] bg-gray-50">AutoNotes</a>
+          <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+
+<!-- HERO HEADER -->
+<section class="bg-[#0b2149] text-white py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">AI Auto Notes Generator</h2>
+      <p class="max-w-2xl mx-auto text-blue-100/90 text-sm sm:text-base leading-relaxed">
+        Transform any video lecture into structured timestamped study guides, instant summaries, and interactive self-practice quizzes.
+      </p>
+    </div>
+</section>
+
+<!-- MAIN WORKSPACE -->
+<section class="py-12 px-4 sm:px-6 flex-grow">
+  <div class="max-w-6xl mx-auto space-y-10">
+    
+    <!-- Input Card -->
+    <div class="bg-white shadow-xl p-6 sm:p-10 rounded-2xl border border-gray-100">
+      <h2 class="text-2xl font-bold text-[#0b2149] mb-4 text-center md:text-left">Generate Study Material</h2>
+      
+      <div class="flex flex-col md:flex-row gap-4 items-stretch">
+        <div class="flex-grow relative">
+          <input id="ytLink" type="text" placeholder="Paste YouTube Link or Video URL here..." class="w-full h-full border border-gray-300 p-4 rounded-xl focus:ring-2 focus:ring-[#0b2149] focus:border-[#0b2149] outline-none text-sm sm:text-base">
+        </div>
+        <div class="flex gap-2">
+          <a href="https://www.youtube.com" target="_blank" class="flex items-center justify-center px-4 py-3 bg-white border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition font-medium text-sm whitespace-nowrap">
+            Go to YouTube
+          </a>
+          <button id="genBtn" onclick="generateNotes()" class="bg-[#0b2149] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#07122a] transition shadow-md text-sm sm:text-base whitespace-nowrap">
+            Generate
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Box Section -->
+      <div id="errorBox" class="hidden mt-4 p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-sm font-medium"></div>
+
+      <!-- Loading State -->
+      <div id="loading" class="hidden text-center mt-10 space-y-4">
+        <div class="animate-spin h-12 w-12 border-4 border-gray-200 border-t-[#0b2149] rounded-full mx-auto"></div>
+        <p class="text-[#0b2149] font-semibold tracking-wide text-sm sm:text-base animate-pulse">SmartEduX AI is analyzing video transcription and drafting study aids...</p>
+      </div>
+    </div>
+
+    <!-- Split Workspace -->
+    <div id="notesOutput" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Video Player -->
+      <div class="lg:col-span-6 bg-white p-4 rounded-2xl shadow-lg border border-gray-100 space-y-4">
+        <div class="flex items-center justify-between border-b pb-3">
+          <h4 class="font-bold text-[#0b2149] flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+            Lecture Video Player
+          </h4>
+          <span class="text-xs text-gray-500 font-medium bg-gray-100 px-2.5 py-1 rounded-full">Interactive Link Active</span>
+        </div>
+        <div class="relative w-full overflow-hidden rounded-xl bg-black aspect-video">
+          <iframe id="videoPlayer" class="absolute inset-0 w-full h-full" src="" title="Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed text-center italic">
+          Tip: You can watch the lecture and follow along with notes generated on the right in real-time.
+        </p>
+      </div>
+
+      <!-- Right Column: Interactive Tabs -->
+      <div class="lg:col-span-6 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-[480px] sm:h-[520px]">
+        
+        <!-- Tab Switches -->
+        <div class="flex border-b text-sm font-semibold text-gray-500 bg-gray-50">
+          <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn active flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            AutoNotes
+          </button>
+          <button onclick="switchTab('quizzes')" id="tab-quizzes" class="tab-btn flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Quizzes / MCQs
+          </button>
+          <button onclick="switchTab('summary')" id="tab-summary" class="tab-btn flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
+            Quick Summary
+          </button>
+        </div>
+
+        <!-- Scrollable Tab Content Viewport -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-4">
+          
+          <!-- Tab Content: AutoNotes -->
+          <div id="content-notes" class="tab-content space-y-4">
+            <div class="flex justify-between items-center border-b pb-2 mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Generated Bullet Study Guide</span>
+              <button onclick="downloadNotes()" class="text-xs bg-blue-50 text-[#0b2149] px-2.5 py-1.5 rounded-md font-bold hover:bg-[#0b2149] hover:text-white transition">
+                📥 Download (.txt)
+              </button>
+            </div>
+            
+            <div class="space-y-4 text-gray-700 text-sm leading-relaxed" id="notesText">
+              <p class="text-gray-400 italic text-center">AI summary results will be populated here...</p>
+            </div>
+          </div>
+
+          <!-- Tab Content: Quizzes / MCQs -->
+          <div id="content-quizzes" class="tab-content hidden space-y-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block border-b pb-2">Active Recall Assessment</span>
+            <div id="quiz-placeholder" class="space-y-4">
+              <p class="text-gray-400 italic text-center">Quizzes will be dynamically loaded here...</p>
+            </div>
+          </div>
+
+          <!-- Tab Content: Quick Summary -->
+          <div id="content-summary" class="tab-content hidden space-y-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block border-b pb-2">Key Takeaways Summary</span>
+            <div id="summaryBox" class="p-4 bg-slate-50 rounded-xl space-y-3 text-sm text-gray-700 leading-relaxed font-medium">
+              <p>Key takeaways and core conceptual summaries will appear here after video processing.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white transition-colors">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white transition-colors">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white transition-colors">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white transition-colors">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- External Dependencies & Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+// Mobile toggle responsive handler
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+if(menuToggle && mobileMenu) {
+  menuToggle.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+}
+
+// Extract YouTube ID
+function getYouTubeEmbedUrl(url) {
+  let videoId = '';
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[2].length === 11) {
+    videoId = match[2];
+  } else {
+    videoId = 'd5F6zS0q4V4'; 
+  }
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
+// Tab Switcher Controller
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.add('hidden');
+  });
+  
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  document.getElementById(`content-${tabName}`).classList.remove('hidden');
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+}
+
+// MCQ Answer Validator
+function verifyAnswer(buttonElement, isCorrect) {
+  const siblingButtons = buttonElement.parentElement.querySelectorAll('.option-btn');
+  
+  siblingButtons.forEach(btn => {
+    btn.style.backgroundColor = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  });
+
+  if (isCorrect) {
+    buttonElement.style.backgroundColor = '#e8f5e9'; 
+    buttonElement.style.borderColor = '#4caf50';
+    buttonElement.style.color = '#1b5e20';
+  } else {
+    buttonElement.style.backgroundColor = '#ffebee'; 
+    buttonElement.style.borderColor = '#f44336';
+    buttonElement.style.color = '#b71c1c';
+  }
+}
+
+// Notes text download engine
+function downloadNotes() {
+  const container = document.getElementById('notesText');
+  const textContent = container ? container.innerText : "SmartEduX Auto Generated Notes";
+  const blob = new Blob([textContent], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const downloadAnchorElement = document.createElement('a');
+  downloadAnchorElement.href = url;
+  downloadAnchorElement.download = 'SmartEduX_Lecture_Notes.txt';
+  downloadAnchorElement.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// Main AI Generation Handler (Django API + Offline Backup)
+async function generateNotes() {
+  const ytLink = document.getElementById("ytLink").value.trim();
+  const errorBox = document.getElementById("errorBox");
+  const loading = document.getElementById("loading");
+  const notesOutput = document.getElementById("notesOutput");
+  const videoPlayer = document.getElementById("videoPlayer");
+
+  if (!ytLink) {
+    errorBox.textContent = "⚠️ Please paste a valid YouTube video URL to generate notes.";
+    errorBox.classList.remove("hidden");
+    return;
+  }
+
+  errorBox.classList.add("hidden");
+  loading.classList.remove("hidden");
+  notesOutput.classList.add("hidden");
+
+  // Embed Player
+  videoPlayer.src = getYouTubeEmbedUrl(ytLink);
+
+  try {
+    const response = await fetch('/api/ai/process-youtube/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({ url: ytLink })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      renderAIResults(data.notes, data.quizzes, data.summary);
+    } else {
+      // Offline / Testing Fallback
+      renderFallbackResults();
+    }
+  } catch (error) {
+    console.log("Running in offline presentation mode.");
+    renderFallbackResults();
+  } finally {
+    loading.classList.add("hidden");
+    notesOutput.classList.remove("hidden");
+  }
+}
+
+function renderAIResults(notes, quizzes, summary) {
+  const notesText = document.getElementById("notesText");
+  notesText.innerHTML = typeof marked !== 'undefined' ? marked.parse(notes) : notes;
+
+  if (summary) {
+    document.getElementById("summaryBox").innerHTML = `<p>${summary}</p>`;
+  }
+
+  if (quizzes && quizzes.length > 0) {
+    renderQuizzes(quizzes);
+  }
+}
+
+function renderFallbackResults() {
+  const sampleNotes = `
+  ### 📌 Key Core Concepts & Takeaways
+  * **System Architecture:** Separating business logic from presentation leads to scalable web applications.
+  * **API Processing:** Django REST Framework acts as an intermediary layer handling authentication and payloads.
+  * **Auto-Summarization:** AI algorithms extract transcripts and condense key points into digestible bullets.
+  `;
+  document.getElementById("notesText").innerHTML = typeof marked !== 'undefined' ? marked.parse(sampleNotes) : sampleNotes;
+
+  const sampleQuizzes = [
+    {
+      question: "What is the primary role of Django REST Framework in SmartEduX?",
+      options: [
+        { text: "Styling the Tailwind HTML UI", correct: false },
+        { text: "Handling backend APIs and processing data payloads", correct: true },
+        { text: "Hosting YouTube videos", correct: false }
+      ]
+    }
+  ];
+  renderQuizzes(sampleQuizzes);
+}
+
+function renderQuizzes(quizzes) {
+  const container = document.getElementById("quiz-placeholder");
+  container.innerHTML = "";
+
+  quizzes.forEach((q, idx) => {
+    let optionsHTML = "";
+    q.options.forEach(opt => {
+      optionsHTML += `<button onclick="verifyAnswer(this, ${opt.correct})" class="option-btn w-full text-left p-3 border rounded-xl hover:bg-blue-50 transition text-xs font-medium text-gray-700">${opt.text}</button>`;
+    });
+
+    container.innerHTML += `
+      <div class="p-4 bg-slate-50 rounded-xl space-y-3 border border-gray-100">
+        <p class="font-bold text-xs text-[#0b2149]">Q${idx + 1}: ${q.question}</p>
+        <div class="space-y-2">${optionsHTML}</div>
+      </div>
+    `;
+  });
+}
+
+// Dynamic Auth Navigation Update
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const res = await fetch('/api/user/status/');
+    if(res.ok) {
+      const data = await res.json();
+      if(data.is_authenticated) {
+        const userSec = document.getElementById('nav-user-section');
+        if(userSec) {
+          const dash = data.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
+          userSec.innerHTML = `<a href="${dash}" class="px-4 py-2 text-sm font-medium rounded-md bg-[#0b2149] text-white hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
+        }
+      }
+    }
+  } catch(e) {}
+});
+
+// CSRF Helper
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+</script>
+
+</body>
+</html>

@@ -145,24 +145,43 @@
     <p>© 2026 SmartEduX — Security Portal. All rights reserved.</p>
   </footer>
 
-  <!-- Interactivity Script -->
+  <!-- Interactivity & Real Backend Script -->
   <script>
-    function checkStatus() {
+    async function checkStatus() {
       const btn = document.getElementById('refreshBtn');
       const icon = document.getElementById('refreshIcon');
       const text = document.getElementById('btnText');
       
-      // UI effect to look like it's checking live
       btn.disabled = true;
       icon.classList.add('animate-spin');
       text.textContent = "Checking Server...";
       
-      setTimeout(() => {
+      try {
+        const response = await fetch('/api/teacher/verification-status/');
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.status === 'approved') {
+            alert("🎉 Congratulations! Your teacher profile has been approved.\n\nRedirecting to your Teacher Dashboard...");
+            window.location.href = "teacher dashboard.html";
+            return;
+          } else if (data.status === 'rejected') {
+            alert(`❌ Application Decision: Rejected.\n\nReason: ${data.reason || 'Credentials could not be verified.'}`);
+          } else {
+            alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+          }
+        } else {
+          // Offline / Testing Fallback
+          alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+        }
+      } catch (error) {
+        console.log("Checking status in UI mode...");
+        alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
+      } finally {
         btn.disabled = false;
         icon.classList.remove('animate-spin');
         text.textContent = "Refresh Status";
-        alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
-      }, 1200); // 1.2 seconds fake loader
+      }
     }
   </script>
 

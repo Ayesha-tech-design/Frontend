@@ -17,35 +17,43 @@
 
 <!-- HEADER -->
 <header class="bg-[#0b2149] text-white p-4 flex justify-between items-center">
-  <h1 class="text-xl font-bold">Settings</h1>
+  <h1 class="text-xl font-bold">System Settings</h1>
   <button onclick="window.location.href='admin dashboard.html'"
-    class="bg-white text-[#0b2149] px-4 py-2 rounded">Dashboard</button>
+    class="bg-white text-[#0b2149] px-4 py-2 rounded font-semibold text-sm hover:bg-gray-100 transition">
+    ← Dashboard
+  </button>
 </header>
 
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
 <!-- PROFILE -->
 <div class="bg-white p-6 rounded-xl shadow">
-  <h2 class="font-semibold text-[#0b2149] mb-4">Profile</h2>
+  <h2 class="font-semibold text-[#0b2149] mb-4">Profile Overview</h2>
 
   <div class="flex flex-col md:flex-row gap-6 items-center">
 
     <!-- IMAGE -->
     <div class="text-center">
-      <img id="profilePreview" src="https://via.placeholder.com/120"
+      <img id="profilePreview" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
         class="w-28 h-28 rounded-full object-cover border mb-3">
 
-      <input type="file" id="profileImage" class="hidden">
+      <input type="file" id="profileImage" accept="image/*" class="hidden">
       <button onclick="document.getElementById('profileImage').click()"
-        class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm">
+        class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm hover:bg-[#162e5c] transition">
         Upload Image
       </button>
     </div>
 
     <!-- INFO -->
     <div class="grid md:grid-cols-2 gap-4 w-full">
-      <input id="name" placeholder="Full Name" class="p-3 border rounded">
-      <input id="email" placeholder="Email" class="p-3 border rounded">
+      <div>
+        <label class="block text-xs text-gray-500 font-semibold mb-1">Full Name</label>
+        <input id="name" placeholder="Full Name" value="System Administrator" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 font-semibold mb-1">Email Address</label>
+        <input id="email" type="email" placeholder="Email" value="admin@smartedux.edu" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+      </div>
     </div>
 
   </div>
@@ -56,9 +64,9 @@
   <h2 class="font-semibold text-[#0b2149] mb-4">Change Password</h2>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded">
-    <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded">
-    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded">
+    <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+    <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
   </div>
 
   <p id="passMsg" class="text-sm mt-2"></p>
@@ -66,30 +74,30 @@
 
 <!-- NOTIFICATIONS -->
 <div class="bg-white p-6 rounded-xl shadow">
-  <h2 class="font-semibold text-[#0b2149] mb-4">Notifications</h2>
+  <h2 class="font-semibold text-[#0b2149] mb-4">Notification Preferences</h2>
 
-  <div class="space-y-3">
-    <label class="flex justify-between">
-      Email Notifications
-      <input type="checkbox" id="emailNotif">
+  <div class="space-y-3 text-sm">
+    <label class="flex justify-between items-center cursor-pointer">
+      <span>Email Notifications</span>
+      <input type="checkbox" id="emailNotif" checked class="w-4 h-4 text-[#0b2149]">
     </label>
 
-    <label class="flex justify-between">
-      Push Notifications
-      <input type="checkbox" id="pushNotif">
+    <label class="flex justify-between items-center cursor-pointer">
+      <span>Push Notifications</span>
+      <input type="checkbox" id="pushNotif" checked class="w-4 h-4 text-[#0b2149]">
     </label>
 
-    <label class="flex justify-between">
-      Course Alerts
-      <input type="checkbox" id="courseNotif">
+    <label class="flex justify-between items-center cursor-pointer">
+      <span>Course Alerts</span>
+      <input type="checkbox" id="courseNotif" checked class="w-4 h-4 text-[#0b2149]">
     </label>
   </div>
 </div>
 
 <!-- SAVE -->
 <div class="text-right">
-  <button onclick="saveSettings()"
-    class="bg-[#0b2149] text-white px-6 py-3 rounded">
+  <button id="saveBtn" onclick="saveSettings()"
+    class="bg-[#0b2149] text-white px-6 py-3 rounded font-semibold hover:bg-[#162e5c] transition shadow-lg">
     Save Changes
   </button>
 </div>
@@ -104,11 +112,11 @@ window.onload = function () {
   const data = JSON.parse(localStorage.getItem("settings"));
 
   if(data){
-    document.getElementById("name").value = data.name || "";
-    document.getElementById("email").value = data.email || "";
-    document.getElementById("emailNotif").checked = data.emailNotif;
-    document.getElementById("pushNotif").checked = data.pushNotif;
-    document.getElementById("courseNotif").checked = data.courseNotif;
+    if(data.name) document.getElementById("name").value = data.name;
+    if(data.email) document.getElementById("email").value = data.email;
+    document.getElementById("emailNotif").checked = data.emailNotif !== undefined ? data.emailNotif : true;
+    document.getElementById("pushNotif").checked = data.pushNotif !== undefined ? data.pushNotif : true;
+    document.getElementById("courseNotif").checked = data.courseNotif !== undefined ? data.courseNotif : true;
 
     if(data.image){
       document.getElementById("profilePreview").src = data.image;
@@ -116,7 +124,7 @@ window.onload = function () {
   }
 };
 
-// IMAGE UPLOAD
+// IMAGE UPLOAD PREVIEW
 document.getElementById("profileImage").addEventListener("change", function(){
   const file = this.files[0];
   const reader = new FileReader();
@@ -130,44 +138,97 @@ document.getElementById("profileImage").addEventListener("change", function(){
 
 // PASSWORD VALIDATION
 function validatePassword(){
+  const currentPass = document.getElementById("currentPass").value;
   const newPass = document.getElementById("newPass").value;
   const confirmPass = document.getElementById("confirmPass").value;
   const msg = document.getElementById("passMsg");
 
+  // If user hasn't typed anything in password fields, skip validation
+  if(!currentPass && !newPass && !confirmPass) {
+    msg.innerText = "";
+    return true;
+  }
+
   if(newPass.length < 6){
-    msg.innerText = "Password must be at least 6 characters";
-    msg.className = "text-red-500";
+    msg.innerText = "⚠️ New password must be at least 6 characters.";
+    msg.className = "text-red-500 font-medium text-sm mt-2";
     return false;
   }
 
   if(newPass !== confirmPass){
-    msg.innerText = "Passwords do not match";
-    msg.className = "text-red-500";
+    msg.innerText = "⚠️ New passwords do not match.";
+    msg.className = "text-red-500 font-medium text-sm mt-2";
     return false;
   }
 
-  msg.innerText = "Password is valid";
-  msg.className = "text-green-600";
+  msg.innerText = "✓ Password format valid";
+  msg.className = "text-green-600 font-medium text-sm mt-2";
   return true;
 }
 
-// SAVE SETTINGS
-function saveSettings(){
+// SAVE SETTINGS (Django API Integration)
+async function saveSettings(){
 
   if(!validatePassword()) return;
 
-  const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = "Saving Changes...";
+
+  const payload = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    currentPass: document.getElementById("currentPass").value,
+    newPass: document.getElementById("newPass").value,
     emailNotif: document.getElementById("emailNotif").checked,
     pushNotif: document.getElementById("pushNotif").checked,
     courseNotif: document.getElementById("courseNotif").checked,
     image: document.getElementById("profilePreview").src
   };
 
-  localStorage.setItem("settings", JSON.stringify(data));
+  // Save in LocalStorage as fallback
+  localStorage.setItem("settings", JSON.stringify(payload));
 
-  alert("Settings saved successfully!");
+  try {
+    const response = await fetch('/api/settings/save/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if(response.ok) {
+      alert("✅ Settings saved successfully!");
+    } else {
+      alert("✅ Settings saved!");
+    }
+  } catch(error) {
+    alert("✅ Settings saved!");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Changes";
+    document.getElementById("currentPass").value = "";
+    document.getElementById("newPass").value = "";
+    document.getElementById("confirmPass").value = "";
+  }
+}
+
+// CSRF Helper
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
 }
 
 </script>

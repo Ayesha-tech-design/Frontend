@@ -17,7 +17,6 @@
     <div>
       <div class="flex items-center gap-2 mb-8 px-2">
         <span class="text-2xl font-bold tracking-tight">SmartEduX</span>
-        
       </div>
       
       <nav class="space-y-1">
@@ -365,216 +364,307 @@
     </footer>
 
   </div>
-</div>
 
-<div id="courseModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 border border-gray-100 transform transition-all">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-bold text-[#0b2149]">Deploy New System Course</h3>
-      <button onclick="closeCourseModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-    </div>
-
-    <form id="courseForm" onsubmit="submitCourse(event)" class="space-y-4">
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Title</label>
-        <input type="text" id="courseTitle" required placeholder="e.g. Theory of Programming Languages" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Code Node</label>
-        <input type="text" id="courseCode" required placeholder="e.g. CS-401" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
-      </div>
-      
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Domain / Specialization</label>
-        <select id="courseDomain" onchange="filterTeachersByDomain()" required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149] bg-gray-50">
-          <option value="">-- Choose Domain Framework --</option>
-          <option value="CS">Computer Science</option>
-          <option value="Math">Mathematics</option>
-        </select>
+  <div id="courseModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 border border-gray-100 transform transition-all">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-[#0b2149]">Deploy New System Course</h3>
+        <button onclick="closeCourseModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
       </div>
 
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Assign Verified Expert</label>
-        <select id="teacherSelect" disabled required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
-          <option value="">-- Please Select Domain First --</option>
-        </select>
-      </div>
-      
-      <div class="flex justify-end gap-2 pt-2">
-        <button type="button" onclick="closeCourseModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl transition">Cancel</button>
-        <button type="submit" class="px-4 py-2.5 bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 rounded-xl transition shadow-md">Deploy Node</button>
-      </div>
-    </form>
-  </div>
-</div>
+      <form id="courseForm" onsubmit="submitCourse(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Title</label>
+          <input type="text" id="courseTitle" required placeholder="e.g. Theory of Programming Languages" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Code Node</label>
+          <input type="text" id="courseCode" required placeholder="e.g. CS-401" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
+        </div>
+        
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Course Domain / Specialization</label>
+          <select id="courseDomain" onchange="filterTeachersByDomain()" required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149] bg-gray-50">
+            <option value="">-- Choose Domain Framework --</option>
+            <option value="CS">Computer Science</option>
+            <option value="Math">Mathematics</option>
+          </select>
+        </div>
 
-<div id="rejectModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 border border-gray-100 transform transition-all">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-bold text-[#0b2149]">Specify Decline Criteria</h3>
-      <button onclick="closeRejectModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-    </div>
-    
-    <p class="text-xs text-gray-400 mb-4">
-      State why you are declining <strong id="modalTeacherName" class="text-gray-700"></strong>. This log entry maps parameters directly into their rejection mail stream.
-    </p>
-
-    <div class="space-y-4">
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Standardized Rejection Code</label>
-        <select id="rejectReasonSelect" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
-          <option value="Incomplete or Blurry Credential Uploads">Incomplete or Blurry Credential Uploads</option>
-          <option value="Academic Institution validation failure">Academic Institution validation failure</option>
-          <option value="Insufficient Professional Teaching Tenure Profile">Insufficient Professional Teaching Tenure Profile</option>
-          <option value="Custom Specification Note">Custom Specification Note (Define Below)</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Detailed Technical Constraints</label>
-        <textarea id="rejectText" rows="3" placeholder="Identify specific fixes for the teacher profile..." class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]"></textarea>
-      </div>
-    </div>
-
-    <div class="flex justify-end gap-2 mt-6">
-      <button onclick="closeRejectModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl transition">Abort Action</button>
-      <button onclick="submitRejection()" class="px-4 py-2.5 bg-red-600 text-white text-xs font-bold hover:bg-red-700 rounded-xl transition shadow-md">Deploy Rejection Mail</button>
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Assign Verified Expert</label>
+          <select id="teacherSelect" disabled required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
+            <option value="">-- Please Select Domain First --</option>
+          </select>
+        </div>
+        
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeCourseModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl transition">Cancel</button>
+          <button type="submit" class="px-4 py-2.5 bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 rounded-xl transition shadow-md">Deploy Node</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
 
-<script>
-  const btn = document.getElementById('profileBtn');
-  const menu = document.getElementById('profileMenu');
-  const rejectModal = document.getElementById('rejectModal');
-  const courseModal = document.getElementById('courseModal');
-  const modalNameSpan = document.getElementById('modalTeacherName');
-  let activeTeacher = "";
+  <div id="rejectModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 border border-gray-100 transform transition-all">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-[#0b2149]">Specify Decline Criteria</h3>
+        <button onclick="closeRejectModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+      </div>
+      
+      <p class="text-xs text-gray-400 mb-4">
+        State why you are declining <strong id="modalTeacherName" class="text-gray-700"></strong>. This log entry maps parameters directly into their rejection mail stream.
+      </p>
 
-  btn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
-  window.addEventListener('click', () => { menu.classList.add('hidden'); });
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Standardized Rejection Code</label>
+          <select id="rejectReasonSelect" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]">
+            <option value="Incomplete or Blurry Credential Uploads">Incomplete or Blurry Credential Uploads</option>
+            <option value="Academic Institution validation failure">Academic Institution validation failure</option>
+            <option value="Insufficient Professional Teaching Tenure Profile">Insufficient Professional Teaching Tenure Profile</option>
+            <option value="Custom Specification Note">Custom Specification Note (Define Below)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Detailed Technical Constraints</label>
+          <textarea id="rejectText" rows="3" placeholder="Identify specific fixes for the teacher profile..." class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#0b2149]"></textarea>
+        </div>
+      </div>
 
-  // DYNAMIC VIEW ROUTER (Tab Switching)
-  function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-    document.querySelectorAll('aside nav button').forEach(button => button.classList.remove('active-tab'));
-    
-    document.getElementById(tabId).classList.remove('hidden');
-    document.getElementById('nav-' + tabId).classList.add('active-tab');
+      <div class="flex justify-end gap-2 mt-6">
+        <button onclick="closeRejectModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl transition">Abort Action</button>
+        <button onclick="submitRejection()" class="px-4 py-2.5 bg-red-600 text-white text-xs font-bold hover:bg-red-700 rounded-xl transition shadow-md">Deploy Rejection Mail</button>
+      </div>
+    </div>
+  </div>
 
-    const titles = {
-      'overview-tab': 'Dashboard Matrix',
-      'verification-tab': 'Teacher Verification Desk',
-      'courses-tab': 'Course Management Vault',
-      'users-tab': 'Registered User Directories',
-      'ai-logs-tab': 'AI Engine Resource Logs',
-      'settings-tab': 'Global Configuration Terminal'
-    };
-    document.getElementById('panel-title').textContent = titles[tabId];
-  }
+  <script>
+    const btn = document.getElementById('profileBtn');
+    const menu = document.getElementById('profileMenu');
+    const rejectModal = document.getElementById('rejectModal');
+    const courseModal = document.getElementById('courseModal');
+    const modalNameSpan = document.getElementById('modalTeacherName');
+    let activeTeacher = "";
 
-  // DYNAMIC TEACHER FILTER BASED ON SPECIALIZATION
-  function filterTeachersByDomain() {
-    const domain = document.getElementById('courseDomain').value;
-    const teacherSelect = document.getElementById('teacherSelect');
-    
-    teacherSelect.innerHTML = '';
-    
-    if (!domain) {
-      teacherSelect.disabled = true;
-      teacherSelect.innerHTML = '<option value="">-- Please Select Domain First --</option>';
-      return;
+    btn?.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+    window.addEventListener('click', () => { menu?.classList.add('hidden'); });
+
+    // 1. DYNAMIC VIEW ROUTER (Tab Switching)
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+      document.querySelectorAll('aside nav button').forEach(button => button.classList.remove('active-tab'));
+      
+      document.getElementById(tabId)?.classList.remove('hidden');
+      document.getElementById('nav-' + tabId)?.classList.add('active-tab');
+
+      const titles = {
+        'overview-tab': 'Dashboard Matrix',
+        'verification-tab': 'Teacher Verification Desk',
+        'courses-tab': 'Course Management Vault',
+        'users-tab': 'Registered User Directories',
+        'ai-logs-tab': 'AI Engine Resource Logs',
+        'settings-tab': 'Global Configuration Terminal'
+      };
+      if(document.getElementById('panel-title')) {
+        document.getElementById('panel-title').textContent = titles[tabId];
+      }
     }
-    
-    const instructorsDatabase = [
-      { name: "Ayesha Khan", specialization: "CS", label: "Computer Science Expert" },
-      { name: "Dr. Tariq Mahmood", specialization: "CS", label: "Information Security Chair" },
-      { name: "Noor Iman", specialization: "CS", label: "Web Frameworks Specialist" },
-      { name: "Prof. Muhammad Ali", specialization: "Math", label: "Discrete Mathematics Chair" }
-    ];
-    
-    const verifiedExperts = instructorsDatabase.filter(teacher => teacher.specialization === domain);
-    
-    teacherSelect.disabled = false;
-    
-    if (verifiedExperts.length === 0) {
-      teacherSelect.innerHTML = '<option value="">No verified educator found for this domain node</option>';
-      return;
+
+    // 2. DYNAMIC TEACHER FILTER BASED ON SPECIALIZATION
+    function filterTeachersByDomain() {
+      const domain = document.getElementById('courseDomain').value;
+      const teacherSelect = document.getElementById('teacherSelect');
+      
+      teacherSelect.innerHTML = '';
+      
+      if (!domain) {
+        teacherSelect.disabled = true;
+        teacherSelect.innerHTML = '<option value="">-- Please Select Domain First --</option>';
+        return;
+      }
+      
+      const instructorsDatabase = [
+        { name: "Ayesha Khan", specialization: "CS", label: "Computer Science Expert" },
+        { name: "Dr. Tariq Mahmood", specialization: "CS", label: "Information Security Chair" },
+        { name: "Noor Iman", specialization: "CS", label: "Web Frameworks Specialist" },
+        { name: "Prof. Muhammad Ali", specialization: "Math", label: "Discrete Mathematics Chair" }
+      ];
+      
+      const verifiedExperts = instructorsDatabase.filter(teacher => teacher.specialization === domain);
+      
+      teacherSelect.disabled = false;
+      
+      if (verifiedExperts.length === 0) {
+        teacherSelect.innerHTML = '<option value="">No verified educator found for this domain node</option>';
+        return;
+      }
+      
+      verifiedExperts.forEach(expert => {
+        const option = document.createElement('option');
+        option.value = expert.name;
+        option.textContent = `${expert.name} (${expert.label})`;
+        teacherSelect.appendChild(option);
+      });
     }
-    
-    verifiedExperts.forEach(expert => {
-      const option = document.createElement('option');
-      option.value = expert.name;
-      option.textContent = `${expert.name} (${expert.label})`;
-      teacherSelect.appendChild(option);
-    });
-  }
 
-  // Course Modal Actions
-  function openCourseModal() { courseModal.classList.remove('hidden'); }
-  function closeCourseModal() { 
-    courseModal.classList.add('hidden'); 
-    document.getElementById('courseForm').reset();
-    document.getElementById('teacherSelect').disabled = true;
-    document.getElementById('teacherSelect').innerHTML = '<option value="">-- Please Select Domain First --</option>';
-  }
-  
-  function submitCourse(e) {
-    e.preventDefault();
-    const title = document.getElementById('courseTitle').value;
-    const code = document.getElementById('courseCode').value;
-    const teacher = document.getElementById('teacherSelect').value;
-    alert(`✅ Success!\nCourse "${title}" (${code}) has been assigned to ${teacher} and deployed live on SmartEduX.`);
-    closeCourseModal();
-  }
+    // 3. APPROVE TEACHER (Django API)
+    async function approveTeacher(name) {
+      try {
+        const response = await fetch('/api/admin/approve-teacher/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ teacher_name: name })
+        });
+        
+        const data = await response.json();
+        if (response.ok) {
+          alert(`✅ ${name} has been integrated into verified database nodes.`);
+          location.reload();
+        } else {
+          alert(`❌ Error: ${data.message || 'Verification failed'}`);
+        }
+      } catch (error) {
+        console.error('API Error:', error);
+        alert('❌ Network failure connecting to Django API.');
+      }
+    }
 
-  function approveTeacher(name) {
-    alert(`✅ Verification Protocol Success!\n\n${name} has been integrated into verified database nodes.\nAutomated welcome and link tokens broadcasted.`);
-  }
+    // 4. REJECT TEACHER (Django API)
+    function openRejectModal(name) {
+      activeTeacher = name;
+      if(modalNameSpan) modalNameSpan.textContent = name;
+      rejectModal?.classList.remove('hidden');
+    }
 
-  function openRejectModal(name) {
-    activeTeacher = name;
-    modalNameSpan.textContent = name;
-    rejectModal.classList.remove('hidden');
-  }
+    function closeRejectModal() {
+      rejectModal?.classList.add('hidden');
+      const rejectText = document.getElementById('rejectText');
+      if(rejectText) rejectText.value = "";
+    }
 
-  function closeRejectModal() {
-    rejectModal.classList.add('hidden');
-    document.getElementById('rejectText').value = "";
-  }
+    async function submitRejection() {
+      const category = document.getElementById('rejectReasonSelect').value;
+      const details = document.getElementById('rejectText').value.trim();
+      let unifiedReason = category;
+      if(details) unifiedReason += " -> Details: " + details;
 
-  function submitRejection() {
-    const category = document.getElementById('rejectReasonSelect').value;
-    const details = document.getElementById('rejectText').value.trim();
-    let unifiedReason = category;
-    if(details) unifiedReason += " -> Details: " + details;
+      try {
+        const response = await fetch('/api/admin/reject-teacher/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ teacher_name: activeTeacher, reason: unifiedReason })
+        });
 
-    alert(`❌ Pipeline Declined for ${activeTeacher}.\n\nCompiled email context payload shipped:\n"${unifiedReason}"`);
-    closeRejectModal();
-  }
+        const data = await response.json();
+        if (response.ok) {
+          alert(`❌ Pipeline Declined for ${activeTeacher}. Rejection Mail Shipped.`);
+          closeRejectModal();
+          location.reload();
+        } else {
+          alert(`❌ Error: ${data.message || 'Operation failed'}`);
+        }
+      } catch (error) {
+        console.error('API Error:', error);
+        alert('❌ Network failure sending rejection.');
+      }
+    }
 
-  function runSystemBackup() {
-    const backupBtn = document.getElementById('backupBtn');
-    const icon = document.getElementById('backupIcon');
-    const text = document.getElementById('backupText');
+    // 5. DEPLOY NEW COURSE (Django API)
+    function openCourseModal() { courseModal?.classList.remove('hidden'); }
+    function closeCourseModal() { 
+      courseModal?.classList.add('hidden'); 
+      document.getElementById('courseForm')?.reset();
+      const teacherSelect = document.getElementById('teacherSelect');
+      if(teacherSelect) {
+        teacherSelect.disabled = true;
+        teacherSelect.innerHTML = '<option value="">-- Please Select Domain First --</option>';
+      }
+    }
 
-    backupBtn.disabled = true;
-    icon.textContent = "⚙️";
-    icon.classList.add('animate-spin');
-    text.textContent = "Compiling Database SQL Blobs...";
+    async function submitCourse(e) {
+      e.preventDefault();
+      const title = document.getElementById('courseTitle').value;
+      const code = document.getElementById('courseCode').value;
+      const domain = document.getElementById('courseDomain').value;
+      const teacher = document.getElementById('teacherSelect').value;
 
-    setTimeout(() => {
-      backupBtn.disabled = false;
-      icon.textContent = "💾";
-      icon.classList.remove('animate-spin');
-      text.textContent = "Initiate Live Hot Backup";
-      alert("🔒 Secure Data Vault Success!\n\nSmartEduX Core relational tables exported into standard format file: 'smartedux_backup_2026.sql' and saved to cluster cold storage.");
-    }, 2000);
-  }
+      try {
+        const response = await fetch('/api/admin/create-course/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({
+            title: title,
+            course_code: code,
+            domain: domain,
+            assigned_teacher: teacher
+          })
+        });
 
-  // UPDATED: Now points back to login.html correctly
-  function logoutUser() {
-    window.location.href = "login.html";
-  }
-</script>
+        const data = await response.json();
+        if (response.ok) {
+          alert(`✅ Success!\nCourse "${title}" (${code}) deployed live on SmartEduX.`);
+          closeCourseModal();
+          location.reload();
+        } else {
+          alert(`❌ Error: ${data.message || 'Course deployment failed'}`);
+        }
+      } catch (error) {
+        console.error('API Error:', error);
+        alert('❌ Network failure deploying course.');
+      }
+    }
+
+    // 6. SYSTEM BACKUP TRIGGER
+    function runSystemBackup() {
+      const backupBtn = document.getElementById('backupBtn');
+      const icon = document.getElementById('backupIcon');
+      const text = document.getElementById('backupText');
+
+      if(!backupBtn) return;
+      backupBtn.disabled = true;
+      icon.textContent = "⚙️";
+      icon.classList.add('animate-spin');
+      text.textContent = "Compiling Database SQL Blobs...";
+
+      setTimeout(() => {
+        backupBtn.disabled = false;
+        icon.textContent = "💾";
+        icon.classList.remove('animate-spin');
+        text.textContent = "Initiate Live Hot Backup";
+        alert("🔒 Secure Data Vault Success!\n\nSmartEduX Core relational tables exported into standard format file: 'smartedux_backup_2026.sql' and saved to cluster cold storage.");
+      }, 2000);
+    }
+
+    // HELPER: Django CSRF Token Grabber
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    function logoutUser() {
+      window.location.href = "login.html";
+    }
+  </script>
 </body>
 </html>
