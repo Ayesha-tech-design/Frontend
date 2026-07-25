@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoNotes Feature | SmartEduX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0b2149; }
+        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .nav-link { transition: color 0.2s ease; }
+        .nav-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="SmartEduX.html" class="text-2xl font-extrabold text-[#0b2149]">SmartEduX</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 nav-link">Home</a>
+                    <a href="Courses.html" class="text-sm font-medium text-gray-700 nav-link">Courses</a>
+                    <a href="Autonotes.html" class="text-sm font-medium text-[#0b2149] font-bold">AutoNotes</a>
+                    <a href="contact.html" class="text-sm font-medium text-gray-700 nav-link">Contact Us</a>
+                </div>
+                <div>
+                    <a href="Autonotes.html" class="bg-[#0b2149] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#16356d] transition shadow-md">
+                        Launch Tool
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER / HERO SECTION -->
+    <header class="bg-[#07122a] text-white py-16 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-400/30">
+                AI Productivity Tool
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-bold mt-4 mb-4">AutoNotes Studio</h1>
+            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+                Transform lengthy educational videos and documents into concise, intelligent bullet notes and structured study guides instantly.
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SECTION -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        
+        <!-- Left & Center: Details, Working & Importance (2 Columns) -->
+        <div class="lg:col-span-2 space-y-10">
+            
+            <!-- What is AutoNotes -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-4">What is AutoNotes?</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    AutoNotes is a core AI-powered engine integrated into SmartEduX. It eliminates the hassle of manual note-taking during lectures. By processing audio transcripts, video files, or raw text input, it intelligently structures key concepts into clean, reader-friendly summaries.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg">80%</h3>
+                        <p class="text-xs text-gray-600 mt-1">Time saved on revision and summary creation.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg">100%</h3>
+                        <p class="text-xs text-gray-600 mt-1">Automated organization aligned with your syllabus.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-6">How AutoNotes Works</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Input Content</h3>
+                            <p class="text-sm text-gray-600">Upload your lecture video link, audio file, or paste educational text directly into the dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">AI Processing & Summarization</h3>
+                            <p class="text-sm text-gray-600">Our machine learning models filter out filler words, identifying core academic definitions, formulas, and headings.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Export & Revise</h3>
+                            <p class="text-sm text-gray-600">Get clean bullet points instantly which can be downloaded as a PDF or saved directly to your study dashboard.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Crucial for Students -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-4">Why is it Beneficial for Students?</h2>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Speeds up exam prep without missing critical textbook topics.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Helps auditory learners convert spoken lectures into organized textual reference sheets.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Reduces cognitive overload by extracting only high-yield study points.
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Sidebar: Demo Media & Quick Actions (1 Column) -->
+        <div class="space-y-8">
+            
+            <!-- Visual Demo Section (Screenshot / Video Preview) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Feature Preview</h3>
+                <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
+                    <!-- Yahan aap apna screenshot ya video/GIF laga sakti hain -->
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="AutoNotes UI Screenshot" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">UI Snapshot</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3 text-center">Snapshot showing clean markdown bullet layouts generated by AI.</p>
+            </div>
+
+            <!-- Quick Action Box -->
+            <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
+                <h3 class="text-xl font-bold">Ready to try AutoNotes?</h3>
+                <p class="text-xs text-blue-200">Start generating smart summaries for your semester courses right now.</p>
+                <a href="Autonotes.html" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
+                    Open AutoNotes Studio
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#07122a] text-gray-400 py-8 text-center text-xs mt-auto">
+        <p>© 2026 SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
