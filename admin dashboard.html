@@ -81,19 +81,19 @@
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div class="bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm">
             <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Students</h3>
-            <p class="text-3xl font-extrabold text-[#0b2149] mt-1">120</p>
+            <p id="stat-active-students" class="text-3xl font-extrabold text-[#0b2149] mt-1">120</p>
           </div>
           <div class="bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm">
             <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Verified Educators</h3>
-            <p class="text-3xl font-extrabold text-[#0b2149] mt-1">24</p>
+            <p id="stat-verified-educators" class="text-3xl font-extrabold text-[#0b2149] mt-1">24</p>
           </div>
           <div class="bg-white p-5 rounded-2xl border border-blue-100 bg-blue-50/20 shadow-sm">
             <h3 class="text-xs font-bold text-blue-600 uppercase tracking-wider">AI Operations Run</h3>
-            <p class="text-3xl font-extrabold text-[#0b2149] mt-1">1,482</p>
+            <p id="stat-ai-operations" class="text-3xl font-extrabold text-[#0b2149] mt-1">1,482</p>
           </div>
           <div class="bg-white p-5 rounded-2xl border border-amber-100 bg-amber-50/20 shadow-sm animate-pulse">
             <h3 class="text-xs font-bold text-amber-600 uppercase tracking-wider">Pending Approvals</h3>
-            <p class="text-3xl font-extrabold text-amber-600 mt-1">1</p>
+            <p id="stat-pending-approvals" class="text-3xl font-extrabold text-amber-600 mt-1">1</p>
           </div>
         </section>
 
@@ -440,6 +440,9 @@
     </div>
   </div>
 
+  <!-- Universal Base API Connection Module -->
+  <script src="connection.js"></script>
+
   <script>
     const btn = document.getElementById('profileBtn');
     const menu = document.getElementById('profileMenu');
@@ -450,6 +453,19 @@
 
     btn?.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
     window.addEventListener('click', () => { menu?.classList.add('hidden'); });
+
+    // DYNAMIC DATA LOAD VIA CONNECTION.JS
+    document.addEventListener("DOMContentLoaded", async function() {
+      if (typeof apiRequest === "function") {
+        const data = await apiRequest('/admin/dashboard-stats/');
+        if (data && data.status === "success") {
+          if (document.getElementById('stat-active-students')) document.getElementById('stat-active-students').innerText = data.total_users || 120;
+          if (document.getElementById('stat-verified-educators')) document.getElementById('stat-verified-educators').innerText = data.total_educators || 24;
+          if (document.getElementById('stat-ai-operations')) document.getElementById('stat-ai-operations').innerText = data.ai_operations || "1,482";
+          if (document.getElementById('stat-pending-approvals')) document.getElementById('stat-pending-approvals').innerText = data.pending_approvals || 1;
+        }
+      }
+    });
 
     // 1. DYNAMIC VIEW ROUTER (Tab Switching)
     function switchTab(tabId) {
@@ -512,17 +528,8 @@
     // 3. APPROVE TEACHER (Django API)
     async function approveTeacher(name) {
       try {
-        const response = await fetch('/api/admin/approve-teacher/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify({ teacher_name: name })
-        });
-        
-        const data = await response.json();
-        if (response.ok) {
+        const data = await apiRequest('/admin/approve-teacher/', 'POST', { teacher_name: name });
+        if (data && data.status !== "error") {
           alert(`✅ ${name} has been integrated into verified database nodes.`);
           location.reload();
         } else {
@@ -554,17 +561,8 @@
       if(details) unifiedReason += " -> Details: " + details;
 
       try {
-        const response = await fetch('/api/admin/reject-teacher/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify({ teacher_name: activeTeacher, reason: unifiedReason })
-        });
-
-        const data = await response.json();
-        if (response.ok) {
+        const data = await apiRequest('/admin/reject-teacher/', 'POST', { teacher_name: activeTeacher, reason: unifiedReason });
+        if (data && data.status !== "error") {
           alert(`❌ Pipeline Declined for ${activeTeacher}. Rejection Mail Shipped.`);
           closeRejectModal();
           location.reload();
@@ -597,22 +595,14 @@
       const teacher = document.getElementById('teacherSelect').value;
 
       try {
-        const response = await fetch('/api/admin/create-course/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify({
-            title: title,
-            course_code: code,
-            domain: domain,
-            assigned_teacher: teacher
-          })
+        const data = await apiRequest('/admin/create-course/', 'POST', {
+          title: title,
+          course_code: code,
+          domain: domain,
+          assigned_teacher: teacher
         });
 
-        const data = await response.json();
-        if (response.ok) {
+        if (data && data.status !== "error") {
           alert(`✅ Success!\nCourse "${title}" (${code}) deployed live on SmartEduX.`);
           closeCourseModal();
           location.reload();
@@ -644,22 +634,6 @@
         text.textContent = "Initiate Live Hot Backup";
         alert("🔒 Secure Data Vault Success!\n\nSmartEduX Core relational tables exported into standard format file: 'smartedux_backup_2026.sql' and saved to cluster cold storage.");
       }, 2000);
-    }
-
-    // HELPER: Django CSRF Token Grabber
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
     }
 
     function logoutUser() {

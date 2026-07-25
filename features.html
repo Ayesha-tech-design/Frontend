@@ -82,6 +82,7 @@
       </div> 
     </div> 
   </nav> 
+
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"> 
     <section class="text-center max-w-3xl mx-auto mb-16">
       <span class="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full uppercase tracking-wider">Next-Gen Learning</span>
@@ -251,10 +252,16 @@
     </div>
   </footer>
 
+  <!-- CENTRAL CONNECTION BRIDGE -->
+  <script src="connection.js"></script>
+
+  <!-- BACKEND CONNECTIVITY LOGIC -->
   <script> 
     const toggleBtn = document.getElementById('menu-toggle'); 
     const mobileMenu = document.getElementById('mobile-menu');
-    toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); }); 
+    if(toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); }); 
+    }
 
     // Custom Interactive Modal Logic
     function triggerDemoPopup(featureName) {
@@ -264,6 +271,34 @@
     function closeDemoModal() {
       document.getElementById('demoModal').classList.add('hidden');
     }
+
+    // Dynamic Auth State & Bridge Synchronization
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        let data = null;
+        if (typeof apiRequest === "function") {
+          data = await apiRequest('/features/overview/');
+        } else {
+          const res = await fetch('/api/features/overview/');
+          if (res.ok) data = await res.json();
+        }
+
+        if (data && data.user && data.user.is_authenticated) {
+          const loginBtns = document.querySelectorAll('a[href="login.html"]');
+          const signupBtns = document.querySelectorAll('a[href="signup.html"]');
+          
+          const dashboardUrl = data.user.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
+          
+          loginBtns.forEach(btn => {
+            btn.textContent = 'Dashboard';
+            btn.href = dashboardUrl;
+          });
+          signupBtns.forEach(btn => btn.style.display = 'none');
+        }
+      } catch (e) {
+        console.log("Features page running in offline UI mode.");
+      }
+    });
   </script> 
 </body>
 </html>

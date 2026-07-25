@@ -145,6 +145,9 @@
     <p>© 2026 SmartEduX — Security Portal. All rights reserved.</p>
   </footer>
 
+  <!-- CENTRAL CONNECTION BRIDGE -->
+  <script src="connection.js"></script>
+
   <!-- Interactivity & Real Backend Script -->
   <script>
     async function checkStatus() {
@@ -157,10 +160,15 @@
       text.textContent = "Checking Server...";
       
       try {
-        const response = await fetch('/api/teacher/verification-status/');
+        let data = null;
+        if (typeof apiRequest === "function") {
+          data = await apiRequest('/courses/teacher/verification-status/');
+        } else {
+          const response = await fetch('/api/courses/teacher/verification-status/');
+          if (response.ok) data = await response.json();
+        }
         
-        if (response.ok) {
-          const data = await response.json();
+        if (data) {
           if (data.status === 'approved') {
             alert("🎉 Congratulations! Your teacher profile has been approved.\n\nRedirecting to your Teacher Dashboard...");
             window.location.href = "teacher dashboard.html";
@@ -171,7 +179,6 @@
             alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
           }
         } else {
-          // Offline / Testing Fallback
           alert("🔒 Account Status: Still Under Review.\n\nOur team is working on it. We appreciate your patience!");
         }
       } catch (error) {

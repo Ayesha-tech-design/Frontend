@@ -120,6 +120,9 @@
   <ul id="notifList" class="space-y-2 text-xs"></ul>
 </div>
 
+<!-- Base Connection Module -->
+<script src="connection.js"></script>
+
 <script>
 // PROFILE DROPDOWN
 function toggleProfile() {
@@ -160,25 +163,24 @@ function loadNotifications() {
 }
 loadNotifications();
 
-// ASSIGNMENTS DATA & BACKEND API
+// DEFAULT ASSIGNMENTS DATA
 let assignments = [
   { id: 1, title: "UI Design Homework", course: "Graphic Designing", due: "2026-04-15", status: "Pending" },
   { id: 2, title: "WordPress Project", course: "Wordpress Web Development", due: "2026-04-18", status: "Pending" },
   { id: 3, title: "Freelancing Case Study", course: "Fiverr Freelancing", due: "2026-04-20", status: "Pending" }
 ];
 
-// FETCH ASSIGNMENTS FROM BACKEND API
+// FETCH ASSIGNMENTS FROM BACKEND VIA CONNECTION.JS
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const res = await fetch('/api/student/assignments/');
-    if(res.ok) {
-      const data = await res.json();
-      if(data.assignments && data.assignments.length > 0) {
+    if (typeof apiRequest === "function") {
+      const data = await apiRequest('/student/assignments/');
+      if(data && data.assignments && data.assignments.length > 0) {
         assignments = data.assignments;
       }
     }
   } catch(e) {
-    console.log("Running offline assignments data mode.");
+    console.log("Running fallback local assignments data mode.");
   } finally {
     loadAssignments();
     updateProgress();
@@ -219,14 +221,9 @@ async function completeAssignment(index) {
   addNotification(`Assignment "${task.title}" marked as completed ✅`);
 
   try {
-    await fetch('/api/student/complete-assignment/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      },
-      body: JSON.stringify({ assignment_id: task.id })
-    });
+    if (typeof apiRequest === "function") {
+      await apiRequest('/student/complete-assignment/', 'POST', { assignment_id: task.id });
+    }
   } catch(e) {
     console.log("Assignment state saved locally.");
   }
@@ -248,22 +245,6 @@ function addNotification(msg) {
   data.unshift(msg);
   localStorage.setItem("notifications", JSON.stringify(data));
   loadNotifications();
-}
-
-// CSRF Helper
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
 }
 </script>
 

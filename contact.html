@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SmartEduX — Contact</title>
+  <title>SmartEduX — Contact Us</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    :root{
+    :root {
       --primary: #0b2149; 
       --accent: #f59e0b;
       --muted: #6b7280;
@@ -20,40 +19,6 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased; 
     }
-
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-    /* NAV */
-    nav a { transition: color .18s ease; }
-    nav a:hover { color: var(--primary) !important; }
-
-    /* Logo Sizing */
-    .logo-mark {
-  width: 115px;
-  height: 115px;
-}
-
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
-  }
-}
-
-
-    body { font-family: 'Roboto', sans-serif; }
-
-    /* small custom animations to complement AOS */
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
-
-    .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
-    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
-    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
-
-    /* keep card spacing compact for denser layout */
-    .card-gap { gap: 1rem; }
-=======
     nav a { transition: color .18s ease; }
     nav a:not(.nav-btn):hover { color: var(--primary) !important; }
 
@@ -61,13 +26,12 @@
       width: 115px;
       height: 115px;
     }
-
     @media (min-width: 768px) {
       .logo-mark {
         width: 125px;
         height: 125px;
       }
-      .logo-text{
+      .logo-text {
         font-family: 'Roboto', sans-serif;
         font-weight: 800;
         letter-spacing: -1px;
@@ -75,7 +39,6 @@
         line-height: 1;
       }
     }
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
   </style>
 </head>
 <body class="bg-white text-gray-800 flex flex-col min-h-screen">
@@ -85,23 +48,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-        <div class="flex items-center gap-2 md:gap-3">
-           <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
-            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-=======
         <div class="flex items-center gap-0">
           <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
             <img 
               src="Futuristic tech logo design.png" 
               alt="SmartEduX Logo" 
+              onerror="this.onerror=null; this.src='https://placehold.co/120x120/0b2149/ffffff?text=SmartEduX';"
               class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
             >
             <span class="logo-text text-[26px] md:text-[32px]">
               SmartEduX
             </span>
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
           </a>
         </div>
 
@@ -118,11 +75,6 @@
           </div>
         </div>
 
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-        <div class="hidden md:flex items-center gap-3 ml-4">
-          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
-          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-=======
         <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
           <a href="login.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 transition duration-200">
             Login
@@ -130,7 +82,6 @@
           <a href="signup.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] transition duration-200 shadow-md">
             Signup
           </a>
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
         </div>
 
         <div class="xl:hidden flex items-center">
@@ -195,19 +146,9 @@
     </form>
 
     <div class="mt-8 grid md:grid-cols-2 gap-6">
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-      <div class="p-4 bg-blue-50 rounded-lg">
-        <h4 class="font-semibold text-blue-900">Support</h4>
-        <p class="text-sm text-gray-600 mt-2">support@smartedux.example</p>
-      </div>
-      <div class="p-4 bg-blue-50 rounded-lg">
-        <h4 class="font-semibold text-blue-900">Phone</h4>
-        <p class="text-sm text-gray-600 mt-2">+92 300 0000000</p>
-=======
       <div class="p-4 bg-blue-50/60 rounded-xl border border-blue-100">
         <h4 class="font-semibold text-[#0b2149]">Direct Helpline</h4>
         <p class="text-sm text-gray-600 mt-2">+92 320 7718797</p>
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
       </div>
       <div class="p-4 bg-blue-50/60 rounded-xl border border-blue-100">
         <h4 class="font-semibold text-[#0b2149]">Email Support</h4>
@@ -217,38 +158,6 @@
   </main>
 
   <!-- FOOTER -->
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-        
-        <div class="text-center md:text-left">
-          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
-          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
-            Empowering learning with AI video summarization, notes, MCQs and curated courses.
-          </p>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
-          <ul class="space-y-3 text-sm text-blue-200/80">
-            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
-            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
-            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
-          </ul>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
-          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
-          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
-          <div class="mt-6 flex justify-center md:justify-start gap-4">
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
-          </div>
-=======
   <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
@@ -257,41 +166,29 @@
           <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
             Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
           </p>
-          <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
-            <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
-            <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
-            <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
-          </div>
         </div>
 
         <div class="text-center md:text-right">
           <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
           <ul class="space-y-3 text-sm text-blue-200/80">
             <li><a href="SmartEduX.html" class="inline-block hover:text-white transition-colors">Home Dashboard</a></li>
-            <li><a href="courses.html" class="inline-block hover:text-white transition-colors">Our Courses</a></li>
-            <li><a href="autonotes.html" class="inline-block hover:text-white transition-colors">AutoNotes Studio</a></li>
+            <li><a href="Courses.html" class="inline-block hover:text-white transition-colors">Our Courses</a></li>
+            <li><a href="Autonotes.html" class="inline-block hover:text-white transition-colors">AutoNotes Studio</a></li>
             <li><a href="About us.html" class="inline-block hover:text-white transition-colors">About Us</a></li>
           </ul>
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
         </div>
       </div>
 
       <div class="border-t border-white/10 pt-8 text-center">
-<<<<<<< HEAD:Frontend/UI Design/contact.html
-        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-<script>
-  const toggleBtn = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-=======
         <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
+  <!-- CENTRAL CONNECTION BRIDGE -->
+  <script src="connection.js"></script>
+
+  <!-- SCRIPTS LOGIC -->
   <script>
     // Mobile Menu Toggle
     const toggleBtn = document.getElementById('menu-toggle');
@@ -304,9 +201,8 @@
 
     // Auto Copyright Year
     document.getElementById('year').textContent = new Date().getFullYear();
->>>>>>> a323408 (Merged backend-ready UI updates):contact.html
 
-    // Contact Form Handler (Django API + Offline Mode)
+    // Contact Form Handler
     async function submitContact(e) {
       e.preventDefault();
       const sendBtn = document.getElementById('sendBtn');
@@ -326,23 +222,18 @@
       sendBtn.textContent = "Sending Message...";
 
       try {
-        const response = await fetch('/api/contact/submit/', {
-          method: 'POST',
-          headers: {
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: formData
-        });
-
-        if (response.ok) {
-          alert("✅ Thank you! Your message has been sent to SmartEduX Support Team.");
-          document.getElementById('contactForm').reset();
+        if (typeof apiRequest === "function") {
+          await apiRequest('/contact/submit/', 'POST', formData);
         } else {
-          alert("✅ Message Sent Successfully!");
-          document.getElementById('contactForm').reset();
+          await fetch('/api/contact/submit/', {
+            method: 'POST',
+            body: formData
+          });
         }
+        alert("✅ Thank you! Your message has been sent to SmartEduX Support Team.");
+        document.getElementById('contactForm').reset();
       } catch (error) {
-        alert("✅ Message Sent Successfully!");
+        alert("✅ Thank you! Your message has been received.");
         document.getElementById('contactForm').reset();
       } finally {
         sendBtn.disabled = false;
@@ -350,38 +241,26 @@
       }
     }
 
-    // Auth Status Check for Header Buttons
+    // Auth Status Check for Dynamic Header
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const res = await fetch('/api/user/status/');
-        if(res.ok) {
-          const data = await res.json();
-          if(data.is_authenticated) {
-            const userSec = document.getElementById('nav-user-section');
-            if(userSec) {
-              const dash = data.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-              userSec.innerHTML = `<a href="${dash}" class="px-4 py-2 text-sm font-medium rounded-md bg-[#0b2149] text-white hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
-            }
+        let data = null;
+        if (typeof apiRequest === "function") {
+          data = await apiRequest('/user/status/');
+        } else {
+          const res = await fetch('/api/user/status/');
+          if(res.ok) data = await res.json();
+        }
+
+        if(data && data.is_authenticated) {
+          const userSec = document.getElementById('nav-user-section');
+          if(userSec) {
+            const dash = data.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
+            userSec.innerHTML = `<a href="${dash}" class="px-4 py-2 text-sm font-medium rounded-md bg-[#0b2149] text-white hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
           }
         }
       } catch(e) {}
     });
-
-    // Django CSRF Helper
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-    }
   </script>
 </body>
 </html>
