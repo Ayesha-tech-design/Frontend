@@ -1,758 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartEduX — Lecture Player Hub</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0b2149;
-      --accent: #f59e0b;
-      --muted: #6b7280;
-    }
-    body {
-      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-      background: linear-gradient(180deg, #f8faff 0%, #f0f4fc 100%);
-      color: #0f172a;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    .nav-btn:hover{
-      color: white;
-    }
-    nav a { transition: color .18s ease; }
-    nav a:hover { color: var(--primary) !important; }
-    
-    nav a:not(.nav-btn):hover { 
-      color: var(--primary) !important; 
-    }
-    .logo-mark {
-      width: 115px;
-      height: 115px;
-    }
-    @media (min-width: 768px) {
-      .logo-mark {
-        width: 125px;
-        height: 125px;
-      }
-      .logo-text{
-        font-family: 'Roboto', sans-serif;
-        font-weight: 800;
-        letter-spacing: -1px;
-        color: #0b2149;
-        line-height: 1;
-      }
-    }
-
-    /* Custom scroll for lecture sidebar list */
-    .playlist-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .playlist-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .playlist-scroll::-webkit-scrollbar-thumb {
-      background-color: rgba(11, 33, 73, 0.15);
-      border-radius: 999px;
-    }
-
-    /* Active tab style for sub-player buttons */
-    .player-tab.active {
-      border-color: #0b2149;
-      color: #0b2149;
-      background-color: #f1f5f9;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Playlist | SmartEduX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .player-tab.active {
+            border-bottom-color: #0b2149;
+            color: #0b2149;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
 
-<!-- HEADER / NAVIGATION -->
+<header class="shadow sticky top-0 z-50" style="background-color:#0b2149;">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="SmartEduX.html" class="text-xl font-bold text-white">SmartEduX</a>
 
-  <nav class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        
-       <div class="flex items-center gap-0">
-  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-
-    <img 
-      src="Futuristic tech logo design.png" 
-      alt="SmartEduX Logo" 
-      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
-    >
-   <span class="logo-text text-[26px] md:text-[32px]">
-  SmartEduX
-</span>
-
-  </a>
-</div>
-        <div class="hidden xl:flex items-center space-x-6">
-          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
-          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-          
-          <div class="relative w-48">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-        </div>
-
-      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
-  <a href="login.html"
-     class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
-    Login
-  </a>
-
-  <a href="signup.html"
-     class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
-    Signup
-  </a>
-</div>
-
-        <div class="xl:hidden flex items-center">
-          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
-        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-          
-          <div class="py-2">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-          
-          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
-          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
-          </div>
-        </div>
-      </div>
+        <a href="signup.html"
+           id="signupBtn"
+           class="px-4 py-2 bg-white text-[#0b2149] rounded font-medium hover:bg-gray-200 transition text-sm">
+           Signup
+        </a>
     </div>
-  </nav>
+</header>
 
+<main class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow w-full">
 
-<!-- MAIN LECTURE WORKSPACE -->
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-  
-  <!-- Dynamic Course Banner Title & Dropdown Switcher -->
-  <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-    <div class="space-y-1">
-      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase" id="course-category">Online Certification Program</span>
-      <h1 class="text-2xl sm:text-3xl font-black text-[#0b2149] tracking-tight animate-fade-in" id="course-title">Loading Dynamic Course...</h1>
-    </div>
-    <!-- Quick Course Selector Dropdown -->
-    <div class="bg-white p-2 rounded-xl border border-gray-200 flex items-center gap-2 shadow-sm">
-      <span class="text-xs font-bold text-gray-500 pl-2">Switch Course:</span>
-      <select id="course-selector" onchange="changeCourse(this.value)" class="text-xs font-bold text-blue-900 bg-gray-50 p-2 rounded-lg border-none focus:outline-none cursor-pointer">
-        <option value="graphics">Graphics Designing</option>
-        <option value="wordpress">WordPress Development</option>
-        <option value="fiverr">Fiverr Freelancing</option>
-        <option value="infosec">Information Security</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <section class="lg:col-span-2 flex flex-col space-y-4">
     
-    <!-- LEFT SIDE: Video Player & Tabs -->
-    <div class="lg:col-span-8 space-y-6">
-      
-      <!-- Interactive Video Player Container -->
-    
-<div class="bg-black shadow-2xl rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center">
-    <!-- Local Video Player -->
-    <video id="local-video-player" class="absolute inset-0 w-full h-full object-contain hidden" controls>
+    <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-lg flex items-center justify-center">
+      <iframe 
+        id="youtube-player" 
+        class="w-full h-full border-0 hidden" 
+        src="" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+
+      <video id="local-video-player" class="w-full h-full hidden" controls>
         <source id="video-source" src="" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <!-- YouTube Iframe Player -->
-    <iframe id="youtube-player" class="absolute inset-0 w-full h-full hidden" src="" frameborder="0" allowfullscreen></iframe>
-</div>
-
-      <!-- Interactive Tabs section below the player -->
-      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="flex border-b text-sm font-semibold text-gray-500 bg-gray-50">
-          <button onclick="switchPlayerTab('overview')" id="tab-overview" class="player-tab active flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
-            Overview & Details
-          </button>
-          <button onclick="switchPlayerTab('notes')" id="tab-notes" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
-            AI Smart Notes 
-          </button>
-          <button onclick="switchPlayerTab('mcqs')" id="tab-mcqs" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
-            Instant MCQs
-          </button>
-        </div>
-
-        <div class="p-6">
-          <!-- Overview Tab Content -->
-          <div id="player-content-overview" class="space-y-4">
-            <h3 class="text-lg font-bold text-[#0b2149]" id="lecture-title">Lecture Title Loading...</h3>
-            <p class="text-sm text-gray-600 leading-relaxed" id="lecture-desc">
-              Get comfortable with the modern concepts explained in this dynamic lecture course. This structured guide teaches all details step-by-step.
-            </p>
-            <div class="pt-4 border-t flex flex-wrap gap-3 items-center justify-between">
-              <span class="text-xs text-gray-500 font-semibold">Ready to draft summaries or practice recall?</span>
-              <button onclick="switchPlayerTab('notes')" class="px-5 py-2.5 bg-blue-900 text-white hover:bg-blue-800 rounded-lg text-xs font-bold transition shadow-sm">
-                View AI Notes View
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Notes Preview Content -->
-          <div id="player-content-notes" class="hidden space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">Automatic AI Highlights</span>
-              <div class="flex items-center gap-2">
-                <button onclick="generateAiNotes()" class="text-xs px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded-lg transition shadow-sm">
-                  Generate Notes
-                </button>
-                <button id="download-notes-btn" onclick="downloadLectureNotes()" class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-sm">
-                  Download Study Guide (.txt)
-                </button>
-              </div>
-            </div>
-            <div class="space-y-3" id="lecture-bullet-points">
-              <!-- Dynamically populated points -->
-            </div>
-          </div>
-
-          <!-- MCQ Practice Content -->
-          <div id="player-content-mcqs" class="hidden space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">Active Recall Assessment</span>
-              <button onclick="generateAiMcqs()" class="text-xs px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded-lg transition shadow-sm">
-                 Generate MCQs
-              </button>
-            </div>
-            <div class="space-y-6" id="lecture-mcq-container">
-              <!-- Dynamically generated practice MCQs -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lecture Navigation Controller Bar -->
-      <div class="bg-white px-6 py-4 rounded-xl border flex items-center justify-between shadow-sm">
-        <button onclick="prevLecture()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-[#0b2149] rounded-lg text-xs font-bold transition">
-          ← Previous Lecture
-        </button>
-        <span class="text-xs font-bold text-gray-500" id="lecture-progress-text">Lec 1 of 15</span>
-        <button onclick="nextLecture()" class="px-4 py-2 bg-[#0b2149] text-white hover:brightness-110 rounded-lg text-xs font-bold transition">
-          Next Lecture →
-        </button>
-      </div>
-
+      </video>
     </div>
 
-    <!-- RIGHT SIDE: Playlist Navigation Sidebar -->
-    <div class="lg:col-span-4 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden flex flex-col h-[650px]">
-      
-      <!-- Playlist Header -->
-      <div class="p-4 bg-slate-50 border-b flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div>
+        <h2 id="lecture-title" class="text-lg md:text-xl font-bold text-[#0b2149]">Loading...</h2>
+        <p id="lecture-progress-text" class="text-xs text-gray-500">Lec 1 of 15</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="prevLecture()" class="flex-1 sm:flex-none px-4 py-2 bg-gray-100 text-[#0b2149] rounded-lg text-xs font-bold hover:bg-gray-200 transition">
+          ◀ Previous
+        </button>
+        <button onclick="nextLecture()" class="flex-1 sm:flex-none px-4 py-2 bg-[#0b2149] text-white rounded-lg text-xs font-bold hover:bg-[#16356d] transition">
+          Next ▶
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div class="flex border-b border-gray-200 text-xs md:text-sm font-semibold mb-4 overflow-x-auto">
+        <button id="tab-overview" onclick="switchPlayerTab('overview')" class="player-tab active px-4 py-2 border-b
+          Overview & Details
+        </button>
+        <button id="tab-notes" onclick="switchPlayerTab('notes')" class="player-tab px-4 py-2 border-b-2 whitespace-nowrap text-gray-600">
+          AI Smart Notes ⚡
+        </button>
+        <button id="tab-mcqs" onclick="switchPlayerTab('mcqs')" class="player-tab px-4 py-2 border-b-2 whitespace-nowrap text-gray-600">
+          Instant MCQs
+        </button>
+      </div>
+
+      <div id="player-content-overview" class="space-y-2">
+        <p id="lecture-desc" class="text-xs md:text-sm text-gray-600 leading-relaxed"></p>
+      </div>
+
+      <div id="player-content-notes" class="hidden space-y-3">
+        <div id="lecture-bullet-points" class="space-y-2"></div>
+      </div>
+
+      <div id="player-content-mcqs" class="hidden space-y-3">
+        <div id="lecture-mcq-container" class="space-y-3"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <aside class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col h-[500px] lg:h-[calc(100vh-120px)] sticky top-20">
+    
+    <div class="space-y-3 mb-4">
+      <div class="flex items-center justify-between">
         <div>
-          <h3 class="font-black text-sm text-[#0b2149]">Playlist Lectures</h3>
-          <p class="text-[10px] text-gray-400 mt-0.5">Click any lecture to load immediately</p>
+            <span id="course-category" class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Category</span>
+            <h3 id="course-title" class="font-bold text-[#0b2149] text-sm md:text-base">Playlist Lectures</h3>
         </div>
-        <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-1 rounded-full" id="playlist-count">15 Lectures</span>
+        <span id="playlist-count" class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded-full">0 Lectures</span>
       </div>
 
-      <!-- Search Bar Inside Sidebar -->
-      <div class="p-3 bg-white border-b">
-        <input type="text" id="lecture-search" oninput="filterPlaylist(this.value)" placeholder="Search 15 lectures..." class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-xs focus:ring-1 focus:ring-blue-900 outline-none">
-      </div>
+      <select id="course-selector" onchange="changeCourse(this.value)" class="w-full text-xs p-2.5 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
+  <option value="graphics">Graphic Design</option>
+  <option value="fiverr">Fiverr Freelancing</option>
+  <option value="wordpress">WordPress Development</option>
+  <option value="infosec">Information Security</option>
+</select>
 
-      <!-- Playlist List (Scrollable viewport) -->
-      <div id="playlist-container" class="flex-grow overflow-y-auto p-3 space-y-2 playlist-scroll">
-        <!-- Dynamically loaded 15 lecture items will go here -->
-      </div>
-
+      <input 
+        type="text" 
+        id="lecture-search" 
+        oninput="filterPlaylist(this.value)" 
+        placeholder="Search lectures..." 
+        class="w-full text-xs p-2.5 rounded-lg border border-gray-200 focus:ring-1 focus:ring-[#0b2149] outline-none"
+      />
     </div>
 
-  </div>
+    <div id="playlist-container" class="flex-grow overflow-y-auto space-y-2 pr-1">
+        </div>
+
+  </aside>
+
 </main>
 
-<!-- In-App Elegant Toast Notification Panel (No alert popups!) -->
-<div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold">
-  <span class="text-amber-500" id="toast-icon">⚡</span>
-  <span id="toast-message">Notification details here.</span>
-</div>
-
-<!-- FOOTER -->
-<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      <div class="text-center md:text-left space-y-4">
-        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
-        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
-          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
-        </p>
-        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
-          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
-          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
-          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
-        </div>
-      </div>
-      <div class="text-center md:text-right">
-        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
-        <ul class="space-y-3 text-sm text-blue-200/80">
-          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
-          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
-          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
-          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-
 <script>
-  // Mobile drawer toggle action
-  document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("mobile-menu").classList.toggle("hidden");
-  });
-
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-// Multi-Course Playlists Dataset Setup (Combined All Courses)
 const playlistsData = {
-  graphics: {
-    category: "Creative Arts & Design",
-    title: "Graphics Designing Course",
-    lectures: [
-      { type: "local", videoUrl: "videos/lesson1.mp4", title: "Lesson 1: Introduction to Graphic Designing", duration: "12m 45s", desc: "Learn contrast, repetition, alignment, proximity, and visual color hierarchies to kickstart your creative layouts.", points: ["Visual hierarchy separates messages", "Repetition establishes consistent patterns", "Use white space to reduce cognitive fatigue"], mcqs: [{ q: "What does visual hierarchy determine?", options: ["The order in which readers perceive information", "The file type of exported images", "The speed of design rendering"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson2.mp4", title: "Lesson 2: Workspace & Layout Tools", duration: "15m 12s", desc: "Understanding dynamic layer masks, adjustment channels, pen tools, and visual workspaces on Photoshop.", points: ["Adjustment layers allow non-destructive edits", "Selection paths can be fine-tuned via masks", "Layer hierarchies control overall transparency"], mcqs: [{ q: "Which tool allows non-destructive layer alterations?", options: ["Eraser Tool", "Adjustment Layer", "Brush Tool"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson3.mp4", title: "Lesson 3: Introduction to Photoshop", duration: "18m 30s", desc: "Mastering anchor handles, custom pen operations, geometric merges, and vector pathways inside Illustrator.", points: ["Vectors use dynamic mathematical grids", "Pen paths adjust on anchor angles", "SVG exports preserve pure resolution scales"], mcqs: [{ q: "Why are vector formats preferred for corporate logos?", options: ["They scale indefinitely without pixelation", "They have more colors than raster formats", "They compress into smaller file sizes automatically"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson4.mp4", title: "Lesson 4: Introduction to Illustrator", duration: "14m 20s", desc: "Dive deep into Serifs, Sans-Serifs, kerning, tracking, and selecting high-contrast fonts for branding designs.", points: ["Kerning controls space between pairs of characters", "Sans-Serifs offer higher readability on monitors", "Limit body styles to 2 coherent font families"], mcqs: [{ q: "What is Kerning?", options: ["Spacing between individual letter pairs", "Vertical paragraph margins", "The curvature of vector anchors"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson5.mp4", title: "Lesson 5: Understanding Canvas & Resolution", duration: "16m 10s", desc: "Understand analogous, triadic, and complementary color wheels, along with corporate color psychology guidelines.", points: ["Complementary colors provide high-contrast definitions", "Warm tones simulate excitement and energy", "Cool colors invoke stability and professional trust"], mcqs: [{ q: "Which color scheme sits opposite on the color wheel?", options: ["Analogous", "Complementary", "Monochromatic"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson6.mp4", title: "Lesson 6: Working with Selection Tools", duration: "19m 40s", desc: "Advanced masking guidelines, hair extraction algorithms, and creating perfect vector silhouettes using bezier tools.", points: ["Refine Edge brush speeds up complex selections", "Ctrl key modifies vector handles in real-time", "Paths can be saved as editable vector paths"], mcqs: [{ q: "How do you temporarily modify anchor directions in vector software?", options: ["Hold Alt/Option while adjusting handles", "Press Escape key", "Delete the vector layer"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson7.mp4", title: "Lesson 7: Layers & Masks Masterclass", duration: "21m 15s", desc: "Create minimal, timeless, and scalable symbols that fit smoothly on business badges, stamps, and billboards.", points: ["Simplification improves visual memory retention", "Logos should remain highly legible in pure black and white", "Incorporate corporate core values metaphorically"], mcqs: [{ q: "A timeless brand symbol should prioritize...", options: ["Complex textures", "Maximalist colors", "Simplicity and high legibility"], ans: 2 }] },
-      { type: "local", videoUrl: "videos/lesson8.mp4", title: "Lesson 8: Vector Graphics & Pen Tool", duration: "15m 50s", desc: "Layout scales, visual rule of thirds, safe area zones, and designing engaging Instagram and Facebook creative carousels.", points: ["Rule of thirds places focal points at intersections", "Always match asset aspect ratios to platform specs", "Include a distinct Call to Action on slides"], mcqs: [{ q: "The Rule of Thirds suggests placing subjects at...", options: ["The absolute center of the layout", "The intersection points of grid lines", "The extreme borders of the image"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson9.mp4", title: "Lesson 9: Typography & Font Pairings", duration: "17m 30s", desc: "Master banner sizing ratios, contrast rules, CTA button placements, and saving lightweight PNG files for web use.", points: ["Display banners require immediate visual hooks", "High-contrast text guarantees readable parameters", "Optimize export compression ratio for web load speeds"], mcqs: [{ q: "What is critical for digital advertising banner designs?", options: ["Using a distinct and legible Call-to-Action", "Extremely low resolution formats", "Decorative italic fonts for all texts"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson10.mp4", title: "Lesson 10: Color Theory & Palettes", duration: "14m 55s", desc: "Important setup parameters for flyers, tri-folds, bleed boundaries, crop guidelines, and pure CMYK color setups.", points: ["Always design in CMYK profiles for actual physical print", "Bleed boundaries protect layouts from cutting errors", "Export layouts at high resolution 300 DPI standards"], mcqs: [{ q: "What resolution standard (DPI) is required for high-quality print exports?", options: ["72 DPI", "150 DPI", "300 DPI"], ans: 2 }] },
-      { type: "local", videoUrl: "videos/lesson11.mp4", title: "Lesson 11: Social Media Graphics Design", duration: "22m 10s", desc: "Setup UI frames, typography libraries, responsive layout grids, and learning vector tool foundations inside Figma.", points: ["Figma frames scale dynamically for standard devices", "Layout grids maintain horizontal system alignments", "Vector UI elements remain razor-sharp dynamically"], mcqs: [{ q: "Figma primarily functions using...", options: ["Vector coordinates", "Raster paint pixels", "Dynamic SQL engines"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson12.mp4", title: "Lesson 12: Branding & Logo Concepts", duration: "16m 25s", desc: "Build quick structural wireframes, draft user paths, and sketch visual flows without getting distracted by colors.", points: ["Wireframes establish foundational page blueprints", "Grey scale mockups eliminate color debates with clients", "Design user journeys from login to confirmation"], mcqs: [{ q: "What is the primary purpose of a wireframe?", options: ["Applying final brand neon color styles", "Establishing layout structures and user flows", "Adding database API paths"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson13.mp4", title: "Lesson 13: Flyer & Brochure Templates", duration: "20m 40s", desc: "Understanding 3D packaging wraps, box folding lines, cuts, bleed limits, and packaging structural safety designs.", points: ["Continuous die-lines dictate actual industrial cuts", "Fold lines are tracked on distinct layers", "Ensure logo orientations align across folds"], mcqs: [{ q: "Die-lines in packaging designs represent...", options: ["The target color palettes", "The actual cutting and folding blueprints", "DPI resolution limits"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson14.mp4", title: "Lesson 14: UI/UX Web Design Basics", duration: "18m 15s", desc: "Curating your top design projects, describing case studies, presenting challenges, and building a polished Behance profile.", points: ["Quality is superior to quantity; select your top 5 projects", "Explain your design decisions and client problems solved", "Feature high-quality mockups for realistic presentations"], mcqs: [{ q: "An outstanding design portfolio should focus on...", options: ["Your best 5-6 projects with detailed case studies", "Including every doodle you have ever created", "Complex coding integrations"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson15.mp4", title: "Lesson 15: Building a Design Portfolio", duration: "23m 30s", desc: "Drafting design contracts, communicating revisions, handling feedback objectively, and delivering source design files.", points: ["Revisions must be capped in contracts explicitly", "Handle critical feedback as objective metrics", "Organize vector layers cleanly before handoff"], mcqs: [{ q: "How should you manage client revisions in a freelance project?", options: ["Offer infinite revisions forever", "Specify a fixed cap on revisions in the contract", "Refuse to make any modifications"], ans: 1 }] }
-    ]
-  },
-  wordpress: {
-    category: "Dynamic Web Engineering",
-    title: "WordPress Web Development",
-    lectures: [
-      { type: "local", videoUrl: "videos/lesson1.mp4", title: "Lesson 1: Introduction to WordPress & Web Hosting", duration: "14m 20s", desc: "Setting up local server packages, creating dynamic MySQL databases, configuring wp-config credentials smoothly.", points: ["MySQL serves as the dynamic memory hub", "Localhosts test local code changes safely", "Config files save core admin path setups"], mcqs: [{ q: "What is MySQL inside a WordPress server?", options: ["A file editor plugin", "The database management engine", "A graphics rendering utility"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson2.mp4", title: "Lesson 2: Installing WordPress Locally using XAMPP/LocalWP", duration: "19m 40s", desc: "Tweaking standard templates, custom widgets, drag-and-drop page creation engines, and menu parameters.", points: ["Static pages form core landing directories", "Custom widgets expand functionality sidebars", "Theme edits change styling without loss of code"], mcqs: [{ q: "What is Elementor in WordPress?", options: ["A premium translation service", "A visual drag-and-drop page builder", "A MySQL hosting package"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson3.mp4", title: "Lesson 3: Exploring WordPress Dashboard & Settings", duration: "15m 10s", desc: "Mastering permalink structures, user role accesses, site health monitoring, and configuring post settings.", points: ["Post Name permalinks are ideal for web SEO", "User roles protect backend code parameters", "Check active updates regularly to keep cores safe"], mcqs: [{ q: "Which Permalink structure is best for search engine optimization (SEO)?", options: ["Plain Numeric IDs", "Post Name category matching", "Random alphanumeric keys"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson4.mp4", title: "Lesson 4: Understanding Posts vs Pages in WordPress", duration: "18m 35s", desc: "Change standard database prefixes, implement SSL certifications, and install advanced security firewall plugins.", points: ["Changing wp_ prefixes stops automatic SQL injections", "Strong authentication secures admin dashboards", "SSL encrypts user data transfer packets"], mcqs: [{ q: "What is the primary benefit of changing the default 'wp_' database prefix?", options: ["It improves server memory bandwidth", "It thwarts automated SQL injection exploits", "It increases post publishing speeds"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson5.mp4", title: "Lesson 5: Managing Media Library & Categories", duration: "21m 20s", desc: "Applying visual hierarchy, optimizing typography, using contact forms, and configuring fast responsive rows.", points: ["Landing pages focus entirely on a single target action", "Optimize mobile grid columns specifically", "Add testimonials to validate brand credibility"], mcqs: [{ q: "A landing page is primarily designed to...", options: ["Host blogs", "Encourage a specific user conversion or signup action", "Provide complex multi-page links"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson6.mp4", title: "Lesson 6: Working with Themes & Customizer", duration: "17m 45s", desc: "Understanding padding parameters, column percentage alignments, layout structures, and mobile visibility options.", points: ["Padding creates inner margins inside elements", "Column percentages must not exceed 100% total", "Hide desktop structures on mobile for performance gains"], mcqs: [{ q: "How does padding differ from margin?", options: ["Padding controls inner spacing; margin controls outer spacing", "Padding only works on vector images", "Margin operates inside the database layer"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson7.mp4", title: "Lesson 7: Essential Plugins Setup & Configuration", duration: "14m 15s", desc: "Master blogging directories, dynamic post feeds, RSS integrations, and visual layout optimizations for article readability.", points: ["Categories organize posts hierarchically", "Excerpts show teaser texts on archive streams", "Tags act as flat searchable index words"], mcqs: [{ q: "Which tool allows hierarchical grouping of articles?", options: ["Tags", "Categories", "Excerpts"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson8.mp4", title: "Lesson 8: Designing Layouts with Gutenberg Block Editor", duration: "22m 30s", desc: "Deploy WooCommerce, configure system checkout grids, create default terms, and set currency values.", points: ["WooCommerce automatically generates Shop, Cart, and Account pages", "Configure base locations to calculate accurate taxes", "Ensure shop pages are set in main menu bars"], mcqs: [{ q: "Which plugin is the standard tool for e-commerce on WordPress?", options: ["Elementor Pro", "WooCommerce", "MySQL Admin Tool"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson9.mp4", title: "Lesson 9: Creating Menus, Widgets, & Sidebars", duration: "19m 10s", desc: "Understand product classifications, adding galleries, configuring shipping weights, and setting up sale pricing rules.", points: ["Variable products allow choices like size and color", "Downloadable files require protected upload paths", "Product reviews build social validation metrics"], mcqs: [{ q: "What is a 'Variable Product'?", options: ["A product that changes prices based on user IP address", "A product with multiple variations like size, color, or weight", "A product hosted on an external API"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson10.mp4", title: "Lesson 10: Introduction to Elementor Page Builder", duration: "23m 15s", desc: "Hooking up Stripe APIs, PayPal integrations, and setting secure sandbox test modes before site launches.", points: ["Sandbox settings let you execute fake orders to check scripts", "SSL keys are strictly required for Stripe operations", "Set webhook endpoints to catch dynamic transactions"], mcqs: [{ q: "Why should you use 'Sandbox' mode first during payment integrations?", options: ["To prevent users from buying items", "To safely test transactions without actual money transfers", "To boost site search speed rankings"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson11.mp4", title: "Lesson 11: E-commerce Website Setup with WooCommerce", duration: "16m 40s", desc: "Configure cache parameters, compress raster visuals dynamically, and set up content delivery networks (CDNs).", points: ["Cache outputs pre-rendered HTML files to visitors", "WebP images reduce file payloads heavily", "Limit loaded scripts inside landing zones"], mcqs: [{ q: "What does caching accomplish?", options: ["It deletes draft posts automatically", "It serves pre-built static pages to reduce load delays", "It encrypts MySQL databases"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson12.mp4", title: "Lesson 12: Managing Payment Gateways & Shipping Rates", duration: "18m 10s", desc: "Mastering meta titles, focus keys, generating XML sitemaps, and configuring search engine visibility parameters.", points: ["Meta descriptions must capture target search terms", "XML sitemaps help index bots scan posts", "Add alt attributes to every media asset"], mcqs: [{ q: "What is an XML Sitemap?", options: ["A list of styling guidelines", "A map of local server directories", "A file listing website URLs to help search engines index the site"], ans: 2 }] },
-      { type: "local", videoUrl: "videos/lesson13.mp4", title: "Lesson 13: WordPress SEO Optimization (RankMath/Yoast)", duration: "15m 50s", desc: "Create complete backups, migrate from local host to live cloud servers, and handle database search-and-replace strings.", points: ["Back up both MySQL databases and wp-content assets", "Search-and-replace fixes absolute path changes", "Maintain copies on external cloud vaults safely"], mcqs: [{ q: "When migrating a website, what two things must be moved?", options: ["Only themes and plugins", "The database AND all wp-content uploads", "Only your permalink structures"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson14.mp4", title: "Lesson 14: Website Security, Backups, & Speed Optimization", duration: "24m 15s", desc: "Understand index.php, style.css, header.php, and footer.php parameters, and child theme structures.", points: ["Child themes protect edits during main upgrades", "The Template Hierarchy dictates loaded PHP scripts", "wp_head() hook is crucial for plugin headers"], mcqs: [{ q: "What is the primary role of a Child Theme in WordPress?", options: ["To serve mobile devices exclusively", "To safely override parent themes without losing updates during core upgrades", "To manage payment gateways securely"], ans: 1 }] },
-      { type: "local", videoUrl: "videos/lesson15.mp4", title: "Lesson 15: Migrating Local Website to Live Production Server", duration: "20m 00s", desc: "Finalize deployment steps, map domain names, push live files, and run final checks on production environments.", points: ["Double-check database URLs after migration", "Remove default debugging parameters on live sites", "Enable SSL site-wide before public launch"], mcqs: [{ q: "What is the final crucial verification step after migrating to a live production server?", options: ["Deleting the database permanently", "Verifying domain URLs and site-wide SSL functionality", "Changing the theme to a blank HTML page"], ans: 1 }] }
-    ]
-  },
-  fiverr: {
-    category: "Freelance Mastery",
-    title: "Fiverr Freelancing Masterclass",
-    lectures: [
-      { type: "local", videoUrl: "videos/lesson1.mp4", title: "Lec 1: Understanding Freelance Ecosystem & Fiverr Fundamentals", duration: "12m 00s", desc: "Discover how the gig economy functions and how top-rated sellers position themselves for success.", points: ["Understand platform algorithms", "Position your unique selling proposition", "Target high-intent buyers"], mcqs: [{ q: "What is a primary key to success on Fiverr?", options: ["Having a clear niche and optimized gig", "SpAMMing links on social media", "Changing prices hourly"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson2.mp4", title: "Lec 2: Finding High-Demand, Low-Competition Niches", duration: "15m 30s", desc: "Learn keyword research techniques to find profitable sub-niches with high buyer demand.", points: ["Analyze competitor gig counts", "Check search volume trends", "Validate buyer intent"], mcqs: [{ q: "Why look for low-competition niches?", options: ["To rank faster and secure initial orders", "To charge lower rates permanently", "To avoid customer interaction"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson3.mp4", title: "Lec 3: Crafting an SEO-Optimized Seller Profile", duration: "14m 10s", desc: "Build trust instantly with a professional profile description, skills verification, and clear portfolio items.", points: ["Use professional profile imagery", "Highlight verifiable skills and achievements", "Write clear, benefit-driven bios"], mcqs: [{ q: "What builds immediate trust on a seller profile?", options: ["A professional photo and clear description", "Fake reviews", "Anonymous usernames"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson4.mp4", title: "Lec 4: Secret Elements of Eye-Catching Gig Thumbnails", duration: "16m 45s", desc: "Design high-converting gig images that stand out in search results and drive higher click-through rates.", points: ["Use high-contrast text overlays", "Keep designs clean and uncluttered", "Feature your best work samples clearly"], mcqs: [{ q: "What is the main goal of a gig thumbnail?", options: ["To increase click-through rate from search results", "To store long paragraphs of text", "To hide your pricing details"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson5.mp4", title: "Lec 5: Writing High-Impact Gig Descriptions that Convert", duration: "18m 20s", desc: "Structure your gig descriptions with clear formatting, bullet points, FAQs, and strong calls to action.", points: ["Highlight deliverables clearly", "Include structured FAQs", "Add a strong call to action"], mcqs: [{ q: "Why include FAQs in a gig description?", options: ["To address common buyer objections proactively", "To make the page look longer", "To hide pricing tiers"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson6.mp4", title: "Lec 6: Gig Packages & Pricing Strategies", duration: "15m 00s", desc: "Set up tiered pricing (Basic, Standard, Premium) to maximize earnings per order.", points: ["Offer clear tiered value differences", "Package related add-ons", "Price based on value delivered"], mcqs: [{ q: "What is the benefit of tiered pricing?", options: ["It caters to different buyer budgets and upsells services", "It confuses customers into buying the most expensive option", "It eliminates the need for communication"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson7.mp4", title: "Lec 7: Setting up Requirements for Smooth Handoffs", duration: "13m 30s", desc: "Create effective questionnaire requirements so you can start orders without delays.", points: ["Ask precise questions upfront", "Require necessary brand assets or credentials", "Set clear project kickoff expectations"], mcqs: [{ q: "Why are clear order requirements important?", options: ["They prevent delays and missing information from buyers", "They allow you to cancel orders instantly", "They increase platform fees"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson8.mp4", title: "Lec 8: Keywords Research & Tag Optimization", duration: "17m 15s", desc: "Find and embed the right search tags to ensure your gig appears in relevant buyer searches.", points: ["Target exact-match buyer search terms", "Optimize gig titles and metadata tags", "Monitor ranking fluctuations"], mcqs: [{ q: "Where should primary search keywords be placed?", options: ["In the gig title, tags, and description", "Only in the user profile password", "Hidden in footer code"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson9.mp4", title: "Lec 9: Using Fiverr FAQs to Build Trust", duration: "14m 50s", desc: "Anticipate buyer concerns and use FAQs to clear any remaining doubts before they message or order.", points: ["Answer revision policies clearly", "Clarify file format deliverables", "Explain your working process"], mcqs: [{ q: "What type of questions belong in gig FAQs?", options: ["Common concerns regarding turnaround time and deliverables", "Personal biographical questions", "Random trivia"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson10.mp4", title: "Lec 10: Video Intro: Creating a Winning First Impression", duration: "19m 30s", desc: "Record or produce a high-converting gig video introduction to drastically boost conversion rates.", points: ["Keep introductions under 30 seconds", "Demonstrate your expertise visually", "Include a professional voiceover or script"], mcqs: [{ q: "What is the impact of adding a gig video?", options: ["Significantly higher conversion rates and buyer trust", "Slower page load speeds", "Automatic Level 2 status"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson11.mp4", title: "Lec 11: Effective Buyer Request Strategies", duration: "16m 00s", desc: "Craft personalized, winning proposals for buyer requests that stand out from generic spam.", points: ["Address the buyer's specific problem", "Provide a tailored solution overview", "Keep pitches concise and professional"], mcqs: [{ q: "What makes a buyer request proposal successful?", options: ["Personalization addressing the specific client need", "Copy-pasting the same template to everyone", "Mentioning unrelated services"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson12.mp4", title: "Lec 12: Communication Skills & Handling Revisions", duration: "18m 45s", desc: "Maintain a 5-star rating by managing client communication professionally and handling revisions smoothly.", points: ["Respond quickly to inquiries", "Be polite and objective during revisions", "Set clear boundaries on scope creep"], mcqs: [{ q: "How should you handle revision requests?", options: ["Professionally and objectively within your agreed scope", "Argue with the client", "Ignore messages"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson13.mp4", title: "Lec 13: Avoiding Scams & Maintaining Account Health", duration: "15m 20s", desc: "Protect your account from fraudulent buyers, policy violations, and warning strikes.", points: ["Never take communications off-platform", "Verify payment clearance before delivery", "Read Terms of Service thoroughly"], mcqs: [{ q: "What is a major policy violation on Fiverr?", options: ["Attempting to take payments or communications off-platform", "Delivering work on time", "Updating your gig description"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson14.mp4", title: "Lec 14: Converting Buyers into Long-term Clients", duration: "20m 10s", desc: "Turn one-time buyers into repeat, high-value recurring clients through exceptional service.", points: ["Provide post-delivery support", "Offer custom recurring offers", "Follow up politely after project completion"], mcqs: [{ q: "What is the best way to secure repeat clients?", options: ["Delivering exceptional quality and proactive communication", "Offering free lifetime work", "Spamming discount codes"], ans: 0 }] },
-      { type: "local", videoUrl: "videos/lesson15.mp4", title: "Lec 15: Scaling to Level 1 and Level 2 Seller", duration: "22m 00s", desc: "Meet and exceed platform metrics to unlock higher seller badges, better visibility, and higher earnings.", points: ["Maintain high order completion rates", "Keep response rates under 1 hour", "Deliver consistently high ratings"], mcqs: [{ q: "What metric is crucial for achieving Level status?", options: ["Order completion rate, rating, and on-time delivery", "Number of social media followers", "Age of your personal email"], ans: 0 }] }
-    ]
-  },
-   infosec: {
-            category: "Cybersecurity & IT",
-            title: "Information Security Course",
-            lectures: [
-                { 
-                    title: "Lec 1: Cryptanalysis Attack Part 1", 
-                    duration: "12m 45s", 
-                    videoId: "ZG4lLiIhpD8", // Apni YouTube Video ID yahan dalein
-                    desc: "Introduction to fundamental cryptanalysis concepts, analyzing vulnerabilities, and understanding ciphertext attack techniques.", 
-                    points: ["Cryptanalysis aims to decipher ciphertext without knowing the key", "Ciphertext-only attacks rely solely on intercepted data", "Statistical analysis helps identify recurring character patterns"], 
-                    mcqs: [{ q: "What is the primary objective of cryptanalysis?", options: ["To encrypt plain text securely", "To find weaknesses or break cryptographic systems", "To generate public keys automatically"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 2: Cryptanalysis Attack Part 2", 
-                    duration: "14m 10s", 
-                    videoId: "K2OMsTTEiTA", 
-                    desc: "Exploring advanced cryptanalysis methodologies including Known-Plaintext and Chosen-Plaintext attacks.", 
-                    points: ["Known-Plaintext attack utilizes paired matching samples", "Chosen-Plaintext allows attackers to encrypt selected plaintexts", "Differential cryptanalysis evaluates changes in input pairs"], 
-                    mcqs: [{ q: "In a Known-Plaintext attack, the attacker has access to:", options: ["Only the secret key", "Both the plaintext and its corresponding ciphertext", "Only the decryption algorithm code"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 3: Traditional Symmetric Part 1", 
-                    duration: "15m 30s", 
-                    videoId: "XbdkG12eGX8", 
-                    desc: "Understanding classic symmetric encryption models and substitution cipher techniques.", 
-                    points: ["Symmetric ciphers use a single shared secret key", "Substitution ciphers replace original characters with substitutes", "Monoalphabetic ciphers map characters systematically"], 
-                    mcqs: [{ q: "Symmetric encryption mechanisms rely on:", options: ["Two distinct public and private keys", "A single shared secret key for encryption and decryption", "No encryption key at all"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 4: Traditional Symmetric Part 2", 
-                    duration: "13m 50s", 
-                    videoId: "7yjPjOeffYA", 
-                    desc: "Mastering polyalphabetic ciphers, Vigenère ciphers, and classic structural algorithms.", 
-                    points: ["Polyalphabetic ciphers utilize multiple substitution alphabets", "Vigenère cipher improves security using keyword matching", "Frequency analysis is harder on polyalphabetic ciphers"], 
-                    mcqs: [{ q: "Why is a Vigenère cipher stronger than a simple Caesar cipher?", options: ["It uses multiple shift values based on a keyword", "It uses asymmetric key pairs", "It converts text into binary code"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 5: Keyless Transposition Cipher", 
-                    duration: "11m 20s", 
-                    videoId: "_X0mo_6fMRM", 
-                    desc: "Learn how plaintext character positions are permuted without using explicit secret keys.", 
-                    points: ["Rail Fence cipher rearranges characters diagonally across rows", "Keyless ciphers rely entirely on positional permutation algorithms", "Security depends on algorithm complexity rather than key length"], 
-                    mcqs: [{ q: "Rail Fence cipher is a classic example of:", options: ["Substitution cipher", "Keyless Transposition cipher", "Asymmetric algorithm"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 6: Keyed Transposition Cipher Part 1", 
-                    duration: "16m 15s", 
-                    videoId: "bRjQsxv5LSg", 
-                    desc: "Introduction to column-based transposition ciphers controlled by secret keys.", 
-                    points: ["Keyed transposition uses secret key lengths to set column counts", "Plaintext characters populate grids row by row", "Columns are reordered according to the key's alphabetical order"], 
-                    mcqs: [{ q: "What determines column order in a Keyed Transposition cipher?", options: ["The alphabetical order of the key characters", "Random system generation", "The size of the plaintext file"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 7: Keyed Transposition Cipher Part 2", 
-                    duration: "17m 40s", 
-                    videoId: "ok8wI-c5S60", 
-                    desc: "Analyzing grid operations, pad fillings, and security evaluations of single-stage keyed transpositions.", 
-                    points: ["Padding characters fill incomplete grid cells", "Security is enhanced with longer non-repeating key lengths", "Positional frequency shifts confuse eavesdroppers"], 
-                    mcqs: [{ q: "What is the purpose of padding in grid-based ciphers?", options: ["To hide the encryption key", "To complete empty cells in the final grid row", "To compress the ciphertext file size"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 8: Double Transposition Part 1", 
-                    duration: "18m 05s", 
-                    videoId: "bf_eNocyWaM", 
-                    desc: "Understanding multi-stage permutation and applying two sequential transposition cycles.", 
-                    points: ["Double transposition significantly increases cryptographic diffusion", "The output of the first transposition becomes the input for the second", "Two different keys can be used for extra resistance"], 
-          mcqs: [{ q: "Why is Double Transposition used?", options: ["To speed up transmission speeds", "To drastically increase cipher security through double permutation", "To generate digital signatures"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 9: Double Transposition Part 2", 
-                    duration: "15m 45s", 
-                    videoId: "xBnO3DEPrnU", 
-                    desc: "Practical execution of double-layer grid permutations and deciphering methodologies.", 
-                    points: ["Decryption requires reversing permutation steps in exact opposite order", "Vulnerable to multiple matched-length key cryptanalysis if reused", "Forms the structural basis for modern block cipher permutations"], 
-                    mcqs: [{ q: "How must Double Transposition be decrypted?", options: ["By applying keys in the exact reverse sequence", "By using a public key pair", "By running an automatic hash function"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 10: DES (Data Encryption Standard)", 
-                    duration: "20m 10s", 
-                    videoId: "ZeWVm82c68Y", 
-                    desc: "Detailed breakdown of the 64-bit DES block cipher, Feistel structure, and S-Box transformations.", 
-                    points: ["DES operates on 64-bit data blocks using a 56-bit key", "Uses 16 rounds of Feistel cipher transformations", "Substitution Boxes (S-Boxes) provide non-linear confusion"], 
-                    mcqs: [{ q: "What is the effective key length of standard DES?", options: ["128 bits", "64 bits", "56 bits"], ans: 2 }] 
-                },
-                { 
-                    title: "Lec 11: AES (Advanced Encryption Standard)", 
-                    duration: "22m 30s", 
-                    videoId: "gV7c7JhgLMY", 
-                    desc: "Mastering modern symmetric block encryption, Rijndael algorithm, SubBytes, ShiftRows, and MixColumns.", 
-                    points: ["AES processes 128-bit blocks using 128, 192, or 256-bit keys", "Non-Feistel architecture based on substitution-permutation networks", "Consists of 10, 12, or 14 processing rounds depending on key size"], 
-                    mcqs: [{ q: "How many rounds does AES-128 perform during encryption?", options: ["10 rounds", "12 rounds", "16 rounds"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 12: RSA Algorithm", 
-                    duration: "24m 15s", 
-                    videoId: "iF_y2D6htas", 
-                    desc: "Understanding Public Key Infrastructure (PKI), prime factorization, and asymmetric RSA calculations.", 
-                    points: ["RSA uses asymmetric keys: Public key for encryption, Private key for decryption", "Security relies on the mathematical difficulty of factoring large prime numbers", "Widely used for secure key exchanges and digital certificates"], 
-                    mcqs: [{ q: "What mathematical property makes the RSA algorithm secure?", options: ["Fast matrix multiplication", "Difficulty of factoring the product of two large prime numbers", "Linear byte shifting operations"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 13: Diffie-Hellman Key Exchange", 
-                    duration: "19m 50s", 
-                    videoId: "YYwad3qCi6g", 
-                    desc: "Explore how two parties can securely establish a shared secret key over an insecure channel.", 
-                    points: ["Diffie-Hellman is used for key agreement, not direct data encryption", "Relies on the discrete logarithm problem for security", "Vulnerable to Man-in-the-Middle (MITM) attacks if unauthenticated"], 
-                    mcqs: [{ q: "What is the primary function of Diffie-Hellman?", options: ["To encrypt large database files", "To securely exchange secret keys over insecure networks", "To compress network traffic"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 14: SHA Part 1 (Secure Hash Algorithm)", 
-                    duration: "16m 40s", 
-                    videoId: "yqnVgvXHb9M", 
-                    desc: "Introduction to cryptographic hash functions, message integrity, and collision-resistant properties.", 
-                    points: ["Hash functions generate fixed-size outputs from arbitrary input data", "Cryptographic hashes are strictly one-way (irreversible) functions", "Ensures data integrity across network transfers"], 
-                    mcqs: [{ q: "Cryptographic hash functions are designed to be:", options: ["Reversible using a private key", "One-way functions that cannot be converted back to plaintext", "Symmetric encryption algorithms"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 15: SHA Part 2 (SHA-256 & Applications)", 
-                    duration: "18m 20s", 
-                    videoId: "pZD2Mr2vfxg", 
-                    desc: "Deep dive into SHA-256 internal compression loops, digital signatures, and blockchain security integrations.", 
-                    points: ["SHA-256 outputs a unique 256-bit (32-byte) digest", "Minor input changes result in radically different hash outputs (Avalanche Effect)", "Essential for digital signatures, password hashing, and SSL certificates"], 
-                    mcqs: [{ q: "What happens when a single character in the input message of SHA-256 is altered?", options: ["The hash remains unchanged", "The output hash changes completely (Avalanche effect)", "The hash size doubles"], ans: 1 }] 
-                }
-            ]
-        }
+    // 1. GRAPHIC DESIGN (15 Lectures)
+    graphics: {
+        title: "Graphic Design Masterclass",
+        category: "Design & Creative",
+        lectures: [
+            { title: "Lec 1: Intro to Photoshop Interface", duration: "10m 00s", videoId: "ok8wIkkm-c5S60", desc: "Understanding tools, workspace, and canvas setup.", points: ["Workspace customization", "Canvas resolution & color modes"], mcqs: [{ q: "Which tool is used for selection?", options: ["Marquee Tool", "Brush Tool"], ans: 0 }] },
+            { title: "Lec 2: Layers & Masking Basics", duration: "12m 30s", videoId: "ok8wI-c5Sjjnkn60", desc: "Mastering layer hierarchies and non-destructive masking.", points: ["Layer blending modes", "Clipping masks"], mcqs: [{ q: "Masking deletes pixels permanently?", options: ["No, it hides them", "Yes, permanently"], ans: 0 }] },
+            { title: "Lec 3: Pen Tool & Vector Shapes", duration: "15m 10s", videoId: "ok8wI-c5nknS60", desc: "Creating precise curves and vector paths.", points: ["Anchor points", "Bezier curves"], mcqs: [{ q: "Pen tool creates?", options: ["Vector Paths", "Raster Pixels"], ans: 0 }] },
+            { title: "Lec 4: Selection Techniques & Cutouts", duration: "14m 20s", videoId: "ok8nknwI-c5S60", desc: "Advanced subject selection and hair masking.", points: ["Select & Mask workspace", "Refine Edge Tool"], mcqs: [{ q: "Shortcut for Select All?", options: ["Ctrl + A", "Ctrl + D"], ans: 0 }] },
+            { title: "Lec 5: Color Theory & Adjustments", duration: "11m 45s", videoId: "ok8wI-c5jnjnS60", desc: "Understanding primary, secondary colors & adjustment layers.", points: ["Hue/Saturation", "Curves & Levels"], mcqs: [{ q: "RGB is used for?", options: ["Digital Screens", "Print Media"], ans: 0 }] },
+            { title: "Lec 6: Photo Retouching & Healing", duration: "13m 50s", videoId: "ok8wI-c5Smnmn60", desc: "Skin smoothing, spot healing, and frequency separation.", points: ["Clone Stamp Tool", "Healing Brush"], mcqs: [{ q: "Which tool samples pixels?", options: ["Clone Stamp", "Eraser Tool"], ans: 0 }] },
+            { title: "Lec 7: Intro to Adobe Illustrator", duration: "16m 00s", videoId: "ok8wI-c5Smnn60", desc: "Vector graphics vs Raster graphics fundamentals.", points: ["Illustrator Artboards", "Shape Builder Tool"], mcqs: [{ q: "Illustrator is a?", options: ["Vector software", "Raster software"], ans: 0 }] },
+            { title: "Lec 8: Logo Design Process Part 1", duration: "18m 15s", videoId: "ok8wI-c5kkjS60", desc: "Mind mapping, sketching, and grid alignment.", points: ["Golden Ratio Grids", "Typography choice"], mcqs: [{ q: "First step in logo design?", options: ["Research & Sketching", "Directly drawing"], ans: 0 }] },
+            { title: "Lec 9: Logo Design Process Part 2", duration: "15m 30s", videoId: "ok8wI-c5Sojhjh60", desc: "Vectorizing sketches and color palette assignment.", points: ["Pathfinder tool", "Color psychology"], mcqs: [{ q: "Pathfinder tool is used for?", options: ["Combining shapes", "Applying blur"], ans: 0 }] },
+            { title: "Lec 10: Brand Identity & Guidelines", duration: "20m 00s", videoId: "ok8wI-c5jkjkS60", desc: "Designing brand style guides and mockups.", points: ["Brand color palettes", "Font hierarchy"], mcqs: [{ q: "Brand guidelines define?", options: ["Consistent brand usage", "Pricing plans"], ans: 0 }] },
+            { title: "Lec 11: Typography & Font Pairing", duration: "14m 10s", videoId: "ok8wI-c5Sjkj60", desc: "Serif, Sans-Serif, Kerning, and Tracking rules.", points: ["Kerning vs Tracking", "Font licensing"], mcqs: [{ q: "Space between two specific characters is?", options: ["Kerning", "Leading"], ans: 0 }] },
+            { title: "Lec 12: Social Media Post Design", duration: "17m 45s", videoId: "ok8wI-c5ojoS60", desc: "Designing ad creatives for Instagram and Facebook.", points: ["Visual hierarchy", "Call to action placement"], mcqs: [{ q: "Standard IG square post size?", options: ["1080x1080 px", "1920x1080 px"], ans: 0 }] },
+            { title: "Lec 13: UI/UX Banner Design", duration: "19m 20s", videoId: "ok8wI-c5Sojo60", desc: "Creating web banners and promotional headers.", points: ["Grid alignment", "Focal point creation"], mcqs: [{ q: "Web banners require high DPI?", options: ["No, 72 DPI is fine", "Yes, 300 DPI"], ans: 0 }] },
+            { title: "Lec 14: Print Design (Flyers & Business Cards)", duration: "16m 50s", videoId: "ok8wI-ijijc5S60", desc: "CMYK color setup, Bleed lines, and Trim areas.", points: ["CMYK vs RGB", "Bleed area calculation"], mcqs: [{ q: "Print documents use which color mode?", options: ["CMYK", "RGB"], ans: 0 }] },
+            { title: "Lec 15: Portfolio Building & Behance Presentation", duration: "22m 00s", videoId: "ok8jkkwI-c5S60", desc: "Presenting design work professionally to land clients.", points: ["Behance case studies", "Mockup presentations"], mcqs: [{ q: "What showcases client projects?", options: ["Portfolio", "Resume"], ans: 0 }] }
+        ]
+    },
+
+    // 2. FIVERR FREELANCING (15 Lectures)
+    fiverr: {
+        title: "Fiverr Freelancing Masterclass",
+        category: "Freelancing & Business",
+        lectures: [
+            { title: "Lec 1: Intro to Freelancing & Fiverr Platform", duration: "12m 00s", videoId: "ok8wI-cdd5S60", desc: "Understanding the Fiverr marketplace algorithm.", points: ["Seller levels", "Buyer requests & impressions"], mcqs: [{ q: "Fiverr charge per order fee is?", options: ["20%", "10%"], ans: 0 }] },
+            { title: "Lec 2: Finding Low Competition Niche Keywords", duration: "14m 30s", videoId: "ok8wdeI-c5S60", desc: "Keyword research techniques for quick ranking.", points: ["Search volume analysis", "Competitor analysis"], mcqs: [{ q: "Targeting long-tail keywords helps?", options: ["Rank faster", "Reduce orders"], ans: 0 }] },
+            { title: "Lec 3: Setting Up a Professional Profile", duration: "11m 15s", videoId: "ok8wdedI-c5S60", desc: "Creating an optimized profile description & photo.", points: ["Profile SEO", "Professional bio drafting"], mcqs: [{ q: "Profile photo should be?", options: ["Professional & Clear", "Anime avatar"], ans: 0 }] },
+            { title: "Lec 4: Gig Title & SEO Optimization", duration: "15m 00s", videoId: "ok8wI-c5dedS60", desc: "Drafting high-converting, SEO-friendly gig titles.", points: ["Primary keyword placement", "Action verbs"], mcqs: [{ q: "Gig title must contain?", options: ["Target keywords", "Random quotes"], ans: 0 }] },
+            { title: "Lec 5: Creating Eye-Catching Gig Images", duration: "16m 20s", videoId: "ok8wI-c5Sde60", desc: "Designing gig thumbnails that increase Click-Through-Rate (CTR).", points: ["High contrast text", "Portfolio proof"], mcqs: [{ q: "Clear gig thumbnails boost?", options: ["CTR & Clicks", "Cancelations"], ans: 0 }] },
+            { title: "Lec 6: Gig Packages & Pricing Strategy", duration: "13m 40s", videoId: "ok8wI-c5S6dex0", desc: "Setting up Basic, Standard, and Premium packages.", points: ["Value ladder strategy", "Upselling extra fast delivery"], mcqs: [{ q: "How many packages can you create?", options: ["3 Packages", "5 Packages"], ans: 0 }] },
+            { title: "Lec 7: Writing High-Converting Gig Descriptions", duration: "17m 10s", videoId: "ok8wasssswI-c5S60", desc: "Using AIDA framework to write compelling descriptions.", points: ["Bullet point benefits", "FAQs section"], mcqs: [{ q: "FAQs help in?", options: ["Clearing buyer doubts", "Increasing fees"], ans: 0 }] },
+            { title: "Lec 8: Fiverr Gig Video Creation", duration: "14m 50s", videoId: "ok8wI-c5whgS60", desc: "Why adding a video boosts gig visibility by 200%.", points: ["Script writing", "Video editing for Fiverr"], mcqs: [{ q: "Videos boost gig traffic by?", options: ["Up to 200%", "10%"], ans: 0 }] },
+            { title: "Lec 9: Communication & Client Onboarding", duration: "18m 00s", videoId: "ok8wI-c5S60", desc: "Drafting quick responses and winning client trust.", points: ["Response rate maintenance", "Inbox conversion tips"], mcqs: [{ q: "Fiverr Response Rate depends on?", options: ["First message reply time", "Order delivery time"], ans: 0 }] },
+            { title: "Lec 10: Managing Orders & Timely Deliveries", duration: "15m 30s", videoId: "ok8wvffvI-c5S60", desc: "Handling revisions and delivering work properly.", points: ["Delivery message template", "Watermarking work"], mcqs: [{ q: "Delivering late affects your?", options: ["On-time Delivery Rate", "Gig Price"], ans: 0 }] },
+            { title: "Lec 11: Getting 5-Star Reviews & Feedback", duration: "12m 45s", videoId: "ok8wI-crtg5S60", desc: "Etiquettes for earning glowing testimonials safely.", points: ["Avoiding feedback feedback manipulation", "Over-delivering value"], mcqs: [{ q: "Can you directly ask for 5 stars?", options: ["No, it violates ToS", "Yes, anytime"], ans: 0 }] },
+            { title: "Lec 12: Level 1 & Level 2 Requirements", duration: "16m 15s", videoId: "ok8wI-c5Styfffff60", desc: "Unlocking badge tiers and higher gig limits.", points: ["Earnings threshold", "90-day evaluation metric"], mcqs: [{ q: "Level 1 requires minimum earnings of?", options: ["$400", "$100"], ans: 0 }] },
+            { title: "Lec 13: Handling Difficult Clients & Disputes", duration: "19m 10s", videoId: "okrfffffffff8wI-c5S60", desc: "Resolving conflicts via Resolution Center.", points: ["Mutual order cancellation", "Customer support escalation"], mcqs: [{ q: "Unresponsive clients can be handled via?", options: ["Resolution Center", "Bad messaging"], ans: 0 }] },
+            { title: "Lec 14: Promoting Gigs Outside Fiverr", duration: "14m 20s", videoId: "ok8wI-c5Styy60", desc: "Driving external traffic from LinkedIn and Quora.", points: ["Social media marketing", "Content marketing"], mcqs: [{ q: "External traffic helps in?", options: ["Gig ranking", "Account suspension"], ans: 0 }] },
+            { title: "Lec 15: Scaling Your Business & Agency Model", duration: "21m 00s", videoId: "ok8wIerrr-c5S60", desc: "Outsourcing work and building a long-term agency.", points: ["Team delegation", "Quality control"], mcqs: [{ q: "Scaling involves?", options: ["Outsourcing & Delegation", "Working 24/7 alone"], ans: 0 }] }
+        ]
+    },
+
+    // 3. WORDPRESS DEVELOPMENT (15 Lectures)
+    wordpress: {
+        title: "WordPress Development",
+        category: "Web Development",
+        lectures: [
+            { title: "Lec 1: Intro to CMS & Localhost Setup", duration: "15m 00s", videoId: "kjnjhbvjeje", desc: "Installing LocalWP / XAMPP and setting up WordPress.", points: ["Database creation", "WordPress installation"], mcqs: [{ q: "WordPress is written in?", options: ["PHP", "Python"], ans: 0 }] },
+            { title: "Lec 2: WordPress Dashboard Navigation", duration: "12m 30s", videoId: "xcdcdcdcaas", desc: "Understanding Posts, Pages, Media, and Settings.", points: ["Posts vs Pages", "Permalink structure"], mcqs: [{ q: "Which is used for blog posts?", options: ["Posts", "Pages"], ans: 0 }] },
+            { title: "Lec 3: Themes Installation & Customization", duration: "14m 10s", videoId: "xsxccd", desc: "Working with Astra, OceanWP, and Customizer options.", points: ["Child theme setup", "Site identity settings"], mcqs: [{ q: "What controls site appearance?", options: ["Theme", "Plugin"], ans: 0 }] },
+            { title: "Lec 4: Essential WordPress Plugins", duration: "16m 40s", videoId: "derfrexx", desc: "Adding functionality using plugins.", points: ["Yoast SEO", "Elementor", "Contact Form 7"], mcqs: [{ q: "Plugins are used to?", options: ["Extend functionality", "Change server"], ans: 0 }] },
+            { title: "Lec 5: Elementor Page Builder Basics", duration: "18m 20s", videoId: "dfgtgtrfc", desc: "Building pages visually using drag-and-drop widgets.", points: ["Sections, Columns, Widgets", "Responsive controls"], mcqs: [{ q: "Elementor is a?", options: ["Page Builder", "Database tool"], ans: 0 }] },
+            { title: "Lec 6: Elementor Pro & Advanced Layouts", duration: "20m 10s", videoId: "wtggef", desc: "Building custom headers, footers, and dynamic templates.", points: ["Theme Builder", "Global widgets"], mcqs: [{ q: "Theme Builder allows custom?", options: ["Headers & Footers", "PHP code"], ans: 0 }] },
+            { title: "Lec 7: WooCommerce Setup (E-Commerce)", duration: "22m 00s", videoId: "dfdrtgwgg", desc: "Setting up online stores, products, and checkout.", points: ["Product categories", "Shipping zones setup"], mcqs: [{ q: "WooCommerce is for?", options: ["E-Commerce stores", "Image editing"], ans: 0 }] },
+            { title: "Lec 8: Payment Gateway Integration", duration: "17m 30s", videoId: "derefrg", desc: "Integrating Stripe, PayPal, and Cash on Delivery.", points: ["API Keys setup", "Test mode transactions"], mcqs: [{ q: "Stripe requires?", options: ["API Keys", "FTP details"], ans: 0 }] },
+            { title: "Lec 9: WordPress Speed Optimization", duration: "19m 15s", videoId: "rgtgftfgddd", desc: "Caching plugins, CDN setup, and image compression.", points: ["WP Rocket / LiteSpeed", "WebP image conversion"], mcqs: [{ q: "Caching helps to?", options: ["Speed up website", "Increase server lag"], ans: 0 }] },
+            { title: "Lec 10: On-Page SEO for WordPress", duration: "16m 00s", videoId: "efrfrg5ttttf", desc: "Optimizing titles, meta descriptions, and sitemaps.", points: ["RankMath / Yoast", "XML Sitemaps"], mcqs: [{ q: "Meta descriptions affect?", options: ["Search Engine Click Rate", "Database speed"], ans: 0 }] },
+            { title: "Lec 11: Security & Malware Protection", duration: "18m 40s", videoId: "u7u7uu", desc: "Hardening WordPress security against hackers.", points: ["Wordfence setup", "Two-Factor Auth"], mcqs: [{ q: "Default admin URL should be?", options: ["Changed for security", "Kept default"], ans: 0 }] },
+            { title: "Lec 12: Website Migration & Backups", duration: "15m 50s", videoId: "y7u7u7u", desc: "Moving site from Localhost to Live Server.", points: ["Duplicator plugin", "Database import/export"], mcqs: [{ q: "Duplicator plugin creates?", options: ["Site package backup", "New themes"], ans: 0 }] },
+            { title: "Lec 13: Custom Post Types (CPT) & ACF", duration: "21m 10s", videoId: "y7u7u7u", desc: "Creating custom data structures with Advanced Custom Fields.", points: ["Custom Taxonomy", "ACF fields rendering"], mcqs: [{ q: "ACF stands for?", options: ["Advanced Custom Fields", "Automatic Code Fixer"], ans: 0 }] },
+            { title: "Lec 14: Bug Fixing & Troubleshooting", duration: "14m 30s", videoId: "yfyfuu", desc: "Fixing 500 Internal Server Error & Critical Errors.", points: ["Debugging mode (WP_DEBUG)", "htaccess reset"], mcqs: [{ q: "How to enable debug mode?", options: ["Set WP_DEBUG to true", "Delete database"], ans: 0 }] },
+            { title: "Lec 15: Client Delivery & Maintenance", duration: "17m 00s", videoId: "khgugbj", desc: "Providing maintenance retainers and handing over sites.", points: ["User roles management", "Client documentation"], mcqs: [{ q: "Administrator role gives?", options: ["Full access", "Read-only access"], ans: 0 }] }
+        ]
+    },
+
+    // 4. INFORMATION SECURITY (15 Lectures)
+    infosec: {
+        title: "Information Security",
+        category: "Cybersecurity",
+        lectures: [
+            { title: "Lec 1: Cryptanalysis Attack Part 1", duration: "12m 30s", videoId: "ok8wI-c5S60", desc: "Introduction to cryptanalysis techniques.", points: ["Basic definitions", "Ciphertext analysis"], mcqs: [{ q: "What is cryptanalysis?", options: ["Breaking codes", "Writing codes"], ans: 0 }] },
+            { title: "Lec 2: Cryptanalysis Attack Part 2", duration: "14m 10s", videoId: "ok8wI-c5S60", desc: "Advanced attack models.", points: ["Known plaintext attack", "Chosen ciphertext attack"], mcqs: [{ q: "Which attack is stronger?", options: ["Chosen ciphertext", "Ciphertext only"], ans: 0 }] },
+            { title: "Lec 3: Traditional Symmetric Part 1", duration: "15m 00s", videoId: "ok8wI-c5S60", desc: "Substitution and transposition ciphers.", points: ["Caesar Cipher", "Monoalphabetic Cipher"], mcqs: [{ q: "Caesar cipher is a type of?", options: ["Substitution", "Transposition"], ans: 0 }] },
+            { title: "Lec 4: Traditional Symmetric Part 2", duration: "16m 20s", videoId: "ok8wI-c5S60", desc: "Polyalphabetic Ciphers.", points: ["Vigenere Cipher", "Playfair Cipher"], mcqs: [{ q: "Vigenere cipher uses?", options: ["A key table", "Single shift"], ans: 0 }] },
+            { title: "Lec 5: Keyless Transposition Cipher", duration: "11m 45s", videoId: "ok8wI-c5S60", desc: "Rail Fence Cipher techniques.", points: ["Zig-zag patterns", "Depth variations"], mcqs: [{ q: "Rail fence is based on?", options: ["Depth", "Key length"], ans: 0 }] },
+            { title: "Lec 6: Keyed Transposition Cipher Part 1", duration: "13m 50s", videoId: "ok8wI-c5S60", desc: "Grid-based transposition using keys.", points: ["Column ordering", "Key alphabetic order"], mcqs: [{ q: "What determines column order?", options: ["Alphabetical order of key", "Random"], ans: 0 }] },
+            { title: "Lec 7: Keyed Transposition Cipher Part 2", duration: "17m 40s", videoId: "ok8wI-c5S60", desc: "Grid operations & padding.", points: ["Padding empty cells", "Security evaluations"], mcqs: [{ q: "Padding is used to?", options: ["Complete grid cells", "Hide key"], ans: 0 }] },
+            { title: "Lec 8: Double Transposition Part 1", duration: "18m 05s", videoId: "bf_eNocyWaM", desc: "Multi-stage permutation.", points: ["Diffusion enhancement", "Two cycles"], mcqs: [{ q: "Why use double transposition?", options: ["Increase security", "Speed up"], ans: 0 }] },
+            { title: "Lec 9: Double Transposition Part 2", duration: "15m 45s", videoId: "xBnO3DEPrnU", desc: "Deciphering methodology.", points: ["Reversing permutation", "Key analysis"], mcqs: [{ q: "Decryption requires?", options: ["Exact reverse order", "Public key"], ans: 0 }] },
+            { title: "Lec 10: DES (Data Encryption Standard)", duration: "20m 10s", videoId: "ZeWVm82c68Y", desc: "64-bit DES block cipher.", points: ["56-bit key", "16 Feistel rounds"], mcqs: [{ q: "DES key length?", options: ["56 bits", "128 bits"], ans: 0 }] },
+            { title: "Lec 11: AES (Advanced Encryption Standard)", duration: "22m 30s", videoId: "gV7c7JhgLMY", desc: "Modern symmetric block encryption.", points: ["128-bit blocks", "SubBytes & MixColumns"], mcqs: [{ q: "AES-128 rounds count?", options: ["10 rounds", "16 rounds"], ans: 0 }] },
+            { title: "Lec 12: RSA Algorithm", duration: "24m 15s", videoId: "iF_y2D6htas", desc: "Asymmetric public key cryptography.", points: ["Prime factorization", "Public/Private key pair"], mcqs: [{ q: "RSA relies on?", options: ["Factoring large primes", "Linear shift"], ans: 0 }] },
+            { title: "Lec 13: Diffie-Hellman Key Exchange", duration: "19m 50s", videoId: "YYwad3qCi6g", desc: "Secure key exchange over insecure network.", points: ["Key agreement", "Discrete log problem"], mcqs: [{ q: "Diffie-Hellman is for?", options: ["Key exchange", "Direct encryption"], ans: 0 }] },
+            { title: "Lec 14: SHA Part 1 (Secure Hash Algorithm)", duration: "16m 40s", videoId: "yqnVgvXHb9M", desc: "Cryptographic hash functions.", points: ["Fixed-size output", "One-way function"], mcqs: [{ q: "Hash functions are?", options: ["One-way functions", "Reversible"], ans: 0 }] },
+            { title: "Lec 15: SHA Part 2 (SHA-256)", duration: "18m 20s", videoId: "pZD2Mr2vfxg", desc: "SHA-256 internal loops & applications.", points: ["256-bit digest", "Avalanche effect"], mcqs: [{ q: "Changing 1 character causes?", options: ["Avalanche effect", "No change"], ans: 0 }] }
+        ]
+    }
 };
 
-  
-  let currentCourseKey = "graphics";
-  let currentLectureIndex = 0;
+let currentCourseKey = "graphics";
+let currentLectureIndex = 0;
 
-  function initCourse(courseKey) {
+function initCourse(courseKey) {
+    if (!playlistsData[courseKey]) courseKey = "graphics";
     currentCourseKey = courseKey;
-    currentLectureIndex = 0;
+    
     document.getElementById("course-selector").value = courseKey;
-    const course = playlistsData[courseKey];
-    document.getElementById("course-category").textContent = course.category;
-    document.getElementById("course-title").textContent = course.title;
+    document.getElementById("course-category").textContent = playlistsData[courseKey].category;
+    document.getElementById("course-title").textContent = playlistsData[courseKey].title;
+    
     renderPlaylist();
     loadLecture(0);
-  }
+}
 
-  function changeCourse(courseKey) {
+function changeCourse(courseKey) {
     initCourse(courseKey);
-    showToast("Switched to " + playlistsData[courseKey].title, "✨");
-  }
+}
 
-  function renderPlaylist(searchQuery = "") {
+function renderPlaylist(searchQuery = "") {
     const container = document.getElementById("playlist-container");
     container.innerHTML = "";
     const lectures = playlistsData[currentCourseKey].lectures;
     let count = 0;
 
     lectures.forEach((lec, idx) => {
-      if (searchQuery && !lec.title.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return;
-      }
-      count++;
-      const isPremium = idx >= 10;
-      const isSelected = idx === currentLectureIndex;
-
-      const item = document.createElement("div");
-      item.className = `p-3 rounded-xl border transition cursor-pointer flex items-center justify-between ${isSelected ? 'bg-blue-50 border-blue-300 shadow-sm' : 'bg-white border-gray-100 hover:border-gray-300'}`;
-      
-      item.onclick = () => {
-        if (isPremium) {
-          // Check payment condition or show popup prompt
-          showToast("🔒 Premium Lecture! Please purchase or unlock course access.", "🔒");
-        } else {
-          loadLecture(idx);
+        if (searchQuery && !lec.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+            return;
         }
-      };
+        count++;
+        const isSelected = idx === currentLectureIndex;
 
-      item.innerHTML = `
-        <div class="space-y-1 pr-2">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold ${isSelected ? 'text-blue-900' : 'text-gray-800'}">${lec.title}</span>
-          </div>
-          <div class="flex items-center gap-2 text-[10px] text-gray-400">
-            <span>⏱ ${lec.duration}</span>
-            ${isPremium ? '<span class="text-amber-600 font-bold">🔒 Premium</span>' : '<span class="text-emerald-600 font-bold">🆓 Free</span>'}
-          </div>
-        </div>
-        <button class="px-3 py-1.5 rounded-lg text-xs font-bold transition ${isPremium ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-slate-100 text-[#0b2149] hover:bg-slate-200'}">
-          ${isPremium ? 'Unlock' : 'View'}
-        </button>
-      `;
-      container.appendChild(item);
+        const item = document.createElement("div");
+        item.className = `p-3 rounded-xl border transition cursor-pointer flex items-center justify-between ${isSelected ? 'bg-blue-50 border-blue-300 shadow-sm' : 'bg-white border-gray-100 hover:border-gray-300'}`;
+        
+        item.onclick = () => loadLecture(idx);
+
+        item.innerHTML = `
+            <div class="space-y-1 pr-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold ${isSelected ? 'text-blue-900' : 'text-gray-800'}">${lec.title}</span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] text-gray-400">
+                    <span>⏱ ${lec.duration}</span>
+                </div>
+            </div>
+            <button class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-[#0b2149] hover:bg-slate-200">
+                View
+            </button>
+        `;
+        container.appendChild(item);
     });
 
     document.getElementById("playlist-count").textContent = count + " Lectures";
-  }
+}
 
-  function filterPlaylist(query) {
+function filterPlaylist(query) {
     renderPlaylist(query);
-  }
+}
 
-  function loadLecture(index) {
+function loadLecture(index) {
     currentLectureIndex = index;
     const lec = playlistsData[currentCourseKey].lectures[index];
 
-    // --- Yeh naye elements hain local aur youtube ko handle karne ke liye ---
     const localPlayer = document.getElementById("local-video-player");
-    const videoSource = document.getElementById("video-source");
     const ytPlayer = document.getElementById("youtube-player");
 
-    // Condition: Check karein ke lecture local hai ya YouTube ka
-    if (lec.type === "local") {
-      // Agar local hai toh YouTube iframe ko chhupa do aur rok do
-      if (ytPlayer) {
-        ytPlayer.classList.add("hidden");
-        ytPlayer.src = "";
-      }
-      // Local video player ko show karo aur source set karo
-      if (localPlayer && videoSource) {
-        localPlayer.classList.remove("hidden");
-        videoSource.src = lec.videoUrl;
-        localPlayer.load();
-      }
-    } else {
-      // Agar YouTube hai toh local video ko rok do aur chhupa do
-      if (localPlayer) {
-        localPlayer.classList.add("hidden");
-        localPlayer.pause();
-      }
-      // YouTube iframe ko show karo aur link lagao
-      if (ytPlayer) {
+    if (localPlayer) localPlayer.classList.add("hidden");
+    if (ytPlayer) {
         ytPlayer.classList.remove("hidden");
-        ytPlayer.src = lec.videoUrl; // Yeh aapka YouTube link set ho jayega
-      }
+        ytPlayer.src = `https://www.youtube.com/embed/${lec.videoId}?autoplay=1`;
     }
 
     document.getElementById("lecture-title").textContent = lec.title;
     document.getElementById("lecture-desc").textContent = lec.desc;
-    document.getElementById("lecture-progress-text").textContent = `Lec ${index + 1} of 15`;
+    document.getElementById("lecture-progress-text").textContent = `Lec ${index + 1} of ${playlistsData[currentCourseKey].lectures.length}`;
 
-    // Populate AI Smart Notes Bullet Points
+    // Render Bullet Points
     const notesContainer = document.getElementById("lecture-bullet-points");
     notesContainer.innerHTML = "";
     lec.points.forEach(point => {
-      const pDiv = document.createElement("div");
-      pDiv.className = "flex items-start gap-2.5 text-xs text-gray-700 bg-slate-50 p-2.5 rounded-lg border border-slate-100";
-      pDiv.innerHTML = `<span class="text-blue-600 font-bold mt-0.5">•</span><span>${point}</span>`;
-      notesContainer.appendChild(pDiv);
+        const pDiv = document.createElement("div");
+        pDiv.className = "flex items-start gap-2.5 text-xs text-gray-700 bg-slate-50 p-2.5 rounded-lg border border-slate-100";
+        pDiv.innerHTML = `<span class="text-blue-600 font-bold mt-0.5">•</span><span>${point}</span>`;
+        notesContainer.appendChild(pDiv);
     });
 
-    // Populate Practice MCQs
+    // Render MCQs
     const mcqContainer = document.getElementById("lecture-mcq-container");
     mcqContainer.innerHTML = "";
     lec.mcqs.forEach((mcq, mIdx) => {
-      const mDiv = document.createElement("div");
-      mDiv.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3";
-      
-      let optionsHtml = "";
-      mcq.options.forEach((opt, oIdx) => {
-        optionsHtml += `
-          <label class="flex items-center gap-2 text-xs text-gray-700 cursor-pointer bg-white p-2.5 rounded-lg border border-gray-200 hover:border-blue-400 transition">
-            <input type="radio" name="mcq-${index}-${mIdx}" value="${oIdx}" class="text-blue-900 focus:ring-blue-900">
-            <span>${opt}</span>
-          </label>
-        `;
-      });
-
-      mDiv.innerHTML = `
-        <p class="text-xs font-bold text-[#0b2149]">Q${mIdx + 1}: ${mcq.q}</p>
-        <div class="space-y-2">
-          ${optionsHtml}
-        </div>
-      `;
-      mcqContainer.appendChild(mDiv);
+        const mDiv = document.createElement("div");
+        mDiv.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3";
+        let optionsHtml = "";
+        mcq.options.forEach((opt, oIdx) => {
+            optionsHtml += `
+                <label class="flex items-center gap-2 text-xs text-gray-700 cursor-pointer bg-white p-2.5 rounded-lg border border-gray-200 hover:border-blue-400 transition">
+                    <input type="radio" name="mcq-${index}-${mIdx}" value="${oIdx}">
+                    <span>${opt}</span>
+                </label>
+            `;
+        });
+        mDiv.innerHTML = `<p class="text-xs font-bold text-[#0b2149]">Q${mIdx + 1}: ${mcq.q}</p><div class="space-y-2">${optionsHtml}</div>`;
+        mcqContainer.appendChild(mDiv);
     });
 
     renderPlaylist(document.getElementById("lecture-search").value);
-  }
+}
 
-  function prevLecture() {
-    if (currentLectureIndex > 0) {
-      loadLecture(currentLectureIndex - 1);
-    } else {
-      showToast("You are already at the first lecture.", "ℹ️");
-    }
-  }
+function prevLecture() {
+    if (currentLectureIndex > 0) loadLecture(currentLectureIndex - 1);
+}
 
-  function nextLecture() {
+function nextLecture() {
     const total = playlistsData[currentCourseKey].lectures.length;
-    if (currentLectureIndex < total - 1) {
-      if (currentLectureIndex >= 9) {
-        showToast("🔒 Premium Locked! Unlock course to proceed.", "🔒");
-      } else {
-        loadLecture(currentLectureIndex + 1);
-      }
-    } else {
-      showToast("You have reached the final lecture!", "🎉");
-    }
-  }
+    if (currentLectureIndex < total - 1) loadLecture(currentLectureIndex + 1);
+}
 
-  function switchPlayerTab(tabName) {
+function switchPlayerTab(tabName) {
     document.querySelectorAll(".player-tab").forEach(tab => tab.classList.remove("active"));
     document.getElementById("player-content-overview").classList.add("hidden");
     document.getElementById("player-content-notes").classList.add("hidden");
     document.getElementById("player-content-mcqs").classList.add("hidden");
 
     if (tabName === 'overview') {
-      document.getElementById("tab-overview").classList.add("active");
-      document.getElementById("player-content-overview").classList.remove("hidden");
+        document.getElementById("tab-overview").classList.add("active");
+        document.getElementById("player-content-overview").classList.remove("hidden");
     } else if (tabName === 'notes') {
-      document.getElementById("tab-notes").classList.add("active");
-      document.getElementById("player-content-notes").classList.remove("hidden");
+        document.getElementById("tab-notes").classList.add("active");
+        document.getElementById("player-content-notes").classList.remove("hidden");
     } else if (tabName === 'mcqs') {
-      document.getElementById("tab-mcqs").classList.add("active");
-      document.getElementById("player-content-mcqs").classList.remove("hidden");
+        document.getElementById("tab-mcqs").classList.add("active");
+        document.getElementById("player-content-mcqs").classList.remove("hidden");
     }
-  }
+}
 
-  function generateAiNotes() {
-    showToast("Generating AI Smart Notes...", "⚡");
-    setTimeout(() => {
-      showToast("AI Smart Notes successfully generated!", "✨");
-    }, 800);
-  }
+// Window Load Event (Reads URL Parameters)
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseParam = urlParams.get('course');
+    const lecParam = parseInt(urlParams.get('lec')) || 0;
 
-  function generateAiMcqs() {
-    showToast("Generating Instant Practice MCQs...", "⚡");
-    setTimeout(() => {
-      showToast("Instant MCQs generated for active recall!", "✨");
-    }, 800);
-  }
-
-  function downloadLectureNotes() {
-    const lec = playlistsData[currentCourseKey].lectures[currentLectureIndex];
-    let content = `SmartEduX Study Guide\nCourse: ${playlistsData[currentCourseKey].title}\nLecture: ${lec.title}\n\nKey Highlights:\n`;
-    lec.points.forEach((p, i) => content += `${i + 1}. ${p}\n`);
-    
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${lec.title.replace(/[^a-zA-Z0-9]/g, "_")}_Notes.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast("Study guide downloaded successfully!", "📥");
-  }
-
-  function showToast(message, icon = "⚡") {
-    const toast = document.getElementById("toast");
-    document.getElementById("toast-message").textContent = message;
-    document.getElementById("toast-icon").textContent = icon;
-    toast.classList.remove("translate-y-20", "opacity-0");
-    setTimeout(() => {
-      toast.classList.add("translate-y-20", "opacity-0");
-    }, 3000);
-  }
-
-  // Initialize page on load
-  window.onload = () => {
-    initCourse("graphics");
-  };
+    if (courseParam && playlistsData[courseParam]) {
+        initCourse(courseParam);
+        loadLecture(lecParam);
+    } else {
+        initCourse("graphics");
+    }
+};
 </script>
-</body>
-</html>
