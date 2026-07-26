@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI MCQ Generator | SmartEduX</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --primary:#0b2149;
+        }
+
+        body{
+            font-family:'Roboto',sans-serif;
+            background:#f8fafc;
+            color:#0f172a;
+        }
+
+        .nav-link{
+            transition:0.3s;
+        }
+
+        .nav-link:hover{
+            color:var(--primary);
+        }
+
+        /* Hide Scrollbar for smooth horizontal menu */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="relative flex items-center justify-between h-14 sm:h-16">
+            
+            <a href="SmartEduX.html" class="text-xl sm:text-2xl font-extrabold text-[#0b2149] whitespace-nowrap z-10">
+                SmartEduX
+            </a>
+
+            <div class="hidden md:flex absolute inset-0 items-center justify-center space-x-8">
+                <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 nav-link">Home</a>
+                <a href="Courses.html" class="text-sm font-medium text-gray-700 nav-link">Courses</a>
+                <a href="Autonotes.html" class="text-sm font-medium text-gray-700 nav-link">AutoNotes</a>
+                <a href="MCQs.html" class="text-sm font-bold text-[#0b2149]">MCQ Generator</a>
+                <a href="contact.html" class="text-sm font-medium text-gray-700 nav-link">Contact Us</a>
+            </div>
+
+        </div>
+
+        <div class="md:hidden flex items-center justify-start sm:justify-center space-x-6 py-2.5 overflow-x-auto whitespace-nowrap no-scrollbar border-t border-gray-100 text-xs font-medium">
+            <a href="SmartEduX.html" class="text-gray-700 hover:text-[#0b2149]">Home</a>
+            <a href="Courses.html" class="text-gray-700 hover:text-[#0b2149]">Courses</a>
+            <a href="Autonotes.html" class="text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+            <a href="MCQs.html" class="text-[#0b2149] font-bold">MCQ Generator</a>
+            <a href="contact.html" class="text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+        </div>
+
+    </div>
+</nav>
+<header class="bg-[#07122a] text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+        <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-400/30 inline-block">
+            AI Assessment Tool
+        </span>
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-bold mt-4 mb-4 leading-tight">
+            AI MCQ Generator
+        </h1>
+        <p class="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Generate intelligent Multiple Choice Questions automatically from your lecture videos, AI notes and study material to test your knowledge and improve exam preparation.
+        </p>
+    </div>
+</header>
+
+<main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+
+    <div class="lg:col-span-2 space-y-8">
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                What is AI MCQ Generator?
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-4">
+                AI MCQ Generator is an intelligent assessment feature of SmartEduX.
+                It automatically creates high-quality Multiple Choice Questions from
+                lecture videos, AI-generated notes, PDFs and learning materials.
+            </p>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                Students no longer need to prepare quizzes manually because the
+                system instantly generates practice questions after completing
+                a lecture.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 rounded-xl">
+                    <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">100+</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-1">AI-generated questions in seconds.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-xl">
+                    <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">95%</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-1">Accuracy in generating topic-based quizzes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-6">
+                How MCQ Generator Works
+            </h2>
+            <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">Complete Your Lecture</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Watch your SmartEduX lecture or generate AI notes.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">AI Generates Questions</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">SmartEduX AI reads important concepts and automatically creates Multiple Choice Questions with four options.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">Solve & Evaluate</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Attempt the generated quiz instantly and receive your score with correct answers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                Why Should Students Use It?
+            </h2>
+            <ul class="space-y-3 text-gray-600 text-sm sm:text-base">
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Instantly create quizzes from any lecture.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Improve exam preparation with unlimited practice.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Identify weak concepts before examinations.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Save time by eliminating manual question creation.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Increase confidence through AI-powered assessments.</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="space-y-8">
+
+        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Quiz Preview</h3>
+            <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" alt="MCQ Generator">
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
+                        Quiz Preview
+                    </span>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-3 text-center">
+                AI automatically generates multiple choice questions from your completed lectures.
+            </p>
+        </div>
+
+        <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
+            <h3 class="text-xl font-bold">Ready to Test Yourself?</h3>
+            <p class="text-xs text-blue-200">
+                Generate AI-powered quizzes instantly after watching any lecture.
+            </p>
+            <a href="mcqs.html" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
+                Generate MCQs
+            </a>
+        </div>
+
+        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-[#0b2149] mb-5">Features</h3>
+            <div class="space-y-4">
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Unlimited Practice</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">Generate fresh quizzes every time.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Instant Evaluation</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">Get your score immediately after submission.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Smart Difficulty</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">AI creates Easy, Medium and Hard questions automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="bg-[#07122a] text-gray-400 py-6 text-center text-xs mt-auto px-4">
+    <p>© 2026 SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

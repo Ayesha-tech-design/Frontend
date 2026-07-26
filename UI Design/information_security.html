@@ -29,10 +29,7 @@
         Learn cybersecurity concepts and protect systems from digital threats!
     </p>
 
-    <button onclick="startLearningClick(event)"
-            class="px-6 py-3 text-white bg-[#0b2149] rounded-lg cursor-pointer">
-        Start Learning
-    </button>
+    <button onclick="startLearningClick(event)" class="px-6 py-3 text-white bg-[#0b2149] rounded-lg cursor-pointer">Start Learning</button>
 </section>
 
 <section class="max-w-4xl mx-auto my-12 px-4">
@@ -273,18 +270,17 @@
 </section>
 
 <script>
-    let isSignedUp = true;
-    let watchedLecturesCount = 0;
+   let isSignedUp = true;
 
-    function startLearningClick(event) {
-        event.preventDefault();
+function startLearningClick(event) {
+    event.preventDefault();
 
-        if (isSignedUp) {
-            window.location.href = "playlist.html?course=infosec&lec=0";
-        } else {
-            alert("Kindly signup first to start your learning journey!");
-        }
+    if (isSignedUp) {
+        window.location.href = "playlist.html?course=infosec&lec=0";
+    } else {
+        alert("Kindly signup first to start your learning journey!");
     }
+}
 
     function checkAccess(event, lectureIndex) {
         if (!isSignedUp) {

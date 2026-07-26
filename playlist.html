@@ -19,10 +19,16 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    
+    .nav-btn:hover{
+    color: white;
+}
     nav a { transition: color .18s ease; }
     nav a:hover { color: var(--primary) !important; }
-
+ nav a { transition: color .18s ease; }
+    
+ nav a:not(.nav-btn):hover { 
+  color: var(--primary) !important; 
+}
     .logo-mark {
       width: 115px;
       height: 115px;
@@ -32,6 +38,13 @@
         width: 125px;
         height: 125px;
       }
+      .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
     }
 
     /* Custom scroll for lecture sidebar list */
@@ -57,57 +70,79 @@
 <body class="min-h-screen flex flex-col justify-between">
 
 <!-- HEADER / NAVIGATION -->
-<nav class="bg-white shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      
-      <!-- Logo Branding -->
-      <div class="flex items-center gap-2 md:gap-3">
-        <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-          <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain" onerror="this.src='https://placehold.co/120x120/0b2149/ffffff?text=SmartEduX'">
-          <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-        </a>
+
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+       <div class="flex items-center gap-0">
+  <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+
+    <img 
+      src="Futuristic tech logo design.png" 
+      alt="SmartEduX Logo" 
+      class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+    >
+   <span class="logo-text text-[26px] md:text-[32px]">
+  SmartEduX
+</span>
+
+  </a>
+</div>
+        <div class="hidden xl:flex items-center space-x-6">
+          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+          
+          <div class="relative w-48">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+        </div>
+
+      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+  <a href="login.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+    Login
+  </a>
+
+  <a href="signup.html"
+     class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+    Signup
+  </a>
+</div>
+
+        <div class="xl:hidden flex items-center">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
 
-      <!-- Navigation Links -->
-      <div class="hidden xl:flex items-center space-x-6">
-        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-        <a href="Courses.html" class="text-sm font-bold text-blue-600 hover:text-[#0b2149]">Courses</a>
-        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
-        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="hidden md:flex items-center gap-3 ml-4">
-        <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
-        <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-      </div>
-
-      <!-- Mobile Hamburger Button -->
-      <div class="xl:hidden flex items-center">
-        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+      <div id="mobile-menu" class="xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="search-input">
+          </div>
+          
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          </div>
+        </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 pb-4">
-      <div class="px-4 pt-2 space-y-2">
-        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-blue-600 bg-blue-50/50">Courses</a>
-        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
-        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-      </div>
-    </div>
-  </div>
-</nav>
 
 <!-- MAIN LECTURE WORKSPACE -->
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
@@ -318,27 +353,71 @@
         { title: "Lec 15: Financial Freedom: Managing Freelance Cashflow & Taxes", duration: "22m 35s", videoId: "fD36wN_Tcoo", desc: "Fiverr earnings withdrawal rules, setting up Payoneer accounts, managing taxes, and investing freelance income wisely.", points: ["Fiverr clears earnings after 14 days (7 days for Top Sellers)", "Separate personal and business finances", "Reinvest earnings in premium design software and courses"], mcqs: [{ q: "How long does standard order payout clearance take for standard sellers?", options: ["24 hours", "14 days", "30 days"], ans: 1 }] }
       ]
     },
-    security: {
-      category: "Information Security",
-      title: "Information Security Foundations",
-      lectures: [
-        { title: "Lec 1: Threat Landscapes & Network Firewall Baselines", duration: "17m 50s", videoId: "bPVaOlJ6vS4", desc: "Learn modern network vulnerability vectors, firewalls, cyber hygiene, and data security standards.", points: ["Firewalls filter active ports dynamically", "Password complexity resists brute-force runs", "Zero-trust structures request ongoing authorization"], mcqs: [{ q: "What is the primary function of a network Firewall?", options: ["To charge visitors access fees", "To filter network traffic based on configured security rules", "To speed up internet speeds"], ans: 1 }] },
-        { title: "Lec 2: Types of Malware: Ransomware, Trojans & Worms", duration: "15m 30s", videoId: "bPVaOlJ6vS4", desc: "Differentiating visual malware signatures, execution strategies, Trojan vectors, and critical remediation methods.", points: ["Ransomware utilizes asymmetric key encryptions", "Worms spread independently without user activations", "Trojans masquerade as valid utility packages"], mcqs: [{ q: "What defines a computer 'Worm'?", options: ["It requires user activation to run", "It self-replicates and spreads across network streams automatically", "It is only written in Python"], ans: 1 }] },
-        { title: "Lec 3: Defending Against Phishing and Social Engineering", duration: "14m 10s", videoId: "bPVaOlJ6vS4", desc: "Identifying email domain spoofing, spear-phishing campaigns, credential harvesting links, and user training basics.", points: ["Verify SPF, DKIM and DMARC headers on incoming emails", "Spear-phishing targets specific high-value individuals", "Never download attachments from unverified origins"], mcqs: [{ q: "Which attack vectors target human psychology to extract passwords?", options: ["Brute Force", "SQL Injection", "Social Engineering"], ans: 2 }] },
-        { title: "Lec 4: Network Protocols & Port Security Fundamentals", duration: "16m 45s", videoId: "bPVaOlJ6vS4", desc: "Understanding critical communication protocols, TCP vs UDP handshakes, secure shell SSH, and securing dynamic ports.", points: ["Port 22 SSH must be secured and altered from defaults", "TCP handshakes use SYN, SYN-ACK, ACK exchanges", "HTTP transfers plain-text data packets vulnerably"], mcqs: [{ q: "Which port is standard for secure shell (SSH) networks?", options: ["Port 80", "Port 22", "Port 443"], ans: 1 }] },
-        { title: "Lec 5: Intrusion Detection Systems (IDS) & Prevention Setup", duration: "18m 12s", videoId: "bPVaOlJ6vS4", desc: "Differentiating Signature-based IDS from Anomaly-based detections, configuring Snort rules, and setting up IPS scripts.", points: ["Signature-based scanners track known malicious strings", "IPS blocks attacks dynamically; IDS only alerts systems", "Host-based agents check system files for alterations"], mcqs: [{ q: "What is the key difference between an IDS and an IPS?", options: ["IDS actively blocks traffic; IPS only records data", "IDS only monitors and alerts; IPS monitors and actively blocks threats", "IDS only works on Windows"], ans: 1 }] },
-        { title: "Lec 6: Cryptography: Symmetric vs Asymmetric Encrpytion", duration: "21m 15s", videoId: "bPVaOlJ6vS4", desc: "Understand AES private keys, RSA public-private math keys, secure key exchanges, and hashing algorithms.", points: ["Symmetric algorithms use the same key for encryption and decryption", "Asymmetric keys decrypt using the private mathematical key", "Hashing (e.g., SHA-256) is a one-way mathematical function"], mcqs: [{ q: "Which algorithm type utilizes separate public and private keys?", options: ["Symmetric Encryption", "Asymmetric Encryption", "Base64 encoding"], ans: 1 }] },
-        { title: "Lec 7: Web Encryption Protocols: SSL, TLS & HTTPS Setup", duration: "15m 50s", videoId: "bPVaOlJ6vS4", desc: "How secure handshakes are initiated, web root certificate authorities, and enforcing HTTPS redirect parameters.", points: ["TLS provides transport-layer session encryption", "HTTPS encrypts URL parameters, request cookies, and form values", "Secure handshakes verify host certificate digital signatures"], mcqs: [{ q: "What is encrypted by HTTPS transport security?", options: ["Only the domain name", "The entire request payload including paths, cookies, and header texts", "Nothing, it only adds a visual badge"], ans: 1 }] },
-        { title: "Lec 8: Strong Authentication: Salted Hashes & MFA rules", duration: "17m 30s", videoId: "bPVaOlJ6vS4", desc: "Why plaintext database passwords are a hazard, salting passwords, and implementing secure multi-factor systems.", points: ["Salting inserts unique random data to defeat rainbow tables", "Bcrypt is designed as a secure, slow hashing standard", "MFA verifies something you know, have, or are"], mcqs: [{ q: "Why is password salting highly recommended?", options: ["It compresses the password sizes", "It defeats pre-computed dictionary and rainbow table hash attacks", "It speeds up backend logins"], ans: 1 }] },
-        { title: "Lec 9: Penetration Testing Basics: Nmap and Nessus Scanning", duration: "19m 20s", videoId: "bPVaOlJ6vS4", desc: "Scanning local subnets, discovering active host ports, running silent SYN scans, and reading automated Nessus reports.", points: ["SYN scans are stealthy as they don't complete handshakes", "Nessus indexes discovered ports against CVE vulnerability lists", "Never run network scans on IP addresses you do not own"], mcqs: [{ q: "What does Nmap do during an active security audit?", options: ["Encrypts server databases", "Discovers active hosts, open communication ports, and running OS types", "Fixes server vulnerabilities automatically"], ans: 1 }] },
-        { title: "Lec 10: Web App Security: Mastering OWASP Top 10 exploits", duration: "22m 10s", videoId: "bPVaOlJ6vS4", desc: "An overview of active injection parameters, broken authenticator tokens, sensitive data leaks, and insecure API structures.", points: ["OWASP lists critical security threats regularly", "Input validation prevents major structural system attacks", "Enforce strict CORS policies to protect interfaces"], mcqs: [{ q: "What is the primary target of the OWASP foundation?", options: ["Building faster web browsers", "Providing visual frameworks", "Identifying and educating about critical web application security vulnerabilities"], ans: 2 }] },
-        { title: "Lec 11: Preventing SQL Injection and Cross-Site Scripting (XSS)", duration: "20m 45s", videoId: "bPVaOlJ6vS4", desc: "Implement prepared statements, parameterized queries, content security policies (CSP), and escaping user inputs.", points: ["Prepared statements parameterize inputs to stop execution strings", "XSS inserts malicious JS scripts inside victim browsers", "Input sanitization strips HTML formatting tags cleanly"], mcqs: [{ q: "Which coding strategy completely defeats SQL injection vulnerabilities?", options: ["Encrypting databases", "Using parameterized queries (Prepared Statements)", "Hiding input boxes on the front-end"], ans: 1 }] },
-        { title: "Lec 12: Wireless Security Standards: WPA2 vs WPA3 Protocols", duration: "14m 35s", videoId: "bPVaOlJ6vS4", desc: "Understanding WPA2 handshake offline dictionary attacks, and how WPA3 SAE (Simultaneous Authentication of Equals) stops them.", points: ["WPA3 SAE thwarts brute-force attacks on home Wi-Fi keys", "Turn off WPS to stop automated PIN penetration tools", "Implement corporate RADIUS servers for secure enterprise logins"], mcqs: [{ q: "Which protocol secures modern Wi-Fi networks from offline brute-force handshakes?", options: ["WEP", "WPA3", "WPA2 Plain"], ans: 1 }] },
-        { title: "Lec 13: Operating System Hardening and Patch Management", duration: "16m 20s", videoId: "bPVaOlJ6vS4", desc: "Disabling unnecessary services, closing empty ports, configuring group policy objects, and automated patching rules.", points: ["Unused active background services expand attack surfaces", "Automated patching stops exploits of known public CVEs", "Enforce local user account controls with minimum privileges"], mcqs: [{ q: "Operating System Hardening implies...", options: ["Deleting the hard drive", "Reducing the system's attack surface by closing ports and disabling unneeded services", "Installing heavy anti-virus skins"], ans: 1 }] },
-        { title: "Lec 14: Incident Response and Digital Forensics Baselines", duration: "18m 50s", videoId: "bPVaOlJ6vS4", desc: "Managing active breaches, preserving system RAM values, logging chronologies, and ensuring valid chain of custody.", points: ["Volatility is high in live RAM; capture it before powering down", "Chain of Custody tracks every individual who handled evidence", "Contain system networks first during active malware outbreaks"], mcqs: [{ q: "When preserving computer evidence, what is captured first?", options: ["Files on the hard drive", "Live volatility assets in active system RAM", "Web browser history"], ans: 1 }] },
-        { title: "Lec 15: Cybersecurity Certifications & Careers Roadmap", duration: "23m 15s", videoId: "bPVaOlJ6vS4", desc: "Mapping paths for CompTIA Security+, CEH, CISSP, and learning how to set up active home virtual lab setups.", points: ["Security+ is the ideal entry point certification standard", "CISSP is highly valued for management cybersecurity roles", "Set up Virtualbox home labs to safely analyze security payloads"], mcqs: [{ q: "Which certification is the standard starting credential for cybersecurity?", options: ["CEH Master", "CompTIA Security+", "CISSP Security Manager"], ans: 1 }] }
-      ]
+   infosec: {
+  title: "Information Security",
+  videos: [
+    {
+      title: "Lesson 1: Introduction to Information Security",
+      url: "YOUR_LINK_1"
+    },
+    {
+      title: "Lesson 2: Types of Cyber Threats",
+      url: "YOUR_LINK_2"
+    },
+    {
+      title: "Lesson 3: Password Security",
+      url: "YOUR_LINK_3"
+    },
+    {
+      title: "Lesson 4: Network Security",
+      url: "YOUR_LINK_4"
+    },
+    {
+      title: "Lesson 5: Cryptography",
+      url: "YOUR_LINK_5"
+    },
+    {
+      title: "Lesson 6: Ethical Hacking",
+      url: "YOUR_LINK_6"
+    },
+    {
+      title: "Lesson 7: Malware",
+      url: "YOUR_LINK_7"
+    },
+    {
+      title: "Lesson 8: Firewalls",
+      url: "YOUR_LINK_8"
+    },
+    {
+      title: "Lesson 9: Secure Web Browsing",
+      url: "YOUR_LINK_9"
+    },
+    {
+      title: "Lesson 10: Email Security",
+      url: "YOUR_LINK_10"
+    },
+    {
+      title: "Lesson 11: Data Backup",
+      url: "YOUR_LINK_11"
+    },
+    {
+      title: "Lesson 12: Cloud Security",
+      url: "YOUR_LINK_12"
+    },
+    {
+      title: "Lesson 13: Mobile Security",
+      url: "YOUR_LINK_13"
+    },
+    {
+      title: "Lesson 14: Cyber Laws",
+      url: "YOUR_LINK_14"
+    },
+    {
+      title: "Lesson 15: Best Practices",
+      url: "YOUR_LINK_15"
     }
+  ]
+},
   };
 
   // Global Tracking variables
