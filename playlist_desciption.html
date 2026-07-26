@@ -51,7 +51,7 @@
                     <a href="contact.html" class="text-gray-700 hover:text-[#0b2149] transition">Contact Us</a>
                 </div>
 
-                <a href="playlist.html" class="hidden lg:inline-block bg-[#0b2149] text-white px-5 py-2 rounded-xl hover:bg-[#16356d] transition font-medium">
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="hidden lg:inline-block bg-[#0b2149] text-white px-5 py-2 rounded-xl hover:bg-[#16356d] transition font-medium">
                     Launch Tool
                 </a>
 
@@ -67,7 +67,7 @@
                 <a href="MCQ.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">MCQ Generator</a>
                 <a href="PlaylistDescription.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Playlist</a>
                 <a href="contact.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Contact Us</a>
-                <a href="playlist.html" class="block w-full bg-[#0b2149] text-white py-2.5 rounded-xl text-center font-medium mt-2 hover:bg-[#16356d] transition">
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="block w-full bg-[#0b2149] text-white py-2.5 rounded-xl text-center font-medium mt-2 hover:bg-[#16356d] transition">
                     Launch Tool
                 </a>
             </div>
@@ -194,7 +194,8 @@
             <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Playlist Preview</h3>
                 <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Playlist Preview" class="w-full h-full object-cover">
+                    <!-- Updated Image representing online video playlist interface -->
+                    <img src="https://cdn.dribbble.com/userupload/22170012/file/original-bc739d10145368492bf6ffefe6b67f4d.png?resize=752x&vertical=center" alt="Playlist Preview" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                         <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
                             Playlist Preview
@@ -211,7 +212,7 @@
                 <p class="text-xs text-blue-200">
                     Open your SmartEduX Playlist and continue learning from your last watched lecture.
                 </p>
-                <a href="playlist.html" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
                     Launch Tool
                 </a>
             </div>
@@ -253,9 +254,35 @@
         </div>
     </main>
 
-    <footer class="bg-[#07122a] text-gray-400 py-6 text-center text-xs mt-auto px-4">
-        <p>© 2026 SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
-    </footer>
+    <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
     <script>
         const menuBtn = document.getElementById("menu-btn");
@@ -265,6 +292,23 @@
             mobileMenu.classList.toggle("hidden");
             mobileMenu.classList.toggle("flex");
         });
+
+        // Function to check if user is signed up/logged in before opening playlist page
+        function checkAuthAndRedirect(event) {
+            event.preventDefault();
+            
+            // Check session / signup status from localStorage (Change key name if needed based on your signup page setup)
+            const isLoggedIn = localStorage.getItem("isLoggedIn"); 
+
+            if (isLoggedIn === "true") {
+                // If signed in, redirect to the actual playlist tool page
+                window.location.href = "playlist.html";
+            } else {
+                // If not signed in, show warning and redirect to signup/login page
+                alert("⚠️ Access Denied!\n\nPlease sign up or log in first to access the SmartEduX Learning Playlist.");
+                window.location.href = "signup.html"; // Aap yahan apne signup ya login page ka naam de sakte hain
+            }
+        }
     </script>
 </body>
 </html>

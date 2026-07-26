@@ -85,6 +85,8 @@
             <span class="logo-text text-[26px] md:text-[32px]">SmartEduX</span>
           </a>
         </div>
+        
+        <!-- Desktop Nav Links -->
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -93,7 +95,26 @@
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
           <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
         </div>
+
+        <!-- Mobile Menu Toggle Button (Right Side) -->
+        <div class="xl:hidden flex items-center">
+          <button id="menuBtn" class="text-gray-700 hover:text-[#0b2149] focus:outline-none p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-2 shadow-md">
+      <a href="SmartEduX.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Home</a>
+      <a href="Courses.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Courses</a>
+      <a href="Autonotes.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">AutoNotes</a>
+      <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Features</a>
+      <a href="About us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">About us</a>
+      <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Contact Us</a>
     </div>
 </nav>
 
@@ -163,6 +184,14 @@
 </main>
 
 <script>
+// Mobile Menu Toggle Script
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
+
 function togglePassword(){
   let input = document.getElementById("password");
   input.type = input.type === "password" ? "text" : "password";
@@ -202,6 +231,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     alert("Backend Server Offline or Connection Refused!");
   }
 });
+
+// Set footer year automatically
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
