@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us </title>
+  <title>About Us</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    :root{
+    :root {
       --primary: #0b2149; 
       --accent: #f59e0b;
       --muted: #6b7280;
     }
+    
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
       background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
       color: #0f172a;
-      overflow-x: hidden;
+      overflow-x: hidden !important;
       -webkit-font-smoothing: antialiased; 
     }
 
+<<<<<<< HEAD
    
 <<<<<<< HEAD
     / .logo-mark {
@@ -47,29 +53,49 @@
 }
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 }
+=======
+    /* Original Logo Settings */
+    .logo-mark {
+      width: 85px;
+      height: 85px;
+    }
 
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 115px;
+        height: 115px;
+      }
+    }
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
+    .logo-text {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
 
-
-    /* small custom animations to complement AOS */
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
-
-    .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
-    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
-    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
-
-   
+    /* Search input focus */
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.875rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      outline: none;
+      background-color: #f8fafc;
+    }
   </style>
 </head>
 
-<body class="bg-white text-gray-800">
-<!-- HEADER -->
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+
   <nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center justify-between h-16 md:h-20">
         
+<<<<<<< HEAD
 <<<<<<< HEAD
        <div class="hidden xl:flex items-center gap-2 md:gap-3">
 
@@ -95,6 +121,21 @@
   </a>
 </div>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+        <div class="flex items-center">
+          <a href="SmartEduX.html" class="flex items-center" aria-label="Home">
+            <img 
+              src="Futuristic tech logo design.png" 
+              alt="SmartEduX Logo" 
+              class="logo-mark flex-shrink-0 object-contain -mr-6 md:-mr-8"
+            >
+            <span class="logo-text text-[24px] sm:text-[28px] md:text-[32px]">
+              SmartEduX
+            </span>
+          </a>
+        </div>
+
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
@@ -104,15 +145,20 @@
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
 =======
           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+<<<<<<< HEAD
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+          <a href="About us.html" class="text-sm font-bold text-[#0b2149]">About us</a>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
           <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
           
-          <div class="relative w-48">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
+          <div class="w-44">
+            <input type="text" placeholder="Search..." class="search-input">
           </div>
         </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div class="hidden md:flex items-center gap-3 ml-4">
           <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
@@ -177,69 +223,85 @@
     Signup
   </a>
 </div>
+=======
+        <div id="nav-user-section" class="hidden md:flex items-center gap-3">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+            Login
+          </a>
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+            Signup
+          </a>
+        </div>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
         <div class="xl:hidden flex items-center">
-          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded-lg text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
-        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-          
-          <div class="py-2">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
+      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 pb-4">
+        <div class="px-2 pt-2 space-y-1">
+          <div class="py-2 px-1">
+            <input type="text" placeholder="Search..." class="search-input">
           </div>
+          <a href="SmartEduX.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-blue-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-blue-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-blue-50">AutoNotes</a>
+          <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-blue-50">Features</a>
+          <a href="About us.html" class="block px-3 py-2 rounded-md text-base font-bold text-[#0b2149] bg-blue-50">About Us</a>
+          <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-blue-50">Contact Us</a>
           
-          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
-          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-          <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+          <div class="grid grid-cols-2 gap-3 mt-4 px-1 pt-2 border-t border-gray-100">
+            <a href="login.html" class="text-center px-4 py-2 rounded-md border border-[var(--primary)] text-[var(--primary)] font-medium text-sm">Login</a>
+            <a href="signup.html" class="text-center px-4 py-2 rounded-md bg-[var(--primary)] text-white font-medium text-sm shadow-sm">Signup</a>
           </div>
         </div>
       </div>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     </div>
   </nav>
-  <!-- Header -->
-  <header class="bg-[#0b2149] text-white py-10">
-    <div class="max-w-6xl mx-auto text-center px-6">
-      <h1 class="text-4xl md:text-5xl font-bold">About Us</h1>
-      <p class="mt-3 text-lg opacity-90">
+
+  <header class="bg-[#0b2149] text-white py-12 md:py-16">
+    <div class="max-w-6xl mx-auto text-center px-4 sm:px-6">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold">About Us</h1>
+      <p class="mt-3 text-base sm:text-lg opacity-90 max-w-2xl mx-auto">
         AI Powered Learning – Faster, Smarter, More Effective.
       </p>
     </div>
   </header>
 
-  <!-- Mission Section -->
- <section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-14 items-center">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+    <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+      
+      <div class="space-y-4 md:space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#0b2149] leading-tight">
+          Our Mission
+        </h2>
+        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
+          SmartEduX is created with one goal: to revolutionize the study experience. 
+          It uses artificial intelligence to automatically summarize long lecture videos, 
+          extract key points, and organize course notes so students can study faster and more efficiently.
+        </p>
+        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
+          Whether it is university lectures or online tutorials, SmartEduX helps learners 
+          understand complex topics in minutes instead of hours, making the learning process 
+          simpler, quicker, and more effective.
+        </p>
+      </div>
 
-  <!-- TEXT -->
-  <div class="space-y-6">
-    <h2 class="text-4xl font-bold text-[#0b2149] leading-tight">
-      Our Mission
-    </h2>
-
-   <p class="text-gray-600 leading-loose text-lg tracking-wide">
-  SmartEduX is created with one goal: to revolutionize the study experience. 
-  It uses artificial intelligence to automatically summarize long lecture videos, 
-  extract key points, and organize course notes so students can study faster and more efficiently.
-</p>
-
-<p class="mt-6 text-gray-600 leading-loose text-lg tracking-wide">
-  Whether it is university lectures or online tutorials, SmartEduX helps learners 
-  understand complex topics in minutes instead of hours, making the learning process 
-  simpler, quicker, and more effective.
-</p>
+      <div class="relative" data-aos="fade-up">
+        <img
+          src="https://webpuzzlemaster.com/wp-content/uploads/2024/10/AI-technology-chatbot.webp"
+          alt="AI Learning Illustration"
+          class="w-full h-auto max-h-[350px] object-cover rounded-2xl shadow-xl hover:scale-105 transition duration-500"
+        />
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#0b2149]/20 to-transparent rounded-2xl pointer-events-none"></div>
+      </div>
     </div>
-  </div>
 
+<<<<<<< HEAD
   <!-- IMAGE -->
 <<<<<<< HEAD
   <div class="relative">
@@ -251,11 +313,23 @@
       alt="AI Learning Illustration"
       class="w-full h-[350px] object-cover rounded-2xl shadow-2xl hover:scale-105 transition duration-500"
     />
+=======
+    <div class="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl p-6 sm:p-8 border border-white mt-12 md:mt-16 text-center md:text-left">
+      <p class="text-lg sm:text-xl italic text-gray-700">
+        "Education should not take more time — it should create more understanding."
+      </p>
+      <h4 class="mt-3 font-bold text-[#0b2149]">
+        — SmartEduX Vision
+      </h4>
+    </div>
+  </section>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
-    <!-- Optional overlay effect -->
-    <div class="absolute inset-0 bg-gradient-to-tr from-[#0b2149]/20 to-transparent rounded-2xl"></div>
-  </div>
+  <section class="bg-blue-50 py-12 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0b2149] mb-8 md:mb-12">What We Offer</h2>
 
+<<<<<<< HEAD
 </section>
 <<<<<<< HEAD
 
@@ -277,23 +351,28 @@ SmartEduX Vision
 
       <div class="grid md:grid-cols-3 gap-10">
         <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+=======
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div class="p-6 sm:p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
           <h3 class="text-xl font-semibold mb-3">AI Summaries</h3>
-          <p class="opacity-90">Generate accurate summaries from long lecture videos instantly.</p>
+          <p class="opacity-90 text-sm sm:text-base">Generate accurate summaries from long lecture videos instantly.</p>
         </div>
 
-        <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
-  <h3 class="text-xl font-semibold mb-3">Certifications</h3>
-  <p class="opacity-90">Showcase your skills with recognized credentials.</p>
-</div>
+        <div class="p-6 sm:p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+          <h3 class="text-xl font-semibold mb-3">Certifications</h3>
+          <p class="opacity-90 text-sm sm:text-base">Showcase your skills with recognized credentials.</p>
+        </div>
 
-        <div class="p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
+        <div class="p-6 sm:p-8 bg-[#0b2149] text-white rounded-2xl shadow-xl hover:scale-105 transition">
           <h3 class="text-xl font-semibold mb-3">Organized Course Notes</h3>
-          <p class="opacity-90">All your summaries saved inside structured playlists.</p>
+          <p class="opacity-90 text-sm sm:text-base">All your summaries saved inside structured playlists.</p>
         </div>
       </div>
     </div>
   </section>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   <!-- Team Section -->
   <section class="max-w-6xl mx-auto px-6 py-20 text-center">
@@ -368,137 +447,79 @@ SmartEduX Vision
 =======
   <!-- OUR JOURNEY -->
 <section class="py-20 max-w-6xl mx-auto px-6">
+=======
+  <section class="py-12 md:py-20 max-w-6xl mx-auto px-4 sm:px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center text-[#0b2149] mb-10 md:mb-14">
+      Our Journey
+    </h2>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
-<h2 class="text-4xl font-bold text-center text-[#0b2149] mb-14">
-Our Journey
-</h2>
+    <div class="relative">
+      <div class="absolute left-1/2 top-0 h-full w-1 bg-blue-100 transform -translate-x-1/2 hidden md:block"></div>
 
-<div class="relative">
+      <div class="md:flex items-center mb-8 md:mb-12">
+        <div class="md:w-1/2 md:pr-12 text-left md:text-right">
+          <div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition">
+            <h3 class="font-bold text-[#0b2149] text-xl mb-2">Idea Started</h3>
+            <p class="text-gray-600 text-sm sm:text-base">We noticed students spend hours watching lectures and making notes manually.</p>
+          </div>
+        </div>
+        <div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white font-bold z-10 flex-shrink-0">1</div>
+        <div class="md:w-1/2"></div>
+      </div>
 
-<!-- vertical line -->
-<div class="absolute left-1/2 top-0 h-full w-1 bg-blue-100 transform -translate-x-1/2 hidden md:block"></div>
-
-<!-- Item 1 -->
-<div class="md:flex items-center mb-12">
-
-<div class="md:w-1/2 md:pr-12 text-right">
-<div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-2 transition">
-<h3 class="font-bold text-[#0b2149] text-xl mb-2">
-Idea Started
-</h3>
-<p class="text-gray-600">
-We noticed students spend hours watching lectures and making notes manually.
-</p>
-</div>
-</div>
-
-<div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white z-10">
-1
-</div>
-
-<div class="md:w-1/2"></div>
-
-</div>
-
-
-<!-- Item 2 -->
-<div class="md:flex items-center mb-12">
-
-<div class="md:w-1/2"></div>
-
-<div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white z-10">
-2
-</div>
-
-<div class="md:w-1/2 md:pl-12">
-<div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-2 transition">
-<h3 class="font-bold text-[#0b2149] text-xl mb-2">
-AI Integration
-</h3>
-
-<p class="text-gray-600">
-Smart AI technology was added to summarize videos and create notes automatically.
-</p>
-
-</div>
-</div>
-
-</div>
-
-
-<!-- Item 3 -->
-<div class="md:flex items-center">
-
-<div class="md:w-1/2 md:pr-12 text-right">
-
-<div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-2 transition">
-
-<h3 class="font-bold text-[#0b2149] text-xl mb-2">
-Future Vision
-</h3>
-
-<p class="text-gray-600">
-Building a smarter learning ecosystem with personalized AI tutors and adaptive learning.
-</p>
-
-</div>
-</div>
-
-<div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white z-10">
-3
-</div>
-
-<div class="md:w-1/2"></div>
-
-</div>
-
-</div>
-</section>
-
-  <!-- FOOTER -->
-<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Main Footer Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      
-      <!-- Column 1: Brand Info -->
-      <div class="text-center md:text-left space-y-4">
-        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
-        <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
-          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
-        </p>
-        <!-- Clean Text Links for Socials -->
-        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
-          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
-          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
-          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+      <div class="md:flex items-center mb-8 md:mb-12">
+        <div class="md:w-1/2"></div>
+        <div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white font-bold z-10 flex-shrink-0">2</div>
+        <div class="md:w-1/2 md:pl-12">
+          <div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition">
+            <h3 class="font-bold text-[#0b2149] text-xl mb-2">AI Integration</h3>
+            <p class="text-gray-600 text-sm sm:text-base">Smart AI technology was added to summarize videos and create notes automatically.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Column 2: Quick Links with Smooth Hover -->
-      <div class="text-center md:text-right">
-        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
-        <ul class="space-y-3 text-sm text-blue-200/80">
-          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
-          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
-          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
-          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
-        </ul>
+      <div class="md:flex items-center">
+        <div class="md:w-1/2 md:pr-12 text-left md:text-right">
+          <div class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition">
+            <h3 class="font-bold text-[#0b2149] text-xl mb-2">Future Vision</h3>
+            <p class="text-gray-600 text-sm sm:text-base">Building a smarter learning ecosystem with personalized AI tutors and adaptive learning.</p>
+          </div>
+        </div>
+        <div class="hidden md:flex w-12 h-12 bg-[#0b2149] rounded-full items-center justify-center text-white font-bold z-10 flex-shrink-0">3</div>
+        <div class="md:w-1/2"></div>
       </div>
-
     </div>
+  </section>
 
-    <!-- Bottom Copyright with Divider -->
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+  <footer id="contact" class="pt-12 md:pt-16 pb-10 bg-[#07122a] text-gray-300 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 pb-12">
+        <div class="text-center md:text-left space-y-4">
+          <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/80 max-w-sm mx-auto md:mx-0">
+            Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses.
+          </p>
+        </div>
+        <div class="text-center md:text-right">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+          <ul class="space-y-2.5 text-sm text-blue-200/80">
+            <li><a href="SmartEduX.html" class="hover:text-white">Home Dashboard</a></li>
+            <li><a href="courses.html" class="hover:text-white">Our Courses</a></li>
+            <li><a href="autonotes.html" class="hover:text-white">AutoNotes Studio</a></li>
+            <li><a href="about.html" class="hover:text-white">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p class="text-xs text-gray-500">© 2026 SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+      </div>
     </div>
-
-  </div>
-</footer>
+  </footer>
 
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
   <script>
+<<<<<<< HEAD
 document.getElementById("menu-toggle").addEventListener("click", () => {
   document.getElementById("mobile-menu").classList.toggle("hidden");
 });
@@ -515,5 +536,15 @@ once:true
 });
 </script>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 </body>
 </html>

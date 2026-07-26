@@ -159,7 +159,7 @@
         <option value="graphics">Graphics Designing</option>
         <option value="wordpress">WordPress Development</option>
         <option value="fiverr">Fiverr Freelancing</option>
-        <option value="infosec">Information Security</option>
+        <option value="security">Information Security</option>
       </select>
     </div>
   </div>
@@ -170,7 +170,7 @@
     <div class="lg:col-span-8 space-y-6">
       
       <!-- Interactive Video Player Container -->
-    
+      <!-- Yeh code iframe ki jagah lagana hai -->
 <div class="bg-black shadow-2xl rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center">
     <!-- Local Video Player -->
     <video id="local-video-player" class="absolute inset-0 w-full h-full object-contain hidden" controls>
@@ -189,7 +189,7 @@
             Overview & Details
           </button>
           <button onclick="switchPlayerTab('notes')" id="tab-notes" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
-            AI Smart Notes 
+            AI Smart Notes ⚡
           </button>
           <button onclick="switchPlayerTab('mcqs')" id="tab-mcqs" class="player-tab flex-1 py-4 text-center border-b-2 border-transparent transition hover:text-[#0b2149]">
             Instant MCQs
@@ -206,7 +206,7 @@
             <div class="pt-4 border-t flex flex-wrap gap-3 items-center justify-between">
               <span class="text-xs text-gray-500 font-semibold">Ready to draft summaries or practice recall?</span>
               <button onclick="switchPlayerTab('notes')" class="px-5 py-2.5 bg-blue-900 text-white hover:bg-blue-800 rounded-lg text-xs font-bold transition shadow-sm">
-                View AI Notes View
+                ⚡ View AI Notes View
               </button>
             </div>
           </div>
@@ -217,10 +217,10 @@
               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">Automatic AI Highlights</span>
               <div class="flex items-center gap-2">
                 <button onclick="generateAiNotes()" class="text-xs px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded-lg transition shadow-sm">
-                  Generate Notes
+                  ✨ Generate Notes
                 </button>
                 <button id="download-notes-btn" onclick="downloadLectureNotes()" class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-sm">
-                  Download Study Guide (.txt)
+                  📥 Download Study Guide (.txt)
                 </button>
               </div>
             </div>
@@ -234,7 +234,7 @@
             <div class="flex justify-between items-center border-b pb-2">
               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">Active Recall Assessment</span>
               <button onclick="generateAiMcqs()" class="text-xs px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded-lg transition shadow-sm">
-                 Generate MCQs
+                ✨ Generate MCQs
               </button>
             </div>
             <div class="space-y-6" id="lecture-mcq-container">
@@ -291,33 +291,9 @@
 </div>
 
 <!-- FOOTER -->
-<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      <div class="text-center md:text-left space-y-4">
-        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
-        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
-          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
-        </p>
-        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
-          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
-          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
-          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
-        </div>
-      </div>
-      <div class="text-center md:text-right">
-        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
-        <ul class="space-y-3 text-sm text-blue-200/80">
-          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
-          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
-          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
-          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
-    </div>
+<footer class="pt-12 pb-8 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/10 pt-8 text-center">
+    <p class="text-xs text-gray-500">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
   </div>
 </footer>
 
@@ -394,135 +370,28 @@ const playlistsData = {
       { type: "local", videoUrl: "videos/lesson15.mp4", title: "Lec 15: Scaling to Level 1 and Level 2 Seller", duration: "22m 00s", desc: "Meet and exceed platform metrics to unlock higher seller badges, better visibility, and higher earnings.", points: ["Maintain high order completion rates", "Keep response rates under 1 hour", "Deliver consistently high ratings"], mcqs: [{ q: "What metric is crucial for achieving Level status?", options: ["Order completion rate, rating, and on-time delivery", "Number of social media followers", "Age of your personal email"], ans: 0 }] }
     ]
   },
-   infosec: {
-            category: "Cybersecurity & IT",
-            title: "Information Security Course",
-            lectures: [
-                { 
-                    title: "Lec 1: Cryptanalysis Attack Part 1", 
-                    duration: "12m 45s", 
-                    videoId: "ZG4lLiIhpD8", // Apni YouTube Video ID yahan dalein
-                    desc: "Introduction to fundamental cryptanalysis concepts, analyzing vulnerabilities, and understanding ciphertext attack techniques.", 
-                    points: ["Cryptanalysis aims to decipher ciphertext without knowing the key", "Ciphertext-only attacks rely solely on intercepted data", "Statistical analysis helps identify recurring character patterns"], 
-                    mcqs: [{ q: "What is the primary objective of cryptanalysis?", options: ["To encrypt plain text securely", "To find weaknesses or break cryptographic systems", "To generate public keys automatically"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 2: Cryptanalysis Attack Part 2", 
-                    duration: "14m 10s", 
-                    videoId: "K2OMsTTEiTA", 
-                    desc: "Exploring advanced cryptanalysis methodologies including Known-Plaintext and Chosen-Plaintext attacks.", 
-                    points: ["Known-Plaintext attack utilizes paired matching samples", "Chosen-Plaintext allows attackers to encrypt selected plaintexts", "Differential cryptanalysis evaluates changes in input pairs"], 
-                    mcqs: [{ q: "In a Known-Plaintext attack, the attacker has access to:", options: ["Only the secret key", "Both the plaintext and its corresponding ciphertext", "Only the decryption algorithm code"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 3: Traditional Symmetric Part 1", 
-                    duration: "15m 30s", 
-                    videoId: "XbdkG12eGX8", 
-                    desc: "Understanding classic symmetric encryption models and substitution cipher techniques.", 
-                    points: ["Symmetric ciphers use a single shared secret key", "Substitution ciphers replace original characters with substitutes", "Monoalphabetic ciphers map characters systematically"], 
-                    mcqs: [{ q: "Symmetric encryption mechanisms rely on:", options: ["Two distinct public and private keys", "A single shared secret key for encryption and decryption", "No encryption key at all"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 4: Traditional Symmetric Part 2", 
-                    duration: "13m 50s", 
-                    videoId: "7yjPjOeffYA", 
-                    desc: "Mastering polyalphabetic ciphers, Vigenère ciphers, and classic structural algorithms.", 
-                    points: ["Polyalphabetic ciphers utilize multiple substitution alphabets", "Vigenère cipher improves security using keyword matching", "Frequency analysis is harder on polyalphabetic ciphers"], 
-                    mcqs: [{ q: "Why is a Vigenère cipher stronger than a simple Caesar cipher?", options: ["It uses multiple shift values based on a keyword", "It uses asymmetric key pairs", "It converts text into binary code"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 5: Keyless Transposition Cipher", 
-                    duration: "11m 20s", 
-                    videoId: "_X0mo_6fMRM", 
-                    desc: "Learn how plaintext character positions are permuted without using explicit secret keys.", 
-                    points: ["Rail Fence cipher rearranges characters diagonally across rows", "Keyless ciphers rely entirely on positional permutation algorithms", "Security depends on algorithm complexity rather than key length"], 
-                    mcqs: [{ q: "Rail Fence cipher is a classic example of:", options: ["Substitution cipher", "Keyless Transposition cipher", "Asymmetric algorithm"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 6: Keyed Transposition Cipher Part 1", 
-                    duration: "16m 15s", 
-                    videoId: "bRjQsxv5LSg", 
-                    desc: "Introduction to column-based transposition ciphers controlled by secret keys.", 
-                    points: ["Keyed transposition uses secret key lengths to set column counts", "Plaintext characters populate grids row by row", "Columns are reordered according to the key's alphabetical order"], 
-                    mcqs: [{ q: "What determines column order in a Keyed Transposition cipher?", options: ["The alphabetical order of the key characters", "Random system generation", "The size of the plaintext file"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 7: Keyed Transposition Cipher Part 2", 
-                    duration: "17m 40s", 
-                    videoId: "ok8wI-c5S60", 
-                    desc: "Analyzing grid operations, pad fillings, and security evaluations of single-stage keyed transpositions.", 
-                    points: ["Padding characters fill incomplete grid cells", "Security is enhanced with longer non-repeating key lengths", "Positional frequency shifts confuse eavesdroppers"], 
-                    mcqs: [{ q: "What is the purpose of padding in grid-based ciphers?", options: ["To hide the encryption key", "To complete empty cells in the final grid row", "To compress the ciphertext file size"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 8: Double Transposition Part 1", 
-                    duration: "18m 05s", 
-                    videoId: "bf_eNocyWaM", 
-                    desc: "Understanding multi-stage permutation and applying two sequential transposition cycles.", 
-                    points: ["Double transposition significantly increases cryptographic diffusion", "The output of the first transposition becomes the input for the second", "Two different keys can be used for extra resistance"], 
-          mcqs: [{ q: "Why is Double Transposition used?", options: ["To speed up transmission speeds", "To drastically increase cipher security through double permutation", "To generate digital signatures"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 9: Double Transposition Part 2", 
-                    duration: "15m 45s", 
-                    videoId: "xBnO3DEPrnU", 
-                    desc: "Practical execution of double-layer grid permutations and deciphering methodologies.", 
-                    points: ["Decryption requires reversing permutation steps in exact opposite order", "Vulnerable to multiple matched-length key cryptanalysis if reused", "Forms the structural basis for modern block cipher permutations"], 
-                    mcqs: [{ q: "How must Double Transposition be decrypted?", options: ["By applying keys in the exact reverse sequence", "By using a public key pair", "By running an automatic hash function"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 10: DES (Data Encryption Standard)", 
-                    duration: "20m 10s", 
-                    videoId: "ZeWVm82c68Y", 
-                    desc: "Detailed breakdown of the 64-bit DES block cipher, Feistel structure, and S-Box transformations.", 
-                    points: ["DES operates on 64-bit data blocks using a 56-bit key", "Uses 16 rounds of Feistel cipher transformations", "Substitution Boxes (S-Boxes) provide non-linear confusion"], 
-                    mcqs: [{ q: "What is the effective key length of standard DES?", options: ["128 bits", "64 bits", "56 bits"], ans: 2 }] 
-                },
-                { 
-                    title: "Lec 11: AES (Advanced Encryption Standard)", 
-                    duration: "22m 30s", 
-                    videoId: "gV7c7JhgLMY", 
-                    desc: "Mastering modern symmetric block encryption, Rijndael algorithm, SubBytes, ShiftRows, and MixColumns.", 
-                    points: ["AES processes 128-bit blocks using 128, 192, or 256-bit keys", "Non-Feistel architecture based on substitution-permutation networks", "Consists of 10, 12, or 14 processing rounds depending on key size"], 
-                    mcqs: [{ q: "How many rounds does AES-128 perform during encryption?", options: ["10 rounds", "12 rounds", "16 rounds"], ans: 0 }] 
-                },
-                { 
-                    title: "Lec 12: RSA Algorithm", 
-                    duration: "24m 15s", 
-                    videoId: "iF_y2D6htas", 
-                    desc: "Understanding Public Key Infrastructure (PKI), prime factorization, and asymmetric RSA calculations.", 
-                    points: ["RSA uses asymmetric keys: Public key for encryption, Private key for decryption", "Security relies on the mathematical difficulty of factoring large prime numbers", "Widely used for secure key exchanges and digital certificates"], 
-                    mcqs: [{ q: "What mathematical property makes the RSA algorithm secure?", options: ["Fast matrix multiplication", "Difficulty of factoring the product of two large prime numbers", "Linear byte shifting operations"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 13: Diffie-Hellman Key Exchange", 
-                    duration: "19m 50s", 
-                    videoId: "YYwad3qCi6g", 
-                    desc: "Explore how two parties can securely establish a shared secret key over an insecure channel.", 
-                    points: ["Diffie-Hellman is used for key agreement, not direct data encryption", "Relies on the discrete logarithm problem for security", "Vulnerable to Man-in-the-Middle (MITM) attacks if unauthenticated"], 
-                    mcqs: [{ q: "What is the primary function of Diffie-Hellman?", options: ["To encrypt large database files", "To securely exchange secret keys over insecure networks", "To compress network traffic"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 14: SHA Part 1 (Secure Hash Algorithm)", 
-                    duration: "16m 40s", 
-                    videoId: "yqnVgvXHb9M", 
-                    desc: "Introduction to cryptographic hash functions, message integrity, and collision-resistant properties.", 
-                    points: ["Hash functions generate fixed-size outputs from arbitrary input data", "Cryptographic hashes are strictly one-way (irreversible) functions", "Ensures data integrity across network transfers"], 
-                    mcqs: [{ q: "Cryptographic hash functions are designed to be:", options: ["Reversible using a private key", "One-way functions that cannot be converted back to plaintext", "Symmetric encryption algorithms"], ans: 1 }] 
-                },
-                { 
-                    title: "Lec 15: SHA Part 2 (SHA-256 & Applications)", 
-                    duration: "18m 20s", 
-                    videoId: "pZD2Mr2vfxg", 
-                    desc: "Deep dive into SHA-256 internal compression loops, digital signatures, and blockchain security integrations.", 
-                    points: ["SHA-256 outputs a unique 256-bit (32-byte) digest", "Minor input changes result in radically different hash outputs (Avalanche Effect)", "Essential for digital signatures, password hashing, and SSL certificates"], 
-                    mcqs: [{ q: "What happens when a single character in the input message of SHA-256 is altered?", options: ["The hash remains unchanged", "The output hash changes completely (Avalanche effect)", "The hash size doubles"], ans: 1 }] 
-                }
-            ]
-        }
+  security: {
+    category: "Cybersecurity & Defense",
+    title: "Information Security Course",
+    lectures: [
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/d5F6zS0q4V4", title: "Lesson 1: Introduction to Information Security", duration: "14m 00s", desc: "Understand the CIA triad (Confidentiality, Integrity, Availability) and core defensive principles.", points: ["Confidentiality protects data from unauthorized access", "Integrity ensures data remains unaltered", "Availability guarantees access when needed"], mcqs: [{ q: "What does the 'A' in the CIA triad stand for?", options: ["Authentication", "Availability", "Authorization"], ans: 1 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/un50Bs4BvZ8", title: "Lesson 2: Types of Cyber Threats and Attacks", duration: "16m 30s", desc: "Explore malware, phishing, denial of service (DoS), and social engineering vectors.", points: ["Malware includes viruses, trojans, and ransomware", "Phishing exploits human trust via deceptive communications", "DoS attacks overwhelm server resources"], mcqs: [{ q: "What is a Phishing attack?", options: ["Deceptive communication designed to steal credentials", "A physical break-in", "A hardware firewall failure"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/7K986e6Y5_M", title: "Lesson 3: Password Security and Authentication", duration: "15m 10s", desc: "Master hashing algorithms, salting, multi-factor authentication (MFA), and robust password policies.", points: ["Hashes are one-way cryptographic transformations", "Salting prevents rainbow table attacks", "MFA adds multiple verification layers"], mcqs: [{ q: "Why use 'salts' with password hashes?", options: ["To prevent rainbow table pre-computed dictionary attacks", "To make passwords shorter", "To encrypt emails"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/d5F6zS0q4V4", title: "Lesson 4: Network Security Fundamentals", duration: "18m 20s", desc: "Learn about packet filtering, firewalls, VPN tunnels, and secure subnet architectures.", points: ["Firewalls inspect incoming and outgoing traffic", "VPNs encrypt data across public networks", "Subnets isolate sensitive network zones"], mcqs: [{ q: "What is the primary purpose of a VPN?", options: ["To encrypt data traffic across insecure networks", "To speed up local downloads", "To replace web browsers"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/un50Bs4BvZ8", title: "Lesson 5: Cryptography and Data Protection", duration: "19m 00s", desc: "Study symmetric vs asymmetric encryption, public/private key pairs, and SSL/TLS protocols.", points: ["Symmetric encryption uses a single shared key", "Asymmetric encryption uses key pairs", "TLS secures web browser communications"], mcqs: [{ q: "Which encryption type uses both public and private keys?", options: ["Symmetric encryption", "Asymmetric encryption", "Plaintext hashing"], ans: 1 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/7K986e6Y5_M", title: "Lesson 6: Ethical Hacking and Cybersecurity Practices", duration: "21m 15s", desc: "Understand penetration testing methodologies, vulnerability assessments, and defensive hardening.", points: ["Penetration testing simulates real attacks legally", "Vulnerability scans identify known system flaws", "Hardening closes unnecessary ports and services"], mcqs: [{ q: "What is penetration testing?", options: ["Simulated authorized cyberattacks to find vulnerabilities", "Stealing corporate data illegally", "Installing operating systems"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/d5F6zS0q4V4", title: "Lesson 7: Malware and Ransomware", duration: "17m 40s", desc: "Analyze how ransomware infects endpoints, encrypts files, and how offline backups mitigate risks.", points: ["Ransomware locks files until payment is made", "Endpoint detection catches malicious payloads early", "Offline backups provide recovery paths"], mcqs: [{ q: "What is the best defense against ransomware encryption?", options: ["Regular offline backups", "Paying the ransom immediately", "Disabling all passwords"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/un50Bs4BvZ8", title: "Lesson 8: Firewalls and Intrusion Detection Systems", duration: "16m 50s", desc: "Deploy Stateful inspection firewalls, IDS, and IPS solutions to monitor network anomalies.", points: ["IDS alerts administrators to suspicious traffic", "IPS actively blocks malicious packets", "Stateful firewalls track active connection states"], mcqs: [{ q: "What differentiates an IPS from an IDS?", options: ["IPS actively blocks threats, while IDS only alerts", "IDS is hardware-only", "IPS cannot monitor networks"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/7K986e6Y5_M", title: "Lesson 9: Secure Web Browsing", duration: "14m 20s", desc: "Recognize malicious links, certificate warnings, cross-site scripting (XSS), and SQL injection defenses.", points: ["Always verify HTTPS certificates", "Sanitize user inputs to prevent XSS", "Use parameterized queries against SQLi"], mcqs: [{ q: "How do you prevent SQL injection vulnerabilities?", options: ["Using parameterized queries and input sanitization", "Using weaker passwords", "Disabling databases"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/d5F6zS0q4V4", title: "Lesson 10: Email and Phishing Security", duration: "15m 40s", desc: "Configure SPF, DKIM, and DMARC email authentication records to prevent spoofing.", points: ["SPF defines authorized sending servers", "DKIM adds cryptographic email signatures", "DMARC dictates handling policies for failures"], mcqs: [{ q: "What does DMARC help prevent?", options: ["Email spoofing and domain phishing", "Local hard drive failures", "Web browser crashes"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/un50Bs4BvZ8", title: "Lesson 11: Data Backup and Recovery", duration: "18m 10s", desc: "Implement 3-2-1 backup strategies, disaster recovery plans, and data integrity checks.", points: ["Keep 3 copies of data on 2 different media types with 1 offsite", "Test restoration procedures regularly", "Encrypt backup archives"], mcqs: [{ q: "What does the 3-2-1 backup rule require?", options: ["3 copies, 2 media types, 1 offsite copy", "3 passwords, 2 users, 1 server", "3 drives, 2 cables, 1 power source"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/7K986e6Y5_M", title: "Lesson 12: Cloud Security Basics", duration: "20m 00s", desc: "Understand shared responsibility models, IAM policies, and cloud storage bucket permissions.", points: ["Cloud providers secure infrastructure; clients secure data", "Use least-privilege IAM access rules", "Never expose storage buckets publicly"], mcqs: [{ q: "In the cloud shared responsibility model, who secures customer data?", options: ["The customer/client", "The cloud provider exclusively", "Internet service providers"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/d5F6zS0q4V4", title: "Lesson 13: Mobile Device Security", duration: "16m 15s", desc: "Secure mobile endpoints with MDM, biometric locks, remote wipe capabilities, and app permission audits.", points: ["Mobile Device Management secures enterprise fleets", "Enforce device encryption and screen locks", "Audit app permissions regularly"], mcqs: [{ q: "What is MDM used for?", options: ["Managing and securing enterprise mobile devices", "Designing mobile game graphics", "Boosting cellular signal strength"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/un50Bs4BvZ8", title: "Lesson 14: Cybersecurity Laws and Ethics", duration: "17m 50s", desc: "Explore regulatory frameworks like GDPR, HIPAA, and legal boundaries of security research.", points: ["GDPR protects European citizen data privacy", "HIPAA safeguards medical healthcare records", "Always obtain written authorization before testing"], mcqs: [{ q: "What is required before conducting security penetration testing?", options: ["Explicit written authorization and contract scope", "Permission from local police", "An anonymous forum post"], ans: 0 }] },
+      { type: "youtube", videoUrl: "https://www.youtube.com/embed/7K986e6Y5_M", title: "Lesson 15: Information Security Best Practices", duration: "21m 30s", desc: "Establish continuous security awareness training, patch management schedules, and zero-trust architectures.", points: ["Human employees are often the weakest security link", "Apply software patches promptly", "Zero Trust verifies every access request strictly"], mcqs: [{ q: "What does 'Zero Trust' architecture mandate?", options: ["Verifying every user and device explicitly before granting access", "Trusting all devices inside the local network", "Removing all passwords"], ans: 0 }] }
+    ]
+  }
 };
-
-  
   let currentCourseKey = "graphics";
   let currentLectureIndex = 0;
 
@@ -669,7 +538,6 @@ const playlistsData = {
 
     renderPlaylist(document.getElementById("lecture-search").value);
   }
-
   function prevLecture() {
     if (currentLectureIndex > 0) {
       loadLecture(currentLectureIndex - 1);

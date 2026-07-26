@@ -14,6 +14,7 @@
 
 <!-- SIDEBAR -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block flex-shrink-0">
   <h2 class="text-2xl font-bold mb-8">Student Desk</h2>
 
@@ -30,6 +31,17 @@
     <a href="courses html" class="block hover:text-gray-300">Courses</a>
     <a href="autonotes html" class="block hover:text-gray-300">AI Auto Notes</a>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+<aside id="sidebar" class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block fixed md:relative z-50">
+  <div class="flex justify-between items-center mb-8">
+    <h2 class="text-2xl font-bold">Student</h2>
+    <button onclick="toggleSidebar()" class="md:hidden text-white text-xl">✕</button>
+  </div>
+  <nav class="space-y-4">
+    <a href="student dashboard.html" class="block hover:text-gray-300">Home</a>
+    <a href="courses.html" class="block hover:text-gray-300">Courses</a>
+    <a href="autonotes.html" class="block hover:text-gray-300">AI Auto Notes</a>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
     <a href="assignments.html" class="block font-bold text-yellow-400">Assignments</a>
     <a href="saved notes.html" class="block hover:text-gray-300">Saved Notes</a>
     <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300">🔔 Notifications <span id="notifCountSidebar" class="ml-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span></a>
@@ -44,6 +56,7 @@
 
 <!-- MAIN -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div class="flex-1 overflow-x-hidden">
 
 <!-- NAVBAR -->
@@ -55,10 +68,16 @@
       <button onclick="toggleNotifications()" class="text-[#0b2149] text-xl focus:outline-none">🔔</button>
 =======
 <div class="flex-1">
+=======
+<div class="flex-1 w-full">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
 <!-- NAVBAR -->
 <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-  <h1 class="text-xl font-bold text-[#0b2149]">Assignments</h1>
+  <div class="flex items-center gap-3">
+    <button onclick="toggleSidebar()" class="md:hidden text-[#0b2149] text-2xl font-bold focus:outline-none">☰</button>
+    <h1 class="text-xl font-bold text-[#0b2149]">Assignments</h1>
+  </div>
 
   <div class="flex items-center gap-4">
     <div class="relative">
@@ -75,7 +94,7 @@
         <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</button>
 =======
       <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
-      <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+      <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40 z-50">
         <a href="student profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
         <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
@@ -124,44 +143,43 @@
         <h4 class="text-xl font-bold text-amber-600 mt-1" id="certification">1 Earned</h4>
 =======
     <h2 class="text-lg font-semibold text-[#0b2149]">Your Assignments</h2>
-    <p class="text-gray-600">Mark assignments complete to update your progress.</p>
+    <p class="text-gray-600">Upload your completed assignment files (PDF/Doc) to submit them to the backend.</p>
   </div>
 
   <!-- PROGRESS SECTION -->
-  <div class="bg-white p-6 rounded-xl shadow mt-6">
+  <div class="bg-white p-6 rounded-xl shadow">
     <h3 class="text-xl font-bold text-[#0b2149] mb-4">Your Progress</h3>
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-
       <div class="bg-gray-100 p-4 rounded-lg">
         <p class="text-sm text-gray-500">Courses</p>
         <h4 class="text-lg font-bold text-[#0b2149]" id="courseCount">3</h4>
       </div>
-
       <div class="bg-gray-100 p-4 rounded-lg">
         <p class="text-sm text-gray-500">Assignments</p>
         <h4 class="text-lg font-bold text-[#0b2149]" id="assignmentCount">3</h4>
       </div>
-
       <div class="bg-gray-100 p-4 rounded-lg">
         <p class="text-sm text-gray-500">GPA</p>
         <h4 class="text-lg font-bold text-[#0b2149]" id="gpa">3.8</h4>
       </div>
-
       <div class="bg-gray-100 p-4 rounded-lg">
         <p class="text-sm text-gray-500">Progress</p>
-        <h4 class="text-lg font-bold text-green-600" id="progressPercent">60%</h4>
+        <h4 class="text-lg font-bold text-green-600" id="progressPercent">0%</h4>
       </div>
-
       <div class="bg-gray-100 p-4 rounded-lg">
         <p class="text-sm text-gray-500">Certification</p>
+<<<<<<< HEAD
         <h4 class="text-lg font-bold text-yellow-600" id="certification">1 Earned</h4>
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+        <h4 class="text-lg font-bold text-yellow-600" id="certification">0 Earned</h4>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
       </div>
-
     </div>
   </div>
 
   <!-- ASSIGNMENTS TABLE -->
+<<<<<<< HEAD
 <<<<<<< HEAD
   <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
@@ -177,6 +195,9 @@
       <tbody id="assignmentsList" class="bg-white divide-y divide-gray-200 text-sm"></tbody>
 =======
   <div class="bg-white p-6 rounded-xl shadow mt-6">
+=======
+  <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-100">
         <tr>
@@ -184,7 +205,7 @@
           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Course</th>
           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Due Date</th>
           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Upload & Submit</th>
         </tr>
       </thead>
       <tbody id="assignmentsList" class="bg-white divide-y divide-gray-200"></tbody>
@@ -194,7 +215,10 @@
 
 </div>
 
+</div>
+
 <!-- NOTIFICATIONS PANEL -->
+<<<<<<< HEAD
 <<<<<<< HEAD
 <div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-2xl rounded-xl w-80 p-4 hidden border border-gray-100 z-40">
   <div class="flex justify-between items-center mb-3 pb-2 border-b">
@@ -209,28 +233,34 @@
 
 =======
 <div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
+=======
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden z-50">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
   <h3 class="font-semibold mb-3">Notifications</h3>
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 <script>
-// PROFILE DROPDOWN
-function toggleProfile() {
-  document.getElementById("profileMenu").classList.toggle("hidden");
+// SIDEBAR TOGGLE
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("hidden");
 }
 
-// LOGOUT
-function logout() {
-  window.location.href = "login.html";
+function toggleProfile() { 
+  document.getElementById("profileMenu").classList.toggle("hidden"); 
+}
+
+function logout() { 
+  window.location.href = "login.html"; 
 }
 
 // NOTIFICATIONS
 function toggleNotifications() {
-  const panel = document.getElementById("notificationPanel");
-  panel.classList.toggle("hidden");
+  document.getElementById("notificationPanel").classList.toggle("hidden");
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 let notifications = [
   "New assignment uploaded: UI Design Homework 📄",
@@ -253,10 +283,16 @@ localStorage.setItem("notifications", JSON.stringify(notifications));
 
 // LOAD NOTIFICATIONS
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+let notifications = ["New assignment uploaded 📄", "New course available 🎓"];
+localStorage.setItem("notifications", JSON.stringify(notifications));
+
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 function loadNotifications() {
   const data = JSON.parse(localStorage.getItem("notifications")) || [];
   const list = document.getElementById("notifList");
   list.innerHTML = "";
+<<<<<<< HEAD
   data.forEach(n => {
 <<<<<<< HEAD
     list.innerHTML += `<li class="p-2.5 bg-gray-50 rounded-lg text-gray-700 border border-gray-100">${n}</li>`;
@@ -265,6 +301,9 @@ function loadNotifications() {
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
   });
 
+=======
+  data.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
   document.getElementById("notifCount").innerText = data.length;
   document.getElementById("notifCountSidebar").innerText = data.length;
 }
@@ -315,7 +354,7 @@ function loadAssignments() {
           ${a.status === "Completed" ? '<span class="text-xs text-emerald-600 font-bold">✓ Submitted</span>' : `<button onclick="completeAssignment(${idx})" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition shadow-sm">Mark Complete</button>`}
 =======
 // ASSIGNMENTS DATA
-let assignments = [
+let assignments = JSON.parse(localStorage.getItem("assignmentsData")) || [
   { title: "UI Design Homework", course: "Graphic Designing", due: "2026-04-15", status: "Pending" },
   { title: "WordPress Project", course: "Wordpress Web Development", due: "2026-04-18", status: "Pending" },
   { title: "Freelancing Case Study", course: "Fiverr Freelancing", due: "2026-04-20", status: "Pending" }
@@ -326,9 +365,10 @@ function loadAssignments() {
   const tbody = document.getElementById("assignmentsList");
   tbody.innerHTML = "";
   assignments.forEach((a, idx) => {
-    let color = a.status === "Completed" ? "green-600" : a.status === "Pending" ? "yellow-600" : "red-600";
+    let color = a.status === "Submitted" ? "green-600" : "yellow-600";
     tbody.innerHTML += `
       <tr>
+<<<<<<< HEAD
         <td class="px-4 py-2">${a.title}</td>
         <td class="px-4 py-2">${a.course}</td>
         <td class="px-4 py-2">${a.due}</td>
@@ -336,12 +376,27 @@ function loadAssignments() {
         <td class="px-4 py-2">
           ${a.status === "Completed" ? '<span class="text-gray-500">Done</span>' : `<button onclick="completeAssignment(${idx})" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Complete</button>`}
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+        <td class="px-4 py-3 text-sm font-medium text-[#0b2149]">${a.title}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">${a.course}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">${a.due}</td>
+        <td class="px-4 py-3 text-sm font-semibold text-${color}">${a.status}</td>
+        <td class="px-4 py-3 text-sm">
+          ${a.status === "Submitted" 
+            ? '<span class="text-gray-500 font-medium">Submitted ✓</span>' 
+            : `<div class="flex items-center gap-2">
+                 <input type="file" id="file_${idx}" class="text-xs text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-[#0b2149] file:text-white hover:file:bg-blue-900"/>
+                 <button onclick="submitAssignment(${idx})" class="bg-green-600 text-white px-3 py-1 text-xs rounded hover:bg-green-700">Submit</button>
+               </div>`
+          }
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
         </td>
       </tr>
     `;
   });
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // COMPLETE ASSIGNMENT (Django API Integration)
 async function completeAssignment(index) {
@@ -366,17 +421,37 @@ function completeAssignment(index) {
   updateProgress();
   addNotification(`Assignment "${assignments[index].title}" marked as completed ✅`);
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+function submitAssignment(index) {
+  const fileInput = document.getElementById(`file_${index}`);
+  if (fileInput.files.length === 0) {
+    alert("Please select a file to upload before submitting!");
+    return;
+  }
+  
+  assignments[index].status = "Submitted";
+  localStorage.setItem("assignmentsData", JSON.stringify(assignments));
+  
+  loadAssignments();
+  updateProgress();
+  addNotification(`Assignment "${assignments[index].title}" submitted successfully 🚀`);
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 }
 
 // PROGRESS CALCULATION
 function updateProgress() {
   const total = assignments.length;
+<<<<<<< HEAD
   const completed = assignments.filter(a => a.status === "Completed").length;
 <<<<<<< HEAD
   const percent = total > 0 ? Math.round((completed/total)*100) : 0;
 =======
   const percent = Math.round((completed/total)*100);
 >>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
+=======
+  const completed = assignments.filter(a => a.status === "Submitted").length;
+  const percent = Math.round((completed / total) * 100);
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
   document.getElementById("progressPercent").innerText = percent + "%";
   document.getElementById("assignmentCount").innerText = total;

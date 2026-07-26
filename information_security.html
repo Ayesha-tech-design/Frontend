@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Information Security Course | SmartEduX</title>
     <script src="https://cdn.tailwindcss.com"></script>
+<<<<<<< HEAD
 </head>
 <body class="bg-gray-50 font-sans">
 
@@ -16,10 +17,35 @@
            id="signupBtn"
            class="px-4 py-2 bg-white text-[#0b2149] rounded font-medium hover:bg-gray-200 transition">
             Signup
+=======
+    <style>
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col w-full">
+
+<header class="shadow sticky top-0 z-50 bg-[#0b2149] w-full">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex justify-between items-center gap-2 w-full">
+        <a href="SmartEduX.html" class="text-xs sm:text-lg md:text-xl font-bold text-white tracking-tight sm:tracking-wide min-w-0 truncate">
+            Information Security
+        </a>
+
+        <a href="signup.html"
+           id="signupBtn"
+           class="px-2.5 py-1 sm:px-4 sm:py-2 bg-white text-[#0b2149] rounded font-semibold hover:bg-gray-200 transition text-[11px] sm:text-sm flex-shrink-0">
+           Signup
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
         </a>
     </div>
 </header>
 
+<<<<<<< HEAD
 <section class="bg-gradient-to-r from-blue-200 via-blue-100 to-white py-16 text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-[#0b2149] mb-4">
         Build Strong Cybersecurity Skills
@@ -66,10 +92,64 @@
             <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex justify-between items-center">
                 <span class="text-gray-700 font-medium">Lesson 5: Cryptography and Data Protection</span>
                 <a href="playlist.html?course=infosec&lec=4" onclick="checkAccess(event,4)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-sm">Watch</a>
+=======
+<section class="bg-gradient-to-r from-blue-200 via-blue-100 to-white py-8 sm:py-16 text-center px-4 w-full flex justify-center">
+    <div class="max-w-3xl w-full mx-auto flex flex-col items-center justify-center">
+        <h2 class="text-lg sm:text-3xl md:text-4xl font-bold text-[#0b2149] mb-3 leading-tight w-full">
+            Build Strong Information security Skills
+        </h2>
+
+        <p class="text-gray-600 mb-6 text-xs sm:text-base max-w-xl mx-auto">
+            Learn cybersecurity concepts and protect systems from digital threats!
+        </p>
+
+        <button onclick="startLearningClick(event)" class="px-5 py-2 sm:py-3 text-white bg-[#0b2149] rounded-lg cursor-pointer hover:bg-[#16356d] transition font-medium text-xs sm:text-base shadow">
+            Start Learning
+        </button>
+    </div>
+</section>
+
+<main class="max-w-4xl mx-auto my-6 sm:my-12 px-3 sm:px-6 flex-grow w-full">
+    
+    <h3 class="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-[#0b2149] text-center">
+        Course Outline
+    </h3>
+
+    <div class="mb-8 w-full">
+        <h4 class="text-xs sm:text-lg font-bold text-blue-800 mb-3 bg-blue-50 px-3 sm:px-4 py-2 rounded border-l-4 border-blue-600">
+            🟢 Basic Level (Introduction)
+        </h4>
+
+        <ul class="space-y-2.5 sm:space-y-3 w-full">
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 1: Cryptanalysis Attack Part 1</span>
+                <a href="../playlist.html?course=infosec&lec=0" onclick="checkAccess(event,0)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 2: Cryptanalysis Attack Part 2</span>
+                <a href="../playlist.html?course=infosec&lec=1" onclick="checkAccess(event,1)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 3: Traditional Symmetric Part 1</span>
+                <a href="../playlist.html?course=infosec&lec=2" onclick="checkAccess(event,2)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 4: Traditional Symmetric Part 2</span>
+                <a href="../playlist.html?course=infosec&lec=3" onclick="checkAccess(event,3)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 5: Keyless Transposition Cipher</span>
+                <a href="../playlist.html?course=infosec&lec=4" onclick="checkAccess(event,4)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
             </li>
         </ul>
     </div>
 
+<<<<<<< HEAD
     <!-- Intermediate Level -->
     <div class="mb-8">
         <h4 class="text-lg font-bold text-blue-800 mb-4 bg-blue-50 px-4 py-2 rounded border-l-4 border-blue-600">
@@ -96,10 +176,42 @@
             <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex justify-between items-center">
                 <span class="text-gray-700 font-medium">Lesson 10: Email and Phishing Security</span>
                 <a href="playlist.html?course=infosec&lec=9" onclick="checkAccess(event,9)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-sm">Watch</a>
+=======
+    <div class="mb-8 w-full">
+        <h4 class="text-xs sm:text-lg font-bold text-blue-800 mb-3 bg-blue-50 px-3 sm:px-4 py-2 rounded border-l-4 border-blue-600">
+            🟡 Intermediate Level (Core Skills)
+        </h4>
+
+        <ul class="space-y-2.5 sm:space-y-3 w-full">
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 6: Keyed Transposition Cipher Part 1</span>
+                <a href="../playlist.html?course=infosec&lec=5" onclick="checkAccess(event,5)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 7: Keyed Transposition Cipher Part 2</span>
+                <a href="../playlist.html?course=infosec&lec=6" onclick="checkAccess(event,6)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 8: Double Transposition Part 1</span>
+                <a href="../playlist.html?course=infosec&lec=7" onclick="checkAccess(event,7)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 9: Double Transposition Part 2</span>
+                <a href="../playlist.html?course=infosec&lec=8" onclick="checkAccess(event,8)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 10: DES</span>
+                <a href="../playlist.html?course=infosec&lec=9" onclick="checkAccess(event,9)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
             </li>
         </ul>
     </div>
 
+<<<<<<< HEAD
     <!-- Advanced Level -->
     <div class="mb-12">
         <h4 class="text-lg font-bold text-blue-800 mb-4 bg-blue-50 px-4 py-2 rounded border-l-4 border-blue-600">
@@ -126,22 +238,69 @@
             <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex justify-between items-center">
                 <span class="text-gray-700 font-medium">Lesson 15: Information Security Best Practices</span>
                 <a href="playlist.html?course=infosec&lec=14" onclick="checkAccess(event,14)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-sm">Watch</a>
+=======
+    <div class="mb-8 w-full">
+        <h4 class="text-xs sm:text-lg font-bold text-blue-800 mb-3 bg-blue-50 px-3 sm:px-4 py-2 rounded border-l-4 border-blue-600">
+            🔴 Advanced Level (Professional Projects)
+        </h4>
+
+        <ul class="space-y-2.5 sm:space-y-3 w-full">
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 11: AES</span>
+                <a href="../playlist.html?course=infosec&lec=10" onclick="checkAccess(event,10)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 12: RSA</span>
+                <a href="../playlist.html?course=infosec&lec=11" onclick="checkAccess(event,11)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 13: Diffie-Hellman</span>
+                <a href="../playlist.html?course=infosec&lec=12" onclick="checkAccess(event,12)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 14: SHA Part 1</span>
+                <a href="../playlist.html?course=infosec&lec=13" onclick="checkAccess(event,13)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+            </li>
+
+            <li class="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 hover:bg-blue-50 transition flex items-center justify-between gap-2 w-full">
+                <span class="text-gray-700 font-medium text-xs sm:text-base">Lesson 15: SHA Part 2</span>
+                <a href="../playlist.html?course=infosec&lec=14" onclick="checkAccess(event,14)" class="text-white bg-[#0b2149] px-3 sm:px-4 py-1.5 rounded text-xs sm:text-sm hover:bg-[#16356d] flex-shrink-0">Watch</a>
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
             </li>
         </ul>
     </div>
 
+<<<<<<< HEAD
     <div class="bg-yellow-50 border-2 border-dashed border-yellow-400 rounded-xl p-6 text-center shadow-md">
         <h4 class="text-xl font-bold text-gray-800 mb-2">🎓 Course Graduation</h4>
         <p class="text-gray-600 mb-4 text-sm">
+=======
+    <div class="bg-yellow-50 border-2 border-dashed border-yellow-400 rounded-xl p-5 sm:p-8 text-center shadow-md w-full">
+        <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-2">
+            🎓 Course Graduation
+        </h4>
+
+        <p class="text-gray-600 mb-5 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
             You can only unlock the final quiz after watching all 15 lectures.
             Achieving a minimum score of <strong>90% marks</strong> is mandatory
             to download your digital certificate.
         </p>
+<<<<<<< HEAD
         <button onclick="attemptFinalQuiz()" class="bg-yellow-500 text-[#0b2149] font-bold px-8 py-3 rounded-lg shadow hover:bg-yellow-400 transition">
+=======
+
+        <button onclick="attemptFinalQuiz()"
+                class="w-full sm:w-auto bg-yellow-500 text-[#0b2149] font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg shadow hover:bg-yellow-400 transition text-xs sm:text-base">
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
             📝 Attempt Final Quiz
         </button>
     </div>
 
+<<<<<<< HEAD
 </section>
 
 <!-- CENTRAL CONNECTION BRIDGE -->
@@ -174,18 +333,36 @@
             console.log("Information Security course running in guest/offline mode.");
         }
     });
+=======
+</main>
+
+<footer class="bg-[#07122a] text-gray-400 py-6 text-center text-xs mt-auto px-4 w-full">
+    <p>© 2026 SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+</footer>
+
+<script>
+    let isSignedUp = true; 
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
 
     function startLearningClick(event) {
         event.preventDefault();
         if (isSignedUp) {
+<<<<<<< HEAD
             window.location.href = "playlist.html?course=infosec&lec=0";
         } else {
             alert("Kindly signup first to start your learning journey!");
             window.location.href = "signup.html";
+=======
+            window.location.href = "../playlist.html?course=infosec&lec=0";
+        } else {
+            alert("Kindly signup first to start your learning journey!");
+            window.location.href = "../signup.html";
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
         }
     }
 
     function checkAccess(event, lectureIndex) {
+<<<<<<< HEAD
         if (!isSignedUp) {
             event.preventDefault();
             alert("Kindly signup first to access this lecture!");
@@ -204,6 +381,15 @@
         } else {
             alert("Best of luck! Final quiz opening. Remember, 90% is required for your Digital Certificate!");
             window.location.href = "playlist.html?course=infosec&action=quiz";
+=======
+        event.preventDefault(); 
+        
+        if (!isSignedUp) {
+            alert("Kindly signup first to access this lecture!");
+            window.location.href = "../signup.html";
+        } else {
+            window.location.href = "../playlist.html?course=infosec&lec=" + lectureIndex;
+>>>>>>> 7cb56f9f74baa2a1141492cd9990f470a27d3963
         }
     }
 </script>
