@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Certificates Feature | SmartEduX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0b2149; }
+        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .nav-link { transition: color 0.2s ease; }
+        .nav-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="SmartEduX.html" class="text-2xl font-extrabold text-[#0b2149]">SmartEduX</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 nav-link">Home</a>
+                    <a href="Courses.html" class="text-sm font-medium text-gray-700 nav-link">Courses</a>
+                    <a href="Autonotes.html" class="text-sm font-medium text-gray-700 nav-link">AutoNotes</a>
+                    <a href="contact.html" class="text-sm font-medium text-gray-700 nav-link">Contact Us</a>
+                </div>
+                <div>
+                    <a href="certificates.html" class="bg-[#0b2149] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#16356d] transition shadow-md">
+                        View Credentials
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER / HERO SECTION -->
+    <header class="bg-[#07122a] text-white py-16 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-400/30">
+                Digital Credentialing
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-bold mt-4 mb-4">Verified Certificates</h1>
+            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+                Unlock verifiable digital credentials upon course completion to showcase your academic achievements and technical skills to employers.
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SECTION -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        
+        <!-- Left & Center: Details, Working & Importance (2 Columns) -->
+        <div class="lg:col-span-2 space-y-10">
+            
+            <!-- What are Verified Certificates -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-4">What is Verified Certificates?</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    The Verified Certificates module on SmartEduX validates a student's dedication and mastery over specific courses and AI modules. Every certificate generated is uniquely coded, secure, and easily shareable across professional networks like LinkedIn.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg">Secure ID</h3>
+                        <p class="text-xs text-gray-600 mt-1">Unique verification hash prevents forgery or duplication.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg">One-Click</h3>
+                        <p class="text-xs text-gray-600 mt-1">Instant export to PDF and direct sharing options.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-6">How It Works</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Course Completion</h3>
+                            <p class="text-sm text-gray-600">Finish all module requirements, assignments, and evaluations embedded within your SmartEduX course.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Automated Generation</h3>
+                            <p class="text-sm text-gray-600">The system automatically compiles your name, course title, completion date, and a unique tracking ID onto an official layout.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Showcase & Verify</h3>
+                            <p class="text-sm text-gray-600">Download the high-resolution badge or allow employers to verify authenticity directly using your portal link.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Crucial for Students -->
+            <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-[#0b2149] mb-4">Why is it Beneficial for Students?</h2>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Enhances resume profile strength with verifiable skill credentials.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Boosts confidence and provides tangible proof of academic accomplishments.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-green-600 font-bold">✓</span> Simplifies sharing achievements directly onto professional platforms like LinkedIn.
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- Right Sidebar: Demo Media & Quick Actions (1 Column) -->
+        <div class="space-y-8">
+            
+            <!-- Visual Demo Section (Screenshot / Preview) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-[#0b2149] mb-3">Certificate Preview</h3>
+                <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
+                    <img src="certificate.png" alt="Certificate UI Preview" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">Sample Certificate</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3 text-center">Clean corporate layout embedded with security seals and signatures.</p>
+            </div>
+
+            <!-- Quick Action Box -->
+            <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
+                <h3 class="text-xl font-bold">Earn Your Credential</h3>
+                <p class="text-xs text-blue-200">Enroll in SmartEduX courses today and earn verified digital badges.</p>
+                <a href="certificates.html" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
+                    View My Certificates
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      
+      <!-- Column 1: Brand Info -->
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <!-- Clean Text Icons for Socials -->
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links with Smooth Hover -->
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
