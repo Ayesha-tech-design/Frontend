@@ -5,6 +5,7 @@
 
 const AUTH_API_URL = "http://127.0.0.1:8000/api/auth/login/";
 
+<<<<<<< HEAD
 document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
     // Intercept default submission to prevent page reloads
     event.preventDefault();
@@ -19,6 +20,18 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
 
     try {
         // Asynchronous HTTP POST dispatch to Django API
+=======
+document.getElementById("loginForm").addEventListener("submit", async (event) => {
+    // Intercept default submission to prevent synchronous page reloads
+    event.preventDefault();
+
+    // Query active state values from DOM input streams
+    const emailPayload = document.getElementById("emailInput").value;
+    const passwordPayload = document.getElementById("password").value;
+
+    try {
+        // Dispatch asynchronous HTTP POST dispatch to verification sequence
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
         const networkResponse = await fetch(AUTH_API_URL, {
             method: "POST",
             headers: {
@@ -32,6 +45,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
 
         const responseData = await networkResponse.json();
 
+<<<<<<< HEAD
         if (networkResponse.ok) {
             // Commit SimpleJWT access tokens into client session memory
             localStorage.setItem("authToken", responseData.access || responseData.token);
@@ -78,5 +92,21 @@ document.getElementById("loginForm")?.addEventListener("submit", async (event) =
         } else {
             window.location.href = "student dashboard.html";
         }
+=======
+        // Evaluate server infrastructure execution flags
+        if (networkResponse.ok) {
+            // Commit SimpleJWT access token into client session local memory
+            localStorage.setItem("authToken", responseData.access); // access token save kiya
+            localStorage.setItem("refreshToken", responseData.refresh); // safety ke liye refresh token bhi save kiya
+            
+            alert("Authentication Verified successfully. Redirecting to user platform...");
+            window.location.href = "AutoNotes.html"; // Redirect path updated to your actual workspace!
+        } else {
+            alert("Authentication Rejected: " + (responseData.error || "Invalid user footprint."));
+        }
+    } catch (networkFault) {
+        console.error("Pipeline failure during remote server initialization:", networkFault);
+        alert("Server unreachable. Please verify network interfaces or active host systems.");
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     }
 });

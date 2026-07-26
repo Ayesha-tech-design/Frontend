@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SmartEduX — Sign Up</title>
+<<<<<<< HEAD
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -66,6 +67,10 @@
       50%{transform:translateY(-20px);}
     }
   
+=======
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     :root{
       --primary: #0b2149; 
       --accent: #f59e0b;
@@ -80,6 +85,7 @@
     }
 
     /* NAV */
+<<<<<<< HEAD
     nav a { transition: color .18s ease; }
     nav a:hover { color: var(--primary) !important; }
 
@@ -115,33 +121,142 @@
 <body class="bg-white text-gray-800">
 
    <!-- HEADER -->
+=======
+    nav a { 
+      transition: color .18s ease; 
+    }
+
+    nav a:not(.nav-btn):hover { 
+      color: var(--primary) !important; 
+    }
+
+    /* Logo Sizing */
+    .logo-mark {
+      width: 115px;
+      height: 115px;
+    }
+    nav span.text-xl,
+    nav span.text-2xl {
+      font-size: 1rem !important;
+    }
+
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
+      .logo-text{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: #0b2149;
+        line-height: 1;
+      }
+    }
+    .input-style {
+      width: 100%;
+      padding: .9rem 1rem;
+      border-radius: .75rem;
+      border: 2px solid #e5e7eb;
+      transition: .3s;
+      outline: none;
+    }
+    .input-style:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(11,33,73,.15); }
+    
+    /* ROLE CARDS */
+    .role-card {
+      border: 2px solid var(--primary);
+      border-radius: .75rem;
+      padding: 1rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: .35s;
+      color: var(--primary);
+      background: white;
+    }
+    input[type="radio"]:checked + .role-card {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(11,33,73,.3);
+    }
+
+    /* BUBBLES - UPDATED SPEED & QUANTITY */
+    .ball {
+      position: absolute;
+      border-radius: 9999px;
+      background: rgba(255,255,255,.15);
+      animation: float linear infinite alternate;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      100% { transform: translateY(-40px) translateX(20px); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- HEADER -->
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
   <nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
+<<<<<<< HEAD
         <div class="flex items-center gap-2 md:gap-3">
           <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
             <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
             <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
+=======
+        <div class="flex items-center gap-0">
+          <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+            <img 
+              src="Futuristic tech logo design.png" 
+              alt="SmartEduX Logo" 
+              class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+            >
+            <span class="logo-text text-[26px] md:text-[32px]">
+              SmartEduX
+            </span>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
           </a>
         </div>
 
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+<<<<<<< HEAD
           <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
           <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
            <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+=======
+          <a href="Courses.html" class="text-sm font-bold text-blue-600 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+          <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
           <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
           <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
           
           <div class="relative w-48">
+<<<<<<< HEAD
             <input type="text" placeholder="Search features, courses..." class="search-input">
+=======
+            <input type="text" placeholder="Search features, courses..." class="w-full bg-gray-50 border border-gray-200 rounded-md py-1.5 px-3 text-xs focus:ring-1 focus:ring-[#0b2149] focus:border-[#0b2149] outline-none">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
           </div>
         </div>
 
         <div class="hidden md:flex items-center gap-3 ml-4">
+<<<<<<< HEAD
           <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
           <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
+=======
+          <a href="login.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50 hover:text-[var(--primary)] transition duration-200">
+            Login
+          </a>
+          <a href="signup.html" class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] hover:text-white transition duration-200 shadow-md">
+            Signup
+          </a>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
         </div>
 
         <div class="xl:hidden flex items-center">
@@ -153,6 +268,7 @@
 
       <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
         <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+<<<<<<< HEAD
           
           <div class="py-2">
             <input type="text" placeholder="Search features, courses..." class="search-input">
@@ -162,6 +278,15 @@
           <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
           <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
          <a href="features.html"  class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+=======
+          <div class="py-2">
+            <input type="text" placeholder="Search features, courses..." class="w-full bg-gray-50 border border-gray-200 rounded-md py-2 px-3 text-sm focus:ring-1 focus:ring-[#0b2149] focus:border-[#0b2149] outline-none">
+          </div>
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+          <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
           <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
           <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
           <div class="grid grid-cols-2 gap-3 mt-4 px-1">
@@ -173,6 +298,7 @@
     </div>
   </nav>
 
+<<<<<<< HEAD
 
 
 <!-- MAIN -->
@@ -195,10 +321,31 @@
       <span class="ball ball-4"></span>
       <span class="ball ball-5"></span>
       <span class="ball ball-6"></span>
+=======
+<main class="min-h-screen flex items-center justify-center p-6">
+  <div class="max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2">
+
+    <!-- LEFT PANEL (CENTERED & UPDATED BUBBLES) -->
+    <div class="hidden md:flex relative bg-[#07122a] text-white p-10 overflow-hidden flex-col justify-center items-center text-center">
+      <div class="z-10">
+        <h2 class="text-3xl font-bold mb-3">Welcome to SmartEduX</h2>
+        <p class="text-gray-300 text-sm">Create your account and start AI-powered learning.</p>
+      </div>
+      <!-- 8 Random Bubbles with fast animation -->
+      <span class="ball" style="width:100px;height:100px;top:10%;left:10%;animation-duration:2.5s;"></span>
+      <span class="ball" style="width:60px;height:60px;top:70%;left:20%;animation-duration:3s;"></span>
+      <span class="ball" style="width:40px;height:40px;top:20%;left:70%;animation-duration:2s;"></span>
+      <span class="ball" style="width:80px;height:80px;top:50%;left:60%;animation-duration:3.5s;"></span>
+      <span class="ball" style="width:30px;height:30px;top:80%;left:50%;animation-duration:2.8s;"></span>
+      <span class="ball" style="width:50px;height:50px;top:15%;left:80%;animation-duration:2.2s;"></span>
+      <span class="ball" style="width:70px;height:70px;top:40%;left:5%;animation-duration:3.2s;"></span>
+      <span class="ball" style="width:90px;height:90px;top:60%;left:85%;animation-duration:2.7s;"></span>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     </div>
 
     <!-- FORM -->
     <div class="p-8 sm:p-10">
+<<<<<<< HEAD
 
       <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
         Create Account
@@ -243,19 +390,45 @@
           </label>
           <label>
             <input type="radio" name="role" id="teacherRole" value="teacher" hidden>
+=======
+      <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-6">Create Account</h1>
+      
+      <form id="signupForm" class="space-y-5">
+        <input class="input-style" placeholder="First Name" required>
+        <input class="input-style" placeholder="Last Name" required>
+        <input type="email" class="input-style" placeholder="Email Address" required>
+        <input id="password" type="password" placeholder="Password" class="input-style" required>
+        <input id="confirm" type="password" placeholder="Confirm Password" class="input-style" required>
+
+        <!-- ROLE SELECTION -->
+        <div class="grid grid-cols-2 gap-4">
+          <label>
+            <input type="radio" name="role" value="student" hidden checked>
+            <div class="role-card">🎓 Student</div>
+          </label>
+          <label>
+            <input type="radio" name="role" value="teacher" hidden>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
             <div class="role-card">👨‍🏫 Teacher</div>
           </label>
         </div>
 
+<<<<<<< HEAD
         <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:-translate-y-1 transition shadow-lg">
           Create Account
         </button>
 
+=======
+        <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#16356d] transition shadow-lg">
+          Create Account
+        </button>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
       </form>
     </div>
   </div>
 </main>
 
+<<<<<<< HEAD
 <!-- FOOTER -->
 <!-- FOOTER -->
   <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
@@ -387,9 +560,90 @@
       console.error("Error:", err);
       errorBox.textContent = "⚠️ Server connection error. Make sure Django is running.";
       errorBox.classList.remove("hidden");
+=======
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      
+      <!-- Column 1: Brand Info -->
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <!-- Clean Text Icons for Socials -->
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links with Smooth Hover -->
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  // Mobile Menu Toggle Script Added
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if(menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", function() {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+
+  // Footer year auto-update
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Signup form submission logic
+  document.getElementById("signupForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    
+    // Check which role is selected
+    const role = document.querySelector('input[name="role"]:checked').value;
+    const pass = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+
+    // Password Match Validation
+    if(pass !== confirm) {
+        alert("⚠️ Password and Confirm Password do not match!");
+        return;
+    }
+
+    // Role-based redirection
+    if(role === "teacher") {
+        window.location.href = "teacher info.html";
+    } else if(role === "student") {
+        window.location.href = "student dashboard.html";
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     }
   });
 </script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI MCQ Generator | SmartEduX</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --primary:#0b2149;
+        }
+
+        body{
+            font-family:'Roboto',sans-serif;
+            background:#f8fafc;
+            color:#0f172a;
+        }
+
+        .nav-link{
+            transition:0.3s;
+        }
+
+        .nav-link:hover{
+            color:var(--primary);
+        }
+
+        .logo-mark {
+          width: 115px;
+          height: 115px;
+          margin-right: -18px;
+        }
+
+        @media (min-width: 768px) {
+          .logo-mark {
+            width: 125px;
+            height: 125px;
+          }
+        }
+
+        .logo-text{
+          font-family: 'Roboto', sans-serif;
+          font-weight: 800;
+          letter-spacing: -1px;
+          color: #0b2149;
+          line-height: 1;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-0">
+              <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+                <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain mr-[-40px]" onerror="this.style.display='none'">
+                <span class="logo-text text-[22px] sm:text-[26px] md:text-[32px]">SmartEduX</span>
+              </a>
+            </div>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 nav-link">Home</a>
+                <a href="Courses.html" class="text-sm font-medium text-gray-700 nav-link">Courses</a>
+                <a href="Autonotes.html" class="text-sm font-medium text-gray-700 nav-link">AutoNotes</a>
+                <a href="MCQs.html" class="text-sm font-bold text-[#0b2149]">MCQ Generator</a>
+                <a href="contact.html" class="text-sm font-medium text-gray-700 nav-link">Contact Us</a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button (Right Side) -->
+            <div class="md:hidden flex items-center">
+              <button id="menuBtn" class="text-gray-700 hover:text-[#0b2149] focus:outline-none p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-2 shadow-md">
+        <a href="SmartEduX.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Home</a>
+        <a href="Courses.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Courses</a>
+        <a href="Autonotes.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">AutoNotes</a>
+        <a href="MCQs.html" class="block px-3 py-2 rounded-md text-base font-bold text-[#0b2149] bg-blue-50/50">MCQ Generator</a>
+        <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Contact Us</a>
+    </div>
+</nav>
+
+<header class="bg-[#07122a] text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+        <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-400/30 inline-block">
+            AI Assessment Tool
+        </span>
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-bold mt-4 mb-4 leading-tight">
+            AI MCQ Generator
+        </h1>
+        <p class="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Generate intelligent Multiple Choice Questions automatically from your lecture videos, AI notes and study material to test your knowledge and improve exam preparation.
+        </p>
+    </div>
+</header>
+
+<main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+
+    <div class="lg:col-span-2 space-y-8">
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                What is AI MCQ Generator?
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-4">
+                AI MCQ Generator is an intelligent assessment feature of SmartEduX.
+                It automatically creates high-quality Multiple Choice Questions from
+                lecture videos, AI-generated notes, PDFs and learning materials.
+            </p>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                Students no longer need to prepare quizzes manually because the
+                system instantly generates practice questions after completing
+                a lecture.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 rounded-xl">
+                    <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">100+</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-1">AI-generated questions in seconds.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-xl">
+                    <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">95%</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-1">Accuracy in generating topic-based quizzes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-6">
+                How MCQ Generator Works
+            </h2>
+            <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">Complete Your Lecture</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Watch your SmartEduX lecture or generate AI notes.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">AI Generates Questions</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">SmartEduX AI reads important concepts and automatically creates Multiple Choice Questions with four options.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-base sm:text-lg text-gray-800">Solve & Evaluate</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Attempt the generated quiz instantly and receive your score with correct answers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                Why Should Students Use It?
+            </h2>
+            <ul class="space-y-3 text-gray-600 text-sm sm:text-base">
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Instantly create quizzes from any lecture.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Improve exam preparation with unlimited practice.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Identify weak concepts before examinations.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Save time by eliminating manual question creation.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-green-600 font-bold">✓</span>
+                    <span>Increase confidence through AI-powered assessments.</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="space-y-8">
+
+        <!-- Updated MCQ Generator Preview Block -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 class="text-lg font-bold text-[#0b2149] mb-3">MCQ Generator Preview</h3>
+            <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
+                <img src="https://www.paradigmshift.com.pk/wp-content/uploads/2026/07/MCQS-Zone-768x432.webp" class="w-full h-full object-cover" alt="AI MCQ Assessment">
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
+                        Interactive Quiz Engine
+                    </span>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-3 text-center">
+                Test your expertise with dynamic multi-option questions generated instantly by SmartEduX AI.
+            </p>
+        </div>
+
+        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-[#0b2149] mb-5">Features</h3>
+            <div class="space-y-4">
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Unlimited Practice</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">Generate fresh quizzes every time.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Instant Evaluation</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">Get your score immediately after submission.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-blue-700 text-lg">✔</span>
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Smart Difficulty</h4>
+                        <p class="text-xs sm:text-sm text-gray-600">AI creates Easy, Medium and Hard questions automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile Menu Toggle Script
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
+</body>
+</html>

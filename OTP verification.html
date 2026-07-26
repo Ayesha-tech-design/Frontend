@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP | SmartEduX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --primary: #0b2149; }
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            transition: .3s ease;
+        }
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(11, 33, 73, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-2xl shadow-xl p-8 sm:p-10 max-w-md w-full text-center">
+        
+        <!-- Icon -->
+        <div class="w-16 h-16 bg-blue-50 text-[#0b2149] rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 2.99m-2.865 8.24c.48.243.96.48 1.44.717M12 11c0-2.21-.894-4.21-2.343-5.657M12 11c0 2.21.894 4.21 2.343 5.657" />
+            </svg>
+        </div>
+
+        <h1 class="text-2xl font-bold text-[#0b2149] mb-2">Verify OTP</h1>
+        <p class="text-gray-500 text-sm mb-8">
+            Enter the 6-digit code we sent to your email address to verify your identity.
+        </p>
+
+        <!-- OTP Inputs -->
+        <form class="space-y-8">
+            <div class="flex justify-center gap-2">
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+            </div>
+
+            <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#16356d] transition duration-200">
+                Verify Code
+            </button>
+        </form>
+
+        <!-- Resend Section -->
+        <div class="mt-6 text-sm text-gray-600">
+            Didn't receive the code? 
+            <a href="#" class="text-[#0b2149] font-bold hover:underline">Resend OTP</a>
+        </div>
+    </div>
+
+</body>
+</html>

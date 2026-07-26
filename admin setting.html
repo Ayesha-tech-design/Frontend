@@ -17,35 +17,55 @@
 
 <!-- HEADER -->
 <header class="bg-[#0b2149] text-white p-4 flex justify-between items-center">
+<<<<<<< HEAD
   <h1 class="text-xl font-bold">System Settings</h1>
   <button onclick="window.location.href='admin dashboard.html'"
     class="bg-white text-[#0b2149] px-4 py-2 rounded font-semibold text-sm hover:bg-gray-100 transition">
     ← Dashboard
   </button>
+=======
+  <h1 class="text-xl font-bold">Settings</h1>
+  <button onclick="window.location.href='admin dashboard.html'"
+    class="bg-white text-[#0b2149] px-4 py-2 rounded">Dashboard</button>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 </header>
 
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
 <!-- PROFILE -->
 <div class="bg-white p-6 rounded-xl shadow">
+<<<<<<< HEAD
   <h2 class="font-semibold text-[#0b2149] mb-4">Profile Overview</h2>
+=======
+  <h2 class="font-semibold text-[#0b2149] mb-4">Profile</h2>
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 
   <div class="flex flex-col md:flex-row gap-6 items-center">
 
     <!-- IMAGE -->
     <div class="text-center">
+<<<<<<< HEAD
       <img id="profilePreview" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
         class="w-28 h-28 rounded-full object-cover border mb-3">
 
       <input type="file" id="profileImage" accept="image/*" class="hidden">
       <button onclick="document.getElementById('profileImage').click()"
         class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm hover:bg-[#162e5c] transition">
+=======
+      <img id="profilePreview" src="https://via.placeholder.com/120"
+        class="w-28 h-28 rounded-full object-cover border mb-3">
+
+      <input type="file" id="profileImage" class="hidden">
+      <button onclick="document.getElementById('profileImage').click()"
+        class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
         Upload Image
       </button>
     </div>
 
     <!-- INFO -->
     <div class="grid md:grid-cols-2 gap-4 w-full">
+<<<<<<< HEAD
       <div>
         <label class="block text-xs text-gray-500 font-semibold mb-1">Full Name</label>
         <input id="name" placeholder="Full Name" value="System Administrator" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
@@ -54,6 +74,10 @@
         <label class="block text-xs text-gray-500 font-semibold mb-1">Email Address</label>
         <input id="email" type="email" placeholder="Email" value="admin@smartedux.edu" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
       </div>
+=======
+      <input id="name" placeholder="Full Name" class="p-3 border rounded">
+      <input id="email" placeholder="Email" class="p-3 border rounded">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     </div>
 
   </div>
@@ -64,9 +88,15 @@
   <h2 class="font-semibold text-[#0b2149] mb-4">Change Password</h2>
 
   <div class="grid md:grid-cols-3 gap-4">
+<<<<<<< HEAD
     <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
     <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
     <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+=======
+    <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded">
+    <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded">
+    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
   </div>
 
   <p id="passMsg" class="text-sm mt-2"></p>
@@ -74,6 +104,7 @@
 
 <!-- NOTIFICATIONS -->
 <div class="bg-white p-6 rounded-xl shadow">
+<<<<<<< HEAD
   <h2 class="font-semibold text-[#0b2149] mb-4">Notification Preferences</h2>
 
   <div class="space-y-3 text-sm">
@@ -90,14 +121,37 @@
     <label class="flex justify-between items-center cursor-pointer">
       <span>Course Alerts</span>
       <input type="checkbox" id="courseNotif" checked class="w-4 h-4 text-[#0b2149]">
+=======
+  <h2 class="font-semibold text-[#0b2149] mb-4">Notifications</h2>
+
+  <div class="space-y-3">
+    <label class="flex justify-between">
+      Email Notifications
+      <input type="checkbox" id="emailNotif">
+    </label>
+
+    <label class="flex justify-between">
+      Push Notifications
+      <input type="checkbox" id="pushNotif">
+    </label>
+
+    <label class="flex justify-between">
+      Course Alerts
+      <input type="checkbox" id="courseNotif">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     </label>
   </div>
 </div>
 
 <!-- SAVE -->
 <div class="text-right">
+<<<<<<< HEAD
   <button id="saveBtn" onclick="saveSettings()"
     class="bg-[#0b2149] text-white px-6 py-3 rounded font-semibold hover:bg-[#162e5c] transition shadow-lg">
+=======
+  <button onclick="saveSettings()"
+    class="bg-[#0b2149] text-white px-6 py-3 rounded">
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     Save Changes
   </button>
 </div>
@@ -112,11 +166,19 @@ window.onload = function () {
   const data = JSON.parse(localStorage.getItem("settings"));
 
   if(data){
+<<<<<<< HEAD
     if(data.name) document.getElementById("name").value = data.name;
     if(data.email) document.getElementById("email").value = data.email;
     document.getElementById("emailNotif").checked = data.emailNotif !== undefined ? data.emailNotif : true;
     document.getElementById("pushNotif").checked = data.pushNotif !== undefined ? data.pushNotif : true;
     document.getElementById("courseNotif").checked = data.courseNotif !== undefined ? data.courseNotif : true;
+=======
+    document.getElementById("name").value = data.name || "";
+    document.getElementById("email").value = data.email || "";
+    document.getElementById("emailNotif").checked = data.emailNotif;
+    document.getElementById("pushNotif").checked = data.pushNotif;
+    document.getElementById("courseNotif").checked = data.courseNotif;
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 
     if(data.image){
       document.getElementById("profilePreview").src = data.image;
@@ -124,7 +186,11 @@ window.onload = function () {
   }
 };
 
+<<<<<<< HEAD
 // IMAGE UPLOAD PREVIEW
+=======
+// IMAGE UPLOAD
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 document.getElementById("profileImage").addEventListener("change", function(){
   const file = this.files[0];
   const reader = new FileReader();
@@ -138,11 +204,15 @@ document.getElementById("profileImage").addEventListener("change", function(){
 
 // PASSWORD VALIDATION
 function validatePassword(){
+<<<<<<< HEAD
   const currentPass = document.getElementById("currentPass").value;
+=======
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
   const newPass = document.getElementById("newPass").value;
   const confirmPass = document.getElementById("confirmPass").value;
   const msg = document.getElementById("passMsg");
 
+<<<<<<< HEAD
   // If user hasn't typed anything in password fields, skip validation
   if(!currentPass && !newPass && !confirmPass) {
     msg.innerText = "";
@@ -152,10 +222,16 @@ function validatePassword(){
   if(newPass.length < 6){
     msg.innerText = "⚠️ New password must be at least 6 characters.";
     msg.className = "text-red-500 font-medium text-sm mt-2";
+=======
+  if(newPass.length < 6){
+    msg.innerText = "Password must be at least 6 characters";
+    msg.className = "text-red-500";
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     return false;
   }
 
   if(newPass !== confirmPass){
+<<<<<<< HEAD
     msg.innerText = "⚠️ New passwords do not match.";
     msg.className = "text-red-500 font-medium text-sm mt-2";
     return false;
@@ -180,12 +256,33 @@ async function saveSettings(){
     email: document.getElementById("email").value.trim(),
     currentPass: document.getElementById("currentPass").value,
     newPass: document.getElementById("newPass").value,
+=======
+    msg.innerText = "Passwords do not match";
+    msg.className = "text-red-500";
+    return false;
+  }
+
+  msg.innerText = "Password is valid";
+  msg.className = "text-green-600";
+  return true;
+}
+
+// SAVE SETTINGS
+function saveSettings(){
+
+  if(!validatePassword()) return;
+
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
     emailNotif: document.getElementById("emailNotif").checked,
     pushNotif: document.getElementById("pushNotif").checked,
     courseNotif: document.getElementById("courseNotif").checked,
     image: document.getElementById("profilePreview").src
   };
 
+<<<<<<< HEAD
   // Save in LocalStorage as fallback
   localStorage.setItem("settings", JSON.stringify(payload));
 
@@ -229,6 +326,11 @@ function getCookie(name) {
     }
   }
   return cookieValue;
+=======
+  localStorage.setItem("settings", JSON.stringify(data));
+
+  alert("Settings saved successfully!");
+>>>>>>> 5b864f1a6b22b9816dd0e80b351de25590149633
 }
 
 </script>

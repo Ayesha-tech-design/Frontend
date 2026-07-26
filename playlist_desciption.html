@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Playlist | SmartEduX</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0b2149;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .nav-link {
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <a href="SmartEduX.html" class="text-2xl font-bold text-[#0b2149] whitespace-nowrap">
+                    SmartEduX
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-6 font-medium">
+                    <a href="SmartEduX.html" class="text-gray-700 hover:text-[#0b2149] transition">Home</a>
+                    <a href="Courses.html" class="text-gray-700 hover:text-[#0b2149] transition">Courses</a>
+                    <a href="Autonotes.html" class="text-gray-700 hover:text-[#0b2149] transition">AutoNotes</a>
+                    <a href="MCQ.html" class="text-gray-700 hover:text-[#0b2149] transition">MCQ Generator</a>
+                    <a href="PlaylistDescription.html" class="text-gray-700 hover:text-[#0b2149] transition">Playlist</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-[#0b2149] transition">Contact Us</a>
+                </div>
+
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="hidden lg:inline-block bg-[#0b2149] text-white px-5 py-2 rounded-xl hover:bg-[#16356d] transition font-medium">
+                    Launch Tool
+                </a>
+
+                <button id="menu-btn" class="lg:hidden text-2xl text-[#0b2149] focus:outline-none p-2" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden lg:hidden flex-col bg-white px-2 pt-2 pb-6 border-t border-gray-100 space-y-2">
+                <a href="SmartEduX.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Home</a>
+                <a href="Courses.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Courses</a>
+                <a href="Autonotes.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">AutoNotes</a>
+                <a href="MCQ.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">MCQ Generator</a>
+                <a href="PlaylistDescription.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Playlist</a>
+                <a href="contact.html" class="block py-2 px-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-[#0b2149]">Contact Us</a>
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="block w-full bg-[#0b2149] text-white py-2.5 rounded-xl text-center font-medium mt-2 hover:bg-[#16356d] transition">
+                    Launch Tool
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-[#07122a] text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4">
+            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-400/30 inline-block">
+                AI Learning Tool
+            </span>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-bold mt-4 mb-4 leading-tight">
+                Smart Study Playlist
+            </h1>
+            <p class="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                SmartEduX Learning Playlist provides an organized collection of course lectures,
+                allowing students to watch videos in sequence, track progress, and enjoy a
+                structured learning experience from beginning to completion.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+
+        <div class="lg:col-span-2 space-y-8">
+            
+            <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                    What is AI Learning Playlist?
+                </h2>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-4">
+                    AI Learning Playlist is an intelligent feature of SmartEduX that
+                    organizes every course into a structured collection of video
+                    lectures. Instead of searching for lessons manually, students
+                    can simply follow the playlist and complete each lecture in the
+                    correct sequence.
+                </p>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                    The playlist keeps your learning organized, saves your progress,
+                    and works together with AI Notes, MCQ Generator, Quizzes and
+                    Certificates to provide a complete smart learning experience.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">100%</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Structured learning experience.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-[#0b2149] text-lg sm:text-xl">24/7</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 mt-1">Access lectures anytime from anywhere.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-6">
+                    How Learning Playlist Works
+                </h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-base sm:text-lg text-gray-800">Select Your Course</h3>
+                            <p class="text-xs sm:text-sm text-gray-600 mt-1">Choose your enrolled course from SmartEduX.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-base sm:text-lg text-gray-800">Watch Every Lecture</h3>
+                            <p class="text-xs sm:text-sm text-gray-600 mt-1">Learn each topic in order without skipping important concepts.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0b2149] text-white flex items-center justify-center font-bold flex-shrink-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-base sm:text-lg text-gray-800">Continue Smart Learning</h3>
+                            <p class="text-xs sm:text-sm text-gray-600 mt-1">Generate AI Notes, solve MCQs, attempt quizzes and complete your course successfully.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
+                    Why Use Learning Playlist?
+                </h2>
+                <ul class="space-y-3 text-gray-600 text-sm sm:text-base">
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 font-bold">✓</span>
+                        <span>Watch lectures in the correct sequence.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 font-bold">✓</span>
+                        <span>Track your learning progress automatically.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 font-bold">✓</span>
+                        <span>Continue learning from where you stopped.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 font-bold">✓</span>
+                        <span>Easy access to every lecture.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 font-bold">✓</span>
+                        <span>Integrated with AI Notes, MCQs and Final Quiz.</span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="space-y-8">
+            
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Playlist Preview</h3>
+                <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
+                    <!-- Updated Image representing online video playlist interface -->
+                    <img src="https://cdn.dribbble.com/userupload/22170012/file/original-bc739d10145368492bf6ffefe6b67f4d.png?resize=752x&vertical=center" alt="Playlist Preview" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
+                            Playlist Preview
+                        </span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3 text-center">
+                    Preview of the SmartEduX Learning Playlist interface where students can watch lectures in sequence.
+                </p>
+            </div>
+
+            <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
+                <h3 class="text-xl font-bold">Start Learning</h3>
+                <p class="text-xs text-blue-200">
+                    Open your SmartEduX Playlist and continue learning from your last watched lecture.
+                </p>
+                <a href="#" onclick="checkAuthAndRedirect(event)" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
+                    Launch Tool
+                </a>
+            </div>
+
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-[#0b2149] mb-5">Features</h3>
+                <div class="space-y-4">
+                    <div class="flex gap-3">
+                        <span class="text-blue-700 text-lg">✔</span>
+                        <div>
+                            <h4 class="font-semibold text-sm sm:text-base">Organized Lectures</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">Watch videos in the correct order.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="text-blue-700 text-lg">✔</span>
+                        <div>
+                            <h4 class="font-semibold text-sm sm:text-base">Progress Tracking</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">Resume learning from where you stopped.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="text-blue-700 text-lg">✔</span>
+                        <div>
+                            <h4 class="font-semibold text-sm sm:text-base">AI Integrated</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">Connected with AutoNotes, MCQ Generator and Final Quiz.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="text-blue-700 text-lg">✔</span>
+                        <div>
+                            <h4 class="font-semibold text-sm sm:text-base">Learn Anytime</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">Access your course videos 24/7 from anywhere.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+      <div class="text-center md:text-left space-y-4">
+        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start gap-4 text-xs font-semibold text-blue-300/60">
+          <a href="#" class="hover:text-blue-400 transition-colors">Facebook</a> • 
+          <a href="#" class="hover:text-sky-400 transition-colors">Twitter</a> • 
+          <a href="#" class="hover:text-blue-500 transition-colors">LinkedIn</a>
+        </div>
+      </div>
+      <div class="text-center md:text-right">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+            mobileMenu.classList.toggle("flex");
+        });
+
+        // Function to check if user is signed up/logged in before opening playlist page
+        function checkAuthAndRedirect(event) {
+            event.preventDefault();
+            
+            // Check session / signup status from localStorage (Change key name if needed based on your signup page setup)
+            const isLoggedIn = localStorage.getItem("isLoggedIn"); 
+
+            if (isLoggedIn === "true") {
+                // If signed in, redirect to the actual playlist tool page
+                window.location.href = "playlist.html";
+            } else {
+                // If not signed in, show warning and redirect to signup/login page
+                alert("⚠️ Access Denied!\n\nPlease sign up or log in first to access the SmartEduX Learning Playlist.");
+                window.location.href = "signup.html"; // Aap yahan apne signup ya login page ka naam de sakte hain
+            }
+        }
+    </script>
+</body>
+</html>
