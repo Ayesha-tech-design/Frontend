@@ -78,17 +78,30 @@
 <!-- JS -->
 <script src="connection.js"></script>
 <script>
-const users = [
-  { name: "Ali Khan", email: "ali@gmail.com", role: "Student", status: "Active" },
-  { name: "Sara Ahmed", email: "sara@gmail.com", role: "Teacher", status: "Active" },
-  { name: "Usman Tariq", email: "usman@gmail.com", role: "Student", status: "Inactive" },
-  { name: "Hina Malik", email: "hina@gmail.com", role: "Teacher", status: "Active" },
-  { name: "Admin User", email: "admin@smartedux.com", role: "Admin", status: "Active" }
-];
+let users = [];
 
 const table = document.getElementById("userTable");
 const searchInput = document.getElementById("searchInput");
 const roleFilter = document.getElementById("roleFilter");
+
+// 1. Backend se users fetch karne ka function
+async function fetchUsers() {
+  try {
+    // Apne backend ka endpoint yahan dein jahan se users ki list milti hai
+    const data = await apiRequest("/users/", "GET"); 
+    if (data) {
+      users = data; // Backend se aane wala data array yahan save ho jayega
+      renderUsers();
+    }
+  } catch (err) {
+    console.error("Failed to load users from backend", err);
+    table.innerHTML = `
+      <tr>
+        <td colspan="5" class="p-6 text-center text-red-500 italic">Failed to load users from server.</td>
+      </tr>
+    `;
+  }
+}
 
 function renderUsers() {
   if (!table) return;
@@ -139,7 +152,6 @@ function renderUsers() {
 }
 
 function viewUser(email) {
-  // Placeholder function for user action view
   alert(`Viewing details for user: ${email}`);
 }
 
@@ -147,8 +159,8 @@ function viewUser(email) {
 if (searchInput) searchInput.addEventListener("input", renderUsers);
 if (roleFilter) roleFilter.addEventListener("change", renderUsers);
 
-// INIT
-renderUsers();
+// INIT - Page load hote hi backend se data fetch hoga
+fetchUsers();
 </script>
 
 </body>

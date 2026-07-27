@@ -122,16 +122,11 @@ async function loadTeacherCoursesPage() {
   document.getElementById("notifCount").innerText = notifications.length;
   document.getElementById("notifCountNav").innerText = notifications.length;
 
-  // 2. Load Courses from Backend
-  let courses = [
-    { id: 1, name: "Graphic Designing", students: 25, status: "Active" },
-    { id: 2, name: "Wordpress Web Dev", students: 40, status: "Active" },
-    { id: 3, name: "Fiverr Freelancing", students: 30, status: "Inactive" },
-    { id: 4, name: "JavaScript Advanced", students: 20, status: "Active" }
-  ];
-
+  // 2. Load Courses strictly from Database Backend
   const courseResponse = await apiRequest("/teacher/courses/", "GET");
-  if (courseResponse && Array.isArray(courseResponse) && courseResponse.length > 0) {
+  let courses = [];
+  
+  if (courseResponse && Array.isArray(courseResponse)) {
     courses = courseResponse;
   }
 

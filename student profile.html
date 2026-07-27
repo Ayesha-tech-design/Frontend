@@ -63,16 +63,15 @@
     <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Profile Information</h3>
 
     <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input class="border p-3 rounded" placeholder="Full Name">
-      <input class="border p-3 rounded" placeholder="Email Address">
-      <input class="border p-3 rounded" placeholder="Registration Number">
-      <input class="border p-3 rounded" placeholder="Department">
+  <input type="text" id="fullNameInput" class="border p-3 rounded" placeholder="Full Name">
+  <input type="email" id="emailInput" class="border p-3 rounded" placeholder="Email Address">
+  <input type="text" id="regNoInput" class="border p-3 rounded" placeholder="Registration Number">
+  <input type="text" id="deptInput" class="border p-3 rounded" placeholder="Department">
 
-      <button
-        class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
-        Update Profile
-      </button>
-    </form>
+  <button type="submit" class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
+    Update Profile
+  </button>
+</form>
   </div>
 
   <!-- SECURITY SECTION -->
@@ -117,63 +116,66 @@ function changeImage(event) {
     const result = reader.result;
     document.getElementById('profileImg').src = result;
     document.getElementById('navProfileImg').src = result;
-    
-    // Optional: Agar aap image ko direct backend par base64 ya multipart bhejwana chahein
-    // updateProfileImage(file);
   };
   reader.readAsDataURL(file);
 }
 
-// 2. Fetch Student Profile Data on Page Load
 async function loadStudentProfile() {
-  const data = await apiRequest("/student/profile/", "GET");
-  if (data) {
-    // Header & Profile Card Display
-    if (data.full_name || data.name) {
-      document.getElementById("studentName").innerText = data.full_name || data.name;
-    }
-    if (data.email) {
-      document.getElementById("studentEmail").innerText = data.email;
-    }
-    if (data.profile_image) {
-      document.getElementById("profileImg").src = data.profile_image;
-      document.getElementById("navProfileImg").src = data.profile_image;
+  try {
+    const data = await apiRequest("/student/profile/", "GET");
+    
+    // Fallback values agar backend se data na mile
+    const profileData = data || {
+      full_name: "Ayesha Waris",
+      email: "ayeshawaris44@gmail.com",
+      registration_number: "",
+      department: ""
+    };
+
+    // UI elements update karna
+    document.getElementById("studentName").innerText = profileData.full_name || "Ayesha Waris";
+    document.getElementById("studentEmail").innerText = profileData.email || "ayeshawaris44@gmail.com";
+
+    if (profileData.profile_image) {
+      document.getElementById("profileImg").src = profileData.profile_image;
+      document.getElementById("navProfileImg").src = profileData.profile_image;
     }
 
-    // Form Fields Populate
-    const inputs = document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow.mb-10 input");
-    if (inputs.length >= 4) {
-      inputs[0].value = data.full_name || data.name || "";
-      inputs[1].value = data.email || "";
-      inputs[2].value = data.registration_number || data.reg_no || "";
-      inputs[3].value = data.department || "";
-    }
+    // Input fields mein values set karna
+    document.getElementById("fullNameInput").value = profileData.full_name || "Ayesha Waris";
+    document.getElementById("emailInput").value = profileData.email || "ayeshawaris44@gmail.com";
+    document.getElementById("regNoInput").value = profileData.registration_number || "";
+    document.getElementById("deptInput").value = profileData.department || "";
+
+  } catch (error) {
+    console.error("Profile load error:", error);
+    // Error ki surat mein default values fill kar dein taake fields khali na rahein
+    document.getElementById("fullNameInput").value = "Ayesha Waris";
+    document.getElementById("emailInput").value = "ayeshawaris44@gmail.com";
   }
 }
-
 // 3. Update Profile Form Submission
 document.querySelector(".bg-white.rounded-2xl.p-8.shadow.mb-10 form").addEventListener("submit", async function(e) {
   e.preventDefault();
-  const inputs = this.querySelectorAll("input");
   
   const payload = {
-    full_name: inputs[0].value.trim(),
-    email: inputs[1].value.trim(),
-    registration_number: inputs[2].value.trim(),
-    department: inputs[3].value.trim()
+    full_name: document.getElementById("fullNameInput").value.trim(),
+    email: document.getElementById("emailInput").value.trim(),
+    registration_number: document.getElementById("regNoInput").value.trim(),
+    department: document.getElementById("deptInput").value.trim()
   };
 
-  const response = await apiRequest("/student/profile/update/", "PUT", payload);
-  if (response && (response.success || response.message)) {
+  const response = await apiRequest("/student/profile/", "PUT", payload);
+  if (response) {
     alert("Profile updated successfully!");
     loadStudentProfile();
   } else {
-    alert("Failed to update profile: " + (response?.detail || response?.message || "Please check your inputs."));
+    alert("Failed to update profile. Please check your inputs.");
   }
 });
 
 // 4. Change Password Form Submission
-document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow")[2].querySelector("form").addEventListener("submit", async function(e) {
+document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow")[1].querySelector("form").addEventListener("submit", async function(e) {
   e.preventDefault();
   const passInputs = this.querySelectorAll("input[type='password']");
   

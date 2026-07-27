@@ -130,8 +130,7 @@
                 <label class="font-semibold">First Name</label>
                 <input
                 type="text"
-                value="Noor"
-                readonly
+                id="firstName"
                 class="w-full mt-2 p-3 border rounded-lg bg-gray-100">
             </div>
 
@@ -140,8 +139,7 @@
                 <label class="font-semibold">Last Name</label>
                 <input
                 type="text"
-                value="Iman"
-                readonly
+                id="lastName"
                 class="w-full mt-2 p-3 border rounded-lg bg-gray-100">
             </div>
 
@@ -150,8 +148,7 @@
                 <label class="font-semibold">Email</label>
                 <input
                 type="email"
-                value="teacher@email.com"
-                readonly
+                id="email"
                 class="w-full mt-2 p-3 border rounded-lg bg-gray-100">
             </div>
 
@@ -160,6 +157,7 @@
                 <label class="font-semibold">Role</label>
                 <input
                 type="text"
+                id="role"
                 value="Teacher"
                 readonly
                 class="w-full mt-2 p-3 border rounded-lg bg-gray-100">
@@ -312,72 +310,42 @@
 
 <script src="connection.js"></script>
 <script>
-  // Auto Update Year in Footer
-  const yearEl = document.getElementById('year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  document.addEventListener("DOMContentLoaded", async function() {
+    const data = await apiRequest("/user-profile/", "GET");
+    if (data) {
+      if (data.first_name) document.getElementById('firstName').value = data.first_name;
+      if (data.last_name) document.getElementById('lastName').value = data.last_name;
+      if (data.email) document.getElementById('email').value = data.email;
+      if (data.role) document.getElementById('role').value = data.role;
+    }
+  });
 
-  // Mobile Menu Toggle Logic
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
   const menuBtn = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  
   if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-    
-    // Close mobile menu when any link inside it is clicked
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
     mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-      });
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
     });
   }
 
-  // Teacher Profile Form Validation & Submission Logic
   const teacherForm = document.getElementById("teacherForm");
   if (teacherForm) {
     teacherForm.addEventListener("submit", function(e) {
       e.preventDefault();
+      const inputs = teacherForm.querySelectorAll("input, textarea");
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.value.trim() && !input.readOnly) isValid = false;
+      });
 
-      // 1. Fetching input values using placeholders matching the HTML structure
-      const phoneInput = document.querySelector('input[placeholder="Enter phone number"]');
-      const qualInput = document.querySelector('input[placeholder="MPhil Computer Science"]');
-      const specInput = document.querySelector('input[placeholder="Web Development"]');
-      const expInput = document.querySelector('input[placeholder="Years"]');
-      const instInput = document.querySelector('input[placeholder="University Name"]');
-      const addrInput = document.querySelector('input[placeholder="Enter Address"]');
-      const bioInput = document.querySelector('textarea[placeholder="Write short professional bio..."]');
-
-      const phone = phoneInput ? phoneInput.value.trim() : "";
-      const qualification = qualInput ? qualInput.value.trim() : "";
-      const specialization = specInput ? specInput.value.trim() : "";
-      const experience = expInput ? expInput.value.trim() : "";
-      const institution = instInput ? instInput.value.trim() : "";
-      const address = addrInput ? addrInput.value.trim() : "";
-      const bio = bioInput ? bioInput.value.trim() : "";
-
-      // 2. Strict validation check for empty fields
-      if (!phone || !qualification || !specialization || !experience || !institution || !address || !bio) {
+      if (!isValid) {
         alert("⚠️ Please fill all the required fields.");
         return; 
       }
-
-      // 3. Store details or send via API request
-      const teacherProfileData = {
-        phone,
-        qualification,
-        specialization,
-        experience,
-        institution,
-        address,
-        bio
-      };
-
-      localStorage.setItem("teacher_pending_profile", JSON.stringify(teacherProfileData));
-
-      // 4. Redirect to pending approval page once valid
       window.location.href = "pending approval.html";
     });
   }
