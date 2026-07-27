@@ -13,8 +13,11 @@
 <body class="bg-gray-100 font-sans flex">
 
 <!-- SIDEBAR -->
-<aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block">
-  <h2 class="text-2xl font-bold mb-8">Student</h2>
+<aside id="sidebar" class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block fixed md:relative z-50">
+  <div class="flex justify-between items-center mb-8">
+    <h2 class="text-2xl font-bold">Student</h2>
+    <button onclick="toggleSidebar()" class="md:hidden text-white text-xl">✕</button>
+  </div>
   <nav class="space-y-4">
     <a href="student dashboard.html" class="block hover:text-gray-300">Home</a>
     <a href="courses.html" class="block hover:text-gray-300">Courses</a>
@@ -28,11 +31,15 @@
 </aside>
 
 <!-- MAIN -->
-<div class="flex-1">
+<div class="flex-1 w-full">
 
 <!-- NAVBAR -->
 <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-  <h1 class="text-xl font-bold text-[#0b2149]">Saved Notes</h1>
+  <div class="flex items-center gap-3">
+    <!-- HAMBURGER BUTTON FOR MOBILE -->
+    <button onclick="toggleSidebar()" class="md:hidden text-[#0b2149] text-2xl font-bold focus:outline-none">☰</button>
+    <h1 class="text-xl font-bold text-[#0b2149]">Saved Notes</h1>
+  </div>
 
   <div class="flex items-center gap-4">
     <div class="relative">
@@ -42,7 +49,7 @@
 
     <div class="relative">
       <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
-      <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+      <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40 z-50">
         <a href="student profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
         <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
       </div>
@@ -75,13 +82,21 @@
 
 </div>
 
+</div>
+
 <!-- NOTIFICATIONS PANEL -->
-<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden z-50">
   <h3 class="font-semibold mb-3">Notifications</h3>
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
 <script>
+// SIDEBAR TOGGLE FOR MOBILE
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("hidden");
+}
+
 // PROFILE DROPDOWN
 function toggleProfile() { document.getElementById("profileMenu").classList.toggle("hidden"); }
 function logout() { window.location.href = "login.html"; }
@@ -106,9 +121,9 @@ loadNotifications();
 
 // SAVED NOTES DATA
 let savedNotes = [
-  { title: "AI Notes on JS", date: "2026-04-06", content: "Notes about JS async functions and DOM..." },
-  { title: "Fiverr Course Notes", date: "2026-03-30", content: "Important points from Fiverr Freelancing course..." },
-  { title: "Graphic Design Notes", date: "2026-04-01", content: "Photoshop and Illustrator key techniques..." }
+  { title: "Graphic Designing - Lecture 1: UI Layout Basics", date: "2026-04-06", content: "Key points on wireframing, grid systems, and spacing in UI layout design." },
+  { title: "Wordpress Web Development - Lecture 2: Theme Customization", date: "2026-04-01", content: "Steps to configure custom themes, plugins setup, and page builders." },
+  { title: "Fiverr Freelancing - Lecture 3: Gig Optimization", date: "2026-03-30", content: "SEO optimization for gig titles, tags description, and winning client proposals." }
 ];
 localStorage.setItem("savedNotes", JSON.stringify(savedNotes));
 
@@ -131,16 +146,16 @@ function renderNotes(filter = "", sortBy = "newest") {
 
   notes.forEach((n, idx) => {
     list.innerHTML += `
-      <li class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-start">
+      <li class="bg-gray-100 p-4 rounded-lg shadow flex flex-col sm:flex-row justify-between items-start gap-4">
         <div>
           <h4 class="font-bold text-[#0b2149]">${n.title}</h4>
           <p class="text-gray-600 text-sm mb-2">${n.date}</p>
           <p class="text-gray-700">${n.content.substring(0, 60)}...</p>
         </div>
-        <div class="flex flex-col gap-2">
-          <button onclick="viewNote(${idx})" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">View</button>
-          <button onclick="downloadNote(${idx})" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Download</button>
-          <button onclick="deleteNote(${idx})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+        <div class="flex sm:flex-col gap-2 w-full sm:w-auto">
+          <button onclick="viewNote(${idx})" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 flex-1 sm:flex-none">View</button>
+          <button onclick="downloadNote(${idx})" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 flex-1 sm:flex-none">Download</button>
+          <button onclick="deleteNote(${idx})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 flex-1 sm:flex-none">Delete</button>
         </div>
       </li>
     `;
@@ -157,7 +172,7 @@ function downloadNote(index) {
   const blob = new Blob([notes[index].content], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = notes[index].title.replace(/\s/g, "_") + ".txt";
+  a.download = notes[index].title.replace(/[\s:]/g, "_") + ".txt";
   a.click();
   URL.revokeObjectURL(a.href);
 }
@@ -174,6 +189,7 @@ function deleteNote(index) {
 document.getElementById("searchInput").addEventListener("input", e => {
   renderNotes(e.target.value, document.getElementById("sortSelect").value);
 });
+document.getElementById("sortStr") // handled via sortSelect
 document.getElementById("sortSelect").addEventListener("change", e => {
   renderNotes(document.getElementById("searchInput").value, e.target.value);
 });
