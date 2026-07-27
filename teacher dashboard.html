@@ -124,73 +124,117 @@
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
+<script src="connection.js"></script>
 <script>
 // PROFILE DROPDOWN
-function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
+function toggleProfile(){ 
+  document.getElementById("profileMenu").classList.toggle("hidden"); 
+}
 
 // LOGOUT
-function logout(){ window.location.href = "login.html"; }
+function logout(){ 
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  window.location.href = "login.html"; 
+}
 
-// NOTIFICATIONS
-function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
+// NOTIFICATIONS PANEL TOGGLE
+function toggleNotifications(){ 
+  document.getElementById("notificationPanel").classList.toggle("hidden"); 
+}
 
-// Unified Notifications
-let notifications = JSON.parse(localStorage.getItem("notifications")) || [
-  "New student registered 👨‍🎓",
-  "New assignment submission 📄",
-  "Course updated 🎓",
-  "Website updated 🚀"
-];
-localStorage.setItem("notifications", JSON.stringify(notifications));
+// FETCH TEACHER DASHBOARD DATA & DYNAMIC LISTS FROM BACKEND
+async function loadTeacherDashboard() {
+  // 1. Fetch Teacher Stats & Profile Info
+  const dashboardData = await apiRequest("/teacher/dashboard/", "GET");
+  if (dashboardData) {
+    if (dashboardData.welcome_name) {
+      document.querySelector(".bg-white.p-6.rounded-xl.shadow h2.text-lg")
+        .textContent = `Welcome Back, ${dashboardData.welcome_name}!`;
+    }
+    if (dashboardData.course_count !== undefined) {
+      document.getElementById("courseCount").innerText = dashboardData.course_count;
+    }
+    if (dashboardData.assignment_count !== undefined) {
+      document.getElementById("assignmentCount").innerText = dashboardData.assignment_count;
+    }
+    if (dashboardData.student_count !== undefined) {
+      document.querySelectorAll(".bg-gray-100.p-4.rounded-lg h4.text-lg")[2].innerText = dashboardData.student_count;
+    }
+    if (dashboardData.pending_submissions !== undefined) {
+      document.querySelectorAll(".bg-gray-100.p-4.rounded-lg h4.text-lg")[3].innerText = dashboardData.pending_submissions;
+    }
+    if (dashboardData.certifications_awarded !== undefined) {
+      document.querySelectorAll(".bg-gray-100.p-4.rounded-lg h4.text-lg")[4].innerText = `${dashboardData.certifications_awarded} Awarded`;
+    }
+  }
 
-// Render Notifications
-function renderNotifications(){
-  const list = document.getElementById("notifList");
-  list.innerHTML = "";
-  notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
+  // 2. Load Notifications
+  let notifications = [
+    "New student registered 👨‍🎓",
+    "New assignment submission 📄",
+    "Course updated 🎓",
+    "Website updated 🚀"
+  ];
+
+  const notifResponse = await apiRequest("/notifications/", "GET");
+  if (notifResponse && Array.isArray(notifResponse) && notifResponse.length > 0) {
+    notifications = notifResponse.map(n => n.message);
+  }
+
+  const notifList = document.getElementById("notifList");
+  notifList.innerHTML = "";
+  notifications.forEach(n => {
+    notifList.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`;
+  });
   document.getElementById("notifCount").innerText = notifications.length;
   document.getElementById("notifCountNav").innerText = notifications.length;
-}
-renderNotifications();
 
-// Assignments Data
-let assignments = [
-  { title:"Wordpress lec 1", status:"pending" },
-  { title:"Graphic Designing lec 2", status:"checked" },
-  { title:"Wordpress lec 4", status:"pending" },
-  { title:"Fiverr lec 3", status:"checked" }
-];
+  // 3. Load Assignments
+  let assignments = [
+    { title: "Wordpress lec 1", status: "pending" },
+    { title: "Graphic Designing lec 2", status: "checked" },
+    { title: "Wordpress lec 4", status: "pending" },
+    { title: "Fiverr lec 3", status: "checked" }
+  ];
 
-// Announcements Data
-let announcements = [
-  "New course: Advanced JavaScript",
-  "Holiday on Friday ",
-  "Website updated with new courses"
-];
+  const assignResponse = await apiRequest("/teacher/assignments/", "GET");
+  if (assignResponse && Array.isArray(assignResponse) && assignResponse.length > 0) {
+    assignments = assignResponse;
+  }
 
-// Render Assignments
-function renderAssignments(){
-  const list = document.getElementById("assignmentList");
-  list.innerHTML = "";
+  const assignmentList = document.getElementById("assignmentList");
+  assignmentList.innerHTML = "";
   assignments.forEach(a => {
-    list.innerHTML += `<li class="flex justify-between p-2 rounded ${a.status==='pending'?'bg-yellow-100':'bg-green-100'}">
-      <span>${a.title}</span>
-      <span class="font-bold ${a.status==='pending'?'text-yellow-600':'text-green-600'}">${a.status}</span>
-    </li>`;
+    const isPending = a.status === 'pending';
+    assignmentList.innerHTML += `
+      <li class="flex justify-between p-2 rounded ${isPending ? 'bg-yellow-100' : 'bg-green-100'}">
+        <span>${a.title}</span>
+        <span class="font-bold ${isPending ? 'text-yellow-600' : 'text-green-600'}">${a.status}</span>
+      </li>`;
   });
-}
 
-// Render Announcements
-function renderAnnouncements(){
-  const list = document.getElementById("announcementList");
-  list.innerHTML = "";
+  // 4. Load Announcements
+  let announcements = [
+    "New course: Advanced JavaScript",
+    "Holiday on Friday 🌙",
+    "Website updated with new courses"
+  ];
+
+  const annResponse = await apiRequest("/announcements/", "GET");
+  if (annResponse && Array.isArray(annResponse) && annResponse.length > 0) {
+    announcements = annResponse.map(item => item.text || item);
+  }
+
+  const announcementList = document.getElementById("announcementList");
+  announcementList.innerHTML = "";
   announcements.forEach(a => {
-    list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${a}</li>`;
+    announcementList.innerHTML += `<li class="p-2 bg-gray-100 rounded">${a}</li>`;
   });
 }
 
-renderAssignments();
-renderAnnouncements();
+// Run initialization on page load
+loadTeacherDashboard();
 </script>
 
 </body>

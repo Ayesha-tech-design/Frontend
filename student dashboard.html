@@ -127,7 +127,7 @@
 
 </div>
 
-<!-- JS -->
+<script src="connection.js"></script>
 <script>
 // PROFILE DROPDOWN
 function toggleProfile(){
@@ -136,6 +136,8 @@ function toggleProfile(){
 
 // LOGOUT
 function logout(){
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
   window.location.href = "login.html";
 }
 
@@ -145,30 +147,48 @@ function toggleNotifications(){
   panel.classList.toggle("hidden");
 }
 
-// SAMPLE NOTIFICATIONS
-let notifications = [
-  "New assignment uploaded ",
-  "New course available ",
-  "Website updated successfully "
-];
+// LOAD DASHBOARD DATA & NOTIFICATIONS FROM BACKEND
+async function loadStudentDashboard() {
+  // 1. Fetch Student Profile / Stats
+  const profileData = await apiRequest("/student/dashboard/", "GET");
+  if (profileData) {
+    if (profileData.welcome_name) {
+      document.querySelector(".bg-white.p-6.rounded-xl.shadow p.text-gray-600")
+        .textContent = `Welcome back, ${profileData.welcome_name}! Continue your learning journey`;
+    }
+    if (profileData.course_count !== undefined) {
+      document.getElementById("courseCount").innerText = profileData.course_count;
+    }
+    if (profileData.assignment_count !== undefined) {
+      document.getElementById("assignmentCount").innerText = profileData.assignment_count;
+    }
+  }
 
-localStorage.setItem("notifications", JSON.stringify(notifications));
+  // 2. Load Notifications
+  let notifications = [
+    "New assignment uploaded",
+    "New course available",
+    "Website updated successfully"
+  ];
+  
+  // Try fetching dynamic notifications if API available, otherwise fallback to local/sample
+  const notifData = await apiRequest("/notifications/", "GET");
+  if (notifData && Array.isArray(notifData) && notifData.length > 0) {
+    notifications = notifData.map(n => n.message);
+  }
 
-// LOAD NOTIFICATIONS
-function loadNotifications(){
-  const data = JSON.parse(localStorage.getItem("notifications")) || [];
   const list = document.getElementById("notifList");
   list.innerHTML = "";
-  data.forEach(n => {
+  notifications.forEach(n => {
     list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`;
   });
 
-  // Update navbar and sidebar counts
-  document.getElementById("notifCount").innerText = data.length;
-  document.getElementById("notifCountSidebar").innerText = data.length;
+  document.getElementById("notifCount").innerText = notifications.length;
+  document.getElementById("notifCountSidebar").innerText = notifications.length;
 }
 
-loadNotifications();
+// Initialize on page load
+loadStudentDashboard();
 </script>
 
 </body>

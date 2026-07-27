@@ -6,10 +6,11 @@
     <title>WordPress Web Development Course | SmartEduX</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
 
 <!-- Header -->
 <header class="shadow" style="background-color:#0b2149;">
+<<<<<<< Updated upstream
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <h1 class="text-xl font-bold text-white">WordPress Web Development</h1>
         <button id="loginBtn" class="px-4 py-2 bg-white text-[#0b2149]  rounded hover:bg-gray-200">Login</button>
@@ -48,6 +49,161 @@
 <!-- JS: Login Check -->
 <script>
     let isLoggedIn = false; // Set to true after login
+=======
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <h1 class="text-xl font-bold text-white tracking-tight text-center sm:text-left">WordPress Websites</h1>
+        <a href="signup.html" id="signupBtn" class="px-4 py-2 bg-white text-[#0b2149] rounded font-medium hover:bg-gray-200 transition text-sm">Signup</a>
+    </div>
+</header>
+
+<section class="bg-gradient-to-r from-blue-200 via-blue-100 to-white py-12 sm:py-16 text-center px-4">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0b2149] mb-4">Build Websites with WordPress</h2>
+    <p class="text-gray-600 mb-6 text-sm sm:text-base max-w-2xl mx-auto">Learn WordPress from scratch and become a professional web developer!</p>
+    <button onclick="startLearningClick(event)" class="px-6 py-3 text-white bg-[#0b2149] rounded-lg cursor-pointer text-sm sm:text-base font-medium hover:bg-blue-900 transition shadow">Start Learning</button>
+</section>
+
+<section class="max-w-4xl w-full mx-auto my-8 sm:my-12 px-4 sm:px-6 flex-grow">
+    <h3 class="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-[#0b2149] text-center">Course Outline</h3>
+    
+    <div class="mb-8">
+        <h4 class="text-base sm:text-lg font-bold text-blue-800 mb-4 bg-blue-50 px-4 py-2 rounded border-l-4 border-blue-600">🟢 Basic Level (Introduction)</h4>
+        <ul class="space-y-3">
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 1: Introduction to WordPress & Web Hosting</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=0" onclick="checkAccess(event, 0)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 2: Installing WordPress Locally using XAMPP/LocalWP</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=1" onclick="checkAccess(event, 1)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 3: Exploring WordPress Dashboard & Settings</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=2" onclick="checkAccess(event, 2)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 4: Understanding Posts vs Pages in WordPress</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=3" onclick="checkAccess(event, 3)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 5: Managing Media Library & Categories</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=4" onclick="checkAccess(event, 4)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mb-8">
+        <h4 class="text-base sm:text-lg font-bold text-blue-800 mb-4 bg-blue-50 px-4 py-2 rounded border-l-4 border-blue-600">🟡 Intermediate Level (Core Skills)</h4>
+        <ul class="space-y-3">
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 6: Working with Themes & Customizer</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=5" onclick="checkAccess(event, 5)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 7: Essential Plugins Setup & Configuration</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=6" onclick="checkAccess(event, 6)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 8: Designing Layouts with Gutenberg Block Editor</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=7" onclick="checkAccess(event, 7)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 9: Creating Menus, Widgets, & Sidebars</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=8" onclick="checkAccess(event, 8)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 10: Introduction to Elementor Page Builder</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">Free</span>
+                    <a href="playlist.html?course=wordpress&lec=9" onclick="checkAccess(event, 9)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mb-12">
+        <h4 class="text-base sm:text-lg font-bold text-blue-800 mb-4 bg-blue-50 px-4 py-2 rounded border-l-4 border-blue-600">🔴 Advanced Level (Professional Projects)</h4>
+        <ul class="space-y-3">
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 11: E-commerce Website Setup with WooCommerce</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">🔒 Premium</span>
+                    <a href="playlist.html?course=wordpress&lec=10" onclick="checkAccess(event, 10)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 12: Managing Payment Gateways & Shipping Rates</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">🔒 Premium</span>
+                    <a href="playlist.html?course=wordpress&lec=11" onclick="checkAccess(event, 11)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 13: WordPress SEO Optimization (RankMath/Yoast)</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">🔒 Premium</span>
+                    <a href="playlist.html?course=wordpress&lec=12" onclick="checkAccess(event, 12)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 14: Website Security, Backups, & Speed Optimization</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">🔒 Premium</span>
+                    <a href="playlist.html?course=wordpress&lec=13" onclick="checkAccess(event, 13)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+            <li class="bg-white p-4 rounded shadow hover:bg-blue-50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <span class="text-gray-700 font-medium text-sm sm:text-base">Lesson 15: Migrating Local Website to Live Production Server</span>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">🔒 Premium</span>
+                    <a href="playlist.html?course=wordpress&lec=14" onclick="checkAccess(event, 14)" class="text-white bg-[#0b2149] px-4 py-1.5 rounded text-xs sm:text-sm font-medium hover:bg-blue-900 transition">Watch</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bg-yellow-50 border-2 border-dashed border-yellow-400 rounded-xl p-6 text-center shadow-md">
+        <h4 class="text-lg sm:text-xl font-bold text-gray-800 mb-2">🎓 Course Graduation</h4>
+        <p class="text-gray-600 mb-4 text-xs sm:text-sm leading-relaxed">You can only unlock the final quiz after watching all 15 lectures. Achieving a minimum score of <strong>90% marks</strong> is mandatory to download your digital certificate.</p>
+        <button onclick="attemptFinalQuiz()" class="bg-yellow-500 text-[#0b2149] font-bold px-6 sm:px-8 py-3 rounded-lg shadow hover:bg-yellow-400 transition text-sm sm:text-base">
+            📝 Attempt Final Quiz
+        </button>
+    </div>
+
+</section>
+
+<script src="connection.js"></script>
+<script>
+    let isSignedUp = true; 
+    let hasPurchased = false; 
+    let watchedLecturesCount = 0; 
+>>>>>>> Stashed changes
 
     function requireLogin(event) {
         event.preventDefault();
@@ -58,9 +214,37 @@
         }
     }
 
+<<<<<<< Updated upstream
     document.getElementById("loginBtn").addEventListener("click", () => {
         alert("Redirecting to login page...");
     });
+=======
+    function checkAccess(event, lectureIndex) {
+        if (!isSignedUp) {
+            event.preventDefault();
+            alert("Kindly signup first to access this lecture!");
+            return;
+        }
+
+        if (lectureIndex >= 10 && !hasPurchased) {
+            event.preventDefault();
+            alert("This is a premium lecture. Kindly purchase the course or pay to unlock lessons 11-15!");
+        }
+    }
+
+    function attemptFinalQuiz() {
+        if (!isSignedUp) {
+            alert("Kindly signup first to unlock the quiz!");
+            return;
+        }
+
+        if (watchedLecturesCount < 15) {
+            alert("Please complete all 15 video lectures first to unlock this final quiz.");
+        } else {
+            alert("Best of luck! Final quiz opening. Remember, 90% is required for your Digital Certificate!");
+        }
+    }
+>>>>>>> Stashed changes
 </script>
 
 </body>

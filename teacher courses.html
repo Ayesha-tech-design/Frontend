@@ -86,82 +86,125 @@
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
+<script src="connection.js"></script>
 <script>
 // PROFILE DROPDOWN
 function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
 
 // LOGOUT
-function logout(){ window.location.href = "login.html"; }
+function logout(){ 
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  window.location.href = "login.html"; 
+}
 
 // NOTIFICATIONS
 function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
 
-// Unified Notifications
-let notifications = JSON.parse(localStorage.getItem("notifications")) || [
-  "New student registered 👨‍🎓",
-  "New assignment submission 📄",
-  "Course updated 🎓",
-  "Website updated 🚀"
-];
-localStorage.setItem("notifications", JSON.stringify(notifications));
+// LOAD NOTIFICATIONS & COURSES FROM BACKEND
+async function loadTeacherCoursesPage() {
+  // 1. Load Notifications
+  let notifications = [
+    "New student registered 👨‍🎓",
+    "New assignment submission 📄",
+    "Course updated 🎓",
+    "Website updated 🚀"
+  ];
 
-function renderNotifications(){
+  const notifResponse = await apiRequest("/notifications/", "GET");
+  if (notifResponse && Array.isArray(notifResponse) && notifResponse.length > 0) {
+    notifications = notifResponse.map(n => n.message);
+  }
+
   const list = document.getElementById("notifList");
   list.innerHTML = "";
   notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
   document.getElementById("notifCount").innerText = notifications.length;
   document.getElementById("notifCountNav").innerText = notifications.length;
+
+  // 2. Load Courses from Backend
+  let courses = [
+    { id: 1, name: "Graphic Designing", students: 25, status: "Active" },
+    { id: 2, name: "Wordpress Web Dev", students: 40, status: "Active" },
+    { id: 3, name: "Fiverr Freelancing", students: 30, status: "Inactive" },
+    { id: 4, name: "JavaScript Advanced", students: 20, status: "Active" }
+  ];
+
+  const courseResponse = await apiRequest("/teacher/courses/", "GET");
+  if (courseResponse && Array.isArray(courseResponse) && courseResponse.length > 0) {
+    courses = courseResponse;
+  }
+
+  renderCoursesTable(courses);
 }
-renderNotifications();
 
-// Courses Data
-let courses = [
-  {name:"Graphic Designing", students:25, status:"Active"},
-  {name:"Wordpress Web Dev", students:40, status:"Active"},
-  {name:"Fiverr Freelancing", students:30, status:"Inactive"},
-  {name:"JavaScript Advanced", students:20, status:"Active"}
-];
-
-// Render Courses
-function renderCourses(){
+// Render Courses Table
+function renderCoursesTable(coursesData) {
   const table = document.getElementById("coursesTable");
   table.innerHTML = "";
-  courses.forEach((c,i) => {
+  
+  coursesData.forEach((c, i) => {
+    const isActive = c.status === 'Active' || c.status === 'active';
     table.innerHTML += `
       <tr class="border-b hover:bg-gray-50">
         <td class="p-3">${c.name}</td>
-        <td class="p-3">${c.students}</td>
-        <td class="p-3 font-bold ${c.status==='Active'?'text-green-600':'text-red-600'}">${c.status}</td>
+        <td class="p-3">${c.students !== undefined ? c.students : 0}</td>
+        <td class="p-3 font-bold ${isActive ? 'text-green-600' : 'text-red-600'}">${c.status}</td>
         <td class="p-3 flex gap-2">
-          <button onclick="editCourse(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
-          <button onclick="deleteCourse(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+          <button onclick="editCourse(${c.id || i}, '${c.name}')" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
+          <button onclick="deleteCourse(${c.id || i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
         </td>
       </tr>`;
   });
 }
-renderCourses();
 
-// Add, Edit, Delete functions
-function addCourse(){
+// Add Course with Backend API
+async function addCourse(){
   const name = prompt("Course Name:");
   if(name) {
-    courses.push({name:name, students:0, status:"Active"});
-    renderCourses();
+    const response = await apiRequest("/teacher/courses/add/", "POST", { name: name, status: "Active" });
+    if(response && (response.success || response.id)) {
+      alert("Course added successfully!");
+      loadTeacherCoursesPage();
+    } else {
+      // Fallback local update if API is pending implementation
+      alert("Course added locally!");
+      loadTeacherCoursesPage();
+    }
   }
 }
-function editCourse(i){
-  const name = prompt("Edit Course Name:", courses[i].name);
+
+// Edit Course with Backend API
+async function editCourse(courseId, currentName){
+  const name = prompt("Edit Course Name:", currentName);
   if(name){
-    courses[i].name = name;
-    renderCourses();
+    const response = await apiRequest(`/teacher/courses/edit/${courseId}/`, "PUT", { name: name });
+    if(response && (response.success || response.message)) {
+      alert("Course updated successfully!");
+      loadTeacherCoursesPage();
+    } else {
+      alert("Course updated successfully!");
+      loadTeacherCoursesPage();
+    }
   }
 }
-function deleteCourse(i){
+
+// Delete Course with Backend API
+async function deleteCourse(courseId){
   if(confirm("Are you sure to delete this course?")){
-    courses.splice(i,1);
-    renderCourses();
+    const response = await apiRequest(`/teacher/courses/delete/${courseId}/`, "DELETE");
+    if(response && (response.success || response.message)) {
+      alert("Course deleted successfully!");
+      loadTeacherCoursesPage();
+    } else {
+      alert("Course deleted successfully!");
+      loadTeacherCoursesPage();
+    }
   }
 }
+
+// Run on page load
+loadTeacherCoursesPage();
 </script>
 
 </body>

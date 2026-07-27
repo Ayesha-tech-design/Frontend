@@ -33,6 +33,42 @@
         height: 125px;
       }
     }
+<<<<<<< Updated upstream
+=======
+
+    /* Custom Dot Pattern Background for Hero */
+    .dot-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* Custom Scrollbar for Features UI */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(11, 33, 73, 0.15);
+      border-radius: 999px;
+    }
+    .logo-text{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #0b2149;
+  line-height: 1;
+}
+
+    /* Tab styles for Showcase */
+    .feature-tab-btn.active-tab {
+      background-color: white;
+      border-color: #e2e8f0;
+      color: var(--primary);
+      box-shadow: 0 4px 12px rgba(11, 33, 73, 0.05);
+    }
+>>>>>>> Stashed changes
   </style> 
 </head> 
 <body class="text-gray-800 antialiased"> 
@@ -255,12 +291,46 @@
   <!-- CENTRAL CONNECTION BRIDGE -->
   <script src="connection.js"></script>
 
+<<<<<<< Updated upstream
   <!-- BACKEND CONNECTIVITY LOGIC -->
   <script> 
     const toggleBtn = document.getElementById('menu-toggle'); 
     const mobileMenu = document.getElementById('mobile-menu');
     if(toggleBtn && mobileMenu) {
       toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); }); 
+=======
+  </div>
+</footer>
+
+<script src="connection.js"></script>
+<script>
+  // Mobile menu toggle action
+  const toggleBtn = document.getElementById('menu-toggle'); 
+  const mobileMenu = document.getElementById('mobile-menu');
+  toggleBtn.addEventListener('click', () => { 
+    mobileMenu.classList.toggle('hidden'); 
+  }); 
+
+  // Feature Showcase switch engine
+  function switchPreview(tabId) {
+    document.getElementById('preview-content-notes').classList.add('hidden');
+    document.getElementById('preview-content-mcqs').classList.add('hidden');
+    document.getElementById('preview-content-summary').classList.add('hidden');
+
+    const buttons = document.querySelectorAll('.feature-tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active-tab'));
+    
+    document.getElementById('bullet-mcqs').className = "w-2.5 h-2.5 rounded-full bg-gray-300";
+    document.getElementById('bullet-summary').className = "w-2.5 h-2.5 rounded-full bg-gray-300";
+
+    document.getElementById(`preview-content-${tabId}`).classList.remove('hidden');
+    document.getElementById(`preview-btn-${tabId}`).classList.add('active-tab');
+
+    if(tabId === 'mcqs') {
+      document.getElementById('bullet-mcqs').className = "w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse";
+    } else if(tabId === 'summary') {
+      document.getElementById('bullet-summary').className = "w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse";
+>>>>>>> Stashed changes
     }
 
     // Custom Interactive Modal Logic
@@ -272,6 +342,7 @@
       document.getElementById('demoModal').classList.add('hidden');
     }
 
+<<<<<<< Updated upstream
     // Dynamic Auth State & Bridge Synchronization
     document.addEventListener("DOMContentLoaded", async () => {
       try {
@@ -300,5 +371,45 @@
       }
     });
   </script> 
+=======
+    siblingButtons.forEach(btn => {
+      btn.style.backgroundColor = '';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    });
+
+    if (isTrue) {
+      btnElement.style.backgroundColor = '#e8f5e9'; // Soft Green
+      btnElement.style.borderColor = '#4caf50';
+      btnElement.style.color = '#1b5e20';
+    } else {
+      btnElement.style.backgroundColor = '#ffebee'; // Soft Red
+      btnElement.style.borderColor = '#f44336';
+      btnElement.style.color = '#b71c1c';
+    }
+  }
+
+  // Optional: Check login session via connection.js if needed across public pages
+  async function checkUserSession() {
+    const token = localStorage.getItem("access_token");
+    if (token && typeof apiRequest === "function") {
+      const userProfile = await apiRequest("/student/profile/", "GET");
+      if (userProfile && userProfile.name) {
+        // Agar user logged in hai toh navbar ka Login/Signup section update kiya ja sakta hai
+        const navUserSection = document.getElementById("nav-user-section");
+        if (navUserSection) {
+          navUserSection.innerHTML = `<a href="student dashboard.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white shadow-md">Dashboard</a>`;
+        }
+      }
+    }
+  }
+
+  // Run session check on page load
+  checkUserSession();
+
+  // Dynamically configure Footer copyright year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+>>>>>>> Stashed changes
 </body>
 </html>

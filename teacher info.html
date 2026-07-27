@@ -308,32 +308,92 @@
     </div>
   </footer>
 
+<<<<<<< Updated upstream
+=======
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+<script src="connection.js"></script>
+>>>>>>> Stashed changes
 <script>
-document
-.getElementById("teacherForm")
-.addEventListener("submit", function(e){
+  // Auto Update Year in Footer
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
-    e.preventDefault();
+  // Mobile Menu Toggle Logic
+  const menuBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+    
+    // Close mobile menu when any link inside it is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
 
-    // 1. Inputs ki values get karna (Aapke placeholders ke mutabiq)
-    const phone = document.querySelector('input[placeholder="Enter phone number"]').value.trim();
-    const qualification = document.querySelector('input[placeholder="MPhil Computer Science"]').value.trim();
-    const specialization = document.querySelector('input[placeholder="Web Development"]').value.trim();
-    const experience = document.querySelector('input[placeholder="Years"]').value.trim();
-    const institution = document.querySelector('input[placeholder="University Name"]').value.trim();
-    const address = document.querySelector('input[placeholder="Enter Address"]').value.trim();
-    const bio = document.querySelector('textarea[placeholder="Write short professional bio..."]').value.trim();
+  // Teacher Profile Form Validation & Submission Logic
+  const teacherForm = document.getElementById("teacherForm");
+  if (teacherForm) {
+    teacherForm.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    // 2. Validation check: Agar koi bhi zaroori field khali hai tu sirf ek warning alert aaye
-    if (!phone || !qualification || !specialization || !experience || !institution || !address || !bio) {
+      // 1. Fetching input values using placeholders matching the HTML structure
+      const phoneInput = document.querySelector('input[placeholder="Enter phone number"]');
+      const qualInput = document.querySelector('input[placeholder="MPhil Computer Science"]');
+      const specInput = document.querySelector('input[placeholder="Web Development"]');
+      const expInput = document.querySelector('input[placeholder="Years"]');
+      const instInput = document.querySelector('input[placeholder="University Name"]');
+      const addrInput = document.querySelector('input[placeholder="Enter Address"]');
+      const bioInput = document.querySelector('textarea[placeholder="Write short professional bio..."]');
+
+      const phone = phoneInput ? phoneInput.value.trim() : "";
+      const qualification = qualInput ? qualInput.value.trim() : "";
+      const specialization = specInput ? specInput.value.trim() : "";
+      const experience = expInput ? expInput.value.trim() : "";
+      const institution = instInput ? instInput.value.trim() : "";
+      const address = addrInput ? addrInput.value.trim() : "";
+      const bio = bioInput ? bioInput.value.trim() : "";
+
+      // 2. Strict validation check for empty fields
+      if (!phone || !qualification || !specialization || !experience || !institution || !address || !bio) {
         alert("⚠️ Please fill all the required fields.");
-        return; // Code yahin ruk jayega, next page open nahi hoga
-    }
+        return; 
+      }
 
+<<<<<<< Updated upstream
     // 3. Agar saari fields fill hain, tu bina kisi purane alert ke seedha next page open ho jaye
     window.location.href = "pending-approval.html";
+=======
+      // 3. Optional: If backend connection.js is integrated, store details or send via API request
+      const teacherProfileData = {
+        phone,
+        qualification,
+        specialization,
+        experience,
+        institution,
+        address,
+        bio
+      };
+>>>>>>> Stashed changes
 
-});
+      localStorage.setItem("teacher_pending_profile", JSON.stringify(teacherProfileData));
+
+      // 4. Redirect to pending approval page once valid
+      window.location.href = "pending approval.html";
+    });
+  }
 </script>
 </body>
 </html>

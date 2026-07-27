@@ -105,16 +105,112 @@
 
 </main>
 
-<!-- IMAGE CHANGE SCRIPT -->
+<script src="connection.js"></script>
 <script>
+// 1. Image Preview & Upload Handler
 function changeImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
   const reader = new FileReader();
   reader.onload = function () {
-    document.getElementById('profileImg').src = reader.result;
-    document.getElementById('navProfileImg').src = reader.result;
-  }
-  reader.readAsDataURL(event.target.files[0]);
+    const result = reader.result;
+    document.getElementById('profileImg').src = result;
+    document.getElementById('navProfileImg').src = result;
+    
+    // Optional: Agar aap image ko direct backend par base64 ya multipart bhejwana chahein
+    // updateProfileImage(file);
+  };
+  reader.readAsDataURL(file);
 }
+
+// 2. Fetch Student Profile Data on Page Load
+async function loadStudentProfile() {
+  const data = await apiRequest("/student/profile/", "GET");
+  if (data) {
+    // Header & Profile Card Display
+    if (data.full_name || data.name) {
+      document.getElementById("studentName").innerText = data.full_name || data.name;
+    }
+    if (data.email) {
+      document.getElementById("studentEmail").innerText = data.email;
+    }
+    if (data.profile_image) {
+      document.getElementById("profileImg").src = data.profile_image;
+      document.getElementById("navProfileImg").src = data.profile_image;
+    }
+
+    // Form Fields Populate
+    const inputs = document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow.mb-10 input");
+    if (inputs.length >= 4) {
+      inputs[0].value = data.full_name || data.name || "";
+      inputs[1].value = data.email || "";
+      inputs[2].value = data.registration_number || data.reg_no || "";
+      inputs[3].value = data.department || "";
+    }
+  }
+}
+
+// 3. Update Profile Form Submission
+document.querySelector(".bg-white.rounded-2xl.p-8.shadow.mb-10 form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const inputs = this.querySelectorAll("input");
+  
+  const payload = {
+    full_name: inputs[0].value.trim(),
+    email: inputs[1].value.trim(),
+    registration_number: inputs[2].value.trim(),
+    department: inputs[3].value.trim()
+  };
+
+  const response = await apiRequest("/student/profile/update/", "PUT", payload);
+  if (response && (response.success || response.message)) {
+    alert("Profile updated successfully!");
+    loadStudentProfile();
+  } else {
+    alert("Failed to update profile: " + (response?.detail || response?.message || "Please check your inputs."));
+  }
+});
+
+// 4. Change Password Form Submission
+document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow")[2].querySelector("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const passInputs = this.querySelectorAll("input[type='password']");
+  
+  const currentPassword = passInputs[0].value;
+  const newPassword = passInputs[1].value;
+  const confirmPassword = passInputs[2].value;
+
+  if (newPassword !== confirmPassword) {
+    alert("⚠️ New Password and Confirm Password do not match!");
+    return;
+  }
+
+  const response = await apiRequest("/auth/change-password/", "POST", {
+    current_password: currentPassword,
+    new_password: newPassword
+  });
+
+  if (response && (response.success || response.message)) {
+    alert("Password changed successfully!");
+    this.reset();
+  } else {
+    alert("Password change failed: " + (response?.detail || response?.message || "Check your current password."));
+  }
+});
+
+// 5. Logout from all devices handler
+document.querySelector(".mt-2.text-sm.text-\\[\\#0b2149\\]")?.addEventListener("click", async function() {
+  if (confirm("Are you sure you want to logout from all devices?")) {
+    const res = await apiRequest("/auth/logout-all/", "POST");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "login.html";
+  }
+});
+
+// Run on page load
+loadStudentProfile();
 </script>
 
 </body>

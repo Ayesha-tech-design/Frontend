@@ -295,7 +295,20 @@
         <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
       </div>
     </div>
+<<<<<<< Updated upstream
   </footer>
+=======
+
+    <!-- Bottom Copyright with Divider -->
+    <div class="border-t border-white/10 pt-8 text-center">
+      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="connection.js"></script>
+>>>>>>> Stashed changes
 <script>
   function togglePassword(id, btn){
     const input = document.getElementById(id);
@@ -308,8 +321,24 @@
     }
   }
 
+<<<<<<< Updated upstream
   document.getElementById("signupForm").addEventListener("submit", async function(e){
     e.preventDefault();
+=======
+  // Footer year auto-update
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Signup form submission logic with connection.js apiRequest
+  document.getElementById("signupForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+    
+    const firstName = document.querySelector('input[placeholder="First Name"]').value.trim();
+    const lastName = document.querySelector('input[placeholder="Last Name"]').value.trim();
+    const email = document.querySelector('input[type="email"]').value.trim();
+    const pass = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    const role = document.querySelector('input[name="role"]:checked').value;
+>>>>>>> Stashed changes
 
     const first = document.getElementById("firstName").value.trim();
     const last  = document.getElementById("lastName").value.trim();
@@ -331,6 +360,7 @@
       return;
     }
 
+<<<<<<< Updated upstream
     // EMAIL FORMAT
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!emailPattern.test(email)){
@@ -387,6 +417,27 @@
       console.error("Error:", err);
       errorBox.textContent = "⚠️ Server connection error. Make sure Django is running.";
       errorBox.classList.remove("hidden");
+=======
+    // Backend API call using connection.js
+    const data = await apiRequest("/auth/signup/", "POST", {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: pass,
+        role: role
+    });
+
+    if (data && (data.success || data.access || data.id)) {
+        alert("Account Created Successfully!");
+        // Role-based redirection
+        if(role === "teacher") {
+            window.location.href = "teacher info.html";
+        } else if(role === "student") {
+            window.location.href = "student dashboard.html";
+        }
+    } else {
+        alert("Signup Failed: " + (data.detail || data.message || "Please check your inputs."));
+>>>>>>> Stashed changes
     }
   });
 </script>
