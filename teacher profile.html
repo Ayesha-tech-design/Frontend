@@ -2,73 +2,77 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SmartEduX | Teacher Profile</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
 
 <!-- NAVBAR -->
-<nav class="bg-[#0b2149] shadow px-4 py-2 flex justify-between items-center text-white">
-  <h1 class="text-lg font-bold">SmartEduX</h1>
-  <div class="flex items-center gap-4 relative">
-    <button onclick="window.location.href='teacher dashboard.html'" class="bg-blue-600 px-2 py-1 rounded text-xs hover:bg-blue-700 transition">
+<nav class="bg-[#0b2149] shadow px-4 py-3 flex justify-between items-center text-white">
+  <h1 class="text-base sm:text-lg font-bold">SmartEduX</h1>
+  <div class="flex items-center gap-3 relative">
+    <button onclick="window.location.href='teacher dashboard.html'" class="bg-blue-600 px-3 py-1.5 rounded text-xs sm:text-sm font-semibold hover:bg-blue-700 transition">
       Dashboard
     </button>
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-8 h-8 rounded-full border cursor-pointer">
+    <img id="navProfileImg" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white object-cover">
   </div>
 </nav>
 
-<main class="max-w-5xl mx-auto p-4 mt-4">
+<main class="max-w-5xl w-full mx-auto p-4 sm:p-6 my-4 flex-1">
 
   <!-- Profile Card -->
-  <div class="bg-white p-6 rounded-xl shadow flex flex-col md:flex-row gap-6 items-center">
+  <div class="bg-white p-6 rounded-2xl shadow flex flex-col md:flex-row gap-6 items-center text-center md:text-left">
     
     <!-- Profile Photo -->
-    <div class="text-center">
+    <div class="flex-shrink-0">
       <img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
-           class="w-32 h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto">
-      <label class="block mt-2 text-sm text-blue-600 cursor-pointer hover:underline">
+           class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto shadow">
+      <label class="block mt-3 text-xs sm:text-sm text-blue-600 font-semibold cursor-pointer hover:underline">
         Change Photo
         <input type="file" accept="image/*" hidden onchange="changeImage(event)">
       </label>
     </div>
 
     <!-- Name & Email -->
-    <div class="flex-1">
-      <h2 class="text-xl font-bold" id="teacherName">Teacher Name</h2>
-      <p class="text-gray-500" id="teacherEmail">teacher@example.com</p>
-      <p class="text-gray-500 mt-1" id="teacherDept">Department: Computer Science</p>
+    <div class="flex-1 space-y-1 w-full overflow-hidden">
+      <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149]" id="teacherName">Teacher Name</h2>
+      <p class="text-sm sm:text-base text-gray-500 break-words" id="teacherEmail">teacher@example.com</p>
+      <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1" id="teacherDept">Department: Computer Science</p>
     </div>
   </div>
 
   <!-- Profile Form -->
-  <form class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-    <input class="border p-2 rounded" placeholder="Full Name">
-    <input class="border p-2 rounded" placeholder="Email">
-    <input class="border p-2 rounded" placeholder="Department">
-    <input class="border p-2 rounded" placeholder="Phone">
-  </form>
-
-  <!-- Security Section -->
-  <div class="mt-6 bg-white p-4 rounded shadow">
-    <h3 class="text-lg font-semibold mb-3">Security Settings</h3>
+  <div class="bg-white rounded-2xl p-6 shadow mt-6">
+    <h3 class="text-base sm:text-lg font-semibold text-[#0b2149] mb-4">Profile Information</h3>
     <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="password" class="border p-2 rounded" placeholder="Current Password">
-      <input type="password" class="border p-2 rounded" placeholder="New Password">
-      <input type="password" class="border p-2 rounded col-span-2" placeholder="Confirm New Password">
-      <button type="button" class="col-span-2 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">
-        Change Password
-      </button>
-      <button type="button" class="col-span-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+      <input type="text" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Full Name">
+      <input type="email" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Email">
+      <input type="text" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Department">
+      <input type="text" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Phone">
+      <button type="submit" class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded-lg hover:bg-[#163a78] transition font-semibold text-sm sm:text-base shadow">
         Update Profile
       </button>
     </form>
   </div>
 
+  <!-- Security Section -->
+  <div class="mt-6 bg-white p-6 rounded-2xl shadow">
+    <h3 class="text-base sm:text-lg font-semibold text-[#0b2149] mb-4">Security Settings</h3>
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="password" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Current Password">
+      <input type="password" class="border p-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="New Password">
+      <input type="password" class="border p-3 rounded-lg text-sm sm:text-base md:col-span-2 outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="Confirm New Password">
+      <button type="button" class="md:col-span-2 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-semibold text-sm sm:text-base shadow">
+        Change Password
+      </button>
+    </form>
+  </div>
+
   <!-- Last Login Info -->
-  <div class="mt-4 bg-gray-50 p-3 rounded text-gray-600 text-sm">
-    Last Login: 10 Jan 2026 • Chrome • Pakistan
-    <button class="ml-4 text-blue-600 hover:underline" onclick="logout()">Logout from all devices</button>
+  <div class="mt-6 bg-gray-50 p-4 rounded-xl text-gray-600 text-xs sm:text-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border">
+    <span>Last Login: 10 Jan 2026 • Chrome • Pakistan</span>
+    <button class="text-blue-600 font-semibold hover:underline" onclick="logout()">Logout from all devices</button>
   </div>
 
 </main>
@@ -79,8 +83,11 @@ function changeImage(event){
   const reader = new FileReader();
   reader.onload = function(){
     document.getElementById('profileImg').src = reader.result;
+    document.getElementById('navProfileImg').src = reader.result;
   }
-  reader.readAsDataURL(event.target.files[0]);
+  if(event.target.files && event.target.files[0]){
+    reader.readAsDataURL(event.target.files[0]);
+  }
 }
 
 // Logout
