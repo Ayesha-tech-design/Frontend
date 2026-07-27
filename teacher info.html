@@ -302,23 +302,15 @@
         </div>
       </div>
 
+      <!-- Bottom Copyright with Divider -->
       <div class="border-t border-white/10 pt-8 text-center">
-        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+        <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
       </div>
-    </div>
-  </footer>
 
-<<<<<<< Updated upstream
-=======
-    <!-- Bottom Copyright with Divider -->
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
     </div>
-
-  </div>
 </footer>
+
 <script src="connection.js"></script>
->>>>>>> Stashed changes
 <script>
   // Auto Update Year in Footer
   const yearEl = document.getElementById('year');
@@ -372,11 +364,7 @@
         return; 
       }
 
-<<<<<<< Updated upstream
-    // 3. Agar saari fields fill hain, tu bina kisi purane alert ke seedha next page open ho jaye
-    window.location.href = "pending-approval.html";
-=======
-      // 3. Optional: If backend connection.js is integrated, store details or send via API request
+      // 3. Store details or send via API request
       const teacherProfileData = {
         phone,
         qualification,
@@ -386,7 +374,6 @@
         address,
         bio
       };
->>>>>>> Stashed changes
 
       localStorage.setItem("teacher_pending_profile", JSON.stringify(teacherProfileData));
 

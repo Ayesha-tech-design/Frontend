@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1" /> 
   <title>SmartEduX — Features</title> 
   <script src="https://cdn.tailwindcss.com"></script> 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;800&display=swap" rel="stylesheet"> 
   <style> 
     :root { 
       --primary: #0b2149; 
@@ -33,8 +33,6 @@
         height: 125px;
       }
     }
-<<<<<<< Updated upstream
-=======
 
     /* Custom Dot Pattern Background for Hero */
     .dot-pattern {
@@ -54,12 +52,12 @@
       border-radius: 999px;
     }
     .logo-text{
-  font-family: 'Roboto', sans-serif;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: #0b2149;
-  line-height: 1;
-}
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
 
     /* Tab styles for Showcase */
     .feature-tab-btn.active-tab {
@@ -68,10 +66,9 @@
       color: var(--primary);
       box-shadow: 0 4px 12px rgba(11, 33, 73, 0.05);
     }
->>>>>>> Stashed changes
   </style> 
 </head> 
-<body class="text-gray-800 antialiased"> 
+<body class="text-gray-800 antialiased flex flex-col min-h-screen"> 
 
   <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100"> 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,7 +87,7 @@
           <a href="About us.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">About</a>
           <a href="contact.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">Contact Us</a> 
         </div>
-        <div class="hidden md:flex items-center gap-3 ml-4">
+        <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
           <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-all">Login</a> 
           <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--primary)] text-white hover:opacity-95 transition-all shadow-sm">Signup</a>
         </div>
@@ -119,7 +116,7 @@
     </div> 
   </nav> 
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"> 
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"> 
     <section class="text-center max-w-3xl mx-auto mb-16">
       <span class="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full uppercase tracking-wider">Next-Gen Learning</span>
       <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-4">
@@ -242,7 +239,7 @@
     </div>
   </section>
 
-  
+  <!-- Interactive Demo Modal -->
   <div id="demoModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-900/40 backdrop-blur-sm p-4">
     <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-100 p-6 text-center animate-fadeInUp">
       <div class="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-blue-50 mb-4 text-[#0b2149]">
@@ -258,7 +255,7 @@
     </div>
   </div>
 
-  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 border-t border-slate-900">
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 border-t border-slate-900 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
         <div class="text-center md:text-left">
@@ -283,54 +280,21 @@
         </div>
       </div>
       <div class="border-t border-white/5 pt-8 text-center">
-        <p class="text-xs text-slate-500">&copy; SmartEduX — All rights reserved.</p>
+        <p class="text-xs text-slate-500">&copy; <span id="year"></span> SmartEduX — All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <!-- CENTRAL CONNECTION BRIDGE -->
   <script src="connection.js"></script>
-
-<<<<<<< Updated upstream
-  <!-- BACKEND CONNECTIVITY LOGIC -->
-  <script> 
+  <script>
+    // Mobile menu toggle action
     const toggleBtn = document.getElementById('menu-toggle'); 
     const mobileMenu = document.getElementById('mobile-menu');
-    if(toggleBtn && mobileMenu) {
-      toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); }); 
-=======
-  </div>
-</footer>
-
-<script src="connection.js"></script>
-<script>
-  // Mobile menu toggle action
-  const toggleBtn = document.getElementById('menu-toggle'); 
-  const mobileMenu = document.getElementById('mobile-menu');
-  toggleBtn.addEventListener('click', () => { 
-    mobileMenu.classList.toggle('hidden'); 
-  }); 
-
-  // Feature Showcase switch engine
-  function switchPreview(tabId) {
-    document.getElementById('preview-content-notes').classList.add('hidden');
-    document.getElementById('preview-content-mcqs').classList.add('hidden');
-    document.getElementById('preview-content-summary').classList.add('hidden');
-
-    const buttons = document.querySelectorAll('.feature-tab-btn');
-    buttons.forEach(btn => btn.classList.remove('active-tab'));
-    
-    document.getElementById('bullet-mcqs').className = "w-2.5 h-2.5 rounded-full bg-gray-300";
-    document.getElementById('bullet-summary').className = "w-2.5 h-2.5 rounded-full bg-gray-300";
-
-    document.getElementById(`preview-content-${tabId}`).classList.remove('hidden');
-    document.getElementById(`preview-btn-${tabId}`).classList.add('active-tab');
-
-    if(tabId === 'mcqs') {
-      document.getElementById('bullet-mcqs').className = "w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse";
-    } else if(tabId === 'summary') {
-      document.getElementById('bullet-summary').className = "w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse";
->>>>>>> Stashed changes
+    if (toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener('click', () => { 
+        mobileMenu.classList.toggle('hidden'); 
+      }); 
     }
 
     // Custom Interactive Modal Logic
@@ -342,74 +306,33 @@
       document.getElementById('demoModal').classList.add('hidden');
     }
 
-<<<<<<< Updated upstream
-    // Dynamic Auth State & Bridge Synchronization
-    document.addEventListener("DOMContentLoaded", async () => {
+    // Optional: Check login session via connection.js if needed across public pages
+    async function checkUserSession() {
       try {
-        let data = null;
-        if (typeof apiRequest === "function") {
-          data = await apiRequest('/features/overview/');
-        } else {
-          const res = await fetch('/api/features/overview/');
-          if (res.ok) data = await res.json();
-        }
-
-        if (data && data.user && data.user.is_authenticated) {
-          const loginBtns = document.querySelectorAll('a[href="login.html"]');
-          const signupBtns = document.querySelectorAll('a[href="signup.html"]');
-          
-          const dashboardUrl = data.user.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-          
-          loginBtns.forEach(btn => {
-            btn.textContent = 'Dashboard';
-            btn.href = dashboardUrl;
-          });
-          signupBtns.forEach(btn => btn.style.display = 'none');
+        const token = localStorage.getItem("access_token");
+        if (token && typeof apiRequest === "function") {
+          const data = await apiRequest("/features/overview/");
+          if (data && data.user && data.user.is_authenticated) {
+            const dashboardUrl = data.user.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
+            const navUserSection = document.getElementById("nav-user-section");
+            if (navUserSection) {
+              navUserSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--primary)] text-white shadow-md">Dashboard</a>`;
+            }
+          }
         }
       } catch (e) {
         console.log("Features page running in offline UI mode.");
       }
-    });
-  </script> 
-=======
-    siblingButtons.forEach(btn => {
-      btn.style.backgroundColor = '';
-      btn.style.borderColor = '';
-      btn.style.color = '';
-    });
-
-    if (isTrue) {
-      btnElement.style.backgroundColor = '#e8f5e9'; // Soft Green
-      btnElement.style.borderColor = '#4caf50';
-      btnElement.style.color = '#1b5e20';
-    } else {
-      btnElement.style.backgroundColor = '#ffebee'; // Soft Red
-      btnElement.style.borderColor = '#f44336';
-      btnElement.style.color = '#b71c1c';
     }
-  }
 
-  // Optional: Check login session via connection.js if needed across public pages
-  async function checkUserSession() {
-    const token = localStorage.getItem("access_token");
-    if (token && typeof apiRequest === "function") {
-      const userProfile = await apiRequest("/student/profile/", "GET");
-      if (userProfile && userProfile.name) {
-        // Agar user logged in hai toh navbar ka Login/Signup section update kiya ja sakta hai
-        const navUserSection = document.getElementById("nav-user-section");
-        if (navUserSection) {
-          navUserSection.innerHTML = `<a href="student dashboard.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white shadow-md">Dashboard</a>`;
-        }
-      }
+    // Run session check on page load
+    checkUserSession();
+
+    // Dynamically configure Footer copyright year
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
     }
-  }
-
-  // Run session check on page load
-  checkUserSession();
-
-  // Dynamically configure Footer copyright year
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
->>>>>>> Stashed changes
+  </script>
 </body>
 </html>

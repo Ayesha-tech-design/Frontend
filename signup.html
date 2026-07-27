@@ -9,8 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    
-
     /* INPUTS */
     .input-style{
       width:100%;
@@ -72,7 +70,7 @@
       --muted: #6b7280;
     }
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: 'Roboto', sans-serif;
       background: linear-gradient(180deg,#f7fbff 0%, #eef2ff 100%);
       color: #0f172a;
       overflow-x: hidden;
@@ -85,31 +83,20 @@
 
     /* Logo Sizing */
     .logo-mark {
-  width: 115px;
-  height: 115px;
-}
+      width: 115px;
+      height: 115px;
+    }
 
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
-  }
-}
-
-
-    body { font-family: 'Roboto', sans-serif; }
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
+    }
 
     /* small custom animations to complement AOS */
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInRight { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: translateX(0); } }
-
     .animate-fadeInUp { animation: fadeInUp 0.9s ease forwards; }
-    .animate-slideInLeft { animation: slideInLeft 0.9s ease forwards; }
-    .animate-slideInRight { animation: slideInRight 0.9s ease forwards; }
-
-    /* keep card spacing compact for denser layout */
-    .card-gap { gap: 1rem; }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -153,15 +140,13 @@
 
       <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
         <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-          
           <div class="py-2">
             <input type="text" placeholder="Search features, courses..." class="search-input">
           </div>
-          
           <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
           <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
           <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-         <a href="features.html"  class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+          <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
           <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
           <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
           <div class="grid grid-cols-2 gap-3 mt-4 px-1">
@@ -173,11 +158,8 @@
     </div>
   </nav>
 
-
-
 <!-- MAIN -->
 <main class="min-h-screen flex items-center justify-center px-6 py-20">
-
   <div class="max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden grid md:grid-cols-2">
 
     <!-- LEFT PANEL -->
@@ -199,38 +181,32 @@
 
     <!-- FORM -->
     <div class="p-8 sm:p-10">
-
       <h1 class="text-3xl font-bold text-center text-[#0b2149] mb-2">
         Create Account
       </h1>
-      <p id="formError"
-   class="hidden mb-4 text-sm text-red-600 bg-red-50 border border-red-200 px-4 py-2 rounded-lg">
-</p>
+      <p id="formError" class="hidden mb-4 text-sm text-red-600 bg-red-50 border border-red-200 px-4 py-2 rounded-lg"></p>
 
       <p class="text-center text-gray-600 text-sm mb-8">
         Fill the form to get started
       </p>
 
       <form id="signupForm" class="space-y-5">
-
-        <input id="firstName" class="input-style" placeholder="First Name">
-        <input id="lastName" class="input-style" placeholder="Last Name">
-        <input id="email" type="email" class="input-style" placeholder="Email Address">
+        <input id="firstName" class="input-style" placeholder="First Name" required>
+        <input id="lastName" class="input-style" placeholder="Last Name" required>
+        <input id="email" type="email" class="input-style" placeholder="Email Address" required>
 
         <!-- PASSWORD -->
         <div class="relative">
-          <input id="password" type="password" placeholder="Password" class="input-style pr-12">
-          <button type="button" onclick="togglePassword('password', this)"
-            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+          <input id="password" type="password" placeholder="Password" class="input-style pr-12" required>
+          <button type="button" onclick="togglePassword('password', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
             👁
           </button>
         </div>
 
         <!-- CONFIRM PASSWORD -->
         <div class="relative">
-          <input id="confirm" type="password" placeholder="Confirm Password" class="input-style pr-12">
-          <button type="button" onclick="togglePassword('confirm', this)"
-            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
+          <input id="confirm" type="password" placeholder="Confirm Password" class="input-style pr-12" required>
+          <button type="button" onclick="togglePassword('confirm', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg">
             👁
           </button>
         </div>
@@ -250,66 +226,67 @@
         <button type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:-translate-y-1 transition shadow-lg">
           Create Account
         </button>
-
       </form>
     </div>
   </div>
 </main>
 
 <!-- FOOTER -->
-<!-- FOOTER -->
-  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-        
-        <div class="text-center md:text-left">
-          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
-          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
-            Empowering learning with AI video summarization, notes, MCQs and curated courses.
-          </p>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
-          <ul class="space-y-3 text-sm text-blue-200/80">
-            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
-            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
-            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
-          </ul>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
-          <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
-          <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
-          <div class="mt-6 flex justify-center md:justify-start gap-4">
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Facebook</span>f</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">Twitter</span>t</a>
-             <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition"><span class="sr-only">LinkedIn</span>in</a>
-          </div>
-        </div>
+<footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+      
+      <div class="text-center md:text-left">
+        <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
+        <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
+          Empowering learning with AI video summarization, notes, MCQs and curated courses.
+        </p>
       </div>
 
-      <div class="border-t border-white/10 pt-8 text-center">
-        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+      <div class="text-center md:text-left">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+        <ul class="space-y-3 text-sm text-blue-200/80">
+          <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+          <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
+          <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="text-center md:text-left">
+        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
+        <p class="text-blue-200/80 text-sm">support@smartedux.example</p>
+        <p class="text-blue-200/80 text-sm mt-1">+1 (555) 123-4567</p>
+        <div class="mt-6 flex justify-center md:justify-start gap-4">
+           <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition">f</a>
+           <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition">t</a>
+           <a href="#" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition">in</a>
+        </div>
       </div>
     </div>
-<<<<<<< Updated upstream
-  </footer>
-=======
 
-    <!-- Bottom Copyright with Divider -->
     <div class="border-t border-white/10 pt-8 text-center">
       <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
     </div>
-
   </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="connection.js"></script>
->>>>>>> Stashed changes
 <script>
+  // Mobile Menu Toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  if(menuToggle && mobileMenu){
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+
+  // Footer year auto-update
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Toggle Password
   function togglePassword(id, btn){
     const input = document.getElementById(id);
     if(input.type === "password"){
@@ -321,47 +298,28 @@
     }
   }
 
-<<<<<<< Updated upstream
-  document.getElementById("signupForm").addEventListener("submit", async function(e){
-    e.preventDefault();
-=======
-  // Footer year auto-update
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Signup form submission logic with connection.js apiRequest
+  // Signup form submission logic
   document.getElementById("signupForm").addEventListener("submit", async function(e){
     e.preventDefault();
     
-    const firstName = document.querySelector('input[placeholder="First Name"]').value.trim();
-    const lastName = document.querySelector('input[placeholder="Last Name"]').value.trim();
-    const email = document.querySelector('input[type="email"]').value.trim();
-    const pass = document.getElementById("password").value;
-    const confirm = document.getElementById("confirm").value;
-    const role = document.querySelector('input[name="role"]:checked').value;
->>>>>>> Stashed changes
-
     const first = document.getElementById("firstName").value.trim();
     const last  = document.getElementById("lastName").value.trim();
     const email = document.getElementById("email").value.trim();
     const pass  = document.getElementById("password").value;
     const confirm = document.getElementById("confirm").value;
-    
-    // Role select karna (student ya teacher)
     const role = document.getElementById("teacherRole").checked ? "teacher" : "student";
 
     const errorBox = document.getElementById("formError");
     errorBox.classList.add("hidden");
     errorBox.textContent = "";
 
-    // EMPTY CHECK
+    // VALIDATIONS
     if(!first || !last || !email || !pass || !confirm){
       errorBox.textContent = "⚠️ Please fill all required fields before creating account.";
       errorBox.classList.remove("hidden");
       return;
     }
 
-<<<<<<< Updated upstream
-    // EMAIL FORMAT
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!emailPattern.test(email)){
       errorBox.textContent = "⚠️ Please enter a valid email address.";
@@ -369,21 +327,19 @@
       return;
     }
 
-    // PASSWORD LENGTH
     if(pass.length < 6){
       errorBox.textContent = "⚠️ Password must be at least 6 characters long.";
       errorBox.classList.remove("hidden");
       return;
     }
 
-    // PASSWORD MATCH
     if(pass !== confirm){
       errorBox.textContent = "⚠️ Password and Confirm Password do not match.";
       errorBox.classList.remove("hidden");
       return;
     }
 
-    // BACKEND INTEGRATION (API CALL)
+    // BACKEND INTEGRATION
     try {
       const response = await fetch("http://127.0.0.1:8000/api/auth/signup/", {
         method: "POST",
@@ -391,7 +347,7 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          username: email,       // Backend username mangta hai, toh hum email ko as username bhej rahe hain
+          username: email,
           password: pass,
           role: role,
           first_name: first,
@@ -403,41 +359,19 @@
 
       if(response.ok) {
         alert("🎉 Account created successfully!");
-        // Agar teacher hai toh pending approval page ya login par bhejein
         if(role === "teacher") {
-          window.location.href = "pending-approval.html";
+          window.location.href = "teacher info.html";
         } else {
           window.location.href = "login.html";
         }
       } else {
-        errorBox.textContent = "⚠️ " + (data.error || "Signup failed. Try a different email.");
+        errorBox.textContent = "⚠️ " + (data.error || data.detail || "Signup failed. Try a different email.");
         errorBox.classList.remove("hidden");
       }
     } catch (err) {
       console.error("Error:", err);
       errorBox.textContent = "⚠️ Server connection error. Make sure Django is running.";
       errorBox.classList.remove("hidden");
-=======
-    // Backend API call using connection.js
-    const data = await apiRequest("/auth/signup/", "POST", {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        password: pass,
-        role: role
-    });
-
-    if (data && (data.success || data.access || data.id)) {
-        alert("Account Created Successfully!");
-        // Role-based redirection
-        if(role === "teacher") {
-            window.location.href = "teacher info.html";
-        } else if(role === "student") {
-            window.location.href = "student dashboard.html";
-        }
-    } else {
-        alert("Signup Failed: " + (data.detail || data.message || "Please check your inputs."));
->>>>>>> Stashed changes
     }
   });
 </script>
