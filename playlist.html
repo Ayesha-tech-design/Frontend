@@ -159,7 +159,7 @@
         <option value="graphics">Graphics Designing</option>
         <option value="wordpress">WordPress Development</option>
         <option value="fiverr">Fiverr Freelancing</option>
-        <option value="security">Information Security</option>
+        <option value="infosec">Information Security</option>
       </select>
     </div>
   </div>
@@ -370,7 +370,7 @@ const playlistsData = {
       { type: "local", videoUrl: "videos/lesson15.mp4", title: "Lec 15: Scaling to Level 1 and Level 2 Seller", duration: "22m 00s", desc: "Meet and exceed platform metrics to unlock higher seller badges, better visibility, and higher earnings.", points: ["Maintain high order completion rates", "Keep response rates under 1 hour", "Deliver consistently high ratings"], mcqs: [{ q: "What metric is crucial for achieving Level status?", options: ["Order completion rate, rating, and on-time delivery", "Number of social media followers", "Age of your personal email"], ans: 0 }] }
     ]
   },
-  security: {
+  infosec: {
     category: "Cybersecurity & Defense",
     title: "Information Security Course",
     lectures: [
@@ -616,10 +616,17 @@ const playlistsData = {
       toast.classList.add("translate-y-20", "opacity-0");
     }, 3000);
   }
-
   // Initialize page on load
   window.onload = () => {
-    initCourse("graphics");
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseParam = urlParams.get('course');
+    
+    // Agar URL mein course maujood hai aur playlistsData mein bhi hai toh wahi kholo, warna by default "graphics" rakho
+    if (courseParam && playlistsData[courseParam]) {
+      initCourse(courseParam);
+    } else {
+      initCourse("graphics");
+    }
   };
 </script>
 </body>
