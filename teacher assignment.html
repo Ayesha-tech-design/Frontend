@@ -12,41 +12,37 @@
 <body class="bg-gray-100 font-sans flex">
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block fixed md:relative z-50">
-  <div class="flex justify-between items-center mb-8">
-    <h2 class="text-2xl font-bold">Teacher</h2>
-    <button onclick="toggleSidebar()" class="md:hidden text-white text-xl">✕</button>
-  </div>
+<aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block">
+  <h2 class="text-2xl font-bold mb-8">Teacher</h2>
   <nav class="space-y-4">
     <a href="teacher dashboard.html" class="block hover:text-gray-300">Home</a>
     <a href="teacher courses.html" class="block hover:text-gray-300">My Courses</a>
-    <a href="teacher assignments.html" class="block font-bold text-yellow-400">Assignments</a>
+    <a href="teacher assignments.html" class="block hover:text-gray-300 font-bold">Assignments</a>
     <a href="student dashboard.html" class="block hover:text-gray-300">Students</a>
-    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300">🔔 Notifications <span id="notifCountSidebar" class="ml-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span></a>
+    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300 flex justify-between items-center">
+      🔔 Notifications
+      <span id="notifCount" class="bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+    </a>
     <a href="teacher profile.html" class="block hover:text-gray-300">Profile</a>
     <button onclick="logout()" class="w-full text-left hover:text-gray-300">Logout</button>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="flex-1 w-full">
+<div class="flex-1">
 
   <!-- NAVBAR -->
   <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <button onclick="toggleSidebar()" class="md:hidden text-[#0b2149] text-2xl font-bold focus:outline-none">☰</button>
-      <h1 class="text-xl font-bold text-[#0b2149]">Assignments</h1>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <div class="relative">
-        <button onclick="toggleNotifications()" class="text-[#0b2149] text-xl">🔔</button>
-        <span id="notifCount" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
-      </div>
+    <h1 class="text-xl font-bold text-[#0b2149]">Assignments</h1>
+    <div class="relative flex items-center gap-4">
+      <button onclick="toggleNotifications()" class="relative bg-[#0b2149] text-white px-4 py-2 rounded">
+        🔔
+        <span id="notifCountNav" class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-600 text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+      </button>
 
       <div class="relative">
         <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
-        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40 z-50">
+        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
           <a href="teacher profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
           <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
         </div>
@@ -57,24 +53,21 @@
   <!-- CONTENT -->
   <div class="p-6 space-y-6">
 
-    <!-- Action Bar -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-xl shadow gap-4">
-      <div>
-        <h2 class="text-lg font-bold text-[#0b2149]">Manage Assignments</h2>
-        <p class="text-sm text-gray-500">Create new tasks and review student submissions.</p>
-      </div>
-      <button onclick="openModal()" class="bg-[#0b2149] text-white px-4 py-2 rounded hover:bg-gray-800 transition text-sm">Add New Assignment</button>
+    <!-- Quick Add Assignment -->
+    <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow">
+      <h2 class="text-lg font-bold text-[#0b2149]">Assignments Overview</h2>
+      <button onclick="addAssignment()" class="bg-[#0b2149] text-white px-4 py-2 rounded hover:bg-gray-800 transition">Add New Assignment</button>
     </div>
 
-    <!-- Created Assignments Table -->
+    <!-- Assignments Table -->
     <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
-      <h3 class="text-md font-bold text-[#0b2149] mb-4">Published Assignments</h3>
-      <table class="w-full text-left table-auto min-w-[500px]">
+      <table class="w-full text-left table-auto">
         <thead>
           <tr class="bg-gray-100">
             <th class="p-3 font-semibold text-[#0b2149]">Title</th>
             <th class="p-3 font-semibold text-[#0b2149]">Course</th>
             <th class="p-3 font-semibold text-[#0b2149]">Due Date</th>
+            <th class="p-3 font-semibold text-[#0b2149]">Status</th>
             <th class="p-3 font-semibold text-[#0b2149]">Actions</th>
           </tr>
         </thead>
@@ -84,75 +77,37 @@
       </table>
     </div>
 
-    <!-- Student Submissions View -->
-    <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
-      <h3 class="text-md font-bold text-[#0b2149] mb-4">Student Submissions (AssignmentSubmission)</h3>
-      <table class="w-full text-left table-auto min-w-[600px]">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="p-3 font-semibold text-[#0b2149]">Student Name</th>
-            <th class="p-3 font-semibold text-[#0b2149]">Assignment Title</th>
-            <th class="p-3 font-semibold text-[#0b2149]">Submission File</th>
-            <th class="p-3 font-semibold text-[#0b2149]">Status</th>
-            <th class="p-3 font-semibold text-[#0b2149]">Action</th>
-          </tr>
-        </thead>
-        <tbody id="submissionsTable">
-          <!-- JS populates student submissions -->
-        </tbody>
-      </table>
+    <!-- Announcements -->
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-lg font-bold text-[#0b2149] mb-4">Announcements</h2>
+      <ul id="announcementList" class="space-y-2">
+        <!-- JS populates announcements -->
+      </ul>
     </div>
 
   </div>
 </div>
 
-<!-- ADD ASSIGNMENT MODAL -->
-<div id="assignmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
-  <div class="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
-    <h3 class="text-lg font-bold text-[#0b2149] mb-4">Create New Assignment</h3>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Assignment Title</label>
-        <input type="text" id="modalTitle" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Select Course</label>
-        <select id="modalCourse" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
-          <option value="Graphic Designing">Graphic Designing</option>
-          <option value="Wordpress Web Dev">Wordpress Web Dev</option>
-          <option value="Fiverr Freelancing">Fiverr Freelancing</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Due Date</label>
-        <input type="date" id="modalDue" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
-      </div>
-      <div class="flex justify-end gap-2 mt-4">
-        <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 text-sm">Cancel</button>
-        <button onclick="saveAssignment()" class="px-4 py-2 bg-[#0b2149] text-white rounded hover:bg-gray-800 text-sm">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NOTIFICATIONS PANEL -->
-<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden z-50">
+<!-- Notifications Panel -->
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
   <h3 class="font-semibold mb-3">Notifications</h3>
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
 <script>
-// SIDEBAR & PROFILE TOGGLE
-function toggleSidebar() { document.getElementById("sidebar").classList.toggle("hidden"); }
+// PROFILE DROPDOWN
 function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
+// LOGOUT
 function logout(){ window.location.href = "login.html"; }
+// NOTIFICATIONS
 function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
 
-// NOTIFICATIONS
+// Unified Notifications
 let notifications = JSON.parse(localStorage.getItem("notifications")) || [
   "New student registered 👨‍🎓",
   "New assignment submission 📄",
-  "Course updated 🎓"
+  "Course updated 🎓",
+  "Website updated 🚀"
 ];
 localStorage.setItem("notifications", JSON.stringify(notifications));
 
@@ -161,17 +116,18 @@ function renderNotifications(){
   list.innerHTML = "";
   notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
   document.getElementById("notifCount").innerText = notifications.length;
-  document.getElementById("notifCountSidebar").innerText = notifications.length;
+  document.getElementById("notifCountNav").innerText = notifications.length;
 }
 renderNotifications();
 
-// ASSIGNMENTS DATA
-let assignments = JSON.parse(localStorage.getItem("teacherAssignments")) || [
-  {title:"Graphic Design Project", course:"Graphic Designing", due:"2026-04-15"},
-  {title:"Wordpress Website Build", course:"Wordpress Web Dev", due:"2026-04-18"},
-  {title:"Fiverr Freelancing Task", course:"Fiverr Freelancing", due:"2026-04-20"}
+// Assignments Data
+let assignments = [
+  {title:"Graphic Design Project", course:"Graphic Designing", due:"2026-04-15", status:"Pending"},
+  {title:"Wordpress Website Build", course:"Wordpress Web Dev", due:"2026-04-18", status:"Checked"},
+  {title:"Fiverr Freelancing Task", course:"Fiverr Freelancing", due:"2026-04-20", status:"Pending"}
 ];
 
+// Render Assignments
 function renderAssignments(){
   const table = document.getElementById("assignmentsTable");
   table.innerHTML = "";
@@ -181,64 +137,49 @@ function renderAssignments(){
         <td class="p-3">${a.title}</td>
         <td class="p-3">${a.course}</td>
         <td class="p-3">${a.due}</td>
+        <td class="p-3 font-bold ${a.status==='Checked'?'text-green-600':'text-red-600'}">${a.status}</td>
         <td class="p-3 flex gap-2">
-          <button onclick="deleteAssignment(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Delete</button>
+          <button onclick="editAssignment(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
+          <button onclick="deleteAssignment(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
         </td>
       </tr>`;
   });
-  localStorage.setItem("teacherAssignments", JSON.stringify(assignments));
 }
 renderAssignments();
 
-// STUDENT SUBMISSIONS DATA
-let studentSubmissions = [
-  { student: "Ayesha", assignment: "Graphic Design Project", file: "ayesha_design.zip", status: "Pending Review" },
-  { student: "Khadija", assignment: "Wordpress Website Build", file: "wordpress_site.pdf", status: "Checked" }
+// Announcements
+let announcements = [
+  "New course added: JavaScript Advanced",
+  "Website maintenance on 2026-04-10",
+  "Assignment deadline extended"
 ];
-
-function renderSubmissions(){
-  const subTable = document.getElementById("submissionsTable");
-  subTable.innerHTML = "";
-  studentSubmissions.forEach((sub, i) => {
-    subTable.innerHTML += `
-      <tr class="border-b hover:bg-gray-50">
-        <td class="p-3 font-medium">${sub.student}</td>
-        <td class="p-3">${sub.assignment}</td>
-        <td class="p-3 text-blue-600 underline cursor-pointer">${sub.file}</td>
-        <td class="p-3 font-bold ${sub.status==='Checked'?'text-green-600':'text-yellow-600'}">${sub.status}</td>
-        <td class="p-3">
-          <button onclick="toggleStatus(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Toggle Status</button>
-        </td>
-      </tr>`;
-  });
+function renderAnnouncements(){
+  const list = document.getElementById("announcementList");
+  list.innerHTML = "";
+  announcements.forEach(a => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${a}</li>`);
 }
-renderSubmissions();
+renderAnnouncements();
 
-function toggleStatus(i){
-  studentSubmissions[i].status = studentSubmissions[i].status === 'Checked' ? 'Pending Review' : 'Checked';
-  renderSubmissions();
-}
-
-// MODAL CONTROLS
-function openModal(){ document.getElementById("assignmentModal").classList.remove("hidden"); }
-function closeModal(){ document.getElementById("assignmentModal").classList.add("hidden"); }
-
-function saveAssignment(){
-  const title = document.getElementById("modalTitle").value;
-  const course = document.getElementById("modalCourse").value;
-  const due = document.getElementById("modalDue").value;
-  
+// Add/Edit/Delete Assignment
+function addAssignment(){
+  const title = prompt("Assignment Title:");
+  const course = prompt("Course:");
+  const due = prompt("Due Date (YYYY-MM-DD):");
   if(title && course && due){
-    assignments.push({title, course, due});
+    assignments.push({title, course, due, status:"Pending"});
     renderAssignments();
-    closeModal();
-    document.getElementById("modalTitle").value = "";
-    document.getElementById("modalDue").value = "";
-  } else {
-    alert("Please fill all fields!");
   }
 }
-
+function editAssignment(i){
+  const title = prompt("Edit Assignment Title:", assignments[i].title);
+  const course = prompt("Edit Course:", assignments[i].course);
+  const due = prompt("Edit Due Date:", assignments[i].due);
+  const status = prompt("Status (Pending/Checked):", assignments[i].status);
+  if(title && course && due && status){
+    assignments[i] = {title, course, due, status};
+    renderAssignments();
+  }
+}
 function deleteAssignment(i){
   if(confirm("Are you sure to delete this assignment?")){
     assignments.splice(i,1);

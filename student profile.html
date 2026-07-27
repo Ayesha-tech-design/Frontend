@@ -2,106 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartEduX | Student Profile</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-100">
 
 <!-- NAVBAR -->
-<nav class="bg-[#0b2149] px-4 sm:px-6 py-3 flex justify-between items-center text-white shadow-md">
-  <h1 class="text-base sm:text-xl font-bold truncate">SmartEduX</h1>
+<nav class="bg-[#0b2149] px-6 py-3 flex justify-between items-center text-white">
+  <h1 class="text-xl font-bold">SmartEduX</h1>
 
-  <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+  <div class="flex items-center gap-4">
     <!-- Dashboard Link -->
     <a href="student dashboard.html"
-       class="text-xs sm:text-sm bg-white text-[#0b2149] px-3 py-1.5 rounded font-semibold hover:bg-gray-200 transition">
+       class="text-sm bg-white text-[#0b2149] px-4 py-1 rounded hover:bg-gray-200">
       Dashboard
     </a>
 
     <!-- Avatar -->
     <img id="navProfileImg"
          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-         class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-white object-cover">
+         class="w-9 h-9 rounded-full border-2 border-white object-cover">
   </div>
 </nav>
 
 <!-- MAIN -->
-<main class="max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10 flex-1">
+<main class="max-w-5xl mx-auto px-6 py-10">
 
   <!-- PROFILE CARD -->
-  <div class="bg-white rounded-2xl p-5 sm:p-8 shadow mb-6 sm:mb-8 flex flex-col sm:flex-row gap-5 sm:gap-8 items-center text-center sm:text-left">
+  <div class="bg-white rounded-2xl p-8 shadow mb-10 flex flex-col md:flex-row gap-8 items-center">
 
     <!-- Image -->
-    <div class="relative flex-shrink-0">
+    <div class="text-center">
       <img id="profileImg"
            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-           class="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto shadow">
+           class="w-32 h-32 rounded-full border-4 border-[#0b2149] object-cover mx-auto">
 
-      <label class="inline-block mt-3 text-xs sm:text-sm text-[#0b2149] cursor-pointer font-semibold hover:underline">
+      <label class="block mt-4 text-sm text-[#0b2149] cursor-pointer font-semibold">
         Change Photo
         <input type="file" accept="image/*" hidden onchange="changeImage(event)">
       </label>
     </div>
 
     <!-- Info -->
-    <div class="space-y-1 w-full overflow-hidden">
-      <h2 class="text-lg sm:text-2xl font-bold text-[#0b2149] truncate" id="studentName">
+    <div>
+      <!-- Backend se aayega -->
+      <h2 class="text-2xl font-bold text-[#0b2149]" id="studentName">
+        <!-- Dynamic Name -->
         Student Name
       </h2>
-      <p class="text-xs sm:text-base text-gray-500 break-words" id="studentEmail">
+      <p class="text-gray-500" id="studentEmail">
         student@email.com
       </p>
-      <div class="pt-2">
-        <span class="inline-block bg-blue-50 text-[#0b2149] text-xs font-semibold px-3 py-1 rounded-full border border-blue-200">
-          Active Student
-        </span>
-      </div>
     </div>
 
   </div>
 
   <!-- PROFILE FORM -->
-  <div class="bg-white rounded-2xl p-5 sm:p-8 shadow mb-6 sm:mb-8">
-    <h3 class="text-sm sm:text-lg font-semibold text-[#0b2149] mb-4 sm:mb-6">Profile Information</h3>
+  <div class="bg-white rounded-2xl p-8 shadow mb-10">
+    <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Profile Information</h3>
 
-    <form class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-      <input type="text" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="Full Name">
-      <input type="email" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="Email Address">
-      <input type="text" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="Registration Number">
-      <input type="text" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="Department">
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input class="border p-3 rounded" placeholder="Full Name">
+      <input class="border p-3 rounded" placeholder="Email Address">
+      <input class="border p-3 rounded" placeholder="Registration Number">
+      <input class="border p-3 rounded" placeholder="Department">
 
-      <button type="submit"
-        class="sm:col-span-2 bg-[#0b2149] text-white py-2.5 sm:py-3 rounded-lg hover:bg-[#163a78] transition text-xs sm:text-base font-semibold shadow mt-2">
+      <button
+        class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
         Update Profile
       </button>
     </form>
   </div>
 
   <!-- SECURITY SECTION -->
-  <div class="bg-white rounded-2xl p-5 sm:p-8 shadow">
-    <h3 class="text-sm sm:text-lg font-semibold text-[#0b2149] mb-4 sm:mb-6">Security Settings</h3>
+  <div class="bg-white rounded-2xl p-8 shadow">
+    <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Security Settings</h3>
 
-    <form class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-      <input type="password" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="Current Password">
-      <input type="password" class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base focus:ring-2 focus:ring-[#0b2149] outline-none w-full" placeholder="New Password">
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="password" class="border p-3 rounded" placeholder="Current Password">
+      <input type="password" class="border p-3 rounded" placeholder="New Password">
       <input type="password"
-             class="border p-2.5 sm:p-3 rounded-lg text-xs sm:text-base sm:col-span-2 focus:ring-2 focus:ring-[#0b2149] outline-none w-full"
+             class="border p-3 rounded md:col-span-2"
              placeholder="Confirm New Password">
 
-      <button type="submit"
-        class="sm:col-span-2 bg-red-600 text-white py-2.5 sm:py-3 rounded-lg hover:bg-red-700 transition text-xs sm:text-base font-semibold shadow mt-2">
+      <button
+        class="md:col-span-2 bg-red-600 text-white py-3 rounded hover:bg-red-700 transition">
         Change Password
       </button>
     </form>
 
     <!-- LOGIN INFO -->
-    <div class="mt-5 bg-gray-50 p-3.5 sm:p-4 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border">
-      <p class="text-xs sm:text-sm text-gray-600">
-        <span class="font-medium text-gray-800">Last Login:</span> 10 Jan 2026 • Chrome • Pakistan
+    <div class="mt-6 bg-gray-50 p-4 rounded">
+      <p class="text-sm text-gray-600">
+        Last Login: 10 Jan 2026 • Chrome • Pakistan
       </p>
-      <button type="button" class="text-xs sm:text-sm text-[#0b2149] font-semibold hover:underline">
+      <button class="mt-2 text-sm text-[#0b2149] font-semibold hover:underline">
         Logout from all devices
       </button>
     </div>
@@ -117,9 +113,7 @@ function changeImage(event) {
     document.getElementById('profileImg').src = reader.result;
     document.getElementById('navProfileImg').src = reader.result;
   }
-  if(event.target.files && event.target.files[0]) {
-    reader.readAsDataURL(event.target.files[0]);
-  }
+  reader.readAsDataURL(event.target.files[0]);
 }
 </script>
 

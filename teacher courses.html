@@ -12,42 +12,38 @@
 <body class="bg-gray-100 font-sans flex">
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block fixed md:relative z-50">
-  <div class="flex justify-between items-center mb-8">
-    <h2 class="text-2xl font-bold">Teacher</h2>
-    <button onclick="toggleSidebar()" class="md:hidden text-white text-xl">✕</button>
-  </div>
+<aside class="w-64 bg-[#0b2149] text-white min-h-screen p-5 hidden md:block">
+  <h2 class="text-2xl font-bold mb-8">Teacher</h2>
   <nav class="space-y-4">
     <a href="teacher dashboard.html" class="block hover:text-gray-300">Home</a>
-    <a href="teacher courses.html" class="block font-bold text-yellow-400">My Courses</a>
-    <a href="teacher assignments.html" class="block hover:text-gray-300">Assignments</a>
+    <a href="teacher courses.html" class="block hover:text-gray-300 font-bold">My Courses</a>
+    <a href="teacher assignment.html" class="block hover:text-gray-300">Assignments</a>
     <a href="student dashboard.html" class="block hover:text-gray-300">Students</a>
-    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300">🔔 Notifications <span id="notifCountSidebar" class="ml-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span></a>
+    <a href="#" onclick="toggleNotifications()" class="block hover:text-gray-300 flex justify-between items-center">
+      🔔 Notifications
+      <span id="notifCount" class="bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+    </a>
     <a href="teacher profile.html" class="block hover:text-gray-300">Profile</a>
     <button onclick="logout()" class="w-full text-left hover:text-gray-300">Logout</button>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="flex-1 w-full">
+<div class="flex-1">
 
   <!-- NAVBAR -->
   <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <button onclick="toggleSidebar()" class="md:hidden text-[#0b2149] text-2xl font-bold focus:outline-none">☰</button>
-      <h1 class="text-xl font-bold text-[#0b2149]">My Courses</h1>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <div class="relative">
-        <button onclick="toggleNotifications()" class="text-[#0b2149] text-xl">🔔</button>
-        <span id="notifCount" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
-      </div>
+    <h1 class="text-xl font-bold text-[#0b2149]">My Courses</h1>
+    <div class="relative flex items-center gap-4">
+      <button onclick="toggleNotifications()" class="relative bg-[#0b2149] text-white px-4 py-2 rounded">
+        🔔
+        <span id="notifCountNav" class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-600 text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+      </button>
 
       <div class="relative">
         <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
-        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40 z-50">
-          <a href="teacher profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+          <a href="teacher-profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
           <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
         </div>
       </div>
@@ -58,17 +54,14 @@
   <div class="p-6 space-y-6">
 
     <!-- Quick Add -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-xl shadow gap-4">
-      <div>
-        <h2 class="text-lg font-bold text-[#0b2149]">Courses Overview</h2>
-        <p class="text-sm text-gray-500">Create and manage your courses and view enrolled students.</p>
-      </div>
-      <button onclick="openModal()" class="bg-[#0b2149] text-white px-4 py-2 rounded hover:bg-gray-800 transition text-sm">Add New Course</button>
+    <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow">
+      <h2 class="text-lg font-bold text-[#0b2149]">Courses Overview</h2>
+      <button onclick="addCourse()" class="bg-[#0b2149] text-white px-4 py-2 rounded hover:bg-gray-800 transition">Add New Course</button>
     </div>
 
     <!-- Courses Table -->
     <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
-      <table class="w-full text-left table-auto min-w-[600px]">
+      <table class="w-full text-left table-auto">
         <thead>
           <tr class="bg-gray-100">
             <th class="p-3 font-semibold text-[#0b2149]">Course Name</th>
@@ -87,73 +80,28 @@
 
 </div>
 
-<!-- ADD / EDIT COURSE MODAL -->
-<div id="courseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
-  <div class="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
-    <h3 id="modalTitleText" class="text-lg font-bold text-[#0b2149] mb-4">Create New Course</h3>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Course Title</label>
-        <input type="text" id="modalName" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea id="modalDesc" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]" rows="3" placeholder="Course details..."></textarea>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Thumbnail URL / Image</label>
-        <input type="text" id="modalThumb" class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#0b2149]" placeholder="image link...">
-      </div>
-      <div class="flex justify-end gap-2 mt-4">
-        <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 text-sm">Cancel</button>
-        <button onclick="saveCourse()" class="px-4 py-2 bg-[#0b2149] text-white rounded hover:bg-gray-800 text-sm">Save Course</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- STUDENTS VIEW MODAL -->
-<div id="studentsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
-  <div class="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-bold text-[#0b2149]" id="studentModalTitle">Enrolled Students</h3>
-      <button onclick="closeStudentsModal()" class="text-gray-500 font-bold">✕</button>
-    </div>
-    <div class="overflow-x-auto max-h-60">
-      <table class="w-full text-left text-sm">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="p-2">Student Name</th>
-            <th class="p-2">Email</th>
-            <th class="p-2">Progress</th>
-          </tr>
-        </thead>
-        <tbody id="enrolledStudentsList">
-          <!-- Populated via JS -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 <!-- Notifications Panel -->
-<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden z-50">
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
   <h3 class="font-semibold mb-3">Notifications</h3>
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
 <script>
-// SIDEBAR & PROFILE TOGGLE
-function toggleSidebar() { document.getElementById("sidebar").classList.toggle("hidden"); }
+// PROFILE DROPDOWN
 function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
+
+// LOGOUT
 function logout(){ window.location.href = "login.html"; }
+
+// NOTIFICATIONS
 function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
 
 // Unified Notifications
 let notifications = JSON.parse(localStorage.getItem("notifications")) || [
   "New student registered 👨‍🎓",
   "New assignment submission 📄",
-  "Course updated 🎓"
+  "Course updated 🎓",
+  "Website updated 🚀"
 ];
 localStorage.setItem("notifications", JSON.stringify(notifications));
 
@@ -162,25 +110,17 @@ function renderNotifications(){
   list.innerHTML = "";
   notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
   document.getElementById("notifCount").innerText = notifications.length;
-  document.getElementById("notifCountSidebar").innerText = notifications.length;
+  document.getElementById("notifCountNav").innerText = notifications.length;
 }
 renderNotifications();
 
-// Force clear old cached courses once so new counts and Information Security show up correctly
-if(!localStorage.getItem("courses_updated_v2")) {
-  localStorage.removeItem("teacherCourses");
-  localStorage.setItem("courses_updated_v2", "true");
-}
-
-// Courses Data with 3, 2, 4, 3 students and Information Security
-let courses = JSON.parse(localStorage.getItem("teacherCourses")) || [
-  {name:"Graphic Designing", desc:"Learn UI layout basics", students:3, status:"Active"},
-  {name:"Wordpress Web Dev", desc:"Master website building", students:2, status:"Active"},
-  {name:"Fiverr Freelancing", desc:"Gig optimization", students:4, status:"Inactive"},
-  {name:"Information Security", desc:"Cyber security fundamentals", students:3, status:"Active"}
+// Courses Data
+let courses = [
+  {name:"Graphic Designing", students:25, status:"Active"},
+  {name:"Wordpress Web Dev", students:40, status:"Active"},
+  {name:"Fiverr Freelancing", students:30, status:"Inactive"},
+  {name:"JavaScript Advanced", students:20, status:"Active"}
 ];
-
-let editIndex = null;
 
 // Render Courses
 function renderCourses(){
@@ -189,82 +129,38 @@ function renderCourses(){
   courses.forEach((c,i) => {
     table.innerHTML += `
       <tr class="border-b hover:bg-gray-50">
-        <td class="p-3 font-medium text-[#0b2149]">${c.name}</td>
-        <td class="p-3">
-          <button onclick="viewStudents(${i})" class="text-blue-600 underline hover:text-blue-800 font-semibold">${c.students} Students</button>
-        </td>
+        <td class="p-3">${c.name}</td>
+        <td class="p-3">${c.students}</td>
         <td class="p-3 font-bold ${c.status==='Active'?'text-green-600':'text-red-600'}">${c.status}</td>
-        <td class="p-3 flex gap-2 flex-wrap">
-          <button onclick="editCourse(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Edit</button>
-          <button onclick="deleteCourse(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Delete</button>
+        <td class="p-3 flex gap-2">
+          <button onclick="editCourse(${i})" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
+          <button onclick="deleteCourse(${i})" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
         </td>
       </tr>`;
   });
-  localStorage.setItem("teacherCourses", JSON.stringify(courses));
 }
 renderCourses();
 
-// Modal Controls
-function openModal(){
-  editIndex = null;
-  document.getElementById("modalTitleText").innerText = "Create New Course";
-  document.getElementById("modalName").value = "";
-  document.getElementById("modalDesc").value = "";
-  document.getElementById("modalThumb").value = "";
-  document.getElementById("courseModal").classList.remove("hidden");
-}
-
-function closeModal(){
-  document.getElementById("courseModal").classList.add("hidden");
-}
-
-function saveCourse(){
-  const name = document.getElementById("modalName").value;
-  const desc = document.getElementById("modalDesc").value;
-  
-  if(name){
-    if(editIndex !== null){
-      courses[editIndex].name = name;
-      courses[editIndex].desc = desc;
-    } else {
-      courses.push({name: name, desc: desc, students: 0, status: "Active"});
-    }
+// Add, Edit, Delete functions
+function addCourse(){
+  const name = prompt("Course Name:");
+  if(name) {
+    courses.push({name:name, students:0, status:"Active"});
     renderCourses();
-    closeModal();
-  } else {
-    alert("Please enter course title!");
   }
 }
-
 function editCourse(i){
-  editIndex = i;
-  document.getElementById("modalTitleText").innerText = "Edit Course";
-  document.getElementById("modalName").value = courses[i].name;
-  document.getElementById("modalDesc").value = courses[i].desc || "";
-  document.getElementById("courseModal").classList.remove("hidden");
+  const name = prompt("Edit Course Name:", courses[i].name);
+  if(name){
+    courses[i].name = name;
+    renderCourses();
+  }
 }
-
 function deleteCourse(i){
   if(confirm("Are you sure to delete this course?")){
     courses.splice(i,1);
     renderCourses();
   }
-}
-
-// Students View Modal
-function viewStudents(i){
-  document.getElementById("studentModalTitle").innerText = `Students in ${courses[i].name}`;
-  const list = document.getElementById("enrolledStudentsList");
-  list.innerHTML = `
-    <tr class="border-b"><td class="p-2">Ayesha</td><td class="p-2">ayesha@gmail.com</td><td class="p-2 text-green-600 font-semibold">80%</td></tr>
-    <tr class="border-b"><td class="p-2">Khadija</td><td class="p-2">khadija@gmail.com</td><td class="p-2 text-green-600 font-semibold">65%</td></tr>
-    <tr class="border-b"><td class="p-2">Fatima</td><td class="p-2">fatima@gmail.com</td><td class="p-2 text-green-600 font-semibold">90%</td></tr>
-  `;
-  document.getElementById("studentsModal").classList.remove("hidden");
-}
-
-function closeStudentsModal(){
-  document.getElementById("studentsModal").classList.add("hidden");
 }
 </script>
 
