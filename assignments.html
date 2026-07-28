@@ -129,8 +129,13 @@ function toggleProfile() {
   document.getElementById("profileMenu").classList.toggle("hidden");
 }
 
-// LOGOUT
-function logout() {
+// LOGOUT (DYNAMIC)
+async function logout() {
+  try {
+    if (typeof apiRequest === "function") {
+      await apiRequest('/auth/logout/', 'POST').catch(() => null);
+    }
+  } catch(e) {}
   window.location.href = "login.html";
 }
 
@@ -174,9 +179,15 @@ let assignments = [
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     if (typeof apiRequest === "function") {
-      const data = await apiRequest('/student/assignments/');
+      const data = await apiRequest('/student/assignments/').catch(() => null) || await apiRequest('/api/student/assignments/').catch(() => null);
       if(data && data.assignments && data.assignments.length > 0) {
         assignments = data.assignments;
+      }
+      if(data && data.courses_count) {
+        document.getElementById("courseCount").innerText = data.courses_count;
+      }
+      if(data && data.gpa) {
+        document.getElementById("gpa").innerText = data.gpa;
       }
     }
   } catch(e) {
@@ -222,7 +233,7 @@ async function completeAssignment(index) {
 
   try {
     if (typeof apiRequest === "function") {
-      await apiRequest('/student/complete-assignment/', 'POST', { assignment_id: task.id });
+      await apiRequest('/student/complete-assignment/', 'POST', { assignment_id: task.id }).catch(() => null);
     }
   } catch(e) {
     console.log("Assignment state saved locally.");
@@ -237,6 +248,12 @@ function updateProgress() {
 
   document.getElementById("progressPercent").innerText = percent + "%";
   document.getElementById("assignmentCount").innerText = total;
+
+  // Auto update unique course counts if dynamic
+  const uniqueCourses = new Set(assignments.map(a => a.course)).size;
+  if(uniqueCourses > 0) {
+    document.getElementById("courseCount").innerText = uniqueCourses;
+  }
 }
 
 // ADD NOTIFICATION

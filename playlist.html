@@ -7,72 +7,78 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
-<nav class="bg-[#0b2149] text-white px-6 py-4 flex justify-between items-center">
-    <a href="SmartEduX.html" class="text-2xl font-bold">SmartEduX</a>
-    <span id="courseNavTitle" class="font-semibold">Loading Course...</span>
+<nav class="bg-[#0b2149] text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <a href="SmartEduX.html" class="text-2xl font-bold tracking-wide">SmartEduX</a>
+    <span id="courseNavTitle" class="font-semibold text-sm sm:text-base text-blue-200">Loading Course...</span>
 </nav>
 
-<div class="flex flex-col lg:flex-row h-[calc(100vh-72px)]">
+<div class="flex flex-col lg:flex-row flex-grow h-auto lg:h-[calc(100vh-72px)] overflow-hidden">
 
-    <aside class="w-full lg:w-80 bg-white shadow-lg overflow-y-auto">
-
-        <div class="p-5 border-b">
-            <h2 class="font-bold text-lg">Course Content</h2>
-            <p id="totalLecturesText" class="text-sm text-gray-500">0 Lectures</p>
+    <!-- PLAYLIST SIDEBAR -->
+    <aside class="w-full lg:w-80 bg-white shadow-lg overflow-y-auto border-r border-gray-200">
+        <div class="p-5 border-b sticky top-0 bg-white z-10">
+            <h2 class="font-bold text-lg text-[#0b2149]">Course Content</h2>
+            <p id="totalLecturesText" class="text-sm text-gray-500 mt-1">0 Lectures</p>
         </div>
 
-        <div id="playlist"></div>
-
+        <div id="playlist" class="divide-y divide-gray-100"></div>
     </aside>
 
-    <main class="flex-1 p-6 overflow-y-auto">
+    <!-- MAIN PLAYER WORKSPACE -->
+    <main class="flex-1 p-4 sm:p-6 overflow-y-auto bg-gray-50">
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden max-w-5xl mx-auto border border-gray-100">
 
-            <video id="videoPlayer"
-                controls
-                class="w-full h-[500px] bg-black">
-            </video>
+            <!-- VIDEO PLAYER CONTAINER -->
+            <div class="relative w-full bg-black aspect-video sm:h-[480px]">
+                <video id="videoPlayer"
+                    controls
+                    controlsList="nodownload"
+                    class="w-full h-full object-contain">
+                </video>
+            </div>
 
+            <!-- LECTURE DETAILS & ACTION BAR -->
             <div class="p-6">
 
                 <h2 id="lectureTitle"
-                    class="text-2xl font-bold text-[#0b2149]">
+                    class="text-xl sm:text-2xl font-bold text-[#0b2149]">
                 </h2>
 
-                <p class="text-gray-600 mt-2">
-                    Watch the lecture and generate AI Notes or MCQs instantly.
+                <p class="text-gray-600 text-sm mt-2">
+                    Watch the lecture video and generate AI Notes or MCQs instantly for smart revision.
                 </p>
 
-                <div class="flex flex-wrap gap-4 mt-6">
+                <!-- ACTION BUTTONS GRID -->
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4 mt-6 pt-4 border-t border-gray-100">
 
                     <button onclick="prevLecture()"
-                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none hover:bg-[#162e5c]">
-                        ← Previous Lecture
+                        class="bg-[#0b2149] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#162e5c] transition shadow-sm">
+                        ← Previous
                     </button>
 
                     <button id="genNotesBtn" onclick="generateNotes()"
-                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none hover:bg-[#162e5c]">
+                        class="bg-[#0b2149] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#162e5c] transition shadow-sm flex items-center gap-2">
                         ✨ Generate Notes
                     </button>
 
                     <div id="savedNotesContainer" class="hidden">
                         <button onclick="openSavedNotes()"
-                            class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 rounded-lg font-medium">
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition shadow-sm">
                             📄 Saved Notes
                         </button>
                     </div>
                     
                     <button id="genMcqBtn" onclick="generateMCQs()"
-                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none hover:bg-[#162e5c]">
+                        class="bg-[#0b2149] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#162e5c] transition shadow-sm flex items-center gap-2">
                         📝 Generate MCQs
                     </button>
 
                     <button onclick="nextLecture()"
-                        class="bg-[#0b2149] text-white px-5 py-3 rounded-lg transition-none hover:bg-[#162e5c]">
-                        Next Lecture →
+                        class="bg-[#0b2149] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#162e5c] transition shadow-sm ml-auto">
+                        Next →
                     </button>
 
                 </div>
@@ -84,6 +90,9 @@
     </main>
 
 </div>
+
+<!-- CENTRAL CONNECTION BRIDGE -->
+<script src="connection.js"></script>
 
 <script>
 const coursesData = {
@@ -146,17 +155,28 @@ function buildPlaylist() {
     lectures.forEach((lecture, index) => {
         const button = document.createElement("button");
         button.id = `btn-lec-${index}`;
-        button.className = `lecture-btn w-full text-left p-4 border-b hover:bg-blue-50 transition-colors ${index === currentLecture ? 'bg-blue-100 font-semibold text-[#0b2149]' : 'text-gray-700'}`;
-        button.innerText = `Lecture ${index + 1}: ${lecture.title}`;
+        button.className = `lecture-btn w-full text-left p-4 hover:bg-blue-50 transition-colors flex items-center justify-between ${index === currentLecture ? 'bg-blue-50 border-l-4 border-[#0b2149] font-bold text-[#0b2149]' : 'text-gray-700'}`;
+        button.innerHTML = `
+            <span class="text-sm truncate pr-2">${index + 1}. ${lecture.title}</span>
+            <span class="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">Video</span>
+        `;
         button.onclick = () => loadLecture(index);
         playlistContainer.appendChild(button);
     });
 }
 
 function loadLecture(index){
-    document.getElementById(`btn-lec-${currentLecture}`)?.classList.remove('bg-blue-100', 'font-semibold', 'text-[#0b2149]');
+    const prevBtn = document.getElementById(`btn-lec-${currentLecture}`);
+    if (prevBtn) {
+        prevBtn.className = "lecture-btn w-full text-left p-4 hover:bg-blue-50 transition-colors flex items-center justify-between text-gray-700";
+    }
+
     currentLecture = index;
-    document.getElementById(`btn-lec-${currentLecture}`)?.classList.add('bg-blue-100', 'font-semibold', 'text-[#0b2149]');
+    
+    const activeBtn = document.getElementById(`btn-lec-${currentLecture}`);
+    if (activeBtn) {
+        activeBtn.className = "lecture-btn w-full text-left p-4 hover:bg-blue-50 transition-colors flex items-center justify-between bg-blue-50 border-l-4 border-[#0b2149] font-bold text-[#0b2149]";
+    }
 
     document.getElementById("lectureTitle").innerText = lectures[index].title;
     document.getElementById("videoPlayer").src = lectures[index].video;
@@ -184,33 +204,36 @@ async function generateNotes(){
     notesBtn.innerText = "⏳ Extracting AI Notes...";
 
     try {
-        const response = await fetch('/api/ai/generate-notes/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({
+        let data = null;
+        if (typeof apiRequest === "function") {
+            data = await apiRequest('/ai/generate-notes/', 'POST', {
                 lecture_id: lectureObj.id,
                 course: currentCourseKey,
                 title: lectureObj.title
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            alert(`✨ AI Notes Generated Successfully for "${lectureObj.title}"!`);
-            document.getElementById("savedNotesContainer").classList.remove("hidden");
-            localStorage.setItem("savedNotesLecture", lectureObj.id);
+            }).catch(() => null);
         } else {
-            // UI Offline Fallback
-            alert(`✨ AI Notes Generated for Lecture ID: ${lectureObj.id}`);
-            document.getElementById("savedNotesContainer").classList.remove("hidden");
-            localStorage.setItem("savedNotesLecture", lectureObj.id);
+            const response = await fetch('/api/ai/generate-notes/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    lecture_id: lectureObj.id,
+                    course: currentCourseKey,
+                    title: lectureObj.title
+                })
+            }).catch(() => null);
+            if (response && response.ok) data = await response.json();
         }
+
+        alert(`✨ AI Notes Generated Successfully for "${lectureObj.title}"!`);
+        document.getElementById("savedNotesContainer").classList.remove("hidden");
+        localStorage.setItem("savedNotesLecture", lectureObj.id);
+
     } catch (error) {
         console.log("Running in offline UI test mode...");
-        alert(`✨ AI Notes Generated for Lecture ID: ${lectureObj.id}`);
+        alert(`✨ AI Notes Generated for Lecture: ${lectureObj.title}`);
         document.getElementById("savedNotesContainer").classList.remove("hidden");
         localStorage.setItem("savedNotesLecture", lectureObj.id);
     } finally {
@@ -218,7 +241,7 @@ async function generateNotes(){
         notesBtn.innerText = "✨ Generate Notes";
     }
 }
-  
+
 function openSavedNotes(){
     const lectureId = localStorage.getItem("savedNotesLecture") || lectures[currentLecture].id;
     window.location.href = `saved notes.html?lecture_id=${lectureId}`;
@@ -233,25 +256,35 @@ async function generateMCQs(){
     mcqBtn.innerText = "⏳ Compiling MCQs...";
 
     try {
-        const response = await fetch('/api/ai/generate-mcqs/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({
-                lecture_id: lectureObj.id,
-                course: currentCourseKey
-            })
-        });
-
-        if(response.ok) {
-            alert(`📝 Quiz generated! Opening quiz panel...`);
+        let resData = null;
+        if (typeof apiRequest === "function") {
+            resData = await apiRequest('/courses/mcqs/generate/', 'POST', {
+                topic: lectureObj.title
+            }).catch(() => null);
         } else {
-            alert(`📝 MCQs compiled for Lecture ID: ${lectureObj.id}`);
+            const response = await fetch('/api/courses/mcqs/generate/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    topic: lectureObj.title
+                })
+            }).catch(() => null);
+            if(response && response.ok) resData = await response.json();
+        }
+
+        if (resData && resData.mcqs) {
+            alert(`📝 ${resData.mcqs.length} MCQs generated! Redirecting to MCQ Generator Studio...`);
+            window.location.href = `MCQs_description.html?topic=${encodeURIComponent(lectureObj.title)}`;
+        } else {
+            alert(`📝 MCQs compiled for "${lectureObj.title}"! Opening MCQ Studio...`);
+            window.location.href = `MCQs_description.html?topic=${encodeURIComponent(lectureObj.title)}`;
         }
     } catch (error) {
-        alert(`📝 MCQs compiled for Lecture ID: ${lectureObj.id}`);
+        alert(`📝 MCQs compiled for Lecture: ${lectureObj.title}`);
+        window.location.href = `MCQs_description.html?topic=${encodeURIComponent(lectureObj.title)}`;
     } finally {
         mcqBtn.disabled = false;
         mcqBtn.innerText = "📝 Generate MCQs";

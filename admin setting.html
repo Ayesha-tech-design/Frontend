@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Settings | SmartEduX</title>
+<title>Admin Settings | SmartEduX</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -13,46 +13,46 @@
 
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
 
 <!-- HEADER -->
-<header class="bg-[#0b2149] text-white p-4 flex justify-between items-center">
-  <h1 class="text-xl font-bold">System Settings</h1>
+<header class="bg-[#0b2149] text-white p-4 flex justify-between items-center flex-wrap gap-2 sm:gap-0">
+  <h1 class="text-lg sm:text-xl font-bold">System Settings</h1>
   <button onclick="window.location.href='admin dashboard.html'"
-    class="bg-white text-[#0b2149] px-4 py-2 rounded font-semibold text-sm hover:bg-gray-100 transition">
+    class="bg-white text-[#0b2149] px-3 sm:px-4 py-1.5 sm:py-2 rounded font-semibold text-xs sm:text-sm hover:bg-gray-100 transition">
     ← Dashboard
   </button>
 </header>
 
-<div class="max-w-5xl mx-auto p-6 space-y-6">
+<div class="max-w-5xl w-full mx-auto p-4 sm:p-6 space-y-4 sm:space-y-6 flex-1">
 
 <!-- PROFILE -->
-<div class="bg-white p-6 rounded-xl shadow">
-  <h2 class="font-semibold text-[#0b2149] mb-4">Profile Overview</h2>
+<div class="bg-white p-4 sm:p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4 text-base sm:text-lg">Profile Overview</h2>
 
-  <div class="flex flex-col md:flex-row gap-6 items-center">
+  <div class="flex flex-col sm:flex-row gap-6 items-center">
 
     <!-- IMAGE -->
-    <div class="text-center">
+    <div class="text-center flex-shrink-0">
       <img id="profilePreview" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-        class="w-28 h-28 rounded-full object-cover border mb-3">
+        class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border mb-3 mx-auto">
 
       <input type="file" id="profileImage" accept="image/*" class="hidden">
       <button onclick="document.getElementById('profileImage').click()"
-        class="bg-[#0b2149] text-white px-4 py-2 rounded text-sm hover:bg-[#162e5c] transition">
+        class="bg-[#0b2149] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-sm hover:bg-[#162e5c] transition">
         Upload Image
       </button>
     </div>
 
     <!-- INFO -->
-    <div class="grid md:grid-cols-2 gap-4 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
       <div>
         <label class="block text-xs text-gray-500 font-semibold mb-1">Full Name</label>
-        <input id="name" placeholder="Full Name" value="System Administrator" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+        <input id="name" placeholder="Full Name" value="System Administrator" class="w-full p-2.5 sm:p-3 border rounded text-sm focus:outline-none focus:border-[#0b2149]">
       </div>
       <div>
         <label class="block text-xs text-gray-500 font-semibold mb-1">Email Address</label>
-        <input id="email" type="email" placeholder="Email" value="admin@smartedux.edu" class="w-full p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+        <input id="email" type="email" placeholder="Email" value="admin@smartedux.edu" class="w-full p-2.5 sm:p-3 border rounded text-sm focus:outline-none focus:border-[#0b2149]">
       </div>
     </div>
 
@@ -60,23 +60,23 @@
 </div>
 
 <!-- PASSWORD -->
-<div class="bg-white p-6 rounded-xl shadow">
-  <h2 class="font-semibold text-[#0b2149] mb-4">Change Password</h2>
+<div class="bg-white p-4 sm:p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4 text-base sm:text-lg">Change Password</h2>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <input id="currentPass" type="password" placeholder="Current Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
-    <input id="newPass" type="password" placeholder="New Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
-    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-3 border rounded focus:outline-none focus:border-[#0b2149]">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <input id="currentPass" type="password" placeholder="Current Password" class="p-2.5 sm:p-3 border rounded text-sm focus:outline-none focus:border-[#0b2149]">
+    <input id="newPass" type="password" placeholder="New Password" class="p-2.5 sm:p-3 border rounded text-sm focus:outline-none focus:border-[#0b2149]">
+    <input id="confirmPass" type="password" placeholder="Confirm Password" class="p-2.5 sm:p-3 border rounded text-sm focus:outline-none focus:border-[#0b2149] sm:col-span-2 md:col-span-1">
   </div>
 
   <p id="passMsg" class="text-sm mt-2"></p>
 </div>
 
 <!-- NOTIFICATIONS -->
-<div class="bg-white p-6 rounded-xl shadow">
-  <h2 class="font-semibold text-[#0b2149] mb-4">Notification Preferences</h2>
+<div class="bg-white p-4 sm:p-6 rounded-xl shadow">
+  <h2 class="font-semibold text-[#0b2149] mb-4 text-base sm:text-lg">Notification Preferences</h2>
 
-  <div class="space-y-3 text-sm">
+  <div class="space-y-3 text-xs sm:text-sm">
     <label class="flex justify-between items-center cursor-pointer">
       <span>Email Notifications</span>
       <input type="checkbox" id="emailNotif" checked class="w-4 h-4 text-[#0b2149]">
@@ -97,18 +97,21 @@
 <!-- SAVE -->
 <div class="text-right">
   <button id="saveBtn" onclick="saveSettings()"
-    class="bg-[#0b2149] text-white px-6 py-3 rounded font-semibold hover:bg-[#162e5c] transition shadow-lg">
+    class="w-full sm:w-auto bg-[#0b2149] text-white px-6 py-2.5 sm:py-3 rounded text-sm font-semibold hover:bg-[#162e5c] transition shadow-lg">
     Save Changes
   </button>
 </div>
 
 </div>
 
+<!-- CENTRAL BACKEND CONNECTION BRIDGE -->
+<script src="connection.js"></script>
+
 <!-- JS -->
 <script>
 
 // LOAD DATA
-window.onload = function () {
+window.onload = async function () {
   const data = JSON.parse(localStorage.getItem("settings"));
 
   if(data){
@@ -122,6 +125,21 @@ window.onload = function () {
       document.getElementById("profilePreview").src = data.image;
     }
   }
+
+  // Live Backend Data Load
+  try {
+    if(typeof apiRequest === "function") {
+      const liveData = await apiRequest('/settings/', 'GET').catch(() => null) || await apiRequest('/api/settings/', 'GET').catch(() => null);
+      if(liveData) {
+        if(liveData.name) document.getElementById("name").value = liveData.name;
+        if(liveData.email) document.getElementById("email").value = liveData.email;
+        if(liveData.emailNotif !== undefined) document.getElementById("emailNotif").checked = liveData.emailNotif;
+        if(liveData.pushNotif !== undefined) document.getElementById("pushNotif").checked = liveData.pushNotif;
+        if(liveData.courseNotif !== undefined) document.getElementById("courseNotif").checked = liveData.courseNotif;
+        if(liveData.image) document.getElementById("profilePreview").src = liveData.image;
+      }
+    }
+  } catch(e){}
 };
 
 // IMAGE UPLOAD PREVIEW
@@ -166,7 +184,7 @@ function validatePassword(){
   return true;
 }
 
-// SAVE SETTINGS (Django API Integration)
+// SAVE SETTINGS (Django API Integration + connection.js)
 async function saveSettings(){
 
   if(!validatePassword()) return;
@@ -190,20 +208,19 @@ async function saveSettings(){
   localStorage.setItem("settings", JSON.stringify(payload));
 
   try {
-    const response = await fetch('/api/settings/save/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if(response.ok) {
-      alert("✅ Settings saved successfully!");
+    if (typeof apiRequest === "function") {
+      await apiRequest('/settings/save/', 'POST', payload);
     } else {
-      alert("✅ Settings saved!");
+      await fetch('/api/settings/save/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(payload)
+      });
     }
+    alert("✅ Settings saved successfully!");
   } catch(error) {
     alert("✅ Settings saved!");
   } finally {

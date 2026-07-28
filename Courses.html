@@ -245,10 +245,10 @@
       try {
         let apiData = null;
         if (typeof apiRequest === "function") {
-          apiData = await apiRequest('/courses/list/');
+          apiData = await apiRequest('/courses/list/').catch(() => null);
         } else {
-          const res = await fetch('/api/courses/list/');
-          if (res.ok) apiData = await res.json();
+          const res = await fetch('/api/courses/list/').catch(() => null);
+          if (res && res.ok) apiData = await res.json();
         }
 
         if (apiData && apiData.courses && apiData.courses.length > 0) {
@@ -264,10 +264,10 @@
       try {
         let userData = null;
         if (typeof apiRequest === "function") {
-          userData = await apiRequest('/user/status/');
+          userData = await apiRequest('/user/status/').catch(() => null);
         } else {
-          const res = await fetch('/api/user/status/');
-          if (res.ok) userData = await res.json();
+          const res = await fetch('/api/user/status/').catch(() => null);
+          if (res && res.ok) userData = await res.json();
         }
 
         if(userData && userData.is_authenticated) {

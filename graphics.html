@@ -112,6 +112,9 @@
 
 </section>
 
+<!-- CENTRAL CONNECTION BRIDGE -->
+<script src="connection.js"></script>
+
 <script>
     let isSignedUp = false; 
     let watchedLecturesCount = 0; 
@@ -119,24 +122,36 @@
     // Fetch User Auth State and Progress from Django API
     document.addEventListener("DOMContentLoaded", async () => {
         try {
-            const response = await fetch('/api/user/status/');
-            if(response.ok) {
-                const data = await response.json();
-                isSignedUp = data.is_authenticated;
-                
-                if(isSignedUp) {
-                    const signupBtn = document.getElementById('signupBtn');
-                    if(signupBtn) {
-                        signupBtn.textContent = "Dashboard";
-                        signupBtn.href = "student dashboard.html";
-                    }
-                    
-                    const progressRes = await fetch('/api/student/progress/?course=graphics');
-                    if(progressRes.ok) {
-                        const progressData = await progressRes.json();
-                        watchedLecturesCount = progressData.watched_count || 0;
-                    }
+            let data = null;
+            if (typeof apiRequest === "function") {
+                data = await apiRequest('/user/status/').catch(() => null);
+            } else {
+                const response = await fetch('/api/user/status/').catch(() => null);
+                if (response && response.ok) data = await response.json();
+            }
+
+            if (data && data.is_authenticated) {
+                isSignedUp = true;
+                const signupBtn = document.getElementById('signupBtn');
+                if (signupBtn) {
+                    signupBtn.textContent = "Dashboard";
+                    signupBtn.href = data.role === 'teacher' ? "teacher dashboard.html" : "student dashboard.html";
                 }
+
+                // Fetch progress
+                let progressData = null;
+                if (typeof apiRequest === "function") {
+                    progressData = await apiRequest('/student/progress/?course=graphics').catch(() => null);
+                } else {
+                    const progressRes = await fetch('/api/student/progress/?course=graphics').catch(() => null);
+                    if (progressRes && progressRes.ok) progressData = await progressRes.json();
+                }
+                
+                if (progressData) {
+                    watchedLecturesCount = progressData.watched_count || 0;
+                }
+            } else {
+                isSignedUp = false;
             }
         } catch (error) {
             console.log("Running in offline UI testing mode.");
