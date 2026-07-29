@@ -6,9 +6,17 @@ async function apiRequest(endpoint, method = "GET", data = null) {
     // Endpoints handling slash
     const formattedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
     
+    // Yahan 'access' key kar di gayi hai taake token theek se mil sakay
+    const token = localStorage.getItem("access_token") || localStorage.getItem("access") || sessionStorage.getItem("access");
+
     const headers = {
         "X-CSRFToken": getCookie("csrftoken") || ""
     };
+
+    // Agar token mojood hai toh headers mein attach kar dein
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
 
     const options = {
         method: method,
@@ -17,7 +25,6 @@ async function apiRequest(endpoint, method = "GET", data = null) {
 
     if (data) {
         if (data instanceof FormData) {
-            // FormData ke waqt Content-Type browser khud set karta hai
             options.body = data;
         } else {
             headers["Content-Type"] = "application/json";
@@ -33,7 +40,7 @@ async function apiRequest(endpoint, method = "GET", data = null) {
         return await response.json();
     } catch (error) {
         console.error("API Connection Error:", error);
-        return { status: "error", message: "Server network error or server offline" };
+        return null;
     }
 }
 

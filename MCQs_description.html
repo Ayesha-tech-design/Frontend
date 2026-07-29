@@ -30,89 +30,105 @@
 
         /* EXACT ORIGINAL BIG LOGO SIZE LOCKED WITH !IMPORTANT */
         .logo-mark {
-          width: 75px !important;
-          height: 75px !important;
-          min-width: 75px !important;
-          min-height: 75px !important;
-          margin-right: -24px !important;
-          object-fit: contain !important;
-        }
+    width: 115px;
+    height: 115px;
+  }
+  
+  @media (min-width: 768px) {
+    .logo-mark {
+      width: 125px;
+      height: 125px;
+    }
+    .logo-text {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
+  }
 
-        @media (min-width: 640px) {
-          .logo-mark {
-            width: 100px !important;
-            height: 100px !important;
-            min-width: 100px !important;
-            min-height: 100px !important;
-            margin-right: -32px !important;
-          }
-        }
-
-        @media (min-width: 768px) {
-          .logo-mark {
-            width: 125px !important;
-            height: 125px !important;
-            min-width: 125px !important;
-            min-height: 125px !important;
-            margin-right: -40px !important;
-          }
-        }
-
-        .logo-text {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: #0b2149;
-            line-height: 1;
-        }
-
-        nav a { transition: color .18s ease; }
-        nav a:hover { color: var(--primary) !important; }
+  nav a { transition: color .18s ease; }
+  nav a:hover { color: var(--primary) !important; }
+  nav a:not(.nav-btn):hover { 
+    color: var(--primary) !important; 
+  }
+  .nav-btn:hover {
+    color: white;
+  }
     </style>
 </head>
 
 <body class="flex flex-col min-h-screen w-full">
 
-<nav class="bg-white shadow-sm sticky top-0 z-50 w-full relative">
-    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 sm:h-20 w-full">
-            
-            <div class="flex items-center shrink-0">
-                <a href="SmartEduX.html" class="flex items-center gap-0 p-0" aria-label="Home">
-                    <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark shrink-0" onerror="this.style.display='none'">
-                    <span class="logo-text text-[22px] sm:text-[28px] md:text-[34px]">SmartEduX</span>
-                </a>
-            </div>
-            
-            <div class="hidden xl:flex items-center space-x-6">
-                <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-                <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-                <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-                <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-                <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
-                <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-            </div>
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <div class="flex items-center gap-0">
+        <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+          <img 
+            src="Futuristic tech logo design.png" 
+            alt="SmartEduX Logo" 
+            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+          >
+          <span class="logo-text text-[26px] md:text-[32px]">
+            SmartEduX
+          </span>
+        </a>
+      </div>
 
-            <div class="xl:hidden flex items-center pr-2" style="z-index: 9999;">
-                <button id="menuBtn" type="button" class="text-gray-700 hover:text-[#0b2149] focus:outline-none p-2 rounded-lg cursor-pointer select-none active:bg-gray-100" aria-label="Toggle Menu">
-                    <svg class="w-7 h-7 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-
+      <div class="hidden xl:flex items-center space-x-6">
+        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+        <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+        
+        <div class="relative w-48">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
         </div>
+      </div>
+
+      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+        <a href="login.html"
+           class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+          Login
+        </a>
+
+        <a href="signup.html"
+           class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+          Signup
+        </a>
+      </div>
+
+      <div class="xl:hidden flex items-center">
+        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
 
-    <div id="mobileMenu" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-2 shadow-md w-full relative z-40">
-        <a href="SmartEduX.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Home</a>
-        <a href="Courses.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Courses</a>
-        <a href="Autonotes.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">AutoNotes</a>
-        <a href="MCQs.html" class="block px-3 py-2 rounded-md text-base font-bold text-[#0b2149] bg-blue-50/50">MCQ Generator</a>
-        <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Features</a>
-        <a href="About us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">About us</a>
-        <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#0b2149] hover:bg-gray-50">Contact Us</a>
+    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+      <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+        <div class="py-2">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
+        </div>
+        
+        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+          <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+          <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+        </div>
+      </div>
     </div>
+  </div>
 </nav>
 
 <header class="bg-[#07122a] text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden w-full">

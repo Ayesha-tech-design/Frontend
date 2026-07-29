@@ -70,26 +70,26 @@
     <div class="bg-white p-6 rounded-xl shadow mt-6">
       <h3 class="text-xl font-bold text-[#0b2149] mb-4">Your Stats</h3>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Courses</p>
-          <h4 class="text-lg font-bold text-[#0b2149]" id="courseCount">3</h4>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Assignments</p>
-          <h4 class="text-lg font-bold text-[#0b2149]" id="assignmentCount">12</h4>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Students</p>
-          <h4 class="text-lg font-bold text-[#0b2149]">150</h4>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Pending Submissions</p>
-          <h4 class="text-lg font-bold text-red-600">8</h4>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Certification</p>
-          <h4 class="text-lg font-bold text-yellow-600">2 Awarded</h4>
-        </div>
+        <div class="bg-white p-4 rounded shadow">
+    <p class="text-gray-500 text-sm">Courses</p>
+    <h3 id="courseCount" class="text-xl font-bold">0</h3>
+</div>
+<div class="bg-white p-4 rounded shadow">
+    <p class="text-gray-500 text-sm">Assignments</p>
+    <h3 id="assignmentCount" class="text-xl font-bold">0</h3>
+</div>
+<div class="bg-white p-4 rounded shadow">
+    <p class="text-gray-500 text-sm">Students</p>
+    <h3 id="studentCount" class="text-xl font-bold">0</h3>
+</div>
+<div class="bg-white p-4 rounded shadow">
+    <p class="text-gray-500 text-sm">Pending Submissions</p>
+    <h3 id="pendingCount" class="text-xl font-bold">0</h3>
+</div>
+<div class="bg-white p-4 rounded shadow">
+    <p class="text-gray-500 text-sm">Certifications</p>
+    <h3 id="certCount" class="text-xl font-bold text-yellow-600">0</h3>
+</div>
       </div>
     </div>
 
@@ -97,20 +97,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
       <!-- Assignments -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h3 class="text-lg font-bold text-[#0b2149] mb-4">Assignments</h3>
-        <ul class="space-y-3" id="assignmentList">
-          <!-- JS will populate assignments -->
-        </ul>
-      </div>
+      <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-bold text-lg mb-2">Assignments</h3>
+    <ul id="assignmentList" class="space-y-2">
+        <!-- Dynamic assignments yahan load hongi -->
+    </ul>
+</div>
 
       <!-- Announcements -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h3 class="text-lg font-bold text-[#0b2149] mb-4">Announcements</h3>
-        <ul class="space-y-3" id="announcementList">
-          <!-- JS will populate announcements -->
-        </ul>
-      </div>
+      <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-bold text-lg mb-2">Announcements</h3>
+    <ul id="announcementList" class="space-y-2">
+        <!-- Dynamic announcements yahan load hongi -->
+    </ul>
+</div>
 
     </div>
 
@@ -124,74 +124,74 @@
   <ul id="notifList" class="space-y-2 text-sm"></ul>
 </div>
 
+<script src="connection.js"></script>
 <script>
-// PROFILE DROPDOWN
-function toggleProfile(){ document.getElementById("profileMenu").classList.toggle("hidden"); }
-
-// LOGOUT
-function logout(){ window.location.href = "login.html"; }
-
-// NOTIFICATIONS
-function toggleNotifications(){ document.getElementById("notificationPanel").classList.toggle("hidden"); }
-
-// Unified Notifications
-let notifications = JSON.parse(localStorage.getItem("notifications")) || [
-  "New student registered 👨‍🎓",
-  "New assignment submission 📄",
-  "Course updated 🎓",
-  "Website updated 🚀"
-];
-localStorage.setItem("notifications", JSON.stringify(notifications));
-
-// Render Notifications
-function renderNotifications(){
-  const list = document.getElementById("notifList");
-  list.innerHTML = "";
-  notifications.forEach(n => list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`);
-  document.getElementById("notifCount").innerText = notifications.length;
-  document.getElementById("notifCountNav").innerText = notifications.length;
-}
-renderNotifications();
-
-// Assignments Data
-let assignments = [
-  { title:"Wordpress lec 1", status:"pending" },
-  { title:"Graphic Designing lec 2", status:"checked" },
-  { title:"Wordpress lec 4", status:"pending" },
-  { title:"Fiverr lec 3", status:"checked" }
-];
-
-// Announcements Data
-let announcements = [
-  "New course: Advanced JavaScript",
-  "Holiday on Friday ",
-  "Website updated with new courses"
-];
-
-// Render Assignments
-function renderAssignments(){
-  const list = document.getElementById("assignmentList");
-  list.innerHTML = "";
-  assignments.forEach(a => {
-    list.innerHTML += `<li class="flex justify-between p-2 rounded ${a.status==='pending'?'bg-yellow-100':'bg-green-100'}">
-      <span>${a.title}</span>
-      <span class="font-bold ${a.status==='pending'?'text-yellow-600':'text-green-600'}">${a.status}</span>
-    </li>`;
-  });
+function toggleProfile(){ 
+  document.getElementById("profileMenu").classList.toggle("hidden"); 
 }
 
-// Render Announcements
-function renderAnnouncements(){
-  const list = document.getElementById("announcementList");
-  list.innerHTML = "";
-  announcements.forEach(a => {
-    list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${a}</li>`;
-  });
+function logout(){ 
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  window.location.href = "login.html"; 
 }
 
-renderAssignments();
-renderAnnouncements();
+function toggleNotifications(){ 
+  document.getElementById("notificationPanel").classList.toggle("hidden"); 
+}
+
+async function loadTeacherDashboard() {
+  const dashboardData = await apiRequest("/teacher/dashboard/", "GET");
+  if (dashboardData) {
+    if (dashboardData.welcome_name) {
+      document.querySelector("h2.text-lg.font-semibold").textContent = `Welcome Back, ${dashboardData.welcome_name}!`;
+    }
+    if (dashboardData.course_count !== undefined) {
+      document.getElementById("courseCount").innerText = dashboardData.course_count;
+    }
+    if (dashboardData.assignment_count !== undefined) {
+      document.getElementById("assignmentCount").innerText = dashboardData.assignment_count;
+    }
+    if (dashboardData.student_count !== undefined) {
+      document.getElementById("studentCount").innerText = dashboardData.student_count;
+    }
+    if (dashboardData.pending_submissions !== undefined) {
+      document.getElementById("pendingCount").innerText = dashboardData.pending_submissions;
+    }
+    if (dashboardData.certifications_awarded !== undefined) {
+      document.getElementById("certCount").innerText = `${dashboardData.certifications_awarded} Awarded`;
+    }
+  }
+
+  const notifList = document.getElementById("notifList");
+  if(notifList) {
+    notifList.innerHTML = `<li class="p-2 bg-gray-100 rounded">New student registered 👨‍🎓</li><li class="p-2 bg-gray-100 rounded">New assignment submission 📄</li>`;
+  }
+  document.getElementById("notifCount").innerText = 2;
+  document.getElementById("notifCountNav").innerText = 2;
+
+  const assignmentList = document.getElementById("assignmentList");
+  if(assignmentList) {
+    assignmentList.innerHTML = `
+      <li class="flex justify-between p-2 rounded bg-yellow-100">
+        <span>Wordpress lec 1</span>
+        <span class="font-bold text-yellow-600">pending</span>
+      </li>
+      <li class="flex justify-between p-2 rounded bg-green-100">
+        <span>Graphic Designing lec 2</span>
+        <span class="font-bold text-green-600">checked</span>
+      </li>`;
+  }
+
+  const announcementList = document.getElementById("announcementList");
+  if(announcementList) {
+    announcementList.innerHTML = `
+      <li class="p-2 bg-gray-100 rounded">New course: Advanced JavaScript</li>
+      <li class="p-2 bg-gray-100 rounded">Holiday on Friday 🌙</li>`;
+  }
+}
+
+loadTeacherDashboard();
 </script>
-
 </body>
 </html>

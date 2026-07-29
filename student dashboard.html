@@ -82,40 +82,28 @@
         <p class="text-sm text-gray-500">Assignments</p>
         <h4 class="text-lg font-bold text-[#0b2149]" id="assignmentCount">5</h4>
       </div>
-      <div class="bg-gray-100 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">GPA</p>
-        <h4 class="text-lg font-bold text-[#0b2149]">3.8</h4>
-      </div>
-      <div class="bg-gray-100 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">Progress</p>
-        <h4 class="text-lg font-bold text-green-600">75%</h4>
-      </div>
-      <div class="bg-gray-100 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">Certification</p>
-        <h4 class="text-lg font-bold text-yellow-600">1 Earned</h4>
-      </div>
+      <!-- GPA, Progress, Certification ke HTML tags -->
+<div class="bg-gray-100 p-4 rounded-lg">
+  <p class="text-sm text-gray-500">GPA</p>
+  <h4 class="text-lg font-bold text-[#0b2149]" id="studentGPA">0.0</h4>
+</div>
+<div class="bg-gray-100 p-4 rounded-lg">
+  <p class="text-sm text-gray-500">Progress</p>
+  <h4 class="text-lg font-bold text-green-600" id="studentProgress">0%</h4>
+</div>
+<div class="bg-gray-100 p-4 rounded-lg">
+  <p class="text-sm text-gray-500">Certification</p>
+  <h4 class="text-lg font-bold text-yellow-600" id="studentCert">0 Earned</h4>
+</div>
     </div>
   </div>
 
-  <!-- COURSES -->
-  <div class="bg-white p-6 rounded shadow">
-    <h3 class="text-lg font-semibold mb-4">My Courses</h3>
-    <div class="space-y-3">
-      <div class="flex justify-between">
-        <span>Graphic Designing</span>
-        <span class="text-blue-600">80%</span>
-      </div>
-      <div class="flex justify-between">
-        <span>Wordpress Web Development</span>
-        <span class="text-blue-600">75%</span>
-      </div>
-      <div class="flex justify-between">
-        <span>Fiverr Freelancing</span>
-        <span class="text-blue-600">55%</span>
-      </div>
-    </div>
+ <!-- COURSES -->
+<div class="bg-white p-6 rounded shadow">
+  <h3 class="text-lg font-semibold mb-4">My Courses</h3>
+  <div class="space-y-3" id="coursesList">
+    <!-- Backend se yahan dynamic courses aayenge -->
   </div>
-
 </div>
 
 <!-- NOTIFICATIONS PANEL -->
@@ -127,7 +115,7 @@
 
 </div>
 
-<!-- JS -->
+<script src="connection.js"></script>
 <script>
 // PROFILE DROPDOWN
 function toggleProfile(){
@@ -136,6 +124,8 @@ function toggleProfile(){
 
 // LOGOUT
 function logout(){
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
   window.location.href = "login.html";
 }
 
@@ -145,31 +135,81 @@ function toggleNotifications(){
   panel.classList.toggle("hidden");
 }
 
-// SAMPLE NOTIFICATIONS
-let notifications = [
-  "New assignment uploaded ",
-  "New course available ",
-  "Website updated successfully "
-];
+async function loadStudentDashboard() {
+  const profileData = await apiRequest("/student/dashboard/", "GET");
+  if (profileData) {
+    if (profileData.welcome_name) {
+      document.querySelector(".bg-white.p-6.rounded-xl.shadow p.text-gray-600")
+        .textContent = `Welcome back, ${profileData.welcome_name}! Continue your learning journey`;
+    }
+    if (profileData.course_count !== undefined) {
+      document.getElementById("courseCount").innerText = profileData.course_count;
+    }
+    if (profileData.assignment_count !== undefined) {
+      document.getElementById("assignmentCount").innerText = profileData.assignment_count;
+    }
 
-localStorage.setItem("notifications", JSON.stringify(notifications));
+    // Courses ko dynamic show karne ke liye
+    const coursesContainer = document.getElementById("coursesList");
+    if (coursesContainer) {
+      coursesContainer.innerHTML = "";
+      
+      console.log("Profile Data Courses:", profileData.courses);
 
-// LOAD NOTIFICATIONS
-function loadNotifications(){
-  const data = JSON.parse(localStorage.getItem("notifications")) || [];
+      if (profileData.courses && profileData.courses.length > 0) {
+        profileData.courses.forEach(course => {
+          coursesContainer.innerHTML += `
+            <div class="flex justify-between">
+              <span>${course.title}</span>
+              <span class="text-blue-600">${course.progress}%</span>
+            </div>
+          `;
+        });
+      } else {
+        coursesContainer.innerHTML = `<p class="text-gray-500 text-sm">No courses enrolled yet.</p>`;
+      }
+    }
+  } // <-- Yahan coursesContainer wala block mukammal band ho gaya hai!
+
+  if (profileData && profileData.gpa !== undefined) {
+    document.getElementById("studentGPA").innerText = profileData.gpa;
+  }
+  if (profileData && profileData.progress !== undefined) {
+    document.getElementById("studentProgress").innerText = profileData.progress;
+  }
+  if (profileData && profileData.certifications !== undefined) {
+    document.getElementById("studentCert").innerText = profileData.certifications + " Earned";
+  }
+
+  // 2. Load Notifications
+  let notifications = [
+    "New assignment uploaded",
+    "New course available",
+    "Website updated successfully"
+  ];
+  
+  const notifData = await apiRequest("/notifications/", "GET");
+  if (notifData && Array.isArray(notifData) && notifData.length > 0) {
+    notifications = notifData.map(n => n.message);
+  }
+
   const list = document.getElementById("notifList");
-  list.innerHTML = "";
-  data.forEach(n => {
-    list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`;
-  });
+  if (list) {
+    list.innerHTML = "";
+    notifications.forEach(n => {
+      list.innerHTML += `<li class="p-2 bg-gray-100 rounded">${n}</li>`;
+    });
+  }
 
-  // Update navbar and sidebar counts
-  document.getElementById("notifCount").innerText = data.length;
-  document.getElementById("notifCountSidebar").innerText = data.length;
+  const notifCount = document.getElementById("notifCount");
+  if (notifCount) notifCount.innerText = notifications.length;
+
+  const notifCountSidebar = document.getElementById("notifCountSidebar");
+  if (notifCountSidebar) notifCountSidebar.innerText = notifications.length;
 }
 
-loadNotifications();
+// Initialize on page load
+loadStudentDashboard();
 </script>
-
 </body>
 </html>

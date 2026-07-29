@@ -690,64 +690,91 @@ button, a {
     <button onclick="closeLoginModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 font-bold text-lg">&times;</button>
   </div>
 </div>
-  <script>
-    // Auto Update Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <script src="connection.js"></script>
+<script>
+  // Auto Update Year
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
-    // Mobile Menu Logic
-    const menuBtn = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
+  // Mobile Menu Logic
+  const menuBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if(menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
     
-    if(menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('open');
-      });
-      
-      // Close menu when clicking a link
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-        });
-      });
-    }
-
-    // FAQ Accordion Logic
-    function toggleFaq(id) {
-      document.querySelectorAll('.acc-item').forEach(item => {
-        if (item.id !== id) {
-          item.classList.remove('open');
-        }
-      });
-      const el = document.getElementById(id);
-      el.classList.toggle('open');
-    }
-
-    // Accessibility for cards
-    document.querySelectorAll('.card, .course-card').forEach(c => {
-      c.addEventListener('keypress', e => { 
-        if(e.key === 'Enter' || e.key === ' ') c.click(); 
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
       });
     });
-  </script>
-  <script>
+  }
+
+  // FAQ Accordion Logic
+  function toggleFaq(id) {
+    document.querySelectorAll('.acc-item').forEach(item => {
+      if (item.id !== id) {
+        item.classList.remove('open');
+      }
+    });
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('open');
+    }
+  }
+
+  // Accessibility for cards
+  document.querySelectorAll('.card, .course-card').forEach(c => {
+    c.addEventListener('keypress', e => { 
+      if(e.key === 'Enter' || e.key === ' ') c.click(); 
+    });
+  });
+
+  // Login Modal & Session Handlers
   function showLoginModal() {
-    document.getElementById('login-modal').classList.remove('hidden');
+    const modal = document.getElementById('login-modal');
+    if (modal) modal.classList.remove('hidden');
   }
 
   function closeLoginModal() {
-    document.getElementById('login-modal').classList.add('hidden');
+    const modal = document.getElementById('login-modal');
+    if (modal) modal.classList.add('hidden');
   }
 
   function requireLogin(event, courseUrl) {
-    event.preventDefault(); // page reload na ho
-    const isLoggedIn = false; // yahan session check ya localStorage daal sakti ho
-    if(isLoggedIn) {
-        window.location.href = courseUrl; // login hone ke baad page open ho
+    event.preventDefault();
+    const token = localStorage.getItem("access_token");
+    if(token) {
+      window.location.href = courseUrl;
     } else {
-        alert("Please login first to access course details!"); 
-        // ya custom modal show kar sakti ho
+      showLoginModal();
     }
-}
+  }
+
+  // Session state sync with backend via connection.js
+  async function checkUserSession() {
+    const token = localStorage.getItem("access_token");
+    if (token && typeof apiRequest === "function") {
+      try {
+        const userProfile = await apiRequest("/student/profile/", "GET");
+        if (userProfile && userProfile.name) {
+          const navUserSection = document.getElementById("nav-user-section");
+          if (navUserSection) {
+            navUserSection.innerHTML = `<a href="student dashboard.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white shadow-md">Dashboard</a>`;
+          }
+        }
+      } catch (err) {
+        console.error("Session check failed", err);
+      }
+    }
+  }
+
+  checkUserSession();
 </script>
 </body>
 </html>

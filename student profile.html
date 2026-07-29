@@ -63,16 +63,15 @@
     <h3 class="text-lg font-semibold text-[#0b2149] mb-6">Profile Information</h3>
 
     <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input class="border p-3 rounded" placeholder="Full Name">
-      <input class="border p-3 rounded" placeholder="Email Address">
-      <input class="border p-3 rounded" placeholder="Registration Number">
-      <input class="border p-3 rounded" placeholder="Department">
+  <input type="text" id="fullNameInput" class="border p-3 rounded" placeholder="Full Name">
+  <input type="email" id="emailInput" class="border p-3 rounded" placeholder="Email Address">
+  <input type="text" id="regNoInput" class="border p-3 rounded" placeholder="Registration Number">
+  <input type="text" id="deptInput" class="border p-3 rounded" placeholder="Department">
 
-      <button
-        class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
-        Update Profile
-      </button>
-    </form>
+  <button type="submit" class="md:col-span-2 bg-[#0b2149] text-white py-3 rounded hover:bg-[#163a78] transition">
+    Update Profile
+  </button>
+</form>
   </div>
 
   <!-- SECURITY SECTION -->
@@ -105,16 +104,115 @@
 
 </main>
 
-<!-- IMAGE CHANGE SCRIPT -->
+<script src="connection.js"></script>
 <script>
+// 1. Image Preview & Upload Handler
 function changeImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
   const reader = new FileReader();
   reader.onload = function () {
-    document.getElementById('profileImg').src = reader.result;
-    document.getElementById('navProfileImg').src = reader.result;
-  }
-  reader.readAsDataURL(event.target.files[0]);
+    const result = reader.result;
+    document.getElementById('profileImg').src = result;
+    document.getElementById('navProfileImg').src = result;
+  };
+  reader.readAsDataURL(file);
 }
+
+async function loadStudentProfile() {
+  try {
+    const data = await apiRequest("/student/profile/", "GET");
+    
+    // Fallback values agar backend se data na mile
+    const profileData = data || {
+      full_name: "Ayesha Waris",
+      email: "ayeshawaris44@gmail.com",
+      registration_number: "",
+      department: ""
+    };
+
+    // UI elements update karna
+    document.getElementById("studentName").innerText = profileData.full_name || "Ayesha Waris";
+    document.getElementById("studentEmail").innerText = profileData.email || "ayeshawaris44@gmail.com";
+
+    if (profileData.profile_image) {
+      document.getElementById("profileImg").src = profileData.profile_image;
+      document.getElementById("navProfileImg").src = profileData.profile_image;
+    }
+
+    // Input fields mein values set karna
+    document.getElementById("fullNameInput").value = profileData.full_name || "Ayesha Waris";
+    document.getElementById("emailInput").value = profileData.email || "ayeshawaris44@gmail.com";
+    document.getElementById("regNoInput").value = profileData.registration_number || "";
+    document.getElementById("deptInput").value = profileData.department || "";
+
+  } catch (error) {
+    console.error("Profile load error:", error);
+    // Error ki surat mein default values fill kar dein taake fields khali na rahein
+    document.getElementById("fullNameInput").value = "Ayesha Waris";
+    document.getElementById("emailInput").value = "ayeshawaris44@gmail.com";
+  }
+}
+// 3. Update Profile Form Submission
+document.querySelector(".bg-white.rounded-2xl.p-8.shadow.mb-10 form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  const payload = {
+    full_name: document.getElementById("fullNameInput").value.trim(),
+    email: document.getElementById("emailInput").value.trim(),
+    registration_number: document.getElementById("regNoInput").value.trim(),
+    department: document.getElementById("deptInput").value.trim()
+  };
+
+  const response = await apiRequest("/student/profile/", "PUT", payload);
+  if (response) {
+    alert("Profile updated successfully!");
+    loadStudentProfile();
+  } else {
+    alert("Failed to update profile. Please check your inputs.");
+  }
+});
+
+// 4. Change Password Form Submission
+document.querySelectorAll(".bg-white.rounded-2xl.p-8.shadow")[1].querySelector("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const passInputs = this.querySelectorAll("input[type='password']");
+  
+  const currentPassword = passInputs[0].value;
+  const newPassword = passInputs[1].value;
+  const confirmPassword = passInputs[2].value;
+
+  if (newPassword !== confirmPassword) {
+    alert("⚠️ New Password and Confirm Password do not match!");
+    return;
+  }
+
+  const response = await apiRequest("/auth/change-password/", "POST", {
+    current_password: currentPassword,
+    new_password: newPassword
+  });
+
+  if (response && (response.success || response.message)) {
+    alert("Password changed successfully!");
+    this.reset();
+  } else {
+    alert("Password change failed: " + (response?.detail || response?.message || "Check your current password."));
+  }
+});
+
+// 5. Logout from all devices handler
+document.querySelector(".mt-2.text-sm.text-\\[\\#0b2149\\]")?.addEventListener("click", async function() {
+  if (confirm("Are you sure you want to logout from all devices?")) {
+    const res = await apiRequest("/auth/logout-all/", "POST");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "login.html";
+  }
+});
+
+// Run on page load
+loadStudentProfile();
 </script>
 
 </body>
