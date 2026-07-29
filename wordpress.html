@@ -166,7 +166,7 @@
 <!-- Scripts -->
 <script src="connection.js"></script>
 <script>
-    let isSignedUp = false; 
+    let isSignedUp = true; 
     let hasPurchased = false; 
     let watchedLecturesCount = 0; 
 
@@ -205,8 +205,10 @@
     });
 
     function startLearningClick(event) {
-        window.scrollTo({ top: 400, behavior: 'smooth' });
-    }
+    event.preventDefault();
+    // Yeh user ko pehle lecture ke sath playlist page par le jaye ga
+    window.location.href = "playlist.html?course=wordpress&lec=0";
+}
 
     function checkAccess(event, lectureIndex) {
         if (!isSignedUp) {
