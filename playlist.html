@@ -37,17 +37,27 @@
       height: 75px;
     }
     @media (min-width: 768px) {
-      .logo-mark {
-        width: 90px;
-        height: 90px;
-      }
-      .logo-text{
-        font-family: 'Roboto', sans-serif;
-        font-weight: 800;
-        letter-spacing: -1px;
-        color: #0b2149;
-        line-height: 1;
-      }
+    .logo-mark {
+      width: 125px;
+      height: 125px;
+    }
+    .logo-text {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
+  }
+
+  nav a { transition: color .18s ease; }
+  nav a:hover { color: var(--primary) !important; }
+  nav a:not(.nav-btn):hover { 
+    color: var(--primary) !important; 
+  }
+  .nav-btn:hover {
+    color: white;
+  
     }
 
     .playlist-scroll::-webkit-scrollbar {
@@ -71,23 +81,23 @@
 <body class="min-h-screen flex flex-col justify-between w-full">
 
 <!-- HEADER / NAVIGATION -->
-  <nav class="bg-white shadow sticky top-0 z-50 w-full">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 sm:h-20 w-full">
-        
-        <div class="flex items-center gap-0">
-          <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-            <img 
-              src="Futuristic tech logo design.png" 
-              alt="SmartEduX Logo" 
-              class="logo-mark flex-shrink-0 object-contain"
-              onerror="this.style.display='none'"
-            >
-            <span class="logo-text text-[24px] md:text-[30px]">
-              SmartEduX
-            </span>
-          </a>
-        </div>
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <div class="flex items-center gap-0">
+        <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+          <img 
+            src="Futuristic tech logo design.png" 
+            alt="SmartEduX Logo" 
+            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+          >
+          <span class="logo-text text-[26px] md:text-[32px]">
+            SmartEduX
+          </span>
+        </a>
+      </div>
+
         
         <div class="hidden xl:flex items-center space-x-6">
           <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
