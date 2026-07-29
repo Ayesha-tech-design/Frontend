@@ -27,25 +27,25 @@
       padding: 0;
       -webkit-font-smoothing: antialiased; 
     }
+    /* NAV */
     .logo-mark {
-      width: 75px;
-      height: 75px;
+    width: 115px;
+    height: 115px;
+  }
+    
+  @media (min-width: 768px) {
+    .logo-mark {
+      width: 125px;
+      height: 125px;
     }
-  
-    @media (min-width: 768px) {
-      .logo-mark {
-        width: 90px;
-        height: 90px;
-      }
-      .logo-text {
-        font-family: 'Roboto', sans-serif;
-        font-weight: 800;
-        letter-spacing: -1px;
-        color: #0b2149;
-        line-height: 1;
-      }
+    .logo-text {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
     }
-
+  }
     nav a { transition: color .18s ease; }
     nav a:hover { color: var(--primary) !important; }
     nav a:not(.nav-btn):hover { 
@@ -60,19 +60,18 @@
 <body class="bg-white text-gray-900 flex flex-col min-h-screen w-full">
 
   <!-- HEADER -->
-  <nav class="bg-white shadow sticky top-0 z-50 w-full">
+    <nav class="bg-white shadow sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20 w-full">
+    <div class="flex items-center justify-between h-16">
       
       <div class="flex items-center gap-0">
         <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
           <img 
             src="Futuristic tech logo design.png" 
             alt="SmartEduX Logo" 
-            class="logo-mark flex-shrink-0 object-contain"
-            onerror="this.style.display='none'"
+            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
           >
-          <span class="logo-text text-[24px] md:text-[30px]">
+          <span class="logo-text text-[26px] md:text-[32px]">
             SmartEduX
           </span>
         </a>
@@ -80,14 +79,14 @@
 
       <div class="hidden xl:flex items-center space-x-6">
         <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-        <a href="Courses.html" class="text-sm font-medium text-[#0b2149] font-bold">Courses</a>
+        <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
         <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
         <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
         <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
         <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
         
         <div class="relative w-48">
-          <input type="text" placeholder="Search features, courses..." class="w-full text-xs px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0b2149]">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
         </div>
       </div>
 
@@ -110,13 +109,23 @@
       </div>
     </div>
 
-    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-2 shadow-inner w-full">
-      <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-      <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-[#0b2149] font-bold bg-blue-50">Courses</a>
-      <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-      <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
-      <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-      <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+      <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+        <div class="py-2">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
+        </div>
+        
+        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+          <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+          <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
