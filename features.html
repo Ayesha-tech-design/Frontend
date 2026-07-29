@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="utf-8" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1" /> 
   <title>SmartEduX — Features</title> 
   <script src="https://cdn.tailwindcss.com"></script> 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;800&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
   <style> 
     :root { 
       --primary: #0b2149; 
@@ -19,140 +19,73 @@
       -webkit-font-smoothing: antialiased; 
     } 
     /* NAV */
+    nav a { transition: color .18s ease; } 
+    nav a:hover { color: var(--primary) !important; } 
+    
+    /* Logo Sizing */ 
     .logo-mark {
-    width: 115px;
-    height: 115px;
-  }
-  
-  @media (min-width: 768px) {
-    .logo-mark {
-      width: 125px;
-      height: 125px;
+      width: 115px;
+      height: 115px;
     }
-    .logo-text {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #0b2149;
-      line-height: 1;
-    }
-  }
-
-  nav a { transition: color .18s ease; }
-  nav a:hover { color: var(--primary) !important; }
-  nav a:not(.nav-btn):hover { 
-    color: var(--primary) !important; 
-  }
-  .nav-btn:hover {
-    color: white;
-  }
-
-    /* Custom Dot Pattern Background for Hero */
-    .dot-pattern {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    /* Custom Scrollbar for Features UI */
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background-color: rgba(11, 33, 73, 0.15);
-      border-radius: 999px;
-    }
-    .logo-text{
-      font-family: 'Roboto', sans-serif;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #0b2149;
-      line-height: 1;
-    }
-
-    /* Tab styles for Showcase */
-    .feature-tab-btn.active-tab {
-      background-color: white;
-      border-color: #e2e8f0;
-      color: var(--primary);
-      box-shadow: 0 4px 12px rgba(11, 33, 73, 0.05);
+    @media (min-width: 768px) {
+      .logo-mark {
+        width: 125px;
+        height: 125px;
+      }
     }
   </style> 
 </head> 
 <body class="text-gray-800 antialiased flex flex-col min-h-screen"> 
 
-  <nav class="bg-white shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      
-      <div class="flex items-center gap-0">
-        <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-          <img 
-            src="Futuristic tech logo design.png" 
-            alt="SmartEduX Logo" 
-            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
-          >
-          <span class="logo-text text-[26px] md:text-[32px]">
-            SmartEduX
-          </span>
-        </a>
-      </div>
-
-      <div class="hidden xl:flex items-center space-x-6">
-        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-        <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
-        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-        
-        <div class="relative w-48">
-          <input type="text" placeholder="Search features, courses..." class="search-input">
+  <!-- NAVBAR -->
+  <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100"> 
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-2 md:gap-3">
+          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
+            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" onerror="this.onerror=null; this.src='https://placehold.co/120x120/0b2149/ffffff?text=SmartEduX';" class="logo-mark flex-shrink-0 object-contain">
+            <span class="text-xl md:text-2xl font-black text-[#0b2149] tracking-tight">SmartEduX</span>
+          </a>
         </div>
-      </div>
-
-      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
-        <a href="login.html"
-           class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
-          Login
-        </a>
-
-        <a href="signup.html"
-           class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
-          Signup
-        </a>
-      </div>
-
-      <div class="xl:hidden flex items-center">
-        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
-      <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-        <div class="py-2">
-          <input type="text" placeholder="Search features, courses..." class="search-input">
+        <div class="hidden xl:flex items-center space-x-6"> 
+          <a href="SmartEduX.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">Home</a>
+          <a href="Courses.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">Courses</a>
+          <a href="Autonotes.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">AutoNotes</a> 
+          <a href="features.html" class="text-sm font-semibold text-[#0b2149]">Features</a>
+          <a href="About us.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">About</a>
+          <a href="contact.html" class="text-sm font-semibold text-gray-600 hover:text-[#0b2149]">Contact Us</a> 
         </div>
-        
-        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
-        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
-        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-          <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-          <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+        <div id="nav-auth-container" class="hidden md:flex items-center gap-3 ml-4">
+          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-all">Login</a> 
+          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--primary)] text-white hover:opacity-95 transition-all shadow-sm">Signup</a>
         </div>
-      </div>
-    </div>
-  </div>
-</nav>
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"> 
+        <div class="xl:hidden flex items-center"> 
+          <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> 
+          </button> 
+        </div> 
+      </div> 
+      <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+        <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+          <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+          <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a> 
+          <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+          <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-[#0b2149] bg-blue-50">Features</a> 
+          <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+          <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a> 
+          <div id="mobile-auth-container" class="grid grid-cols-2 gap-3 mt-4 px-1">
+            <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a> 
+            <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a> 
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </nav> 
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow"> 
     <section class="text-center max-w-3xl mx-auto mb-16">
       <span class="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full uppercase tracking-wider">Next-Gen Learning</span>
       <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mt-4">
@@ -189,7 +122,7 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.263 15.918a9 9 0 1015.474 0M12 12h.008v.008H12V12zm0-4h.008v.008H12V8zm0 8h.008v.008H12V16z"></path></svg>
         </div>
         <h3 class="font-bold text-xl text-slate-900">Teacher Tools</h3> 
-        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Empower educators to upload customized courses, attach lectures, and generate automated quiz assessments.</p>
+        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Empower educators to upload customized courses, attach lectures, and generate automated quiz assessments.</p> 
       </article> 
 
       <article class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-300"> 
@@ -197,7 +130,7 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
         </div>
         <h3 class="font-bold text-xl text-slate-900">Profile & Progress</h3> 
-        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Track your ongoing course metrics, monitor milestones, and review your historically saved AI notes safely.</p>
+        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Track your ongoing course metrics, monitor milestones, and review your historically saved AI notes safely.</p> 
       </article> 
 
       <article class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-300"> 
@@ -216,68 +149,46 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
         </div>
         <h3 class="font-bold text-xl text-slate-900">Download & Export</h3> 
-        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Export summaries instantly as clean PDFs or compile generated MCQs to practice offline anytime.</p>
+        <p class="text-sm text-gray-600 mt-3 leading-relaxed">Export summaries instantly as clean PDFs or compile generated MCQs to practice offline anytime.</p> 
       </article> 
 
     </section> 
+
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16 bg-slate-50/50 border border-gray-100 rounded-3xl my-12">
+      <h2 class="text-3xl font-bold text-slate-900 text-center mb-4 tracking-tight">
+        Advanced Learning Systems
+      </h2>
+      <p class="text-center text-gray-500 max-w-xl mx-auto mb-12 text-sm">Deep learning integrations crafted explicitly to accelerate your continuous technical exam revision.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">AI-Based Video Summarization</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+              Extended video material is instantly processed by customized NLP pipelines to build comprehensive summaries for optimal retention.
+            </p>
+            <button onclick="triggerDemoPopup('AI Video Summarization')" class="mt-4 text-xs font-bold text-blue-700 hover:underline flex items-center gap-1">Test Demo Workspace &rarr;</button>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Automatic MCQs Generation</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+              Evaluates transcripts and injects situational multiple-choice challenges directly aligned with official technical standards.
+            </p>
+            <button onclick="triggerDemoPopup('Automated MCQs Setup')" class="mt-4 text-xs font-bold text-blue-700 hover:underline flex items-center gap-1">Test Demo Workspace &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
   </main> 
 
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-20 bg-slate-50/50 border-y border-gray-100 rounded-3xl my-12">
-    <h2 class="text-3xl font-bold text-slate-900 text-center mb-4 tracking-tight">
-      Advanced Learning Systems
-    </h2>
-    <p class="text-center text-gray-500 max-w-xl mx-auto mb-16 text-sm">Deep learning integrations crafted explicitly to accelerate your continuous technical exam revision.</p>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      
-      <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
-        <div class="p-3 bg-indigo-50 text-[#0b2149] rounded-xl text-2xl"></div>
-        <div>
-          <h3 class="text-lg font-bold text-slate-900">AI-Based Video Summarization</h3>
-          <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-            Extended video material is instantly processed by customized NLP pipelines to build comprehensive summaries for optimal retention.
-          </p>
-          <button onclick="triggerDemoPopup('AI Video Summarization')" class="mt-4 text-xs font-bold text-blue-700 hover:underline flex items-center gap-1">Test Demo Workspace &rarr;</button>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
-        <div class="p-3 bg-indigo-50 text-[#0b2149] rounded-xl text-2xl"></div>
-        <div>
-          <h3 class="text-lg font-bold text-slate-900">Automatic MCQs Generation</h3>
-          <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-            Evaluates transcripts and injects situational multiple-choice challenges directly aligned with official technical standards.
-          </p>
-          <button onclick="triggerDemoPopup('Automated MCQs Setup')" class="mt-4 text-xs font-bold text-blue-700 hover:underline flex items-center gap-1">Test Demo Workspace &rarr;</button>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
-        <div class="p-3 bg-indigo-50 text-[#0b2149] rounded-xl text-2xl"></div>
-        <div>
-          <h3 class="text-lg font-bold text-slate-900">Course & Semester Architectures</h3>
-          <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-            Provides strict hierarchical categorizations matching university frameworks for clear academic alignment.
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-5 items-start">
-        <div class="p-3 bg-indigo-50 text-[#0b2149] rounded-xl text-2xl"></div>
-        <div>
-          <h3 class="text-lg font-bold text-slate-900">Secure Role-Based Protocols</h3>
-          <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-            Separate routing controls separate teacher evaluation tools from critical user progression matrices.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Interactive Demo Modal -->
+  <!-- DEMO MODAL -->
   <div id="demoModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-900/40 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-100 p-6 text-center animate-fadeInUp">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-100 p-6 text-center">
       <div class="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-blue-50 mb-4 text-[#0b2149]">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
       </div>
@@ -291,6 +202,7 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
   <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 border-t border-slate-900 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
@@ -304,36 +216,36 @@
           <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-xs">Explore Ecosystem</h5>
           <ul class="space-y-3 text-sm text-blue-200/70">
             <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home Base</a></li>
-            <li><a href="courses.html" class="hover:text-white transition-colors">Courses Directory</a></li>
-            <li><a href="autonotes.html" class="hover:text-white transition-colors">AutoNotes Engine</a></li>
-            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="Courses.html" class="hover:text-white transition-colors">Courses Directory</a></li>
+            <li><a href="Autonotes.html" class="hover:text-white transition-colors">AutoNotes Engine</a></li>
+            <li><a href="About us.html" class="hover:text-white transition-colors">About Us</a></li>
           </ul>
         </div>
         <div class="text-center md:text-left">
           <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-xs">Get in touch</h5>
-          <p class="text-blue-200/70 text-sm">support@smartedux.example</p>
-          <p class="text-blue-200/70 text-sm mt-1">+1 (555) 123-4567</p>
+          <p class="text-blue-200/70 text-sm">support@smartedux.edu.pk</p>
+          <p class="text-blue-200/70 text-sm mt-1">+92 320 7718797</p>
         </div>
       </div>
       <div class="border-t border-white/5 pt-8 text-center">
-        <p class="text-xs text-slate-500">&copy; <span id="year"></span> SmartEduX — All rights reserved.</p>
+        <p class="text-xs text-slate-500">&copy; <span id="year">2026</span> SmartEduX — All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <!-- CENTRAL CONNECTION BRIDGE -->
   <script src="connection.js"></script>
-  <script>
-    // Mobile menu toggle action
+
+  <!-- BACKEND CONNECTIVITY LOGIC -->
+  <script> 
     const toggleBtn = document.getElementById('menu-toggle'); 
     const mobileMenu = document.getElementById('mobile-menu');
-    if (toggleBtn && mobileMenu) {
-      toggleBtn.addEventListener('click', () => { 
-        mobileMenu.classList.toggle('hidden'); 
-      }); 
+    if(toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); }); 
     }
 
-    // Custom Interactive Modal Logic
+    document.getElementById('year').textContent = new Date().getFullYear();
+
     function triggerDemoPopup(featureName) {
       document.getElementById('popupFeatureName').textContent = featureName;
       document.getElementById('demoModal').classList.remove('hidden');
@@ -342,33 +254,34 @@
       document.getElementById('demoModal').classList.add('hidden');
     }
 
-    // Optional: Check login session via connection.js if needed across public pages
-    async function checkUserSession() {
+    // Dynamic Auth State & Bridge Synchronization
+    document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const token = localStorage.getItem("access_token");
-        if (token && typeof apiRequest === "function") {
-          const data = await apiRequest("/features/overview/");
-          if (data && data.user && data.user.is_authenticated) {
-            const dashboardUrl = data.user.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-            const navUserSection = document.getElementById("nav-user-section");
-            if (navUserSection) {
-              navUserSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--primary)] text-white shadow-md">Dashboard</a>`;
-            }
+        let data = null;
+        if (typeof apiRequest === "function") {
+          data = await apiRequest('/user/status/').catch(() => null);
+        } else {
+          const res = await fetch('/api/user/status/').catch(() => null);
+          if (res && res.ok) data = await res.json();
+        }
+
+        if (data && data.is_authenticated) {
+          const dashboardUrl = data.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
+          
+          const desktopAuth = document.getElementById('nav-auth-container');
+          if (desktopAuth) {
+            desktopAuth.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-lg bg-[#0b2149] text-white hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
+          }
+
+          const mobileAuth = document.getElementById('mobile-auth-container');
+          if (mobileAuth) {
+            mobileAuth.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center py-2 text-sm font-medium rounded bg-[#0b2149] text-white">Dashboard</a>`;
           }
         }
       } catch (e) {
         console.log("Features page running in offline UI mode.");
       }
-    }
-
-    // Run session check on page load
-    checkUserSession();
-
-    // Dynamically configure Footer copyright year
-    const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-      yearSpan.textContent = new Date().getFullYear();
-    }
-  </script>
+    });
+  </script> 
 </body>
 </html>

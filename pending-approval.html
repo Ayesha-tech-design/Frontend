@@ -162,10 +162,10 @@
       try {
         let data = null;
         if (typeof apiRequest === "function") {
-          data = await apiRequest('/courses/teacher/verification-status/');
+          data = await apiRequest('/courses/teacher-status/').catch(() => null);
         } else {
-          const response = await fetch('/api/courses/teacher/verification-status/');
-          if (response.ok) data = await response.json();
+          const response = await fetch('/api/courses/teacher-status/').catch(() => null);
+          if (response && response.ok) data = await response.json();
         }
         
         if (data) {

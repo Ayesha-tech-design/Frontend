@@ -160,37 +160,38 @@
 
 </section>
 
+<!-- CENTRAL CONNECTION BRIDGE -->
+<script src="connection.js"></script>
+
 <script>
-    let isSignedUp = true;
-    let isPaidUser = false; // Flag to check if user purchased premium
+    let isSignedUp = false;
+    let isPaidUser = false; 
     let watchedLecturesCount = 0;
 
     document.addEventListener("DOMContentLoaded", async () => {
         try {
-            const response = await fetch('/api/user/status/');
-            if(response.ok) {
-                const data = await response.json();
-                isSignedUp = data.is_authenticated;
-                isPaidUser = data.is_paid || false; // Backend se check hoga ke payment ki hai ya nahi
-                
-                if(isSignedUp) {
-                    const signupBtn = document.getElementById('signupBtn');
-                    if(signupBtn) {
-                        signupBtn.textContent = "Dashboard";
-                        signupBtn.href = "student dashboard.html";
-                    }
-                    
-                    const progressRes = await fetch('/api/student/progress/?course=fiverr');
-                    if(progressRes.ok) {
-                        const progressData = await progressRes.json();
-                        watchedLecturesCount = progressData.watched_count || 0;
-                    }
+            let data = null;
+            if (typeof apiRequest === "function") {
+                data = await apiRequest('/courses/fiverr-details/').catch(() => null);
+            } else {
+                const response = await fetch('/api/courses/fiverr-details/').catch(() => null);
+                if (response && response.ok) data = await response.json();
+            }
+
+            if (data) {
+                isSignedUp = data.is_authenticated || false;
+                isPaidUser = data.is_paid || false;
+            }
+
+            if (isSignedUp) {
+                const signupBtn = document.getElementById('signupBtn');
+                if (signupBtn) {
+                    signupBtn.textContent = "Dashboard";
+                    signupBtn.href = "student dashboard.html";
                 }
             }
         } catch (error) {
             console.log("Running in offline UI mode or API unavailable.");
-            isSignedUp = true; 
-            isPaidUser = false; // Testing ke liye false rakha hai taake lock check ho sakay
         }
     });
 
@@ -212,7 +213,6 @@
             return;
         }
 
-        // 11th lecture se agay (index 10 ya uss se barhay) premium hain
         if (lectureIndex >= 10 && !isPaidUser) {
             event.preventDefault();
             alert("🔒 Premium Lecture! Please purchase or unlock course access to view lectures 11 to 15.");

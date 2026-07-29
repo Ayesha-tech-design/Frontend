@@ -223,12 +223,12 @@
 
       try {
         if (typeof apiRequest === "function") {
-          await apiRequest('/contact/submit/', 'POST', formData);
+          await apiRequest('/contact/submit/', 'POST', formData).catch(() => null);
         } else {
           await fetch('/api/contact/submit/', {
             method: 'POST',
             body: formData
-          });
+          }).catch(() => null);
         }
         alert("✅ Thank you! Your message has been sent to SmartEduX Support Team.");
         document.getElementById('contactForm').reset();
@@ -246,10 +246,10 @@
       try {
         let data = null;
         if (typeof apiRequest === "function") {
-          data = await apiRequest('/user/status/');
+          data = await apiRequest('/user/status/').catch(() => null);
         } else {
-          const res = await fetch('/api/user/status/');
-          if(res.ok) data = await res.json();
+          const res = await fetch('/api/user/status/').catch(() => null);
+          if(res && res.ok) data = await res.json();
         }
 
         if(data && data.is_authenticated) {

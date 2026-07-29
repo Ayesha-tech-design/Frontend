@@ -23,106 +23,107 @@
         }
 
         .logo-mark {
-    width: 115px;
-    height: 115px;
-  }
-  
-  @media (min-width: 768px) {
-    .logo-mark {
-      width: 125px;
-      height: 125px;
-    }
-    .logo-text {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #0b2149;
-      line-height: 1;
-    }
-  }
+            width: 115px;
+            height: 115px;
+        }
+    
+        @media (min-width: 768px) {
+            .logo-mark {
+                width: 125px;
+                height: 125px;
+            }
+            .logo-text {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 800;
+                letter-spacing: -1px;
+                color: #0b2149;
+                line-height: 1;
+            }
+        }
 
-  nav a { transition: color .18s ease; }
-  nav a:hover { color: var(--primary) !important; }
-  nav a:not(.nav-btn):hover { 
-    color: var(--primary) !important; 
-  }
-  .nav-btn:hover {
-    color: white;
-  }
+        nav a { transition: color .18s ease; }
+        nav a:hover { color: var(--primary) !important; }
+        nav a:not(.nav-btn):hover { 
+            color: var(--primary) !important; 
+        }
+        .nav-btn:hover {
+            color: white;
+        }
     </style>
 </head>
 
 <body class="flex flex-col min-h-screen">
 
     <nav class="bg-white shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      
-      <div class="flex items-center gap-0">
-        <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
-          <img 
-            src="Futuristic tech logo design.png" 
-            alt="SmartEduX Logo" 
-            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
-          >
-          <span class="logo-text text-[26px] md:text-[32px]">
-            SmartEduX
-          </span>
-        </a>
-      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          
+          <div class="flex items-center gap-0">
+            <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+              <img 
+                src="Futuristic tech logo design.png" 
+                alt="SmartEduX Logo" 
+                class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+                onerror="this.style.display='none'"
+              >
+              <span class="logo-text text-[26px] md:text-[32px]">
+                SmartEduX
+              </span>
+            </a>
+          </div>
 
-      <div class="hidden xl:flex items-center space-x-6">
-        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-        <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
-        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-        
-        <div class="relative w-48">
-          <input type="text" placeholder="Search features, courses..." class="search-input">
+          <div class="hidden xl:flex items-center space-x-6">
+            <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+            <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+            <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+            <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+            <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+            <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+            
+            <div class="relative w-48">
+              <input type="text" placeholder="Search features, courses..." class="w-full text-xs px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0b2149]">
+            </div>
+          </div>
+
+          <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+            <a href="login.html"
+               class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+              Login
+            </a>
+
+            <a href="signup.html"
+               class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+              Signup
+            </a>
+          </div>
+
+          <div class="xl:hidden flex items-center">
+            <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+          <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+            <div class="py-2">
+              <input type="text" placeholder="Search features, courses..." class="w-full text-xs px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0b2149]">
+            </div>
+            
+            <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+            <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+            <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+            <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+            <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+            <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+            <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+              <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+              <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
-        <a href="login.html"
-           class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
-          Login
-        </a>
-
-        <a href="signup.html"
-           class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
-          Signup
-        </a>
-      </div>
-
-      <div class="xl:hidden flex items-center">
-        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
-      <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
-        <div class="py-2">
-          <input type="text" placeholder="Search features, courses..." class="search-input">
-        </div>
-        
-        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
-        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
-        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
-        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
-        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
-          <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
-          <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+    </nav>
 
     <header class="bg-[#07122a] text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden">
         <div class="max-w-4xl mx-auto px-4">
@@ -244,7 +245,6 @@
             <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Playlist Preview</h3>
                 <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
-                    <!-- Updated Image representing online video playlist interface -->
                     <img src="https://cdn.dribbble.com/userupload/22170012/file/original-bc739d10145368492bf6ffefe6b67f4d.png?resize=752x&vertical=center" alt="Playlist Preview" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                         <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
@@ -305,54 +305,65 @@
     </main>
 
     <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
-      <div class="text-center md:text-left space-y-4">
-        <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
-        <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
-          Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
-        </p>
-        
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+          <div class="text-center md:text-left space-y-4">
+            <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+            <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+              Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
+            </p>
+          </div>
+          <div class="text-center md:text-right">
+            <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
+            <ul class="space-y-3 text-sm text-blue-200/80">
+              <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
+              <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
+              <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
+              <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 text-center">
+          <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
+        </div>
       </div>
-      <div class="text-center md:text-right">
-        <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
-        <ul class="space-y-3 text-sm text-blue-200/80">
-          <li><a href="SmartEduX.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Home Dashboard</a></li>
-          <li><a href="courses.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">Our Courses</a></li>
-          <li><a href="autonotes.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">AutoNotes Studio</a></li>
-          <li><a href="about.html" class="inline-block hover:text-white hover:translate-x-[-4px] transform transition-all duration-200">About Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-white/10 pt-8 text-center">
-      <p class="text-xs text-gray-500 tracking-wide">© <span id="year"></span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+    </footer>
+
+    <!-- CENTRAL CONNECTION BRIDGE -->
+    <script src="connection.js"></script>
 
     <script>
-        const menuBtn = document.getElementById("menu-btn");
+        const menuToggle = document.getElementById("menu-toggle");
         const mobileMenu = document.getElementById("mobile-menu");
 
-        menuBtn.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
-            mobileMenu.classList.toggle("flex");
-        });
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+        }
 
-        // Function to check if user is signed up/logged in before opening playlist page
-        function checkAuthAndRedirect(event) {
+        async function checkAuthAndRedirect(event) {
             event.preventDefault();
             
-            // Check session / signup status from localStorage (Change key name if needed based on your signup page setup)
-            const isLoggedIn = localStorage.getItem("isLoggedIn"); 
+            let isLoggedIn = false;
+            try {
+                if (typeof apiRequest === "function") {
+                    const data = await apiRequest('/courses/fiverr-details/').catch(() => null);
+                    if (data && data.is_authenticated) isLoggedIn = true;
+                }
+            } catch (e) {
+                console.log("UI Fallback mode");
+            }
 
-            if (isLoggedIn === "true") {
-                // If signed in, redirect to the actual playlist tool page
+            if (!isLoggedIn) {
+                isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            }
+
+            if (isLoggedIn) {
                 window.location.href = "playlist.html";
             } else {
-                // If not signed in, show warning and redirect to signup/login page
                 alert("⚠️ Access Denied!\n\nPlease sign up or log in first to access the SmartEduX Learning Playlist.");
-                window.location.href = "signup.html"; // Aap yahan apne signup ya login page ka naam de sakte hain
+                window.location.href = "signup.html";
             }
         }
     </script>

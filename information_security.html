@@ -219,9 +219,40 @@
 
 </main>
 
+<!-- CENTRAL CONNECTION BRIDGE -->
+<script src="connection.js"></script>
+
 <script>
-    let isSignedUp = true; 
+    let isSignedUp = false; 
     let hasPurchased = false; 
+    let watchedLecturesCount = 0;
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            let data = null;
+            if (typeof apiRequest === "function") {
+                data = await apiRequest('/courses/infosec-details/').catch(() => null);
+            } else {
+                const response = await fetch('/api/courses/infosec-details/').catch(() => null);
+                if (response && response.ok) data = await response.json();
+            }
+
+            if (data) {
+                isSignedUp = data.is_authenticated || false;
+                hasPurchased = data.is_paid || false;
+            }
+
+            if (isSignedUp) {
+                const signupBtn = document.getElementById('signupBtn');
+                if (signupBtn) {
+                    signupBtn.textContent = "Dashboard";
+                    signupBtn.href = "student dashboard.html";
+                }
+            }
+        } catch (error) {
+            console.log("Running in offline UI testing mode.");
+        }
+    });
 
     function startLearningClick(event) {
         event.preventDefault();
@@ -251,9 +282,21 @@
     function attemptFinalQuiz() {
         if (!isSignedUp) {
             alert("Kindly signup first to unlock the quiz!");
+            window.location.href = "signup.html";
             return;
         }
-        alert("Best of luck! Final quiz opening.");
+
+        if (!hasPurchased) {
+            alert("🔒 Please unlock the premium course to access the final quiz and get your certificate.");
+            return;
+        }
+
+        if (watchedLecturesCount < 15) {
+            alert("Please complete all 15 video lectures first to unlock this final quiz.");
+        } else {
+            alert("Best of luck! Final quiz opening.");
+            window.location.href = "playlist.html?course=infosec&action=quiz";
+        }
     }
 </script>
 
