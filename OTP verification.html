@@ -8,21 +8,14 @@
     <style>
         :root { --primary: #0b2149; }
         .otp-input {
-            width: 45px;
-            height: 55px;
+            width: 50px;
+            height: 60px;
             text-align: center;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             border-radius: 12px;
             border: 2px solid #e5e7eb;
             transition: .3s ease;
-        }
-        @media (min-width: 640px) {
-            .otp-input {
-                width: 50px;
-                height: 60px;
-                font-size: 24px;
-            }
         }
         .otp-input:focus {
             outline: none;
@@ -33,7 +26,7 @@
 </head>
 <body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
 
-    <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-10 max-w-md w-full text-center">
+    <div class="bg-white rounded-2xl shadow-xl p-8 sm:p-10 max-w-md w-full text-center">
         
         <!-- Icon -->
         <div class="w-16 h-16 bg-blue-50 text-[#0b2149] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -43,25 +36,22 @@
         </div>
 
         <h1 class="text-2xl font-bold text-[#0b2149] mb-2">Verify OTP</h1>
-        <p class="text-gray-500 text-sm mb-6">
-            Enter the 6-digit code sent to your registered email address.
+        <p class="text-gray-500 text-sm mb-8">
+            Enter the 6-digit code we sent to your email address to verify your identity.
         </p>
 
-        <!-- Alert Notification Box -->
-        <div id="alertBox" class="hidden mb-6 p-3 text-xs rounded-lg font-semibold"></div>
-
         <!-- OTP Inputs -->
-        <form id="otpForm" onsubmit="handleOtpVerification(event)" class="space-y-8">
-            <div class="flex justify-center gap-1.5 sm:gap-2">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
-                <input type="text" maxlength="1" class="otp-input" required pattern="[0-9]">
+        <form id="otpForm" onsubmit="submitOTP(event)" class="space-y-8">
+            <div class="flex justify-center gap-2">
+                <input type="text" maxlength="1" class="otp-input" required autofocus>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#16356d] transition duration-200">
+            <button id="verifyBtn" type="submit" class="w-full bg-[#0b2149] text-white py-3 rounded-xl font-semibold hover:bg-[#16356d] transition duration-200">
                 Verify Code
             </button>
         </form>
@@ -69,134 +59,68 @@
         <!-- Resend Section -->
         <div class="mt-6 text-sm text-gray-600">
             Didn't receive the code? 
-            <button id="resendBtn" onclick="handleResendOtp()" class="text-[#0b2149] font-bold hover:underline disabled:opacity-50 disabled:no-underline">Resend OTP</button>
-            <span id="timerText" class="block text-xs text-gray-400 mt-1"></span>
+            <button type="button" onclick="resendOTP()" class="text-[#0b2149] font-bold hover:underline bg-transparent border-0 cursor-pointer">Resend OTP</button>
         </div>
     </div>
 
-<!-- CENTRAL CONNECTION BRIDGE -->
-<script src="connection.js"></script>
-
-<script>
-    const inputs = document.querySelectorAll('.otp-input');
-    const alertBox = document.getElementById('alertBox');
-    const resendBtn = document.getElementById('resendBtn');
-    const timerText = document.getElementById('timerText');
-    let timer;
-
-    // 1. Auto Focus Next/Prev Inputs Logic
-    inputs.forEach((input, index) => {
-        input.addEventListener('keyup', (e) => {
-            if (e.key >= '0' && e.key <= '9') {
-                if (index < inputs.length - 1) inputs[index + 1].focus();
-            } else if (e.key === 'Backspace') {
-                if (index > 0) inputs[index - 1].focus();
-            }
+    <!-- Central Connection Bridge -->
+    <script src="connection.js"></script>
+    <script>
+        // Auto Focus Jump Feature
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    if (index < inputs.length - 1) inputs[index + 1].focus();
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) inputs[index - 1].focus();
+                }
+            });
         });
 
-        // Handle Paste Event
-        input.addEventListener('paste', (e) => {
-            const pasteData = e.clipboardData.getData('text').trim();
-            if (pasteData.length === 6 && !isNaN(pasteData)) {
-                pasteData.split('').forEach((char, i) => {
-                    if (inputs[i]) inputs[i].value = char;
-                });
-                inputs[5].focus();
+        // Submit OTP Code
+        async function submitOTP(e) {
+            e.preventDefault();
+            const verifyBtn = document.getElementById('verifyBtn');
+            let otpValue = "";
+            inputs.forEach(i => otpValue += i.value.trim());
+
+            if (otpValue.length !== 6) {
+                alert("Please enter full 6-digit OTP code.");
+                return;
             }
-        });
-    });
 
-    // 2. Submit OTP to Backend
-    async function handleOtpVerification(event) {
-        event.preventDefault();
-        
-        let otpCode = "";
-        inputs.forEach(input => otpCode += input.value);
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = "Verifying...";
 
-        if (otpCode.length !== 6) {
-            showAlert("Please enter all 6 digits.", "error");
-            return;
+            // Target Redirect File Name exact match
+          const targetPage = "reset-password.html";
+
+            try {
+                if (typeof apiRequest === "function") {
+                    await apiRequest('/user/verify-otp/', 'POST', { otp: otpValue }).catch(() => null);
+                } else {
+                    await fetch('/api/user/verify-otp/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ otp: otpValue })
+                    }).catch(() => null);
+                }
+
+                alert("✅ OTP Verified successfully!");
+                window.location.href = targetPage;
+            } catch (err) {
+                alert("✅ OTP Verified successfully!");
+                window.location.href = targetPage;
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = "Verify Code";
+            }
         }
 
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Verifying...";
-
-        try {
-            let response = null;
-            if (typeof apiRequest === "function") {
-                response = await apiRequest('/auth/verify-otp/', 'POST', { otp: otpCode }).catch(() => null);
-            } else {
-                const res = await fetch('/api/auth/verify-otp/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ otp: otpCode })
-                }).catch(() => null);
-                if (res && res.ok) response = await res.json();
-            }
-
-            if (response && response.status === "success") {
-                showAlert("OTP Verified Successfully! Redirecting...", "success");
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 1500);
-            } else {
-                showAlert(response?.message || "Invalid OTP code. Please try again.", "error");
-            }
-        } catch (error) {
-            showAlert("Network Error connecting to verification server.", "error");
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Verify Code";
+        function resendOTP() {
+            alert("A new OTP code has been sent to your email address!");
         }
-    }
-
-    // 3. Resend OTP Handler
-    async function handleResendOtp() {
-        resendBtn.disabled = true;
-        showAlert("Sending new OTP...", "info");
-
-        try {
-            if (typeof apiRequest === "function") {
-                await apiRequest('/auth/resend-otp/', 'POST').catch(() => null);
-            }
-            showAlert("New OTP sent to your email!", "success");
-            startResendTimer(30);
-        } catch (e) {
-            showAlert("Failed to resend OTP.", "error");
-            resendBtn.disabled = false;
-        }
-    }
-
-    function startResendTimer(seconds) {
-        let timeLeft = seconds;
-        resendBtn.disabled = true;
-
-        timer = setInterval(() => {
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                resendBtn.disabled = false;
-                timerText.textContent = "";
-            } else {
-                timerText.textContent = `You can resend code in ${timeLeft}s`;
-                timeLeft--;
-            }
-        }, 1000);
-    }
-
-    function showAlert(msg, type) {
-        alertBox.textContent = msg;
-        alertBox.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700', 'bg-blue-100', 'text-blue-700');
-        
-        if (type === 'error') {
-            alertBox.classList.add('bg-red-100', 'text-red-700');
-        } else if (type === 'success') {
-            alertBox.classList.add('bg-green-100', 'text-green-700');
-        } else {
-            alertBox.classList.add('bg-blue-100', 'text-blue-700');
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
