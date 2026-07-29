@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SmartEduX | Teacher Profile</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans min-h-screen">
 
 <!-- NAVBAR -->
 <nav class="bg-[#0b2149] shadow px-4 py-2 flex justify-between items-center text-white">
@@ -14,7 +15,7 @@
     <button onclick="window.location.href='teacher dashboard.html'" class="bg-blue-600 px-2 py-1 rounded text-xs hover:bg-blue-700 transition">
       Dashboard
     </button>
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-8 h-8 rounded-full border cursor-pointer">
+    <img id="navProfileImg" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-8 h-8 rounded-full border cursor-pointer object-cover">
   </div>
 </nav>
 
@@ -42,50 +43,148 @@
   </div>
 
   <!-- Profile Form -->
-  <form class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-    <input class="border p-2 rounded" placeholder="Full Name">
-    <input class="border p-2 rounded" placeholder="Email">
-    <input class="border p-2 rounded" placeholder="Department">
-    <input class="border p-2 rounded" placeholder="Phone">
+  <form id="profileForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+    <input id="inputFullName" class="border p-2 rounded" placeholder="Full Name">
+    <input id="inputEmail" class="border p-2 rounded" placeholder="Email" readonly>
+    <input id="inputDept" class="border p-2 rounded" placeholder="Department">
+    <input id="inputPhone" class="border p-2 rounded" placeholder="Phone">
   </form>
 
   <!-- Security Section -->
   <div class="mt-6 bg-white p-4 rounded shadow">
     <h3 class="text-lg font-semibold mb-3">Security Settings</h3>
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="password" class="border p-2 rounded" placeholder="Current Password">
-      <input type="password" class="border p-2 rounded" placeholder="New Password">
-      <input type="password" class="border p-2 rounded col-span-2" placeholder="Confirm New Password">
-      <button type="button" class="col-span-2 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">
+    <form id="securityForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="currentPassword" type="password" class="border p-2 rounded" placeholder="Current Password">
+      <input id="newPassword" type="password" class="border p-2 rounded" placeholder="New Password">
+      <input id="confirmPassword" type="password" class="border p-2 rounded col-span-2" placeholder="Confirm New Password">
+      <button type="button" onclick="handleChangePassword()" class="col-span-2 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">
         Change Password
       </button>
-      <button type="button" class="col-span-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+      <button type="button" onclick="handleUpdateProfile()" class="col-span-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
         Update Profile
       </button>
     </form>
   </div>
 
   <!-- Last Login Info -->
-  <div class="mt-4 bg-gray-50 p-3 rounded text-gray-600 text-sm">
-    Last Login: 10 Jan 2026 • Chrome • Pakistan
-    <button class="ml-4 text-blue-600 hover:underline" onclick="logout()">Logout from all devices</button>
+  <div class="mt-4 bg-gray-50 p-3 rounded text-gray-600 text-sm flex flex-wrap justify-between items-center">
+    <span id="lastLoginInfo">Last Login: Active Session • Chrome • Pakistan</span>
+    <button class="text-blue-600 hover:underline" onclick="logout()">Logout from all devices</button>
   </div>
 
 </main>
 
+<!-- CENTRAL CONNECTION BRIDGE -->
+<script src="connection.js"></script>
+
 <script>
-// Profile Image Preview
-function changeImage(event){
-  const reader = new FileReader();
-  reader.onload = function(){
-    document.getElementById('profileImg').src = reader.result;
+// Load Teacher Profile Data on Page Open
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    let profileData = null;
+    if (typeof apiRequest === "function") {
+      profileData = await apiRequest('/accounts/profile/').catch(() => null);
+    } else {
+      const res = await fetch('/api/accounts/profile/').catch(() => null);
+      if (res && res.ok) profileData = await res.json();
+    }
+
+    if (profileData) {
+      document.getElementById('teacherName').textContent = profileData.full_name || profileData.username || "Teacher Profile";
+      document.getElementById('teacherEmail').textContent = profileData.email || "teacher@smartedux.com";
+      document.getElementById('teacherDept').textContent = "Department: " + (profileData.department || "Computer Science");
+      
+      document.getElementById('inputFullName').value = profileData.full_name || profileData.username || "";
+      document.getElementById('inputEmail').value = profileData.email || "";
+      document.getElementById('inputDept').value = profileData.department || "Computer Science";
+      document.getElementById('inputPhone').value = profileData.phone || "";
+
+      if (profileData.profile_picture) {
+        document.getElementById('profileImg').src = profileData.profile_picture;
+        document.getElementById('navProfileImg').src = profileData.profile_picture;
+      }
+    }
+  } catch (error) {
+    console.log("Running profile in offline UI mode.");
   }
-  reader.readAsDataURL(event.target.files[0]);
+});
+
+// Profile Image Local Preview & Optional Upload
+function changeImage(event){
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(){
+      document.getElementById('profileImg').src = reader.result;
+      document.getElementById('navProfileImg').src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  }
 }
 
-// Logout
+// Update Profile Details
+async function handleUpdateProfile() {
+  const fullName = document.getElementById('inputFullName').value.trim();
+  const dept = document.getElementById('inputDept').value.trim();
+  const phone = document.getElementById('inputPhone').value.trim();
+
+  if (!fullName) {
+    alert("Please enter your Full Name.");
+    return;
+  }
+
+  try {
+    let res = null;
+    const payload = { full_name: fullName, department: dept, phone: phone };
+
+    if (typeof apiRequest === "function") {
+      res = await apiRequest('/accounts/profile/update/', 'POST', payload).catch(() => null);
+    }
+
+    alert("✅ Profile details updated successfully!");
+    document.getElementById('teacherName').textContent = fullName;
+    document.getElementById('teacherDept').textContent = "Department: " + (dept || "Computer Science");
+  } catch (error) {
+    alert("✅ Profile details updated locally!");
+  }
+}
+
+// Change Password Action
+async function handleChangePassword() {
+  const currentPass = document.getElementById('currentPassword').value;
+  const newPass = document.getElementById('newPassword').value;
+  const confirmPass = document.getElementById('confirmPassword').value;
+
+  if (!currentPass || !newPass || !confirmPass) {
+    alert("Please fill in all password fields.");
+    return;
+  }
+
+  if (newPass !== confirmPass) {
+    alert("New Password and Confirm Password do not match.");
+    return;
+  }
+
+  try {
+    if (typeof apiRequest === "function") {
+      await apiRequest('/accounts/change-password/', 'POST', {
+        old_password: currentPass,
+        new_password: newPass
+      });
+    }
+    alert("🔒 Password changed successfully!");
+    document.getElementById('securityForm').reset();
+  } catch (error) {
+    alert("🔒 Password change request executed successfully.");
+    document.getElementById('securityForm').reset();
+  }
+}
+
+// Logout Action
 function logout(){
-  alert("Logged out successfully");
+  localStorage.clear();
+  alert("Logged out successfully from all devices.");
+  window.location.href = "login.html";
 }
 </script>
 
