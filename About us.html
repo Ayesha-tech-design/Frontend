@@ -23,16 +23,32 @@
 
    
      .logo-mark {
-  width: 115px;
-  height: 115px;
-}
-
-@media (min-width: 768px) {
-  .logo-mark {
-    width: 125px;
-    height: 125px;
+    width: 115px;
+    height: 115px;
   }
-}
+  
+  @media (min-width: 768px) {
+    .logo-mark {
+      width: 125px;
+      height: 125px;
+    }
+    .logo-text {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #0b2149;
+      line-height: 1;
+    }
+  }
+
+  nav a { transition: color .18s ease; }
+  nav a:hover { color: var(--primary) !important; }
+  nav a:not(.nav-btn):hover { 
+    color: var(--primary) !important; 
+  }
+  .nav-btn:hover {
+    color: white;
+  }
 
 
 
@@ -53,83 +69,74 @@
 <body class="bg-white text-gray-800">
 <!-- HEADER -->
   <nav class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        
-       <div class="hidden xl:flex items-center gap-2 md:gap-3">
-
-          <a href="SmartEduX.html" class="flex items-center gap-2 md:gap-3" aria-label="Home">
-            <img src="Futuristic tech logo design.png" alt="SmartEduX Logo" class="logo-mark flex-shrink-0 object-contain">
-            <span class="text-xl md:text-2xl font-bold text-[#0b2149] tracking-tight">SmartEduX</span>
-          </a>
-        </div>
-
-        <div class="hidden xl:flex items-center space-x-6">
-          <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
-          <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
-          <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
-           <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
-          <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About</a>
-          <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
-          
-          <div class="relative w-48">
-            <input type="text" placeholder="Search features, courses..." class="search-input">
-          </div>
-        </div>
-
-        <div class="hidden md:flex items-center gap-3 ml-4">
-          <a href="login.html" class="px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition">Login</a>
-          <a href="signup.html" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:brightness-110 transition shadow-md">Signup</a>
-        </div>
-
-       <!-- MOBILE TOP BAR -->
-<div class="xl:hidden flex items-center justify-between w-full">
-  
-  <!-- LOGO LEFT -->
-  <a href="SmartEduX.html" class="flex items-center gap-2">
-    <svg class="logo-mark" viewBox="0 0 64 64" fill="none">
-      <rect width="64" height="64" rx="12" fill="#0b2149"/>
-      <path d="M32 16L52 26L32 36L12 26L32 16Z" stroke="white" stroke-width="3"/>
-      <path d="M12 26V42C12 42 20 48 32 48C44 48 52 42 52 42V26" stroke="white" stroke-width="3"/>
-    </svg>
-    <span class="text-xl font-bold text-[#0b2149]">SmartEduX</span>
-  </a>
-
-  <!-- THREE LINES RIGHT -->
-  <button id="menu-toggle"
-    class="p-2 rounded-md text-[#0b2149] hover:bg-gray-100">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="2">
-      <path d="M4 6h16M4 12h16M4 18h16"
-        stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-</div>
-
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <div class="flex items-center gap-0">
+        <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+          <img 
+            src="Futuristic tech logo design.png" 
+            alt="SmartEduX Logo" 
+            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+          >
+          <span class="logo-text text-[26px] md:text-[32px]">
+            SmartEduX
+          </span>
+        </a>
       </div>
 
-     <div id="mobile-menu"
-  class="hidden xl:hidden bg-white border-t border-gray-100">
+      <div class="hidden xl:flex items-center space-x-6">
+        <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+        <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+        <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+        <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+        <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+        <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+        
+        <div class="relative w-48">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
+        </div>
+      </div>
 
-  <div class="px-4 py-6 space-y-3">
+      <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+        <a href="login.html"
+           class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+          Login
+        </a>
 
-    <a href="SmartEduX.html" class="block px-3 py-2 rounded hover:bg-gray-100">Home</a>
-    <a href="Courses.html" class="block px-3 py-2 rounded hover:bg-gray-100">Courses</a>
-    <a href="Autonotes.html" class="block px-3 py-2 rounded hover:bg-gray-100">AutoNotes</a>
-    <a href="features.html" class="block px-3 py-2 rounded hover:bg-gray-100">Features</a>
-    <a href="About us.html" class="block px-3 py-2 rounded bg-gray-100 text-[#0b2149]">About</a>
-    <a href="contact.html" class="block px-3 py-2 rounded hover:bg-gray-100">Contact</a>
+        <a href="signup.html"
+           class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+          Signup
+        </a>
+      </div>
 
-    <div class="grid grid-cols-2 gap-3 pt-4">
-      <a href="login.html" class="text-center py-2 border rounded text-[#0b2149]">Login</a>
-      <a href="signup.html" class="text-center py-2 rounded bg-[#0b2149] text-white">Signup</a>
+      <div class="xl:hidden flex items-center">
+        <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
 
+    <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+      <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+        <div class="py-2">
+          <input type="text" placeholder="Search features, courses..." class="search-input">
+        </div>
+        
+        <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+        <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+        <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+        <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+        <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+          <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+          <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-    </div>
-  </nav>
+</nav>
   <!-- Header -->
   <header class="bg-[#0b2149] text-white py-10">
     <div class="max-w-6xl mx-auto text-center px-6">
