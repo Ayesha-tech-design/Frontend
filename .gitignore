@@ -9,6 +9,6 @@ db.sqlite3
 # Media and Static
 media/
 static/
-
+videos/
 # VS Code settings
 .vscode/.env
