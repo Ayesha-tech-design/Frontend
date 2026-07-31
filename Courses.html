@@ -60,7 +60,7 @@
 <body class="bg-white text-gray-900 flex flex-col min-h-screen w-full">
 
   <!-- HEADER -->
-    <nav class="bg-white shadow sticky top-0 z-50">
+  <nav class="bg-white shadow sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       
@@ -90,6 +90,7 @@
         </div>
       </div>
 
+      <!-- Desktop Auth Section -->
       <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
         <a href="login.html"
            class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
@@ -121,7 +122,9 @@
         <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
         <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
         <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+        
+        <!-- Mobile Auth Container -->
+        <div class="grid grid-cols-2 gap-3 mt-4 px-1" id="mobile-auth-container">
           <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
           <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
         </div>
@@ -213,14 +216,14 @@
         title: 'Fiverr Freelancing',
         icon: 'https://img.icons8.com/color/48/000000/fiverr.png',
         desc: 'Create gigs, attract clients, manage orders, and start earning online.',
-        img: 'virtual-assistant-on-fivver.png',
+        img: 'https://news.trendmicro.com/api/wp-content/uploads/2025/05/is-Fiverr-legit-1.jpg',
         link: 'fiverr.html'
       },
       {
         title: 'Information Security',
         icon: 'https://img.icons8.com/ios-filled/24/000000/security-checked.png',
         desc: 'Learn cyber security, network protection, cryptography and secure information systems.',
-        img: 'information_security.jpg',
+        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=60',
         link: 'information_security.html'
       }
     ];
@@ -270,42 +273,58 @@
       });
     }
 
+    // Dynamic User Auth check on Page Load
     document.addEventListener("DOMContentLoaded", async () => {
-      try {
-        let apiData = null;
-        if (typeof apiRequest === "function") {
-          apiData = await apiRequest('/courses/list/');
-        } else {
-          const res = await fetch('/api/courses/list/');
-          if (res.ok) apiData = await res.json();
+        try {
+            let apiData = null;
+            if (typeof apiRequest === "function") {
+                apiData = await apiRequest('/courses/list/');
+            } else {
+                const res = await fetch('/api/courses/list/');
+                if (res.ok) apiData = await res.json();
+            }
+
+            if (apiData && apiData.courses && apiData.courses.length > 0) {
+                renderCoursesGrid(apiData.courses);
+            } else {
+                renderCoursesGrid(defaultCourses);
+            }
+        } catch (e) {
+            renderCoursesGrid(defaultCourses);
         }
 
-        if (apiData && apiData.courses && apiData.courses.length > 0) {
-          renderCoursesGrid(apiData.courses);
-        } else {
-          renderCoursesGrid(defaultCourses);
-        }
-      } catch (e) {
-        renderCoursesGrid(defaultCourses);
-      }
+        const token = localStorage.getItem("access_token");
+        
+        if (token) {
+            try {
+                let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-      try {
-        let userData = null;
-        if (typeof apiRequest === "function") {
-          userData = await apiRequest('/user/status/');
-        } else {
-          const res = await fetch('/api/user/status/');
-          if (res.ok) userData = await res.json();
-        }
+                if (response.ok) {
+                    let data = await response.json();
+                    let dashboardUrl = (data.role === 'teacher' || data.is_teacher) ? 'teacher dashboard.html' : 'student dashboard.html';
 
-        if(userData && userData.is_authenticated) {
-          const userSec = document.getElementById('nav-user-section');
-          if(userSec) {
-            const dash = userData.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-            userSec.innerHTML = `<a href="${dash}" class="px-4 py-2 text-sm font-medium rounded-md bg-[#0b2149] text-white hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
-          }
+                    // Desktop navbar update
+                    const navAuthSection = document.getElementById("nav-user-section");
+                    if (navAuthSection) {
+                        navAuthSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md transition">Dashboard</a>`;
+                    }
+
+                    // Mobile menu navbar update
+                    const mobileAuthContainer = document.getElementById("mobile-auth-container");
+                    if (mobileAuthContainer) {
+                        mobileAuthContainer.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Dashboard</a>`;
+                    }
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+            }
         }
-      } catch(e) {}
     });
   </script>
 </body>

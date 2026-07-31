@@ -16,6 +16,7 @@
     </div>
 </header>
 
+
 <!-- Hero Section -->
 <section class="bg-gradient-to-r from-blue-200 via-blue-100 to-white py-12 sm:py-16 text-center px-4">
     <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0b2149] mb-4">Build Websites with WordPress</h2>
@@ -164,6 +165,7 @@
 </section>
 
 <!-- Scripts -->
+<!-- Scripts -->
 <script src="connection.js"></script>
 <script>
     let isSignedUp = true; 
@@ -183,14 +185,13 @@
             }
 
             try {
-                // Fixed: Removed duplicate /api/ from URL
                 let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
-    method: 'GET',
-    headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    }
-});
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
                 if (response.ok) {
                     let data = await response.json();
@@ -205,10 +206,18 @@
     });
 
     function startLearningClick(event) {
-    event.preventDefault();
-    // Yeh user ko pehle lecture ke sath playlist page par le jaye ga
-    window.location.href = "playlist.html?course=wordpress&lec=0";
-}
+        event.preventDefault();
+        
+        // Check if user is signed up / logged in
+        if (!isSignedUp) {
+            alert("Kindly signup first to start learning and watch lectures!");
+            window.location.href = "signup.html";
+            return;
+        }
+
+        // Agar user signed-up hai toh bina kisi rukawat ke seedha playlist open hogi
+        window.location.href = "playlist.html?course=wordpress&lec=0";
+    }
 
     function checkAccess(event, lectureIndex) {
         if (!isSignedUp) {
@@ -223,21 +232,14 @@
             alert("This is a premium lecture. Kindly purchase the course or pay to unlock lessons 11-15!");
         }
     }
-
-    function attemptFinalQuiz() {
-        if (!isSignedUp) {
-            alert("Kindly signup first to unlock the quiz!");
-            window.location.href = "signup.html";
-            return;
-        }
-
+function attemptFinalQuiz() {
         if (watchedLecturesCount < 15) {
             alert("Please complete all 15 video lectures first to unlock this final quiz.");
         } else {
             alert("Best of luck! Final quiz opening. Remember, 90% is required for your Digital Certificate!");
+            // Yahan aap quiz page ka link ya function add kar sakti hain
         }
     }
 </script>
-
 </body>
 </html>

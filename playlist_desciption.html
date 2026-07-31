@@ -243,28 +243,18 @@
         <div class="space-y-8">
             
             <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-lg font-bold text-[#0b2149] mb-3">Live Playlist Preview</h3>
+                <h3 class="text-lg font-bold text-[#0b2149] mb-3">System Architecture</h3>
                 <div class="bg-gray-100 rounded-xl overflow-hidden border border-gray-200 aspect-video flex items-center justify-center relative">
-                    <img src="https://cdn.dribbble.com/userupload/22170012/file/original-bc739d10145368492bf6ffefe6b67f4d.png?resize=752x&vertical=center" alt="Playlist Preview" class="w-full h-full object-cover">
+                    <img src="https://cdn.dribbble.com/userupload/22170012/file/original-bc739d10145368492bf6ffefe6b67f4d.png?resize=752x&vertical=center" alt="Playlist Structure" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                         <span class="bg-white/90 text-[#0b2149] text-xs font-bold px-3 py-1.5 rounded-lg shadow">
-                            Playlist Preview
+                            Smart Structured Flow
                         </span>
                     </div>
                 </div>
                 <p class="text-xs text-gray-500 mt-3 text-center">
-                    Preview of the SmartEduX Learning Playlist interface where students can watch lectures in sequence.
+                    Optimized workflow architecture designed for seamless academic progression and video sequencing.
                 </p>
-            </div>
-
-            <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
-                <h3 class="text-xl font-bold">Start Learning</h3>
-                <p class="text-xs text-blue-200">
-                    Open your SmartEduX Playlist and continue learning from your last watched lecture.
-                </p>
-                <a href="#" onclick="checkAuthAndRedirect(event)" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
-                    Launch Tool
-                </a>
             </div>
 
             <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -333,6 +323,9 @@
     <script src="connection.js"></script>
 
     <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle Script
         const menuToggle = document.getElementById("menu-toggle");
         const mobileMenu = document.getElementById("mobile-menu");
 
@@ -342,30 +335,43 @@
             });
         }
 
-        async function checkAuthAndRedirect(event) {
-            event.preventDefault();
+        // DYNAMIC AUTH VERIFICATION & NAVBAR UPDATE
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("access_token");
             
-            let isLoggedIn = false;
-            try {
-                if (typeof apiRequest === "function") {
-                    const data = await apiRequest('/courses/fiverr-details/').catch(() => null);
-                    if (data && data.is_authenticated) isLoggedIn = true;
+            if (token) {
+                try {
+                    let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        let data = await response.json();
+                        // Role check karein ke student hai ya teacher
+                        let dashboardUrl = (data.role === 'teacher') ? 'teacher info.html' : 'student_dashboard.html';
+                        if(data.is_teacher) dashboardUrl = 'teacher info.html';
+
+                        // Desktop navbar buttons update karein
+                        const navAuthSection = document.getElementById("nav-user-section");
+                        if (navAuthSection) {
+                            navAuthSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">Dashboard</a>`;
+                        }
+
+                        // Mobile menu navbar buttons update karein
+                        const mobileAuthContainer = document.querySelector("#mobile-menu .grid");
+                        if (mobileAuthContainer) {
+                            mobileAuthContainer.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Dashboard</a>`;
+                        }
+                    }
+                } catch (error) {
+                    console.error("Auth check error:", error);
                 }
-            } catch (e) {
-                console.log("UI Fallback mode");
             }
-
-            if (!isLoggedIn) {
-                isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-            }
-
-            if (isLoggedIn) {
-                window.location.href = "playlist.html";
-            } else {
-                alert("⚠️ Access Denied!\n\nPlease sign up or log in first to access the SmartEduX Learning Playlist.");
-                window.location.href = "signup.html";
-            }
-        }
+        });
     </script>
 </body>
 </html>

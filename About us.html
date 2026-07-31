@@ -88,6 +88,7 @@
         </div>
       </div>
 
+      <!-- Desktop Auth Section (Dynamic Target) -->
       <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
         <a href="login.html"
            class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
@@ -119,7 +120,9 @@
         <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
         <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
         <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
-        <div class="grid grid-cols-2 gap-3 mt-4 px-1">
+        
+        <!-- Mobile Auth Container (Dynamic Target) -->
+        <div class="grid grid-cols-2 gap-3 mt-4 px-1" id="mobile-auth-container">
           <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
           <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
         </div>
@@ -228,40 +231,32 @@
   </section>
 
   <!-- FOOTER -->
-  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300">
+  <footer id="contact" class="pt-16 pb-10 bg-[#07122a] text-gray-300 w-full mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-        
-        <div class="text-center md:text-left">
-          <h4 class="text-white text-2xl font-bold mb-4 tracking-wide">SmartEduX</h4>
-          <p class="text-sm leading-relaxed text-blue-200/80 max-w-xs mx-auto md:mx-0">
-            Empowering university students with automated AI lecture summarization, notes generation, and instant revision tools.
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12">
+        <div class="text-center md:text-left space-y-4">
+          <h4 class="text-white text-2xl font-bold tracking-wide">SmartEduX</h4>
+          <p class="text-sm leading-relaxed text-blue-200/70 max-w-sm mx-auto md:mx-0">
+            Empowering learning with AI video summarization, instant notes, structured MCQs, and premium curated courses for smarter academic revision.
           </p>
         </div>
 
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore</h5>
+        <div class="text-center md:text-right">
+          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Explore Platform</h5>
           <ul class="space-y-3 text-sm text-blue-200/80">
-            <li><a href="SmartEduX.html" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="Courses.html" class="hover:text-white transition-colors">Courses</a></li>
-            <li><a href="Autonotes.html" class="hover:text-white transition-colors">AutoNotes</a></li>
-            <li><a href="About us.html" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="SmartEduX.html" class="inline-block hover:text-white transition-colors">Home Dashboard</a></li>
+            <li><a href="Courses.html" class="inline-block hover:text-white transition-colors">Our Courses</a></li>
+            <li><a href="Autonotes.html" class="inline-block hover:text-white transition-colors">AutoNotes Studio</a></li>
+            <li><a href="About us.html" class="inline-block hover:text-white transition-colors">About Us</a></li>
           </ul>
-        </div>
-
-        <div class="text-center md:text-left">
-          <h5 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Get in touch</h5>
-          <p class="text-blue-200/80 text-sm">support@smartedux.com</p>
-          <p class="text-blue-200/80 text-sm mt-1">+92 300 1234567</p>
         </div>
       </div>
 
       <div class="border-t border-white/10 pt-8 text-center">
-        <p class="text-xs text-gray-500">© <span id="year"></span> SmartEduX — All rights reserved.</p>
+        <p class="text-xs text-gray-500 tracking-wide">© <span id="year">2026</span> SmartEduX — AI-Powered Learning Hub. All rights reserved.</p>
       </div>
     </div>
   </footer>
-
   <script src="connection.js"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -273,30 +268,38 @@
 
     // Dynamic User Auth check on Page Load
     document.addEventListener("DOMContentLoaded", async () => {
-      try {
-        let authData = null;
-        if (typeof apiRequest === "function") {
-          authData = await apiRequest('/features-overview/', 'GET');
-        } else {
-          const res = await fetch('/api/features-overview/');
-          if (res.ok) authData = await res.json();
-        }
+        const token = localStorage.getItem("access_token");
+        
+        if (token) {
+            try {
+                let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-        if (authData && authData.user && authData.user.is_authenticated) {
-          const dash = authData.user.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-          
-          const authContainer = document.getElementById('authButtons');
-          if (authContainer) {
-            authContainer.innerHTML = `<a href="${dash}" class="px-4 py-2 text-sm font-medium rounded-md bg-[#0b2149] text-white shadow-md hover:bg-blue-900 transition">Dashboard</a>`;
-          }
-          const mobileAuth = document.getElementById('mobileAuthButtons');
-          if (mobileAuth) {
-            mobileAuth.innerHTML = `<a href="${dash}" class="col-span-2 text-center py-2 rounded bg-[#0b2149] text-white font-medium">Dashboard</a>`;
-          }
+                if (response.ok) {
+                    let data = await response.json();
+                    let dashboardUrl = (data.role === 'teacher' || data.is_teacher) ? 'teacher dashboard.html' : 'student dashboard.html';
+
+                    // Desktop navbar update
+                    const navAuthSection = document.getElementById("nav-user-section");
+                    if (navAuthSection) {
+                        navAuthSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">Dashboard</a>`;
+                    }
+
+                    // Mobile menu navbar update
+                    const mobileAuthContainer = document.getElementById("mobile-auth-container");
+                    if (mobileAuthContainer) {
+                        mobileAuthContainer.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Dashboard</a>`;
+                    }
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+            }
         }
-      } catch (err) {
-        console.log("[SmartEduX]: Running in Guest View Mode");
-      }
     });
   </script>
 </body>

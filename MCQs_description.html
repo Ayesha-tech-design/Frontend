@@ -94,12 +94,12 @@
       <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
         <a href="login.html"
            class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
-          Login
+            Login
         </a>
 
         <a href="signup.html"
            class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
-          Signup
+            Signup
         </a>
       </div>
 
@@ -148,42 +148,6 @@
 <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
 
     <div class="lg:col-span-2 space-y-8 w-full min-w-0">
-
-        <!-- DYNAMIC QUIZ GENERATOR INPUT PANEL -->
-        <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100 w-full">
-            <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
-                Generate Practice Quiz Studio
-            </h2>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="topicInput" placeholder="Enter topic name (e.g. Graphic Designing, Information Security...)" class="flex-grow border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#0b2149]">
-                <button onclick="generateLiveMCQs()" id="genBtn" class="bg-[#0b2149] text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#16356d] transition shadow-md">
-                    Generate MCQs
-                </button>
-            </div>
-            
-            <!-- LOADER -->
-            <div id="mcqLoader" class="hidden text-center py-6">
-                <div class="animate-spin h-8 w-8 border-4 border-gray-200 border-t-[#0b2149] rounded-full mx-auto"></div>
-                <p class="text-xs text-gray-500 mt-2">Connecting Django API & Generating Quiz...</p>
-            </div>
-
-            <!-- RENDER QUIZ CONTAINER -->
-            <div id="quizContainer" class="hidden mt-6 pt-6 border-t border-gray-100 space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-base font-bold text-[#0b2149]">Topic: <span id="quizTopicName" class="text-blue-600"></span></h3>
-                    <span class="text-xs bg-blue-100 text-[#0b2149] font-bold px-3 py-1 rounded-full">Live Quiz</span>
-                </div>
-
-                <form id="mcqForm" class="space-y-4"></form>
-
-                <div class="pt-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-                    <button type="button" onclick="submitQuiz()" class="w-full sm:w-auto bg-emerald-600 text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-emerald-700 transition">
-                        Submit Answers
-                    </button>
-                    <div id="scoreDisplay" class="text-base font-bold text-[#0b2149]"></div>
-                </div>
-            </div>
-        </section>
 
         <section class="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100 w-full">
             <h2 class="text-xl sm:text-2xl font-bold text-[#0b2149] mb-4">
@@ -358,102 +322,54 @@
 <script src="connection.js"></script>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  let currentMCQs = [];
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile Menu Click Toggle Fix
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
+    // Mobile Menu Toggle Script
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
 
-  if (menuBtn && mobileMenu) {
-      const toggleMenu = (e) => {
-          e.preventDefault();
-          mobileMenu.classList.toggle('hidden');
-      };
+    // DYNAMIC AUTH VERIFICATION & NAVBAR UPDATE
+    document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("access_token");
+        
+        if (token) {
+            try {
+                let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-      menuBtn.addEventListener('click', toggleMenu);
-      menuBtn.addEventListener('touchstart', toggleMenu, { passive: false });
-  }
+                if (response.ok) {
+                    let data = await response.json();
+                    // Role check karein ke student hai ya teacher
+                    let dashboardUrl = (data.role === 'teacher') ? 'teacher info.html' : 'student_dashboard.html';
+                    if(data.is_teacher) dashboardUrl = 'teacher info.html';
 
-  // Live MCQ Generation Logic
-  async function generateLiveMCQs() {
-      const topic = document.getElementById('topicInput').value.trim() || 'General Knowledge';
-      const genBtn = document.getElementById('genBtn');
-      const loader = document.getElementById('mcqLoader');
-      const quizContainer = document.getElementById('quizContainer');
+                    // Desktop navbar buttons update karein
+                    const navAuthSection = document.getElementById("nav-user-section");
+                    if (navAuthSection) {
+                        navAuthSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">Dashboard</a>`;
+                    }
 
-      loader.classList.remove('hidden');
-      quizContainer.classList.add('hidden');
-      genBtn.disabled = true;
-
-      try {
-          let responseData = null;
-          if (typeof apiRequest === "function") {
-              responseData = await apiRequest('/courses/generate-mcqs/', 'POST', { topic: topic }).catch(() => null);
-          } else {
-              const res = await fetch('/api/courses/generate-mcqs/', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ topic: topic })
-              }).catch(() => null);
-              if (res && res.ok) responseData = await res.json();
-          }
-
-          if (responseData && responseData.mcqs) {
-              currentMCQs = responseData.mcqs;
-              renderQuiz(topic, currentMCQs);
-          } else {
-              alert("⚠️ Backend connection error! Make sure Django server is running.");
-          }
-      } catch (e) {
-          console.error("MCQ Error:", e);
-      } finally {
-          loader.classList.add('hidden');
-          genBtn.disabled = false;
-      }
-  }
-
-  function renderQuiz(topic, mcqs) {
-      document.getElementById('quizTopicName').textContent = topic;
-      const form = document.getElementById('mcqForm');
-      form.innerHTML = "";
-      document.getElementById('scoreDisplay').textContent = "";
-
-      mcqs.forEach((q, idx) => {
-          const qDiv = document.createElement('div');
-          qDiv.className = 'p-4 bg-gray-50 rounded-xl border border-gray-200';
-          qDiv.innerHTML = `
-              <p class="font-bold text-sm text-gray-800 mb-2">${idx + 1}. ${q.question}</p>
-              <div class="space-y-2 text-xs text-gray-700">
-                  ${Object.entries(q.options).map(([key, val]) => `
-                      <label class="flex items-center gap-2 p-2 rounded bg-white border border-gray-200 cursor-pointer hover:bg-blue-50">
-                          <input type="radio" name="q_${idx}" value="${key}" class="text-[#0b2149]">
-                          <span><strong>${key}:</strong> ${val}</span>
-                      </label>
-                  `).join('')}
-              </div>
-          `;
-          form.appendChild(qDiv);
-      });
-
-      document.getElementById('quizContainer').classList.remove('hidden');
-  }
-
-  function submitQuiz() {
-      if (currentMCQs.length === 0) return;
-
-      let score = 0;
-      currentMCQs.forEach((q, idx) => {
-          const selected = document.querySelector(`input[name="q_${idx}"]:checked`);
-          if (selected && selected.value === q.correct) {
-              score++;
-          }
-      });
-
-      const percent = Math.round((score / currentMCQs.length) * 100);
-      const scoreDisplay = document.getElementById('scoreDisplay');
-      scoreDisplay.innerHTML = `Result: <span class="${percent >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${score}/${currentMCQs.length} (${percent}%)</span>`;
-  }
+                    // Mobile menu navbar buttons update karein
+                    const mobileAuthContainer = document.querySelector("#mobile-menu .grid");
+                    if (mobileAuthContainer) {
+                        mobileAuthContainer.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Dashboard</a>`;
+                    }
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+            }
+        }
+    });
 </script>
 
 </body>

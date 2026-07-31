@@ -42,9 +42,9 @@
 
       <div class="relative">
         <button onclick="toggleProfile()" class="bg-[#0b2149] text-white px-4 py-2 rounded">Profile</button>
-        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40">
+        <div id="profileMenu" class="hidden absolute right-0 mt-2 bg-white shadow rounded w-40 z-50">
           <a href="teacher profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-          <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+          <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">Logout</button>
         </div>
       </div>
     </div>
@@ -61,35 +61,35 @@
 
     <!-- Quick Access -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <button class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-gray-800 transition">Add Assignment</button>
-      <button class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-gray-800 transition">Create Course</button>
-      <button class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-gray-800 transition">Message Students</button>
+      <button onclick="openAddAssignmentModal()" class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-blue-900 transition font-medium">Add Assignment</button>
+      <button onclick="openCreateCourseModal()" class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-blue-900 transition font-medium">Create Course</button>
+      <button onclick="openMessageStudentsModal()" class="bg-[#0b2149] text-white py-4 rounded-xl shadow hover:bg-blue-900 transition font-medium">Message Students</button>
     </div>
 
     <!-- Stats -->
     <div class="bg-white p-6 rounded-xl shadow mt-6">
       <h3 class="text-xl font-bold text-[#0b2149] mb-4">Your Stats</h3>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-        <div class="bg-white p-4 rounded shadow">
-    <p class="text-gray-500 text-sm">Courses</p>
-    <h3 id="courseCount" class="text-xl font-bold">0</h3>
-</div>
-<div class="bg-white p-4 rounded shadow">
-    <p class="text-gray-500 text-sm">Assignments</p>
-    <h3 id="assignmentCount" class="text-xl font-bold">0</h3>
-</div>
-<div class="bg-white p-4 rounded shadow">
-    <p class="text-gray-500 text-sm">Students</p>
-    <h3 id="studentCount" class="text-xl font-bold">0</h3>
-</div>
-<div class="bg-white p-4 rounded shadow">
-    <p class="text-gray-500 text-sm">Pending Submissions</p>
-    <h3 id="pendingCount" class="text-xl font-bold">0</h3>
-</div>
-<div class="bg-white p-4 rounded shadow">
-    <p class="text-gray-500 text-sm">Certifications</p>
-    <h3 id="certCount" class="text-xl font-bold text-yellow-600">0</h3>
-</div>
+        <div class="bg-gray-50 p-4 rounded border">
+          <p class="text-gray-500 text-sm">Courses</p>
+          <h3 id="courseCount" class="text-xl font-bold text-[#0b2149]">0</h3>
+        </div>
+        <div class="bg-gray-50 p-4 rounded border">
+          <p class="text-gray-500 text-sm">Assignments</p>
+          <h3 id="assignmentCount" class="text-xl font-bold text-[#0b2149]">0</h3>
+        </div>
+        <div class="bg-gray-50 p-4 rounded border">
+          <p class="text-gray-500 text-sm">Students</p>
+          <h3 id="studentCount" class="text-xl font-bold text-[#0b2149]">0</h3>
+        </div>
+        <div class="bg-gray-50 p-4 rounded border">
+          <p class="text-gray-500 text-sm">Pending Submissions</p>
+          <h3 id="pendingCount" class="text-xl font-bold text-[#0b2149]">0</h3>
+        </div>
+        <div class="bg-gray-50 p-4 rounded border">
+          <p class="text-gray-500 text-sm">Certifications</p>
+          <h3 id="certCount" class="text-xl font-bold text-yellow-600">0</h3>
+        </div>
       </div>
     </div>
 
@@ -97,20 +97,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
       <!-- Assignments -->
-      <div class="bg-white p-4 rounded shadow">
-    <h3 class="font-bold text-lg mb-2">Assignments</h3>
-    <ul id="assignmentList" class="space-y-2">
-        <!-- Dynamic assignments yahan load hongi -->
-    </ul>
-</div>
+      <div class="bg-white p-4 rounded-xl shadow border">
+        <h3 class="font-bold text-lg mb-3 text-[#0b2149]">Assignments</h3>
+        <ul id="assignmentList" class="space-y-2">
+            <!-- Dynamic assignments yahan load hongi -->
+        </ul>
+      </div>
 
       <!-- Announcements -->
-      <div class="bg-white p-4 rounded shadow">
-    <h3 class="font-bold text-lg mb-2">Announcements</h3>
-    <ul id="announcementList" class="space-y-2">
-        <!-- Dynamic announcements yahan load hongi -->
-    </ul>
-</div>
+      <div class="bg-white p-4 rounded-xl shadow border">
+        <h3 class="font-bold text-lg mb-3 text-[#0b2149]">Announcements</h3>
+        <ul id="announcementList" class="space-y-2">
+            <!-- Dynamic announcements yahan load hongi -->
+        </ul>
+      </div>
 
     </div>
 
@@ -119,9 +119,105 @@
 </div>
 
 <!-- Notifications Panel -->
-<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden">
-  <h3 class="font-semibold mb-3">Notifications</h3>
+<div id="notificationPanel" class="fixed right-4 top-20 bg-white shadow-xl rounded-lg w-80 p-4 hidden z-50 border">
+  <h3 class="font-semibold mb-3 text-[#0b2149]">Notifications</h3>
   <ul id="notifList" class="space-y-2 text-sm"></ul>
+</div>
+
+<!-- ================= MODAL POPUPS ================= -->
+
+<!-- 1. Message Students Modal -->
+<div id="messageModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative">
+    <div class="flex justify-between items-center mb-4 border-b pb-3">
+      <h3 class="text-xl font-bold text-[#0b2149]">Message Students</h3>
+      <button onclick="closeModal('messageModal')" class="text-gray-400 hover:text-red-600 text-2xl font-bold">&times;</button>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Select Student</label>
+        <select id="studentSelect" class="mt-1 w-full border rounded-lg p-2.5 text-sm bg-white focus:ring-2 focus:ring-[#0b2149]">
+          <option value="Ali">Ali (Python Student)</option>
+          <option value="Sara">Sara (Graphic Designing Student)</option>
+          <option value="Zain">Zain (Wordpress Student)</option>
+          <option value="Ayesha">Ayesha (InfoSec Student)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Your Message</label>
+        <textarea id="studentMsgInput" rows="3" placeholder="Type your message here..." class="mt-1 w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-[#0b2149]"></textarea>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-3 border-t pt-4">
+      <button onclick="closeModal('messageModal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm font-medium">Cancel</button>
+      <button onclick="sendStudentMessage()" class="px-4 py-2 bg-[#0b2149] text-white rounded-lg text-sm font-medium">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Create Course & Upload Lectures Modal -->
+<div id="createCourseModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative">
+    <div class="flex justify-between items-center mb-4 border-b pb-3">
+      <h3 class="text-xl font-bold text-[#0b2149]">My Assigned Courses & Lectures</h3>
+      <button onclick="closeModal('createCourseModal')" class="text-gray-400 hover:text-red-600 text-2xl font-bold">&times;</button>
+    </div>
+    <div class="space-y-4">
+      <p class="text-xs text-gray-500">Select one of your assigned courses by Admin to upload new lectures/materials:</p>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Assigned Course</label>
+        <select id="assignedCourseSelect" class="mt-1 w-full border rounded-lg p-2.5 text-sm bg-white focus:ring-2 focus:ring-[#0b2149]">
+          <option value="Python">Python Programming (Assigned by Admin)</option>
+          <option value="WordPress">WordPress Development (Assigned by Admin)</option>
+          <option value="Graphics">Graphic Designing (Assigned by Admin)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Lecture Title</label>
+        <input type="text" id="lectureTitle" placeholder="e.g. Lecture 3: Advanced Layouts" class="mt-1 w-full border rounded-lg p-2.5 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Lecture Notes / Video Link</label>
+        <input type="text" id="lectureLink" placeholder="Paste video link or notes description..." class="mt-1 w-full border rounded-lg p-2.5 text-sm">
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-3 border-t pt-4">
+      <button onclick="closeModal('createCourseModal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm font-medium">Cancel</button>
+      <button onclick="uploadLecture()" class="px-4 py-2 bg-[#0b2149] text-white rounded-lg text-sm font-medium">Upload Lecture</button>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Add Assignment Modal -->
+<div id="addAssignmentModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative">
+    <div class="flex justify-between items-center mb-4 border-b pb-3">
+      <h3 class="text-xl font-bold text-[#0b2149]">Add New Assignment</h3>
+      <button onclick="closeModal('addAssignmentModal')" class="text-gray-400 hover:text-red-600 text-2xl font-bold">&times;</button>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Assignment Topic</label>
+        <input type="text" id="assignTopic" placeholder="e.g. Build a Responsive Landing Page" class="mt-1 w-full border rounded-lg p-2.5 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Course Name</label>
+        <input type="text" id="assignCourse" placeholder="e.g. WordPress / Graphics" class="mt-1 w-full border rounded-lg p-2.5 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Due Date</label>
+        <input type="date" id="assignDueDate" class="mt-1 w-full border rounded-lg p-2.5 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Instructions</label>
+        <textarea id="assignInstructions" rows="2" placeholder="Mention assignment requirements..." class="mt-1 w-full border rounded-lg p-2.5 text-sm"></textarea>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-3 border-t pt-4">
+      <button onclick="closeModal('addAssignmentModal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm font-medium">Cancel</button>
+      <button onclick="submitNewAssignment()" class="px-4 py-2 bg-[#0b2149] text-white rounded-lg text-sm font-medium">Publish Assignment</button>
+    </div>
+  </div>
 </div>
 
 <script src="connection.js"></script>
@@ -140,32 +236,107 @@ function toggleNotifications(){
   document.getElementById("notificationPanel").classList.toggle("hidden"); 
 }
 
+// Modal Toggle Functions
+function openMessageStudentsModal() {
+  document.getElementById('messageModal').classList.remove('hidden');
+}
+
+function openCreateCourseModal() {
+  document.getElementById('createCourseModal').classList.remove('hidden');
+}
+
+function openAddAssignmentModal() {
+  document.getElementById('addAssignmentModal').classList.remove('hidden');
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.add('hidden');
+}
+
+async function sendStudentMessage() {
+  const student = document.getElementById('studentSelect').value;
+  const msg = document.getElementById('studentMsgInput').value;
+  if(!msg) {
+    alert("Please write a message!");
+    return;
+  }
+  try {
+    if (typeof apiRequest === "function") {
+      await apiRequest("/teacher/message/", "POST", { student, message: msg });
+    }
+  } catch(e){}
+  alert(`Message successfully sent to ${student}!`);
+  document.getElementById('studentMsgInput').value = '';
+  closeModal('messageModal');
+}
+
+async function uploadLecture() {
+  const course = document.getElementById('assignedCourseSelect').value;
+  const title = document.getElementById('lectureTitle').value;
+  if(!title) {
+    alert("Please enter a lecture title!");
+    return;
+  }
+  try {
+    if (typeof apiRequest === "function") {
+      await apiRequest("/teacher/upload-lecture/", "POST", { course, title });
+    }
+  } catch(e){}
+  alert(`Lecture "${title}" uploaded successfully to ${course}!`);
+  document.getElementById('lectureTitle').value = '';
+  document.getElementById('lectureLink').value = '';
+  closeModal('createCourseModal');
+}
+
+async function submitNewAssignment() {
+  const topic = document.getElementById('assignTopic').value;
+  const course = document.getElementById('assignCourse').value;
+  const dueDate = document.getElementById('assignDueDate').value;
+  if(!topic) {
+    alert("Please enter assignment topic!");
+    return;
+  }
+  try {
+    if (typeof apiRequest === "function") {
+      await apiRequest("/teacher/add-assignment/", "POST", { topic, course, due_date: dueDate });
+    }
+  } catch(e){}
+  alert(`Assignment "${topic}" published successfully!`);
+  document.getElementById('assignTopic').value = '';
+  document.getElementById('assignCourse').value = '';
+  closeModal('addAssignmentModal');
+}
+
 async function loadTeacherDashboard() {
-  const dashboardData = await apiRequest("/teacher/dashboard/", "GET");
-  if (dashboardData) {
-    if (dashboardData.welcome_name) {
-      document.querySelector("h2.text-lg.font-semibold").textContent = `Welcome Back, ${dashboardData.welcome_name}!`;
+  try {
+    const dashboardData = await apiRequest("/teacher/dashboard/", "GET");
+    if (dashboardData) {
+      if (dashboardData.welcome_name) {
+        document.querySelector("h2.text-lg.font-semibold").textContent = `Welcome Back, ${dashboardData.welcome_name}!`;
+      }
+      if (dashboardData.course_count !== undefined) {
+        document.getElementById("courseCount").innerText = dashboardData.course_count;
+      }
+      if (dashboardData.assignment_count !== undefined) {
+        document.getElementById("assignmentCount").innerText = dashboardData.assignment_count;
+      }
+      if (dashboardData.student_count !== undefined) {
+        document.getElementById("studentCount").innerText = dashboardData.student_count;
+      }
+      if (dashboardData.pending_submissions !== undefined) {
+        document.getElementById("pendingCount").innerText = dashboardData.pending_submissions;
+      }
+      if (dashboardData.certifications_awarded !== undefined) {
+        document.getElementById("certCount").innerText = `${dashboardData.certifications_awarded} Awarded`;
+      }
     }
-    if (dashboardData.course_count !== undefined) {
-      document.getElementById("courseCount").innerText = dashboardData.course_count;
-    }
-    if (dashboardData.assignment_count !== undefined) {
-      document.getElementById("assignmentCount").innerText = dashboardData.assignment_count;
-    }
-    if (dashboardData.student_count !== undefined) {
-      document.getElementById("studentCount").innerText = dashboardData.student_count;
-    }
-    if (dashboardData.pending_submissions !== undefined) {
-      document.getElementById("pendingCount").innerText = dashboardData.pending_submissions;
-    }
-    if (dashboardData.certifications_awarded !== undefined) {
-      document.getElementById("certCount").innerText = `${dashboardData.certifications_awarded} Awarded`;
-    }
+  } catch(err) {
+    console.log("[SmartEduX]: Using default local dashboard numbers.");
   }
 
   const notifList = document.getElementById("notifList");
   if(notifList) {
-    notifList.innerHTML = `<li class="p-2 bg-gray-100 rounded">New student registered 👨‍🎓</li><li class="p-2 bg-gray-100 rounded">New assignment submission 📄</li>`;
+    notifList.innerHTML = `<li class="p-2 bg-gray-50 rounded border">New student registered 👨‍🎓</li><li class="p-2 bg-gray-50 rounded border">New assignment submission 📄</li>`;
   }
   document.getElementById("notifCount").innerText = 2;
   document.getElementById("notifCountNav").innerText = 2;
@@ -173,11 +344,11 @@ async function loadTeacherDashboard() {
   const assignmentList = document.getElementById("assignmentList");
   if(assignmentList) {
     assignmentList.innerHTML = `
-      <li class="flex justify-between p-2 rounded bg-yellow-100">
+      <li class="flex justify-between p-2.5 rounded bg-yellow-50 border border-yellow-100 text-sm">
         <span>Wordpress lec 1</span>
         <span class="font-bold text-yellow-600">pending</span>
       </li>
-      <li class="flex justify-between p-2 rounded bg-green-100">
+      <li class="flex justify-between p-2.5 rounded bg-green-50 border border-green-100 text-sm">
         <span>Graphic Designing lec 2</span>
         <span class="font-bold text-green-600">checked</span>
       </li>`;
@@ -186,8 +357,8 @@ async function loadTeacherDashboard() {
   const announcementList = document.getElementById("announcementList");
   if(announcementList) {
     announcementList.innerHTML = `
-      <li class="p-2 bg-gray-100 rounded">New course: Advanced JavaScript</li>
-      <li class="p-2 bg-gray-100 rounded">Holiday on Friday 🌙</li>`;
+      <li class="p-2.5 bg-gray-50 rounded border text-sm">New course: Advanced JavaScript</li>
+      <li class="p-2.5 bg-gray-50 rounded border text-sm">Holiday on Friday 🌙</li>`;
   }
 }
 

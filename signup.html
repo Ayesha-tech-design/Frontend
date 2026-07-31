@@ -240,11 +240,11 @@
         <div class="grid grid-cols-2 gap-4">
           <label>
             <input type="radio" name="role" id="studentRole" value="student" hidden checked>
-            <div class="role-card">🎓 Student</div>
+            <div class="role-card">Student</div>
           </label>
           <label>
             <input type="radio" name="role" id="teacherRole" value="teacher" hidden>
-            <div class="role-card">👨‍🏫 Teacher</div>
+            <div class="role-card">Teacher</div>
           </label>
         </div>
 
@@ -313,6 +313,7 @@
   }
 
   // Signup form submission logic
+ // Signup form submission logic
   document.getElementById("signupForm").addEventListener("submit", async function(e){
     e.preventDefault();
     
@@ -355,7 +356,7 @@
 
     // BACKEND INTEGRATION
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/signup/", {
+      const response = await fetch(`${API_BASE_URL}/auth/signup/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -372,11 +373,19 @@
       const data = await response.json();
 
       if(response.ok) {
-        alert("🎉 Account created successfully!");
+        // Agar token backend se mil raha hai toh save kar lein
+        if(data.access) {
+            localStorage.setItem("access_token", data.access);
+        }
+        localStorage.setItem("user_name", `${first} ${last}`);
+
         if(role === "teacher") {
+          // Teacher ke liye koi alert nahi, seedha teacher info page open hoga
           window.location.href = "teacher info.html";
         } else {
-          window.location.href = "login.html";
+          // Student ke liye alert show hoga aur phir student dashboard open hoga
+          alert("🎉 Account created successfully!");
+          window.location.href = "student dashboard.html";
         }
       } else {
         errorBox.textContent = "⚠️ " + (data.error || data.detail || "Signup failed. Try a different email.");

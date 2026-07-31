@@ -8,32 +8,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #0b2149; }
-        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; }
-        .nav-link { transition: color 0.2s ease; }
-        .nav-link:hover { color: var(--primary); }
+        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        
+        .logo-mark {
+            width: 115px;
+            height: 115px;
+        }
+        
+        @media (min-width: 768px) {
+            .logo-mark {
+                width: 125px;
+                height: 125px;
+            }
+            .logo-text {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 800;
+                letter-spacing: -1px;
+                color: #0b2149;
+                line-height: 1;
+            }
+        }
+
+        nav a { transition: color .18s ease; }
+        nav a:hover { color: var(--primary) !important; }
+        nav a:not(.nav-btn):hover { 
+            color: var(--primary) !important; 
+        }
+        .nav-btn:hover {
+            color: white !important;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="bg-white shadow sticky top-0 z-50 w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="SmartEduX.html" class="text-2xl font-extrabold text-[#0b2149]">SmartEduX</a>
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 nav-link">Home</a>
-                    <a href="Courses.html" class="text-sm font-medium text-gray-700 nav-link">Courses</a>
-                    <a href="Autonotes.html" class="text-sm font-medium text-gray-700 nav-link">AutoNotes</a>
-                    <a href="contact.html" class="text-sm font-medium text-gray-700 nav-link">Contact Us</a>
-                </div>
-                <div id="authContainer">
-                    <a href="certificates.html" class="bg-[#0b2149] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#16356d] transition shadow-md">
-                        View Credentials
+                
+                <!-- Logo & Brand Name on Left -->
+                <div class="flex items-center gap-0">
+                    <a href="SmartEduX.html" class="flex items-center gap-0" aria-label="Home">
+                        <img 
+                            src="Futuristic tech logo design.png" 
+                            alt="SmartEduX Logo" 
+                            class="logo-mark flex-shrink-0 object-contain mr-[-40px]"
+                        >
+                        <span class="logo-text text-[26px] md:text-[32px]">
+                            SmartEduX
+                        </span>
                     </a>
+                </div>
+
+                <!-- Desktop / XL Navigation Links -->
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="SmartEduX.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Home</a>
+                    <a href="Courses.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Courses</a>
+                    <a href="Autonotes.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">AutoNotes</a>
+                    <a href="features.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Features</a>
+                    <a href="About us.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">About us</a>
+                    <a href="contact.html" class="text-sm font-medium text-gray-700 hover:text-[#0b2149]">Contact Us</a>
+                    
+                    <div class="relative w-48">
+                        <input type="text" placeholder="Search features, courses..." class="search-input w-full px-3 py-1.5 border rounded-md text-sm">
+                    </div>
+                </div>
+
+                <!-- Desktop Auth Section -->
+                <div id="nav-user-section" class="hidden md:flex items-center gap-3 ml-4">
+                    <a href="login.html"
+                       class="nav-btn px-4 py-2 text-sm font-medium rounded-md border border-[var(--primary)] bg-white text-[var(--primary)] hover:bg-blue-50">
+                        Login
+                    </a>
+
+                    <a href="signup.html"
+                       class="nav-btn px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">
+                        Signup
+                    </a>
+                </div>
+
+                <!-- Hamburger Menu on Extreme Right (Mobile / Tablet Only) -->
+                <div class="xl:hidden flex items-center">
+                    <button id="menu-toggle" aria-label="toggle menu" class="p-2 rounded text-[var(--primary)] hover:bg-gray-100 focus:outline-none">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100">
+                <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+                    <div class="py-2">
+                        <input type="text" placeholder="Search features, courses..." class="search-input w-full px-3 py-1.5 border rounded-md text-sm">
+                    </div>
+                    
+                    <a href="SmartEduX.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+                    <a href="Courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Courses</a>
+                    <a href="Autonotes.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">AutoNotes</a>
+                    <a href="features.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Features</a>
+                    <a href="About us.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+                    <a href="contact.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact Us</a>
+                    <div class="grid grid-cols-2 gap-3 mt-4 px-1" id="mobile-auth-container">
+                        <a href="login.html" class="text-center px-4 py-2 rounded border border-[var(--primary)] text-[var(--primary)] font-medium">Login</a>
+                        <a href="signup.html" class="text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Signup</a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
 
     <!-- HEADER / HERO SECTION -->
     <header class="bg-[#07122a] text-white py-16 px-4 text-center relative overflow-hidden">
@@ -42,7 +125,7 @@
                 Digital Credentialing
             </span>
             <h1 class="text-3xl sm:text-5xl font-bold mt-4 mb-4">Verified Certificates</h1>
-            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto px-4">
                 Unlock verifiable digital credentials upon course completion to showcase your academic achievements and technical skills to employers.
             </p>
         </div>
@@ -57,10 +140,10 @@
             <!-- What are Verified Certificates -->
             <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-2xl font-bold text-[#0b2149] mb-4">What is Verified Certificates?</h2>
-                <p class="text-gray-600 leading-relaxed mb-4">
+                <p class="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base">
                     The Verified Certificates module on SmartEduX validates a student's dedication and mastery over specific courses and AI modules. Every certificate generated is uniquely coded, secure, and easily shareable across professional networks like LinkedIn.
                 </p>
-                <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                     <div class="bg-blue-50 p-4 rounded-xl">
                         <h3 class="font-bold text-[#0b2149] text-lg">Secure ID</h3>
                         <p class="text-xs text-gray-600 mt-1">Unique verification hash prevents forgery or duplication.</p>
@@ -103,22 +186,25 @@
             <!-- Why Crucial for Students -->
             <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-2xl font-bold text-[#0b2149] mb-4">Why is it Beneficial for Students?</h2>
-                <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-center gap-2">
-                        <span class="text-green-600 font-bold">✓</span> Enhances resume profile strength with verifiable skill credentials.
+                <ul class="space-y-3 text-gray-600 text-sm sm:text-base">
+                    <li class="flex items-start sm:items-center gap-2">
+                        <span class="text-green-600 font-bold flex-shrink-0">✓</span> 
+                        <span>Enhances resume profile strength with verifiable skill credentials.</span>
                     </li>
-                    <li class="flex items-center gap-2">
-                        <span class="text-green-600 font-bold">✓</span> Boosts confidence and provides tangible proof of academic accomplishments.
+                    <li class="flex items-start sm:items-center gap-2">
+                        <span class="text-green-600 font-bold flex-shrink-0">✓</span> 
+                        <span>Boosts confidence and provides tangible proof of academic accomplishments.</span>
                     </li>
-                    <li class="flex items-center gap-2">
-                        <span class="text-green-600 font-bold">✓</span> Simplifies sharing achievements directly onto professional platforms like LinkedIn.
+                    <li class="flex items-start sm:items-center gap-2">
+                        <span class="text-green-600 font-bold flex-shrink-0">✓</span> 
+                        <span>Simplifies sharing achievements directly onto professional platforms like LinkedIn.</span>
                     </li>
                 </ul>
             </section>
 
         </div>
 
-        <!-- Right Sidebar: Demo Media & Quick Actions (1 Column) -->
+        <!-- Right Sidebar: Demo Media Only (Quick Action Box removed) -->
         <div class="space-y-8">
             
             <!-- Visual Demo Section (Screenshot / Preview) -->
@@ -131,15 +217,6 @@
                     </div>
                 </div>
                 <p class="text-xs text-gray-500 mt-3 text-center">Clean corporate layout embedded with security seals and signatures.</p>
-            </div>
-
-            <!-- Quick Action Box -->
-            <div class="bg-[#0b2149] text-white p-6 rounded-2xl shadow-lg text-center space-y-4">
-                <h3 class="text-xl font-bold">Earn Your Credential</h3>
-                <p class="text-xs text-blue-200">Enroll in SmartEduX courses today and earn verified digital badges.</p>
-                <a href="certificates.html" class="block w-full bg-white text-[#0b2149] py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow">
-                    View My Certificates
-                </a>
             </div>
 
         </div>
@@ -189,24 +266,56 @@
     </footer>
 
     <!-- CENTRAL CONNECTION BRIDGE & AUTH CHECK -->
+    <!-- CENTRAL CONNECTION BRIDGE & AUTH CHECK -->
     <script src="connection.js"></script>
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // DYNAMIC AUTH VERIFICATION
+        // Mobile Menu Toggle Script
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // DYNAMIC AUTH VERIFICATION & NAVBAR UPDATE
         document.addEventListener("DOMContentLoaded", async () => {
-            try {
-                if (typeof apiRequest === "function") {
-                    const statusData = await apiRequest('/user/status/', 'GET').catch(() => null);
-                    if (statusData && statusData.is_authenticated) {
-                        const dashboardUrl = statusData.role === 'teacher' ? 'teacher dashboard.html' : 'student dashboard.html';
-                        const container = document.getElementById("authContainer");
-                        if (container) {
-                            container.innerHTML = `<a href="${dashboardUrl}" class="bg-[#0b2149] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#16356d] transition shadow-md">Dashboard</a>`;
+            const token = localStorage.getItem("access_token");
+            
+            if (token) {
+                try {
+                    let response = await fetch(`${API_BASE_URL}/wordpress-profile/`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        let data = await response.json();
+                        // Role check karein ke student hai ya teacher
+                        let dashboardUrl = (data.role === 'teacher') ? 'teacher info.html' : 'student_dashboard.html';
+                        if(data.is_teacher) dashboardUrl = 'teacher info.html';
+
+                        // Desktop navbar buttons update karein
+                        const navAuthSection = document.getElementById("nav-user-section");
+                        if (navAuthSection) {
+                            navAuthSection.innerHTML = `<a href="${dashboardUrl}" class="px-4 py-2 text-sm font-medium rounded-md bg-[var(--primary)] text-white hover:bg-[#16356d] shadow-md">Dashboard</a>`;
+                        }
+
+                        // Mobile menu navbar buttons update karein
+                        const mobileAuthContainer = document.getElementById("mobile-auth-container");
+                        if (mobileAuthContainer) {
+                            mobileAuthContainer.innerHTML = `<a href="${dashboardUrl}" class="col-span-2 text-center px-4 py-2 rounded bg-[var(--primary)] text-white font-medium shadow-sm">Dashboard</a>`;
                         }
                     }
+                } catch (error) {
+                    console.error("Auth check error:", error);
                 }
-            } catch(e) {}
+            }
         });
     </script>
 </body>

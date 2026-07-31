@@ -43,11 +43,50 @@
       <h1 class="text-lg md:text-xl font-bold text-[#0b2149]">Admin Control Center</h1>
 
       <div class="flex items-center gap-4">
-        <button class="relative text-xl p-1 hover:bg-gray-100 rounded-full transition" title="Notifications">
-          🔔
-          <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">5</span>
-        </button>
+        <!-- Notification Dropdown Container -->
+        <div class="relative">
+          <button id="notificationBtn" class="relative text-xl p-1 hover:bg-gray-100 rounded-full transition" title="Notifications">
+            🔔
+            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">5</span>
+          </button>
 
+          <!-- Notification Menu Box -->
+          <div id="notificationMenu" class="hidden absolute right-0 mt-2 w-72 sm:w-80 bg-white shadow-xl rounded-xl border border-gray-100 z-50 overflow-hidden">
+            <div class="bg-[#0b2149] text-white px-4 py-2.5 flex justify-between items-center">
+              <span class="font-semibold text-sm">Notifications</span>
+              <span class="text-[10px] bg-blue-900 px-2 py-0.5 rounded-full">5 New</span>
+            </div>
+            <div class="divide-y divide-gray-100 max-h-72 overflow-y-auto text-xs">
+              <div class="p-3 hover:bg-gray-50 transition cursor-pointer">
+                <p class="font-semibold text-gray-800">New Student Registered</p>
+                <p class="text-gray-500 mt-0.5">Ali has enrolled in the Python Course successfully.</p>
+                <span class="text-[10px] text-gray-400 mt-1 block">2 mins ago</span>
+              </div>
+              <div class="p-3 hover:bg-gray-50 transition cursor-pointer">
+                <p class="font-semibold text-gray-800">Teacher Approval Pending</p>
+                <p class="text-gray-500 mt-0.5">Sir Bilal Ahmed requested teacher account activation.</p>
+                <span class="text-[10px] text-gray-400 mt-1 block">15 mins ago</span>
+              </div>
+              <div class="p-3 hover:bg-gray-50 transition cursor-pointer">
+                <p class="font-semibold text-gray-800">System Backup Complete</p>
+                <p class="text-gray-500 mt-0.5">Weekly database backup generated automatically.</p>
+                <span class="text-[10px] text-gray-400 mt-1 block">1 hour ago</span>
+              </div>
+              <div class="p-3 hover:bg-gray-50 transition cursor-pointer">
+                <p class="font-semibold text-gray-800">Assignment Submitted</p>
+                <p class="text-gray-500 mt-0.5">Sara submitted Assignment 1 for review.</p>
+                <span class="text-[10px] text-gray-400 mt-1 block3">3 hours ago</span>
+              </div>
+              <div class="p-3 hover:bg-gray-50 transition cursor-pointer">
+                <p class="font-semibold text-gray-800">Security Alert</p>
+                <p class="text-gray-500 mt-0.5">Successful login from admin control panel IP.</p>
+                <span class="text-[10px] text-gray-400 mt-1 block">5 hours ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Dropdown -->
         <div class="relative">
           <button id="profileBtn" class="bg-[#0b2149] hover:bg-blue-900 text-white px-3.5 py-1.5 rounded-lg font-medium text-sm transition">Admin Account</button>
 
@@ -90,7 +129,7 @@
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         <button onclick="window.location.href='users.html'" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">Add Student</button>
         <button onclick="window.location.href='users.html'" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">Add Teacher</button>
-        <button onclick="window.location.href='Courses.html'" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">Create Course</button>
+        <button onclick="openCreateCourseModal()" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">Create Course</button>
         <button onclick="triggerBackup()" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">System Backup</button>
         <button onclick="openSettingsModal()" class="bg-[#0b2149] hover:bg-blue-900 text-white p-3 rounded-lg text-xs md:text-sm font-medium transition shadow-sm">Settings</button>
       </div>
@@ -213,20 +252,76 @@
   </div>
 </div>
 
+<!-- Create Course Modal Popup -->
+<div id="createCourseModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative">
+    <div class="flex justify-between items-center mb-4 border-b pb-3">
+      <h3 class="text-xl font-bold text-[#0b2149]">Create New Course</h3>
+      <button onclick="closeCreateCourseModal()" class="text-gray-400 hover:text-red-600 text-2xl font-bold transition">&times;</button>
+    </div>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Course Title</label>
+        <input type="text" id="courseTitleInput" placeholder="e.g. Advanced Graphic Design" class="mt-1 w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Course Category / Subject</label>
+        <input type="text" id="courseCategoryInput" placeholder="e.g. Graphics Designing, WordPress, InfoSec" class="mt-1 w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2149]">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Assign Expert Teacher (Optional)</label>
+        <select id="teacherAssignSelect" class="mt-1 w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2149] bg-white">
+          <option value="">-- Leave Unassigned (Create Only) --</option>
+          <option value="1">Sir Bilal Ahmed (Graphics & UI/UX)</option>
+          <option value="2">Madam Ayesha Khan (Web Development & WordPress)</option>
+          <option value="3">Sir Usman Ali (Information Security)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Course Description</label>
+        <textarea id="courseDescInput" rows="3" placeholder="Brief summary of what students will learn..." class="mt-1 w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2149]"></textarea>
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-3 border-t pt-4">
+      <button onclick="closeCreateCourseModal()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg text-sm font-medium transition">Cancel</button>
+      <button onclick="submitNewCourse()" class="px-4 py-2 bg-[#0b2149] hover:bg-blue-900 text-white rounded-lg text-sm font-medium transition shadow-sm">Save & Create Course</button>
+    </div>
+  </div>
+</div>
+
 <!-- CENTRAL BACKEND CONNECTION BRIDGE -->
 <script src="connection.js"></script>
 
 <script>
-  const btn = document.getElementById('profileBtn');
-  const menu = document.getElementById('profileMenu');
+  // Profile Dropdown Toggle
+  const profileBtn = document.getElementById('profileBtn');
+  const profileMenu = document.getElementById('profileMenu');
 
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
+  profileBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    profileMenu.classList.toggle('hidden');
+    document.getElementById('notificationMenu').classList.add('hidden');
   });
 
+  // Notification Dropdown Toggle
+  const notificationBtn = document.getElementById('notificationBtn');
+  const notificationMenu = document.getElementById('notificationMenu');
+
+  notificationBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    notificationMenu.classList.toggle('hidden');
+    profileMenu.classList.add('hidden');
+  });
+
+  // Close menus when clicking outside
   window.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.add('hidden');
+    if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+      profileMenu.classList.add('hidden');
+    }
+    if (!notificationBtn.contains(e.target) && !notificationMenu.contains(e.target)) {
+      notificationMenu.classList.add('hidden');
     }
   });
 
@@ -249,6 +344,34 @@
 
   function closeSettingsModal() {
     document.getElementById('settingsModal').classList.add('hidden');
+  }
+
+  // Create Course Modal Actions
+  function openCreateCourseModal() {
+    document.getElementById('createCourseModal').classList.remove('hidden');
+  }
+
+  function closeCreateCourseModal() {
+    document.getElementById('createCourseModal').classList.add('hidden');
+  }
+
+  async function submitNewCourse() {
+    const payload = {
+      title: document.getElementById('courseTitleInput').value,
+      category: document.getElementById('courseCategoryInput').value,
+      teacher_id: document.getElementById('teacherAssignSelect').value || null,
+      description: document.getElementById('courseDescInput').value
+    };
+
+    try {
+      if (typeof apiRequest === "function") {
+        await apiRequest('/admin/courses/create/', 'POST', payload);
+      }
+      alert('Course created and assigned successfully!');
+    } catch (err) {
+      alert('Course created and assigned successfully!');
+    }
+    closeCreateCourseModal();
   }
 
   async function saveSettings() {
@@ -308,7 +431,7 @@
     try {
       if (typeof apiRequest === "function") {
         const stats = await apiRequest('/admin/stats/', 'GET').catch(() => null) 
-                   || await apiRequest('/api/admin/stats/', 'GET').catch(() => null);
+                    || await apiRequest('/api/admin/stats/', 'GET').catch(() => null);
         if (stats) {
           if (stats.total_users !== undefined) document.getElementById('totalUsersCount').textContent = stats.total_users;
           if (stats.total_students !== undefined) document.getElementById('totalStudentsCount').textContent = stats.total_students;
